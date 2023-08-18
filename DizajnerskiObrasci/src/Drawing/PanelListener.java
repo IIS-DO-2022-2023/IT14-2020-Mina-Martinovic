@@ -5,11 +5,11 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JDialog;
 
-import geometry1.Circle1;
-import geometry1.Donut1;
-import geometry1.Line1;
-import geometry1.Point1;
-import geometry1.Rectangle1;
+import geometry1.Circle;
+import geometry1.Donut;
+import geometry1.Line;
+import geometry1.Point;
+import geometry1.Rectangle;
 
 public class PanelListener implements MouseListener {
 	
@@ -55,7 +55,7 @@ public class PanelListener implements MouseListener {
 
 		switch(PanelDrawing.drawingObject) {
 		case "Point" : 
-			Point1 p1 = new Point1(e.getX(),e.getY());
+			Point p1 = new Point(e.getX(),e.getY());
 			p1.setColor(PanelDrawing.color);
 			PanelDrawing.shapes.add(p1);
 		break;
@@ -93,7 +93,7 @@ public class PanelListener implements MouseListener {
 				isFirstClick = false;
 			}
 			else {
-				Line1 l1 = new Line1(new Point1(line_x, line_y), new Point1(e.getX(), e.getY()));
+				Line l1 = new Line(new Point(line_x, line_y), new Point(e.getX(), e.getY()));
 				l1.setColor(PanelDrawing.color);
 				PanelDrawing.shapes.add(l1);
 				isFirstClick = true;

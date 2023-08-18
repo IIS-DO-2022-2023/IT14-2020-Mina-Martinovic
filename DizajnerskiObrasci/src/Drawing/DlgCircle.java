@@ -14,9 +14,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import geometry1.Circle1;
-import geometry1.Point1;
-import geometry1.Rectangle1;
+import geometry1.Circle;
+import geometry1.Point;
+import geometry1.Rectangle;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -179,7 +179,7 @@ public class DlgCircle extends JDialog {
 				// provera da li se radi modifikacija
 				for (int i = PanelDrawing.shapes.size() - 1; i >= 0; i--) {
 					if (PanelDrawing.shapes.get(i).isSelected()) {
-						Circle1 c1 = new Circle1(new Point1(Integer.parseInt(xKoordinata.getText()),
+						Circle c1 = new Circle(new Point(Integer.parseInt(xKoordinata.getText()),
 								Integer.parseInt(yKoordinata.getText())), Integer.parseInt(radius.getText()));
 						c1.setColor(innerFill);
 						c1.setEdgeColor(borderFill);
@@ -190,7 +190,7 @@ public class DlgCircle extends JDialog {
 				}
 				// radimo dodavanje objekta
 				if (isModifying == false) {
-					Circle1 c1 = new Circle1(new Point1(Integer.parseInt(xKoordinata.getText()),
+					Circle c1 = new Circle(new Point(Integer.parseInt(xKoordinata.getText()),
 							Integer.parseInt(yKoordinata.getText())), Integer.parseInt(radius.getText()));
 					c1.setColor(innerFill);
 					c1.setEdgeColor(borderFill);

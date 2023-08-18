@@ -8,11 +8,11 @@ import java.util.Iterator;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import geometry1.Shape1;
+import geometry1.Shape;
 
 public class PanelDrawing extends JPanel{
 
-	public static ArrayList<Shape1> shapes=new ArrayList<Shape1>();	
+	public static ArrayList<Shape> shapes=new ArrayList<Shape>();	
 
 	public static String drawingObject = "Point";
 	public static Color color = new Color(255, 255, 255);
@@ -24,7 +24,7 @@ public class PanelDrawing extends JPanel{
 		this.setBackground(Color.white);
 		this.setSize(2000, 1800);
 
-		Iterator<Shape1> it=shapes.iterator();
+		Iterator<Shape> it=shapes.iterator();
 
 		this.repaint();
 

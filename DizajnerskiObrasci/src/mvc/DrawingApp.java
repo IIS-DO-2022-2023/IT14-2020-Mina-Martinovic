@@ -1,5 +1,7 @@
 package mvc;
 
+import javax.swing.JFrame;
+
 public class DrawingApp {
 
 	public static void main(String[] args) {

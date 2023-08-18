@@ -13,9 +13,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import geometry1.Donut1;
-import geometry1.Point1;
-import geometry1.Rectangle1;
+import geometry1.Donut;
+import geometry1.Point;
+import geometry1.Rectangle;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -219,8 +219,8 @@ public class DlgDonut extends JDialog {
 						//provera da li se radi modifikacija
 						for (int i=PanelDrawing.shapes.size()-1; i>=0; i--) {
 							if(PanelDrawing.shapes.get(i).isSelected()) {
-								Donut1 d1 = new Donut1(
-										new Point1(Integer.parseInt(xKoordinata.getText()), Integer.parseInt(yKoordinata.getText())),
+								Donut d1 = new Donut(
+										new Point(Integer.parseInt(xKoordinata.getText()), Integer.parseInt(yKoordinata.getText())),
 										Integer.parseInt(outerRadius.getText()),
 										Integer.parseInt(innerRadius.getText())
 										);
@@ -233,8 +233,8 @@ public class DlgDonut extends JDialog {
 						}
 						//radimo dodavanje objekata
 						if(isModifying == false) {
-							Donut1 d1 = new Donut1(
-									new Point1(Integer.parseInt(xKoordinata.getText()), Integer.parseInt(yKoordinata.getText())),
+							Donut d1 = new Donut(
+									new Point(Integer.parseInt(xKoordinata.getText()), Integer.parseInt(yKoordinata.getText())),
 									Integer.parseInt(outerRadius.getText()),
 									Integer.parseInt(innerRadius.getText())
 									);

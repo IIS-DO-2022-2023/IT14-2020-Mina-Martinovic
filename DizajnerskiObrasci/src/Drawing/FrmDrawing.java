@@ -25,11 +25,11 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
-import geometry1.Circle1;
-import geometry1.Donut1;
-import geometry1.Line1;
-import geometry1.Point1;
-import geometry1.Rectangle1;
+import geometry1.Circle;
+import geometry1.Donut;
+import geometry1.Line;
+import geometry1.Point;
+import geometry1.Rectangle;
 
 public class FrmDrawing extends JFrame {
 
@@ -183,7 +183,7 @@ public class FrmDrawing extends JFrame {
 				for (int i=PanelDrawing.shapes.size()-1; i>=0; i--) {
 					if(PanelDrawing.shapes.get(i).isSelected()) {
 						// kreiramo dijalog
-						if (PanelDrawing.shapes.get(i) instanceof Point1) {
+						if (PanelDrawing.shapes.get(i) instanceof Point) {
 							try {
 								DlgPoint dialog = new DlgPoint();
 								dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -192,9 +192,9 @@ public class FrmDrawing extends JFrame {
 								ex.printStackTrace();
 							}
 						}
-						else if(PanelDrawing.shapes.get(i) instanceof Donut1) {							
+						else if(PanelDrawing.shapes.get(i) instanceof Donut) {							
 							try {
-								Donut1 d1 = (Donut1) PanelDrawing.shapes.get(i);
+								Donut d1 = (Donut) PanelDrawing.shapes.get(i);
 								DlgDonut dialog = new DlgDonut(
 										d1.getCenter().getX(),
 										d1.getCenter().getY(),
@@ -208,10 +208,10 @@ public class FrmDrawing extends JFrame {
 								ex.printStackTrace();
 							}
 						}
-						else if(PanelDrawing.shapes.get(i) instanceof Circle1) {
+						else if(PanelDrawing.shapes.get(i) instanceof Circle) {
 
 							try {
-								Circle1 c1 = (Circle1) PanelDrawing.shapes.get(i);
+								Circle c1 = (Circle) PanelDrawing.shapes.get(i);
 								DlgCircle dialog = new DlgCircle(
 										c1.getCenter().getX(),
 										c1.getCenter().getY(),
@@ -222,9 +222,9 @@ public class FrmDrawing extends JFrame {
 								ex.printStackTrace();
 							}
 						}
-						else if(PanelDrawing.shapes.get(i) instanceof Rectangle1) {
+						else if(PanelDrawing.shapes.get(i) instanceof Rectangle) {
 							try {
-								Rectangle1 r1 = (Rectangle1) PanelDrawing.shapes.get(i);
+								Rectangle r1 = (Rectangle) PanelDrawing.shapes.get(i);
 								DlgRectangle dialog = new DlgRectangle(
 										r1.getUpperLeftPoint().getX(),
 										r1.getUpperLeftPoint().getY(),
@@ -236,7 +236,7 @@ public class FrmDrawing extends JFrame {
 								ex.printStackTrace();
 							}
 						}
-						else if(PanelDrawing.shapes.get(i) instanceof Line1) {
+						else if(PanelDrawing.shapes.get(i) instanceof Line) {
 							try {
 								DlgLine dialog = new DlgLine();
 								dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

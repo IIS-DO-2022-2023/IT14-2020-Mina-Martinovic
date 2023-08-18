@@ -2,8 +2,8 @@ package command;
 
 public interface Command {
 	
-	void execute();
+	void redo();
 		
-	void unexecute();
+	void undo();
 
 }

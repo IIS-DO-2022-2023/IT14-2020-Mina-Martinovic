@@ -1,6 +1,6 @@
 package geometry1;
 
-public interface Moveable1 {
+public interface Moveable {
 	
 	//na te koordinate
 	void moveTo(int x, int y);

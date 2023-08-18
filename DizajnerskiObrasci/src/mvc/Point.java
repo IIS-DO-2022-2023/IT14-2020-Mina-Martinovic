@@ -3,7 +3,7 @@ package mvc;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Point1 extends Shape1{
+public class Point extends Shape{
 	private int x;
 	private int y;
 	protected Color color;
@@ -16,10 +16,10 @@ public class Point1 extends Shape1{
 		this.color = color;
 	}
 
-	public Point1() {
+	public Point() {
 	}
 
-	public Point1(int x, int y, Color color) {
+	public Point(int x, int y, Color color) {
 		this.x = x;
 		this.y = y;
 		this.color = color;

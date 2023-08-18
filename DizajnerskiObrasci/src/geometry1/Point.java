@@ -3,7 +3,7 @@ package geometry1;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Point1 extends Shape1{
+public class Point extends Shape{
 	private int x;
 	private int y;
 	protected Color color;
@@ -18,15 +18,15 @@ public class Point1 extends Shape1{
 		this.color = color;
 	}
 
-	public Point1() {
+	public Point() {
 	}
 
-	public Point1(int x, int y) {
+	public Point(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	public Point1(int x, int y, boolean selected) {
+	public Point(int x, int y, boolean selected) {
 		// this.x=x;
 		// this.y=y;
 		this(x, y);
@@ -45,9 +45,9 @@ public class Point1 extends Shape1{
 
 	public boolean equals(Object obj) {
 
-		if (obj instanceof Point1) {
+		if (obj instanceof Point) {
 
-			Point1 pomocna = (Point1) obj;
+			Point pomocna = (Point) obj;
 			if (this.x == pomocna.x && this.y == pomocna.y)
 				return true;
 			else
@@ -90,8 +90,8 @@ public class Point1 extends Shape1{
 	@Override
 	public int compareTo(Object o) {
 		
-		if(o instanceof Point1) {
-			return (int)(this.distance(0,0)-((Point1)o).distance(0,0));
+		if(o instanceof Point) {
+			return (int)(this.distance(0,0)-((Point)o).distance(0,0));
 		}
 		return 0;
 	}

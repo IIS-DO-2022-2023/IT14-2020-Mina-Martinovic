@@ -3,9 +3,9 @@ package geometry1;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Rectangle1 extends Shape1 {
+public class Rectangle extends Shape {
 
-	private Point1 upperLeftPoint;
+	private Point upperLeftPoint;
 	private int width;
 	private int height;
 	protected Color color;
@@ -23,16 +23,16 @@ public class Rectangle1 extends Shape1 {
 		this.edgecolor = edgecolor;
 	}
 
-	public Rectangle1() {
+	public Rectangle() {
 	}
 
-	public Rectangle1(Point1 upperLeftPoint, int width, int height) {
+	public Rectangle(Point upperLeftPoint, int width, int height) {
 		this.upperLeftPoint = upperLeftPoint;
 		this.width = width;
 		this.height = height;
 	}
 
-	public Rectangle1(Point1 upperLeftPoint, int width, int height, boolean selected) {
+	public Rectangle(Point upperLeftPoint, int width, int height, boolean selected) {
 		this(upperLeftPoint, width, height);
 
 		setSelected(selected);
@@ -50,9 +50,9 @@ public class Rectangle1 extends Shape1 {
 
 	public boolean equals(Object obj) {
 
-		if (obj instanceof Rectangle1) {
+		if (obj instanceof Rectangle) {
 
-			Rectangle1 pomocna = (Rectangle1) obj;
+			Rectangle pomocna = (Rectangle) obj;
 			if (this.upperLeftPoint.equals(pomocna.upperLeftPoint) && this.width == pomocna.width
 					&& this.height == pomocna.height)
 				return true;
@@ -70,7 +70,7 @@ public class Rectangle1 extends Shape1 {
 		return false;
 	}
 
-	public boolean contains(Point1 p) {
+	public boolean contains(Point p) {
 		if (p.getX() >= upperLeftPoint.getX() && p.getX() <= upperLeftPoint.getX() + width
 				&& p.getY() >= upperLeftPoint.getY() && p.getY() <= upperLeftPoint.getY() + height)
 			return true;
@@ -107,17 +107,17 @@ public class Rectangle1 extends Shape1 {
 	@Override
 	public int compareTo(Object o) {
 
-		if(o instanceof Rectangle1) {
-			return this.area()-((Rectangle1)o).area();
+		if(o instanceof Rectangle) {
+			return this.area()-((Rectangle)o).area();
 		}
 		return 0;
 	}
 
-	public Point1 getUpperLeftPoint() {
+	public Point getUpperLeftPoint() {
 		return upperLeftPoint;
 	}
 
-	public void setUpperLeftPoint(Point1 upperLeftPoint) {
+	public void setUpperLeftPoint(Point upperLeftPoint) {
 		this.upperLeftPoint = upperLeftPoint;
 	}
 

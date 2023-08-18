@@ -3,7 +3,7 @@ package geometry1;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Donut1 extends Circle1{
+public class Donut extends Circle{
 	
 	protected int innerRadius;
 	protected Color color;
@@ -22,18 +22,18 @@ public class Donut1 extends Circle1{
 	}
 	
 
-	public Donut1() {
+	public Donut() {
 		
 	}
 	
-	public Donut1(Point1 center, int radius, int innerRadius) {
+	public Donut(Point center, int radius, int innerRadius) {
 		//this.setCenter(center); --center je definisan kao private
 		//this.center=center;--center je definisan kao protected
 		super(center, radius);
 		this.innerRadius=innerRadius;
 	}
 	
-	public Donut1(Point1 center, int radius, int innerRadius, boolean selected) {
+	public Donut(Point center, int radius, int innerRadius, boolean selected) {
 		this(center, radius, innerRadius);
 		setSelected(selected);
 	}
@@ -43,8 +43,8 @@ public class Donut1 extends Circle1{
 	}
 	
 	public boolean equals(Object obj) {
-		if (obj instanceof Donut1) {
-			Donut1 pomocni = (Donut1) obj;
+		if (obj instanceof Donut) {
+			Donut pomocni = (Donut) obj;
 			if (this.center.equals(pomocni.center) &&
 					this.getRadius() == pomocni.getRadius() && innerRadius == pomocni.innerRadius) {
 				return true;
@@ -60,7 +60,7 @@ public class Donut1 extends Circle1{
 		return center.distance(x, y) >= innerRadius && super.contains(x,y);
 	}
 	
-	public boolean contains (Point1 p) {
+	public boolean contains (Point p) {
 		return center.distance(p.getX(), p.getY()) >= innerRadius && super.contains(p.getX(), p.getY());
 	}
 
@@ -90,8 +90,8 @@ public void draw(Graphics g) {
 	@Override
 	public int compareTo(Object o) {
 
-		if(o instanceof Donut1) {
-			return (int)(this.area()-((Donut1)o).area());
+		if(o instanceof Donut) {
+			return (int)(this.area()-((Donut)o).area());
 		}
 		return 0;
 	}

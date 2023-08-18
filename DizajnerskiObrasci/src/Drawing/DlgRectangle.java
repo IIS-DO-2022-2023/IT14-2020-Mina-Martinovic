@@ -13,8 +13,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import geometry1.Point1;
-import geometry1.Rectangle1;
+import geometry1.Point;
+import geometry1.Rectangle;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -222,8 +222,8 @@ public class DlgRectangle extends JDialog {
 						// provera da li se radi modifikacija
 						for (int i=PanelDrawing.shapes.size()-1; i>=0; i--) {
 							if(PanelDrawing.shapes.get(i).isSelected()) {
-								Rectangle1 r1 = new Rectangle1(
-										new Point1(Integer.parseInt(xKoordinata.getText()), Integer.parseInt(yKoordinata.getText())),
+								Rectangle r1 = new Rectangle(
+										new Point(Integer.parseInt(xKoordinata.getText()), Integer.parseInt(yKoordinata.getText())),
 										Integer.parseInt(sirina.getText()),
 										Integer.parseInt(visina.getText()));
 								r1.setColor(innerFill);
@@ -235,8 +235,8 @@ public class DlgRectangle extends JDialog {
 						}
 						// radimo dodavanje objekta
 						if (isModifying == false) {
-							Rectangle1 r1 = new Rectangle1(
-									new Point1(Integer.parseInt(xKoordinata.getText()), Integer.parseInt(yKoordinata.getText())),
+							Rectangle r1 = new Rectangle(
+									new Point(Integer.parseInt(xKoordinata.getText()), Integer.parseInt(yKoordinata.getText())),
 									Integer.parseInt(sirina.getText()),
 									Integer.parseInt(visina.getText()));
 							r1.setColor(innerFill);

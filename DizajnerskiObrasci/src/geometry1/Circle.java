@@ -5,8 +5,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 
-public class Circle1 extends Shape1{
-	protected Point1 center;
+public class Circle extends Shape{
+	protected Point center;
 	private int radius;
 	protected boolean selected;
 	protected Color color;
@@ -23,13 +23,13 @@ public class Circle1 extends Shape1{
 		this.edgecolor = edgecolor;
 	}
 	
-	public Circle1() {
+	public Circle() {
 	}
-	public Circle1(Point1 center, int radius) {
+	public Circle(Point center, int radius) {
 		this.center = center;
 		this.radius = radius;
 	}
-	public Circle1(Point1 center, int radius, boolean selected) {
+	public Circle(Point center, int radius, boolean selected) {
 		this(center, radius);
 		this.selected = selected;
 	}
@@ -43,8 +43,8 @@ public class Circle1 extends Shape1{
 	}
 
 	public boolean equals(Object obj) {
-		if(obj instanceof Circle1) {
-			Circle1 pomocna=(Circle1) obj;
+		if(obj instanceof Circle) {
+			Circle pomocna=(Circle) obj;
 			if(this.center.equals(pomocna.center) && this.radius==(pomocna.radius))
 
 				return true;
@@ -59,7 +59,7 @@ public class Circle1 extends Shape1{
 		return center.distance(x, y) <= radius;
 	}
 
-	public boolean contains(Point1 p) {
+	public boolean contains(Point p) {
 		return center.distance(p.getX(), p.getY())<= radius;
 	}
 
@@ -94,18 +94,18 @@ public class Circle1 extends Shape1{
 	@Override
 	public int compareTo(Object o) {
 
-		if(o instanceof Circle1) {
-			return (int)(this.area()-((Circle1)o).area());
+		if(o instanceof Circle) {
+			return (int)(this.area()-((Circle)o).area());
 		}
 		return 0;
 	}
 
 
-	public Point1 getCenter() {
+	public Point getCenter() {
 		return center;
 	}
 
-	public void setCenter(Point1 center) {
+	public void setCenter(Point center) {
 		this.center = center;
 	}
 
