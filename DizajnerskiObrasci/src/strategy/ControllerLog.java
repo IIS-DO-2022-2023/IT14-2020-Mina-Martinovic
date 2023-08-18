@@ -1,4 +1,4 @@
-package log;
+package strategy;
 
 import command.Command;
 

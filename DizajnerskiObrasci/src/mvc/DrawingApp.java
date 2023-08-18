@@ -6,7 +6,7 @@ public class DrawingApp {
 
 	public static void main(String[] args) {
 
-		DrawingModel model = new DrawingModel();
+		DrawingModel model = new DrawingModel(null);
 		DrawingFrame frame = new DrawingFrame();
 		frame.getView().setModel(model);
 		DrawingController controller = new DrawingController(model, frame);

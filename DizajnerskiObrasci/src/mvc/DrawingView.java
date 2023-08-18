@@ -6,7 +6,7 @@ import java.util.Iterator;
 import javax.swing.JPanel;
 
 public class DrawingView extends JPanel{
-	private DrawingModel model = new DrawingModel();
+	private DrawingModel model = new DrawingModel(null);
 
 	public void setModel(DrawingModel model) {
 		this.model = model;

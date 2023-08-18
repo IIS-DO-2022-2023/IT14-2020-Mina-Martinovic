@@ -1,4 +1,4 @@
-package log;
+package strategy;
 
 import java.util.List;
 
