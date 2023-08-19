@@ -3,11 +3,22 @@ package mvc;
 import java.util.ArrayList;
 import java.util.List;
 
+import geometry1.Shape;
 import strategy.DrawingStorageStrategy;
 
 public class DrawingModel {
 	private List<Shape> shapes = new ArrayList<>();
+	//public static ArrayList<Shape> shapes=new ArrayList<Shape>();	
+	private List<Shape> selectedShapes = new ArrayList<>();
 	
+	public List<Shape> getSelectedShapes() {
+		return selectedShapes;
+	}
+
+	public void setSelectedShapes(List<Shape> selectedShapes) {
+		this.selectedShapes = selectedShapes;
+	}
+
 	public void add(Shape s) {
 		shapes.add(s);
 	}

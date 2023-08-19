@@ -16,7 +16,7 @@ public class CommandLog {
 	    }
 
 	    public void executeCommand(Command command) {
-	        command.redo();
+	        command.execute();
 	        commandLog.add(command);
 	    }
 
@@ -42,7 +42,7 @@ public class CommandLog {
 	    |   |-- DrawingStorageStrategy.java
 	    |   |-- JsonStorageStrategy.java
 	    |   |-- XmlStorageStrategy.java
-	    |   |-- ... (ostale klase vezane za Ä?uvanje podataka)
+	    |   |-- ... (ostale klase vezane za ï¿½?uvanje podataka)
 	    |-- Main.java
 */
 

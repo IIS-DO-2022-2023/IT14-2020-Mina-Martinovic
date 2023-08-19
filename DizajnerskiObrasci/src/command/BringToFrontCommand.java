@@ -13,7 +13,7 @@ class BringToFrontCommand implements Command {
     }
 
     @Override
-    public void redo() {
+    public void execute() {
         if (wasSentToBack) {
             shapeManager.sendToBack(shapeIndex);
             wasSentToBack = false;
@@ -23,7 +23,7 @@ class BringToFrontCommand implements Command {
     }
 
     @Override
-    public void undo() {
+    public void unexecute() {
         shapeManager.sendToBack(shapeIndex);
         wasSentToBack = true;
     }

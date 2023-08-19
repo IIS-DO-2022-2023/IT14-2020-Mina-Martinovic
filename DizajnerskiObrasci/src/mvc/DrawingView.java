@@ -13,10 +13,10 @@ public class DrawingView extends JPanel{
 	}
 	
 	public void paint(Graphics g) {
-		Iterator<Shape> it = model.getShapes().iterator();
+		Iterator<geometry1.Shape> it = model.getShapes().iterator();
 		while(it.hasNext()) {
 			it.next().draw(g);
 		}
 	}
-	
+	//tjt Branka ima samo ovo
 }

@@ -20,7 +20,7 @@ class MoveShapeCommand implements Command {
     }
 
     @Override
-    public void redo() {
+    public void execute() {
     	prevX = point.getX();
         prevY = point.getY();
         //preY = shaep.getY -?> isto i za x !!! proveri
@@ -28,7 +28,7 @@ class MoveShapeCommand implements Command {
     }
 
     @Override
-    public void undo() {
+    public void unexecute() {
         ((Point) shape).moveTo(prevX, prevY);
     }
 }

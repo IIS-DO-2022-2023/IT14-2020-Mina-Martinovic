@@ -8,6 +8,13 @@ public class DrawingController {
 
 	private DrawingModel model;
 	private DrawingFrame frame;
+	//nije potrebno referencirati model i frame nadji zasto
+	
+	/*ovde ce mi se nalaziti sve metode crtanje selektovanje 
+	undo redo delete modify
+	tofront to back i sve i za cuvanje i ucitavanje i readlog OVDE!!
+	*/
+	
 	
 	public DrawingController(DrawingModel model, DrawingFrame frame) {
 		this.model = model;
