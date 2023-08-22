@@ -1,5 +1,8 @@
 package mvc;
 
+import java.awt.Color;
+import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,9 +10,13 @@ import geometry1.Shape;
 import strategy.DrawingStorageStrategy;
 
 public class DrawingModel {
-	private List<Shape> shapes = new ArrayList<>();
-	//public static ArrayList<Shape> shapes=new ArrayList<Shape>();	
+	
+	public static  ArrayList<Shape> shapes=new ArrayList<Shape>();	
 	private List<Shape> selectedShapes = new ArrayList<>();
+	public static String drawingObject = "Point" ;
+	public static Color color = new Color(255, 255, 255);
+	private ArrayList<Color> colors;
+
 	
 	public List<Shape> getSelectedShapes() {
 		return selectedShapes;
@@ -30,7 +37,11 @@ public class DrawingModel {
 	public List<Shape> getShapes() {
 		return shapes;
 	}
-
+	
+	/*public Point get (int index) {
+		return shapes.get(index);
+	}
+*/
 	  @Override
 	    public String toString() {
 	        StringBuilder sb = new StringBuilder();
@@ -57,4 +68,23 @@ Ovaj oblik implementacije toString() metode je čest u Javi i koristi se za olak
 	        DrawingStorageStrategy.saveDrawing(this, filePath); // Poziv strategije za čuvanje crteža
 	    }
 
+		public void addTransparentCircleWithHole() {
+			 Ellipse2D outerCircle = new Ellipse2D.Double(50, 50, 100, 100);
+		     Ellipse2D innerCircle = new Ellipse2D.Double(70, 70, 60, 60);
+		     // Ova klasa ima konstruktor sa četiri parametra: 
+		     //(double x, double y, double width, double height). 
+		     //Ovi parametri se odnose na koordinate gornjeg levog ugla elipse (x i y),
+		     //širinu elipse (width) i visinu elipse (height)
+
+		     Area area = new Area(outerCircle);
+		     area.subtract(new Area(innerCircle));
+
+		     Shape Shape = null; //izmeni!!!!!!!
+			shapes.add(Shape);
+			ArrayList<Color>colors = new ArrayList<>();
+			 colors.add(new Color(0, 0, 0, 0)); // Transparentna boja
+			
+		}
+
+	
 }
