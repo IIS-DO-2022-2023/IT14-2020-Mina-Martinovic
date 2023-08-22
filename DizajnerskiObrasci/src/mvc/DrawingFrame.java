@@ -48,17 +48,27 @@ public class DrawingFrame extends JFrame{
 	private JPanel contentPane;
 	private DefaultListModel<String> dlmBoje = new DefaultListModel<String>();
 	private DrawingView pnlDrawing = new DrawingView();
+	
+	public DrawingView getView() {
+		return view;
+	}
 
+	public void setDrawingController(DrawingController drawingController) {
+		this.controller = drawingController;
+	}
+	
+	/*
 	/**
 	 * Launch the application.
 	 */
+	/*
 	public static void main(String[] args) {
 
 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrmDrawing frame = new FrmDrawing();
+					DrawingFrame frame = new DrawingFrame();
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					SwingUtilities.updateComponentTreeUI(frame);
 
@@ -68,21 +78,17 @@ public class DrawingFrame extends JFrame{
 					e.printStackTrace();
 				}
 			}
+			
 		});
 	}
 
+*/
+	
 	/**
 	 * Create the frame.
 	 */
 	
 	public DrawingFrame() {
-		view.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				controller.mouseClicked(e);
-			}
-		});
-		getContentPane().add(view, BorderLayout.CENTER);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 639, 417);
@@ -90,6 +96,14 @@ public class DrawingFrame extends JFrame{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		
+		view.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				controller.mouseClicked(e);
+			}
+		});
+		getContentPane().add(view, BorderLayout.CENTER);
 
 		// centralni panel
 		JPanel pnlCenter = new JPanel();
@@ -147,7 +161,7 @@ public class DrawingFrame extends JFrame{
 		GridBagConstraints gbc_cbxIzaberiBoju = new GridBagConstraints();
 		gbc_cbxIzaberiBoju.insets = new Insets(0, 0, 5, 0);
 		gbc_cbxIzaberiBoju.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cbxIzaberiBoju.gridx = 4;
+		gbc_cbxIzaberiBoju.gridx = 3;
 		gbc_cbxIzaberiBoju.gridy = 0;
 		pnlCenter.add(cbxIzaberiOblik, gbc_cbxIzaberiBoju);
 
@@ -168,7 +182,7 @@ public class DrawingFrame extends JFrame{
 		gbc_lbOdaberiBoju.anchor = GridBagConstraints.EAST;
 		gbc_lbOdaberiBoju.insets = new Insets(0, 0, 5, 5);
 		gbc_lbOdaberiBoju.gridx = 4;
-		gbc_lbOdaberiBoju.gridy = 1;
+		gbc_lbOdaberiBoju.gridy = 0;
 		pnlCenter.add(btnOdabirBoje, gbc_lbOdaberiBoju);
 
 
@@ -224,7 +238,7 @@ public class DrawingFrame extends JFrame{
 		gbc_lbBringToFront.anchor = GridBagConstraints.EAST;
 		gbc_lbBringToFront.insets = new Insets(0, 0, 5, 5);
 		gbc_lbBringToFront.gridx = 3;
-		gbc_lbBringToFront.gridy = 2;
+		gbc_lbBringToFront.gridy = 1;
 		pnlCenter.add(btnBringToFront, gbc_lbBringToFront);
 		
 		// sendToBack
@@ -236,40 +250,66 @@ public class DrawingFrame extends JFrame{
 			controller.btnSendToBack(e);
 			}
 		});
-						
+		
 		GridBagConstraints gbc_lbSendToBack = new GridBagConstraints();
 		gbc_lbSendToBack.anchor = GridBagConstraints.EAST;
 		gbc_lbSendToBack.insets = new Insets(0, 0, 5, 5);
-		gbc_lbSendToBack.gridx = 2;
-		gbc_lbSendToBack.gridy = 4;
+		gbc_lbSendToBack.gridx = 3;
+		gbc_lbSendToBack.gridy = 2;
 		pnlCenter.add(btnSendToBack, gbc_lbSendToBack);
+		
+		//undo
+		JButton btnUndo = new JButton("Undo");  // undo button
+		btnUndo.addActionListener(new ActionListener() {
+	    	@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				controller.btnUndo(e);
+				}
+	    }); //handler
+						
+		GridBagConstraints gbc_lbUndo = new GridBagConstraints();
+		gbc_lbUndo.anchor = GridBagConstraints.EAST;
+		gbc_lbUndo.insets = new Insets(0, 0, 5, 5);
+		gbc_lbUndo.gridx = 4;
+		gbc_lbUndo.gridy = 1;
+		pnlCenter.add(btnUndo, gbc_lbUndo);
 
+		//redo
+		JButton btnRedo = new JButton("Redo");  // undo button
+		btnRedo.addActionListener(new ActionListener() {
+	    	@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				controller.btnRedo(e);
+				}
+	    }); //handler
+						
+		GridBagConstraints gbc_lbRedo = new GridBagConstraints();
+		gbc_lbRedo.anchor = GridBagConstraints.EAST;
+		gbc_lbRedo.insets = new Insets(0, 0, 5, 5);
+		gbc_lbRedo.gridx = 4;
+		gbc_lbRedo.gridy = 2;
+		pnlCenter.add(btnRedo, gbc_lbRedo);
+		
 		// crtanje
 		DrawingModel model = new DrawingModel(null);
 		DrawingView pnlDrawing = new DrawingView();
 		DrawingController controller = new DrawingController(model, this);
 		
-		model.addTransparentCircleWithHole();
         pnlDrawing.repaint();
 		//IZMENI!!!!!!!
 
 		GridBagConstraints gbl_pnlDrawing = new GridBagConstraints();
 		gbl_pnlDrawing.anchor = GridBagConstraints.SOUTH;
 		gbl_pnlDrawing.insets = new Insets(0, 0, 5, 5);
-		gbl_pnlDrawing.gridx = 3;
+		gbl_pnlDrawing.gridx = 1;
 		gbl_pnlDrawing.gridy = 3;
 		pnlCenter.add(pnlDrawing, gbl_pnlDrawing);
 
 	}
 
 
-	public DrawingView getView() {
-		return view;
-	}
-
-	public void setDrawingController(DrawingController drawingController) {
-		this.controller = drawingController;
-	}
 	
 	//dodas dugmice sve to jev frmDrawing i listeneri 
 	//jer ja odavde pozivma metodekoje se nalaze u kontroleru

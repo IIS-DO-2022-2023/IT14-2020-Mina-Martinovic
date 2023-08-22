@@ -12,24 +12,26 @@ import strategy.DrawingStorageStrategy;
 public class DrawingModel {
 	
 	public static  ArrayList<Shape> shapes=new ArrayList<Shape>();	
-	private List<Shape> selectedShapes = new ArrayList<>();
+	
+	public static ArrayList<Shape> selectedShapes = new ArrayList<>();
+	
+
 	public static String drawingObject = "Point" ;
 	public static Color color = new Color(255, 255, 255);
-	private ArrayList<Color> colors;
 
 	
 	public List<Shape> getSelectedShapes() {
 		return selectedShapes;
 	}
 
-	public void setSelectedShapes(List<Shape> selectedShapes) {
+	public void setSelectedShapes(ArrayList<Shape> selectedShapes) {
 		this.selectedShapes = selectedShapes;
 	}
 
 	public void add(Shape s) {
 		shapes.add(s);
 	}
-	
+
 	public void remove(Shape s) {
 		shapes.remove(s);
 	}
@@ -68,7 +70,7 @@ Ovaj oblik implementacije toString() metode je čest u Javi i koristi se za olak
 	        DrawingStorageStrategy.saveDrawing(this, filePath); // Poziv strategije za čuvanje crteža
 	    }
 
-		public void addTransparentCircleWithHole() {
+		/*public void addTransparentCircleWithHole() {
 			 Ellipse2D outerCircle = new Ellipse2D.Double(50, 50, 100, 100);
 		     Ellipse2D innerCircle = new Ellipse2D.Double(70, 70, 60, 60);
 		     // Ova klasa ima konstruktor sa četiri parametra: 
@@ -85,6 +87,6 @@ Ovaj oblik implementacije toString() metode je čest u Javi i koristi se za olak
 			 colors.add(new Color(0, 0, 0, 0)); // Transparentna boja
 			
 		}
-
+*/
 	
 }

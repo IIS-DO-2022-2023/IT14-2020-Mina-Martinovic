@@ -1,6 +1,5 @@
 package geometry1;
 
-import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Graphics;
 

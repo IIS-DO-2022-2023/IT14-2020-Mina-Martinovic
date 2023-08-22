@@ -20,6 +20,7 @@ import geometry1.Donut;
 import geometry1.Line;
 import geometry1.Point;
 import geometry1.Rectangle;
+import geometry1.Shape;
 
 
 public class DrawingController {
@@ -73,20 +74,22 @@ public class DrawingController {
 	public void mouseClicked(MouseEvent e) {}
 
 	public void mouseReleased(MouseEvent e) {
-		
+	
 		//obrisi selekciju
 		for(int i = DrawingModel.shapes.size()-1; i>=0; i--) {
 			DrawingModel.shapes.get(i).setSelected(false);
 		}
+		
 		// provera selekcije
 		System.out.println(DrawingModel.shapes);
 		for (int i=DrawingModel.shapes.size()-1; i>=0; i--) {
 			if ((DrawingModel.shapes.get(i)).contains(e.getX(), e.getY())) {		// ukoliko je tacka klika u objektu
-				if(DrawingModel.shapes.get(i).isSelected() == true)
-					DrawingModel.shapes.get(i).setSelected(false);
-				else 
-					DrawingModel.shapes.get(i).setSelected(true);
-				return;															// ukoliko smo selektovali objekat, ne iscrtavamo vise nista pa izlazimo iz funkcije
+				Shape clickedShape = DrawingModel.shapes.get(i);
+		        if (DrawingModel.selectedShapes.contains(clickedShape)) {
+		        	DrawingModel.selectedShapes.remove(clickedShape);
+		        } else {
+		        	DrawingModel.selectedShapes.add(clickedShape);
+		        }
 			}
 		}
 
@@ -235,6 +238,22 @@ public class DrawingController {
 	}
 
 	public void btnSendToBack(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void undo(ActionEvent e) {
+		// TODO Auto-generated method stub
+		//povezi na command i ove dve gore
+		
+	}
+
+	public void btnUndo(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void btnRedo(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
