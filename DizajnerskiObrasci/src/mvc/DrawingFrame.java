@@ -115,8 +115,8 @@ public class DrawingFrame extends JFrame{
 		gbl_pnlCenter.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		pnlCenter.setLayout(gbl_pnlCenter);
 
-
-
+		
+		
 		// izbor oblika za crtanje
 		JLabel lblIzaberiOblik = new JLabel("Izaberi oblik:");
 		GridBagConstraints gbc_izaberiOblik = new GridBagConstraints();
@@ -147,6 +147,9 @@ public class DrawingFrame extends JFrame{
 				case "Rectangle":
 					DrawingModel.drawingObject = "Rectangle";
 					break;
+				case "Hexagon":
+					DrawingModel.drawingObject = "Hexagon";
+					break;
 				}
 			}
 		});
@@ -156,7 +159,8 @@ public class DrawingFrame extends JFrame{
 				"Line",
 				"Circle",
 				"Donut",
-				"Rectangle"
+				"Rectangle",
+				"Hexagon"
 		}));
 		GridBagConstraints gbc_cbxIzaberiBoju = new GridBagConstraints();
 		gbc_cbxIzaberiBoju.insets = new Insets(0, 0, 5, 0);

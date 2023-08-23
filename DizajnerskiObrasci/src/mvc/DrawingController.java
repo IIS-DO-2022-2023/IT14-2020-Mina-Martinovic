@@ -129,6 +129,13 @@ public class DrawingController {
 				ex.printStackTrace();
 			}
 		break;
+		case "Hexagon" :
+			try {
+				
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		break;
 		case "Line" : 
 			if (isFirstClick) {
 				line_x = e.getX();
