@@ -6,6 +6,7 @@ import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import geometry1.Circle;
 import geometry1.Shape;
 import strategy.DrawingStorageStrategy;
 
@@ -18,6 +19,7 @@ public class DrawingModel {
 
 	public static String drawingObject = "Point" ;
 	public static Color color = new Color(255, 255, 255);
+	private Shape s;
 
 	
 	public List<Shape> getSelectedShapes() {
@@ -69,6 +71,36 @@ Ovaj oblik implementacije toString() metode je čest u Javi i koristi se za olak
 	    public void saveDrawing(String filePath) {
 	        DrawingStorageStrategy.saveDrawing(this, filePath); // Poziv strategije za čuvanje crteža
 	    }
+
+		public int getIndexOfShape(Shape shape) {
+			int ShapeList = shapes.size() - 1;
+			
+			for (int i = 0; i <= ShapeList; i++) {
+				if (shapes.get(i).equals(s)) {
+					
+					return i;
+				}
+			}
+			return 0;
+		
+		}
+
+		public void addShape(Shape addedShape) {
+			
+			shapes.add(addedShape);
+			
+		}
+		
+		public void removeShape(Shape removedShape) {
+			int selectedShapesSizeBefore = selectedShapes.size();
+			if(shapes.remove(removedShape) == false) {
+				System.out.println("Shape does not exist in list of shapes!");
+			}
+			
+			selectedShapes.remove(removedShape);
+			propertyChangeSupport.firePropertyChange("Deleted Shapes", selectedShapesSizeBefore, selectedShapes.size());
+		}
+
 
 		/*public void addTransparentCircleWithHole() {
 			 Ellipse2D outerCircle = new Ellipse2D.Double(50, 50, 100, 100);
