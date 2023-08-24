@@ -7,55 +7,37 @@ import geometry1.Point;
 
 public class UpdateCircleCmd implements Command{
 
-	private Circle oldState;
-	private Circle newState;
+	private Circle oldCircle;
+	private Circle newCircle;
 	
-	private Circle originalState = new Circle(new Point(), 1);
+	private Circle originalState = new Circle();
 	
-	public UpdateCircleCmd(Circle oldState, Circle newState) {
-		this.oldState = oldState;
-		this.newState = newState;
+	public UpdateCircleCmd(Circle oldCircle, Circle newCircle) {
+		this.oldCircle = oldCircle;
+		this.newCircle = newCircle;
 	}
 
 	@Override
 	public void execute() {
-		originalState = oldState.clone();
-		oldState.getCenter().setX(newState.getCenter().getX());
-		oldState.getCenter().setY(newState.getCenter().getY());
-		try {
-			oldState.setRadius(newState.getRadius());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if(newState.getOutlineColor() == Color.BLACK && originalState.getOutlineColor() != Color.BLACK) {
-			oldState.setOutlineColor(originalState.getOutlineColor());
-		} else {
-			oldState.setOutlineColor(newState.getOutlineColor());
-		}
+		originalState.getCenter().setX(oldCircle.getCenter().getX());
+		originalState.getCenter().setY(oldCircle.getCenter().getY());
+		originalState.setRadius(oldCircle.getRadius());
 		
-		if(newState.getFillColor() == Color.WHITE && originalState.getFillColor() != Color.WHITE) {
-			oldState.setFillColor(originalState.getFillColor());
-		} else {
-			oldState.setFillColor(newState.getFillColor());
-		}
+		oldCircle.getCenter().setX(newCircle.getCenter().getX());
+		oldCircle.getCenter().setY(newCircle.getCenter().getY());
+		oldCircle.setRadius(newCircle.getRadius());
+	
 	}
 
 	@Override
 	public void unexecute() {
-		oldState.getCenter().setX(originalState.getCenter().getX());
-		oldState.getCenter().setY(originalState.getCenter().getY());
-		try {
-			oldState.setR(originalState.getR());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		oldState.setOutlineColor(originalState.getOutlineColor());
-		oldState.setFillColor(originalState.getFillColor());
+		oldCircle.getCenter().setX(originalState.getCenter().getX());
+		oldCircle.getCenter().setY(originalState.getCenter().getY());
+		oldCircle.setRadius(originalState.getRadius());
 	}
 
 	@Override
 	public String toString() {
-		return "Updated->"+oldState.toString()+"->"+newState.toString();
+		return "Updated->"+oldCircle.toString()+"to"+newCircle.toString();
 	}
 }

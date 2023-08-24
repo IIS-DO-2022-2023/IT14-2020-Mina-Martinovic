@@ -25,5 +25,10 @@ public class RemovePointCmd implements Command{
 		model.add(point);
 
 	}
+	
+	@Override
+	public String toString() {
+		return point.toString() +"removed.";
+	}
 
 }

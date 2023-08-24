@@ -1,0 +1,42 @@
+package command;
+
+import hexagon.Hexagon;
+import adapter.HexAdapter;
+
+public class UpdateHexagonCmd implements Command{
+
+	private HexAdapter oldHex;
+	private HexAdapter newHex;
+	private HexAdapter originalState; 
+	//= new HexAdapter(new Hexagon(0, 0, 0));
+	
+	public UpdateHexagonCmd(HexAdapter oldHex, HexAdapter newHex) {
+		this.oldHex = oldHex;
+		this.newHex = newHex;
+	}
+
+	@Override
+	public void execute() {
+		originalState.getHexagon().setX(oldHex.getHexagon().getX());
+		originalState.getHexagon().setY(oldHex.getHexagon().getY());
+		originalState.getHexagon().setRadius(oldHex.getHexagon().getRadius());
+		
+		oldHex.getHexagon().setX(newHex.getHexagon().getX());
+		oldHex.getHexagon().setY(newHex.getHexagon().getY());
+		oldHex.getHexagon().setRadius(newHex.getHexagon().getRadius());
+		
+	}
+
+	@Override
+	public void unexecute() {
+		oldHex.getHexagon().setX(originalState.getHexagon().getX());
+		oldHex.getHexagon().setY(originalState.getHexagon().getY());
+		oldHex.getHexagon().setRadius(originalState.getHexagon().getRadius());
+		
+	}
+
+	@Override
+	public String toString() {
+		return "Updated->"+oldHex.toString()+"to"+newHex.toString();
+	}	
+}

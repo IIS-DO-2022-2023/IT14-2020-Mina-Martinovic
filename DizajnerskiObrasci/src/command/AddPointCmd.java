@@ -26,5 +26,8 @@ public class AddPointCmd implements Command  {
 
 		}
 
-	
+		@Override
+		public String toString() {
+			return point.toString() +"added.";
+		}
 }

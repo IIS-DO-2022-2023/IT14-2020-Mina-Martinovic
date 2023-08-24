@@ -5,8 +5,11 @@ import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
+import command.Command;
 import geometry1.Circle;
+import geometry1.Point;
 import geometry1.Shape;
 import strategy.DrawingStorageStrategy;
 
@@ -16,19 +19,14 @@ public class DrawingModel {
 	
 	public static ArrayList<Shape> selectedShapes = new ArrayList<>();
 	
+	private Stack<Command> undoStack = new Stack<>();
+	private Stack<Command> redoStack = new Stack<>();
+
 
 	public static String drawingObject = "Point" ;
 	public static Color color = new Color(255, 255, 255);
-	private Shape s;
+	private Point startPoint;
 
-	
-	public List<Shape> getSelectedShapes() {
-		return selectedShapes;
-	}
-
-	public void setSelectedShapes(ArrayList<Shape> selectedShapes) {
-		this.selectedShapes = selectedShapes;
-	}
 
 	public void add(Shape s) {
 		shapes.add(s);
@@ -38,9 +36,7 @@ public class DrawingModel {
 		shapes.remove(s);
 	}
 
-	public List<Shape> getShapes() {
-		return shapes;
-	}
+
 	
 	/*public Point get (int index) {
 		return shapes.get(index);
@@ -71,35 +67,8 @@ Ovaj oblik implementacije toString() metode je čest u Javi i koristi se za olak
 	    public void saveDrawing(String filePath) {
 	        DrawingStorageStrategy.saveDrawing(this, filePath); // Poziv strategije za čuvanje crteža
 	    }
-
-		public int getIndexOfShape(Shape shape) {
-			int ShapeList = shapes.size() - 1;
-			
-			for (int i = 0; i <= ShapeList; i++) {
-				if (shapes.get(i).equals(s)) {
-					
-					return i;
-				}
-			}
-			return 0;
 		
-		}
 
-		public void addShape(Shape addedShape) {
-			
-			shapes.add(addedShape);
-			
-		}
-		
-		public void removeShape(Shape removedShape) {
-			int selectedShapesSizeBefore = selectedShapes.size();
-			if(shapes.remove(removedShape) == false) {
-				System.out.println("Shape does not exist in list of shapes!");
-			}
-			
-			selectedShapes.remove(removedShape);
-			propertyChangeSupport.firePropertyChange("Deleted Shapes", selectedShapesSizeBefore, selectedShapes.size());
-		}
 
 
 		/*public void addTransparentCircleWithHole() {
@@ -120,5 +89,105 @@ Ovaj oblik implementacije toString() metode je čest u Javi i koristi se za olak
 			
 		}
 */
+		
+		public Stack<Command> getUndoStack() {
+			return undoStack;
+		}
+
+		public void setUndoStack(Stack<Command> undoStack) {
+			this.undoStack = undoStack;
+		}
+
+		public Stack<Command> getRedoStack() {
+			return redoStack;
+		}
+
+		public void setRedoStack(Stack<Command> redoStack) {
+			this.redoStack = redoStack;
+		}
+		
+		public Point getStartPoint() {
+			return startPoint;
+		}
+
+		public void setStartPoint(Point startPoint) {
+			this.startPoint = startPoint;
+		}
+
+		public List<Shape> getShapes() {
+			return shapes;
+		}
+
+		public void setShapes(ArrayList<Shape> shapes) {
+			this.shapes = shapes;
+		}
+		
+		public List<Shape> getSelectedShapes() {
+			return selectedShapes;
+		}
+		
+		public void setSelectedShapes(ArrayList<Shape> selectedShapes) {
+			this.selectedShapes = selectedShapes;
+		}
+		
+		public Shape getByIndex(int index) {
+			return shapes.get(index);
+		}
+
+		public ArrayList<Shape> getAllShapes() {
+			return (ArrayList<Shape>) shapes;
+		}
+		
+		public void addMultipleShapes(ArrayList<Shape> shapes) {
+			this.shapes.addAll(shapes);
+		}
 	
+		public void pushToUndoStack(Command toBePushed) {
+			int undoStackSizeBefore = undoStack.size();
+			this.undoStack.push(toBePushed);
+		}
+		
+		public void removeFromUndoStack() {
+			int undoStackSizeBefore = undoStack.size();
+			if(undoStack.peek()!=null) {
+				this.undoStack.pop().unexecute();
+			}
+		}
+		
+		public void pushToRedoStack(Command toBePushed) {
+			int redoStackSizeBefore = redoStack.size();
+			this.redoStack.push(toBePushed);
+		}
+		
+		public void removeFromRedoStack() {
+			int redoStackSizeBefore = redoStack.size();
+			if(redoStack.peek()!=null) {
+				this.redoStack.pop().execute();
+			}
+		}
+		
+		public int getIndexOfShape(Shape s) {
+			int listSize = shapes.size() - 1;
+			
+			for (int i = 0; i <= listSize; i++) {
+				if (shapes.get(i).equals(s)) {
+					
+					return i;
+				}
+			}
+			return -1;
+		}
+
+		public void addSelectedShape(Shape selectedShape) {
+			int selectedShapesSizeBefore = selectedShapes.size();
+			selectedShapes.add(selectedShape);
+			System.out.println(shapes.get(0).isSelected());
+			
+		}
+		
+		public void removeSelectedShape(Shape toBeRemoved) {
+			int index = shapes.indexOf(toBeRemoved);
+			shapes.get(index).setSelected(false);
+			selectedShapes.remove(toBeRemoved);
+		}
 }

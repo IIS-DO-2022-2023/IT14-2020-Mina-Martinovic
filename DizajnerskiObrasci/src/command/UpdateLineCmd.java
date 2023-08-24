@@ -38,4 +38,9 @@ public class UpdateLineCmd implements Command{
 		oldLine.getEndPoint().setY(originalState.getEndPoint().getY());
 
 	}
+	
+	@Override
+	public String toString() {
+		return "Updated->"+oldLine.toString()+"to"+newLine.toString();
+	}
 }

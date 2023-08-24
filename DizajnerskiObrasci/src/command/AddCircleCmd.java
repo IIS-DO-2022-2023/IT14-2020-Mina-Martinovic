@@ -15,12 +15,12 @@ public class AddCircleCmd implements Command {
 
 	@Override
 	public void execute() {
-		model.addShape(circle);
+		model.add(circle);
 	}
 
 	@Override
 	public void unexecute() {
-		model.removeShape(circle);
+		model.remove(circle);
 	}
 	
 	@Override

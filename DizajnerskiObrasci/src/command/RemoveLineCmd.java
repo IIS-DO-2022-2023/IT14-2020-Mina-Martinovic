@@ -24,4 +24,9 @@ public class RemoveLineCmd implements Command{
 		model.add(line);
 
 	}
+	
+	@Override
+	public String toString() {
+		return line.toString() +"removed.";
+	}
 }

@@ -11,23 +11,23 @@ import java.awt.geom.Rectangle2D;
 
 import hexagon.Hexagon;
 
-public abstract class hexAdapter implements Shape{
+public abstract class HexAdapter implements Shape{
 
 	private Hexagon hexagon;
 	
-	public hexAdapter() {
+	public HexAdapter() {
 			
 		}
 		
-	public hexAdapter(Hexagon hexagon) {
+	public HexAdapter(Hexagon hexagon) {
 		super();
 		this.hexagon=hexagon;
 	}
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof hexAdapter) {
-			Hexagon hex = ((hexAdapter) obj).hexagon;
+		if (obj instanceof HexAdapter) {
+			Hexagon hex = ((HexAdapter) obj).hexagon;
 			return hexagon.getX() == hex.getX() && hexagon.getY() == hex.getY() && hexagon.getR() == hex.getR();
 		}
 		return false;

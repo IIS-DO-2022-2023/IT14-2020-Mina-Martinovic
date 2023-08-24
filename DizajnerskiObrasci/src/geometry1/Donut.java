@@ -11,6 +11,8 @@ import mvc.DrawingModel;
 public class Donut extends Circle{
 	
 	protected int innerRadius;
+	protected int outerRadius;
+
 	protected Color color;
 	protected Color edgecolor;
 	private DrawingModel model = new DrawingModel(null);
@@ -140,6 +142,14 @@ public void draw(Graphics g) {
 
 	public void setInnerRadius(int innerRadius) {
 		this.innerRadius = innerRadius;
+	}
+	
+	public int getOuterRadius() {
+		return outerRadius;
+	}
+
+	public void setOuterRadius(int outerRadius) {
+		this.outerRadius = outerRadius;
 	}
 	
 	public String toString() {
