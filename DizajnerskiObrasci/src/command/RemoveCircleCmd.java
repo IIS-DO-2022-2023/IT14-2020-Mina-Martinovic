@@ -15,7 +15,7 @@ public class RemoveCircleCmd implements Command{
 
 	@Override
 	public void execute() {
-		model.remove(circle);
+		model.removeShape(circle);
 	}
 
 	@Override

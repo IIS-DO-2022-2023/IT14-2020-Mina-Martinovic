@@ -22,7 +22,7 @@ public class AddPointCmd implements Command  {
 
 		@Override
 		public void unexecute() {
-			model.remove(point);
+			model.removeShape(point);
 
 		}
 

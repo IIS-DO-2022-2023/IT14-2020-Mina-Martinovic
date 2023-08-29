@@ -14,13 +14,13 @@ public class RemoveRectangleCmd implements Command{
 	}
 
 	@Override
-	public void unexecute() {
-		model.add(rectangle);	
+	public void execute() {
+		model.removeShape(rectangle);
 	}
 	
 	@Override
-	public void execute() {
-		model.remove(rectangle);
+	public void unexecute() {
+		model.add(rectangle);	
 	}
 
 	@Override

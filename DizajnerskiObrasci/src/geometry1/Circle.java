@@ -4,12 +4,22 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 
-public class Circle extends Shape{
+public class Circle extends SurfaceShape{
+	
 	protected Point center;
 	private int radius;
 	protected boolean selected;
 	protected Color color;
 	protected Color edgecolor;
+	private boolean confirmation;
+
+	public boolean isConfirmation() {
+		return confirmation;
+	}
+
+	public void setConfirmation(boolean confirmation) {
+		this.confirmation = confirmation;
+	}
 
 	public Color getColor() {
 		return color;

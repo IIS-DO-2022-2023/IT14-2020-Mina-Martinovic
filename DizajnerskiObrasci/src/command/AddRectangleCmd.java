@@ -20,7 +20,7 @@ public class AddRectangleCmd implements Command{
 
 	@Override
 	public void unexecute() {
-		model.remove(rectangle);
+		model.removeShape(rectangle);
 	}
 	
 	@Override

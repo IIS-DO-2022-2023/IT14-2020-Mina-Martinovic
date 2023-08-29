@@ -15,11 +15,16 @@ public class RemoveHexagonCmd implements Command{
 
 	@Override
 	public void execute() {
-		model.remove(hexagon);
+		model.removeShape(hexagon);
 	}
 
 	@Override
 	public void unexecute() {
 		model.add(hexagon);	
+	}
+	
+	@Override
+	public String toString() {
+		return hexagon.toString() +"removed.";
 	}
 }

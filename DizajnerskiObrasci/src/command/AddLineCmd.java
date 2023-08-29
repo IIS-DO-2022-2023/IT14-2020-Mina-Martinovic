@@ -20,7 +20,7 @@ public class AddLineCmd implements Command{
 
 	@Override
 	public void unexecute() {
-		model.remove(line);
+		model.removeShape(line);
 
 	}
 	

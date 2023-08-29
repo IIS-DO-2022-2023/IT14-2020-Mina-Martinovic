@@ -15,7 +15,7 @@ public class RemoveLineCmd implements Command{
 
 	@Override
 	public void execute() {
-		model.remove(line);
+		model.removeShape(line);
 
 	}
 

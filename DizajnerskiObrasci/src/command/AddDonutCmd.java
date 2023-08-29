@@ -20,7 +20,7 @@ public class AddDonutCmd implements Command {
 
 	@Override
 	public void unexecute() {
-		model.remove(donut);
+		model.removeShape(donut);
 	}
 	
 	@Override

@@ -14,13 +14,12 @@ public class RemoveDonutCmd implements Command{
 	}
 	
 	@Override
+	public void execute() {
+		model.removeShape(donut);	
+	}
+	@Override
 	public void unexecute() {
 		model.add(donut);	
-	}
-	
-	@Override
-	public void execute() {
-		model.remove(donut);	
 	}
 	
 	@Override

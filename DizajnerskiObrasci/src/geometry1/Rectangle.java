@@ -3,8 +3,9 @@ package geometry1;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Rectangle extends Shape {
+public class Rectangle extends SurfaceShape {
 
+	private static final long serialVersionUID = 1L;
 	private Point upperLeftPoint;
 	private int width;
 	private int height;

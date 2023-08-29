@@ -2,13 +2,14 @@ package command;
 
 
 import adapter.HexAdapter;
+import geometry1.Hexagon;
 import geometry1.Shape;
 import mvc.DrawingModel;
 
 public class AddHexagonCmd implements Command{
 	
 	private DrawingModel model;
-	private Hexagon hexagon;
+	private HexAdapter hexagon;
 
 	public AddHexagonCmd(DrawingModel model, HexAdapter hexagon) {
 		this.model = model;
@@ -22,7 +23,7 @@ public class AddHexagonCmd implements Command{
 
 	@Override
 	public void unexecute() {
-		model.remove(hexagon);
+		model.removeShape(hexagon);
 	}
 	
 	@Override

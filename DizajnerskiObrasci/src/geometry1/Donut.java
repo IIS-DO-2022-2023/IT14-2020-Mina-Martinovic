@@ -10,25 +10,17 @@ import mvc.DrawingModel;
 
 public class Donut extends Circle{
 	
+	private static final long serialVersionUID = 1L;
 	protected int innerRadius;
 	protected int outerRadius;
 
-	protected Color color;
-	protected Color edgecolor;
-	private DrawingModel model = new DrawingModel(null);
-	
-	public Color getColor() {
-		return color;
-	}
+	private boolean confirmation;
 
-	public void setColor(Color color) {
-		this.color = color;
-	}
+	protected Color fillColor;
+	protected Color edgecolor;
+	private DrawingModel model = new DrawingModel();
 	
-	public void setEdgeColor(Color edgecolor) {
-		this.edgecolor = edgecolor;
-	}
-	
+
 
 	public Donut() {
 		
@@ -44,6 +36,14 @@ public class Donut extends Circle{
 	public Donut(Point center, int radius, int innerRadius, boolean selected) {
 		this(center, radius, innerRadius);
 		setSelected(selected);
+	}
+	
+	public Donut(Point center, int outerRadius, int innerRadius, Color edgecolor, Color fillColor) {
+		super(center,outerRadius);
+			this.innerRadius = innerRadius;
+			this.outerRadius = outerRadius;
+			this.edgecolor = edgecolor;
+			this.fillColor = fillColor;
 	}
 	
 	public double area() {
@@ -63,7 +63,34 @@ public class Donut extends Circle{
 			return false;
 		}
 	}
+	/*
+	public Donut clone() {
+		
+		return new Donut(center.clone(), outerRadius, innerRadius, getEdgecolor(), getFillColor());
+
+    }
+    */
 	
+	public Color getEdgecolor() {
+		return edgecolor;
+	}
+
+	public void setEdgecolor(Color edgecolor) {
+		this.edgecolor = edgecolor;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Color getFillColor() {
+		return fillColor;
+	}
+
+	public DrawingModel getModel() {
+		return model;
+	}
+
 	public boolean contains (int x, int y) {
 		return center.distance(x, y) >= innerRadius && super.contains(x,y);
 	}
@@ -110,6 +137,43 @@ public void draw(Graphics g) {
 	 model.add(Shape);
 	// ArrayList<Color>colors = new ArrayList<>();
 	 //colors.add(new Color(0, 0, 0, 0)); // Transparentna boja
+	 
+	 /*
+	  * Color color = new Color (255.0f / 255.0f, 255.0f / 255.0f, 221.0f / 255.0f, 0.0f); 
+		g.setColor(color);
+		
+		g.fillOval(this.getCenter().getX() - this.getInnerRadius(), this.getCenter().getY() - this.getInnerRadius(),
+				this.getInnerRadius() * 2, this.getInnerRadius() * 2);
+		
+		if (getFillColor() != null) {
+			g.setColor(getFillColor());
+			for(int i = getInnerRadius(); i < getOuterRadius(); i++) {
+				g.drawOval(this.getCenter().getX() - i,
+						  this.getCenter().getY() - i, i * 2,
+						  i * 2);		
+			}	
+		}
+		
+		if (getOutlineColor() != null)
+			g.setColor(getOutlineColor());
+		g.drawOval(this.getCenter().getX() - this.getOuterRadius(), this.getCenter().getY() - this.getOuterRadius(),
+				this.getOuterRadius() * 2, this.getOuterRadius() * 2);
+		g.drawOval(this.getCenter().getX() - this.getInnerRadius(), this.getCenter().getY() - this.getInnerRadius(),
+				this.getInnerRadius() * 2, this.getInnerRadius() * 2);
+		
+		g.setColor(new Color(0, 0, 0));
+		if (isSelected()) {
+			g.setColor(Color.RED);
+			g.drawRect(this.getCenter().getX() - innerRadius - 3, this.getCenter().getY() - 3, 6, 6);
+			g.drawRect(this.getCenter().getX() + innerRadius - 3, this.getCenter().getY() - 3, 6, 6);
+			g.drawRect(this.getCenter().getX() - 3, this.getCenter().getY() - innerRadius - 3, 6, 6);
+			g.drawRect(this.getCenter().getX() - 3, this.getCenter().getY() + innerRadius - 3, 6, 6);
+			g.drawRect(this.getCenter().getX() - outerRadius - 3 , this.getCenter().getY() , 6, 6);
+			g.drawRect(this.getCenter().getX() + outerRadius - 3 , this.getCenter().getY() , 6, 6);
+			g.drawRect(this.getCenter().getX() - 3, this.getCenter().getY() - outerRadius - 3, 6, 6);
+			g.drawRect(this.getCenter().getX() - 3, this.getCenter().getY() + outerRadius - 3, 6, 6);
+		}
+	  */
 	
 	if(selected) {
 		g.setColor(Color.BLUE);
@@ -150,6 +214,26 @@ public void draw(Graphics g) {
 
 	public void setOuterRadius(int outerRadius) {
 		this.outerRadius = outerRadius;
+	}
+	
+	public Color getColor() {
+		return fillColor;
+	}
+
+	public void setColor(Color color) {
+		this.fillColor = color;
+	}
+	
+	public void setEdgeColor(Color edgecolor) {
+		this.edgecolor = edgecolor;
+	}
+
+	public boolean isConfirmation() {
+		return confirmation;
+	}
+
+	public void setConfirmation(boolean confirmation) {
+		this.confirmation = confirmation;
 	}
 	
 	public String toString() {

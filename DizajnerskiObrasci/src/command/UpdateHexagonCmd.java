@@ -19,11 +19,11 @@ public class UpdateHexagonCmd implements Command{
 	public void execute() {
 		originalState.getHexagon().setX(oldHex.getHexagon().getX());
 		originalState.getHexagon().setY(oldHex.getHexagon().getY());
-		originalState.getHexagon().setRadius(oldHex.getHexagon().getRadius());
+		originalState.getHexagon().setR(oldHex.getHexagon().getR());
 		
 		oldHex.getHexagon().setX(newHex.getHexagon().getX());
 		oldHex.getHexagon().setY(newHex.getHexagon().getY());
-		oldHex.getHexagon().setRadius(newHex.getHexagon().getRadius());
+		oldHex.getHexagon().setR(newHex.getHexagon().getR());
 		
 	}
 
@@ -31,7 +31,7 @@ public class UpdateHexagonCmd implements Command{
 	public void unexecute() {
 		oldHex.getHexagon().setX(originalState.getHexagon().getX());
 		oldHex.getHexagon().setY(originalState.getHexagon().getY());
-		oldHex.getHexagon().setRadius(originalState.getHexagon().getRadius());
+		oldHex.getHexagon().setR(originalState.getHexagon().getR());
 		
 	}
 

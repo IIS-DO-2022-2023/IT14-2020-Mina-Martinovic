@@ -20,7 +20,7 @@ public class AddCircleCmd implements Command {
 
 	@Override
 	public void unexecute() {
-		model.remove(circle);
+		model.removeShape(circle);
 	}
 	
 	@Override

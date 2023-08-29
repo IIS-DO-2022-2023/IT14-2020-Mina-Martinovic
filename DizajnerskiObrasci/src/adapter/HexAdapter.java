@@ -9,10 +9,12 @@ import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
-import hexagon.Hexagon;
+import geometry1.SurfaceShape;
+import geometry1.Hexagon;
 
-public abstract class HexAdapter implements Shape{
+public class HexAdapter extends SurfaceShape{
 
+	private static final long serialVersionUID = 1L; //za serijaklizaciju
 	private Hexagon hexagon;
 	
 	public HexAdapter() {
@@ -34,32 +36,26 @@ public abstract class HexAdapter implements Shape{
 	}
 	
 	public void draw(Graphics g) {
-		hexagon.doesContain(0, 0); //izmeni i proveri da li je ta metoda u hex
+		hexagon.paint(g); //izmeni i proveri da li je ta metoda u hex
+	}
+	
+	public HexAdapter clone() {
+		Hexagon h;
+		h = new Hexagon(hexagon.getX(), hexagon.getY(), hexagon.getR());
+		h.setBorderColor(hexagon.getBorderColor());
+		h.setAreaColor(hexagon.getAreaColor());
+		return new HexAdapter(h);
 	}
 
-	@Override
-	public Rectangle getBounds() {
-		// TODO Auto-generated method stub
-		return null;
+
+	public int compareTo(Object o) {
+		return 0;
 	}
 
-	@Override
-	public Rectangle2D getBounds2D() {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean contains(int x, int y) {
+		return hexagon.doesContain(x, y);
 	}
-
-	@Override
-	public boolean contains(double x, double y) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean contains(Point2D p) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 	public Hexagon getHexagon() {
 		return hexagon;
 	}
@@ -81,23 +77,23 @@ public abstract class HexAdapter implements Shape{
 	public Color getColor() {
 		return hexagon.getBorderColor();
 	}
-	/*
+	
 	public void setColor(Color color) {
 		hexagon.setBorderColor(color);
 		super.setOutlineColor(color);
 	}
-	*/
+	
 	
 	public Color getInteriorColor() {
 		return hexagon.getAreaColor();
 	}
 	
-	/*
+	
 	public void setInteriorColor(Color color) {
 		hexagon.setAreaColor(color);
 		super.setFillColor(color);
 	}
-	*/
+	
 	public void setSelected(boolean selected) {
 		this.hexagon.setSelected(selected);
 	}

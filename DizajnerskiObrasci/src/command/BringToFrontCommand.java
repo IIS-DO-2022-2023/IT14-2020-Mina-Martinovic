@@ -4,7 +4,7 @@ import geometry1.Shape;
 import geometry1.ShapeManager;
 import mvc.DrawingModel;
 
-class BringToFrontCommand implements Command {
+public class BringToFrontCommand implements Command {
 	
 	private DrawingModel model;
    // private ShapeManager shapeManager;

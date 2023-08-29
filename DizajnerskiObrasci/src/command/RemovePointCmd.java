@@ -16,7 +16,7 @@ public class RemovePointCmd implements Command{
 
 	@Override
 	public void execute() {
-		model.remove(point);
+		model.removeShape(point);
 
 	}
 
