@@ -35,12 +35,29 @@ public class DlgCircle extends JDialog {
 	protected JTextField radius;
 	protected JTextField visina;
 	protected boolean isOk;
+	//private boolean confirm;
 
 	private boolean confirmation;
 	private boolean innerColorConfirmation;
 	private boolean ColorConfirmation;
 	Color innerFill = new Color(255, 255, 255);
 	Color borderFill;
+	
+	public boolean isConfirmation() {
+		return confirmation;
+	}
+
+	public void setConfirmation(boolean confirmation) {
+		this.confirmation = confirmation;
+	}
+
+	public JTextField getRadius() {
+		return radius;
+	}
+
+	public void setRadius(JTextField radius) {
+		this.radius = radius;
+	}
 
 	/**
 	* Create the dialog.
@@ -215,4 +232,8 @@ public class DlgCircle extends JDialog {
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 
-}}
+}
+
+	public DlgCircle() {
+		// TODO Auto-generated constructor stub
+	}}

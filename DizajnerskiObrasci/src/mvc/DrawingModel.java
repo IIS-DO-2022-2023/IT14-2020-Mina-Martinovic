@@ -1,8 +1,6 @@
 package mvc;
 
 import java.awt.Color;
-import java.awt.geom.Area;
-import java.awt.geom.Ellipse2D;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -10,10 +8,8 @@ import java.util.List;
 import java.util.Stack;
 
 import command.Command;
-import geometry1.Circle;
 import geometry1.Point;
 import geometry1.Shape;
-import strategy.DrawingStorageStrategy;
 
 public class DrawingModel {
 	
@@ -24,12 +20,13 @@ public class DrawingModel {
 	private Stack<Command> undoStack = new Stack<>();
 	private Stack<Command> redoStack = new Stack<>();
 
-
 	public static String drawingObject = "Point" ;
 	public static Color color = new Color(255, 255, 255);
+	
 	private Point startPoint;
 	private PropertyChangeSupport propertyChangeSupport; //zaposmatranje objekata->Observer obrazac
 
+	
 	public DrawingModel() {
 		propertyChangeSupport = new PropertyChangeSupport(this);
 	}
@@ -42,59 +39,6 @@ public class DrawingModel {
 		propertyChangeSupport.removePropertyChangeListener(propertyChangeListener);
 	}
 
-	
-	/*public Point get (int index) {
-		return shapes.get(index);
-	}
-*/
-	/*
-	  @Override
-	    public String toString() {
-	        StringBuilder sb = new StringBuilder();
-	        for (Shape shape : shapes) {
-	            sb.append(shape.toString()).append("\n");
-	        }
-	        return sb.toString();
-	    }
-	    */
-	  /*Ova metoda prolazi kroz sve oblike (shapes) u crtežu i koristi njihove toString() metode kako bi ih dodala u StringBuilder. Svaki oblik se dodaje na novu liniju (\n).
-
-Na kraju, StringBuilder koji sadrži sve oblike se pretvara u jedan veliki string koristeći toString() metodu StringBuilder klase, i taj string se vraća kao rezultat.
-
-Ovo je korisno jer omogućava da dobijete tekstualni prikaz celog crteža. Na primer, ako imate crtež sa nekoliko oblika (krugova, pravougaonika itd.), pozivanje toString() na tom crtežu će rezultirati stringom koji sadrži informacije o svim oblicima.
-
-Ovaj oblik implementacije toString() metode je čest u Javi i koristi se za olakšavanje debugiranja i pregleda objekata u čitljivom obliku.
-*/
-	  private DrawingStorageStrategy storageStrategy;
-
-	  /*
-	    public DrawingModel(DrawingStorageStrategy storageStrategy) {
-	        this.storageStrategy = storageStrategy;
-	    }
-	    */
-
-	    public void saveDrawing(String filePath) {
-	        DrawingStorageStrategy.saveDrawing(this, filePath); // Poziv strategije za čuvanje crteža
-	    }
-
-		/*public void addTransparentCircleWithHole() {
-			 Ellipse2D outerCircle = new Ellipse2D.Double(50, 50, 100, 100);
-		     Ellipse2D innerCircle = new Ellipse2D.Double(70, 70, 60, 60);
-		     // Ova klasa ima konstruktor sa četiri parametra: 
-		     //(double x, double y, double width, double height). 
-		     //Ovi parametri se odnose na koordinate gornjeg levog ugla elipse (x i y),
-		     //širinu elipse (width) i visinu elipse (height)
-
-		     Area area = new Area(outerCircle);
-		     area.subtract(new Area(innerCircle));
-
-		     Shape Shape = null; //izmeni!!!!!!!
-			shapes.add(Shape);
-			ArrayList<Color>colors = new ArrayList<>();
-			 colors.add(new Color(0, 0, 0, 0)); // Transparentna boja
-			
-		}
-*/
 		
 		public Stack<Command> getUndoStack() {
 			return undoStack;
@@ -178,7 +122,8 @@ Ovaj oblik implementacije toString() metode je čest u Javi i koristi se za olak
 		public void removeFromUndoStack() {
 			int undoStackSizeBefore = undoStack.size();
 			if(undoStack.peek()!=null) {
-				this.undoStack.pop().unexecute();
+				this.undoStack.pop().unexecute(); // uklanja i vraća poslednji element sa steka za "undo".  Nakon što se akcija povuče iz steka, poziva se metoda unexecute() na toj akciji. 
+				// metoda treba da ima logiku za poništavanje efekata akcije. Na primer, ako je akcija bila dodavanje oblika na crtež, unexecute() bi trebalo da obriše taj oblik.
 			}
 			propertyChangeSupport.firePropertyChange("Undo Stack Remove", undoStackSizeBefore, undoStack.size());
 		}
@@ -213,7 +158,7 @@ Ovaj oblik implementacije toString() metode je čest u Javi i koristi se za olak
 			int selectedShapesSizeBefore = selectedShapes.size();
 			selectedShapes.add(selectedShape);
 			System.out.println(shapes.get(0).isSelected());
-			propertyChangeSupport.firePropertyChange("Selected Shapes", selectedShapesSizeBefore, selectedShapes.size());
+			propertyChangeSupport.firePropertyChange("Selected Shapes", selectedShapesSizeBefore, selectedShapes.size()); //generiše događaj koji obaveštava sve registrovane slušaoce (listener-e) o promeni u svojstvima modela
 		}
 		
 		public void removeSelectedShape(Shape toBeRemoved) {

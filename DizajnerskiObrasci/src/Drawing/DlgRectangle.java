@@ -31,8 +31,8 @@ public class DlgRectangle extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	protected JTextField xKoordinata;
 	protected JTextField yKoordinata;
-	protected JTextField sirina;
-	protected JTextField visina;
+	protected JTextField width;
+	protected JTextField height;
 	protected boolean isOk;
 	
 	  private boolean confirmation;
@@ -40,13 +40,48 @@ public class DlgRectangle extends JDialog {
 	  private boolean ColorConfirmation;
 	  Color innerFill = new Color(255, 255, 255);
 	  Color borderFill;
-	 
+
+
+	public JTextField getTxtWidth() {
+		return width;
+	}
+
+
+
+	public void setWidth(JTextField width) {
+		this.width = width;
+	}
+
+
+
+	public JTextField getTxtHeight() {
+		return height;
+	}
+
+
+
+	public void setHeight(JTextField height) {
+		this.height = height;
+	}
+
+
+
+	public boolean isConfirmation() {
+		return confirmation;
+	}
+
+
+
+	public void setConfirmation(boolean confirmation) {
+		this.confirmation = confirmation;
+	}
+
 
 
 	/**
 	 * Create the dialog.
 	 */
-	public DlgRectangle(int x_koordinata, int y_koordinata, int sir, int vis) {
+	public DlgRectangle() {
 		setBounds(100, 100, 450, 300);
 		setTitle("Karakteristike pravougaonika");
 		setModal(true);
@@ -70,7 +105,7 @@ public class DlgRectangle extends JDialog {
 		}
 		{
 			xKoordinata = new JTextField();
-			xKoordinata.setText(Integer.toString(x_koordinata));
+			//xKoordinata.setText(Integer.toString(x_koordinata));
 			GridBagConstraints gbc_txtXKoordinata = new GridBagConstraints();
 			gbc_txtXKoordinata.insets = new Insets(0, 0, 5, 0);
 			gbc_txtXKoordinata.fill = GridBagConstraints.HORIZONTAL;
@@ -90,7 +125,7 @@ public class DlgRectangle extends JDialog {
 		}
 		{
 			yKoordinata = new JTextField();
-			yKoordinata.setText(Integer.toString(y_koordinata));
+			//yKoordinata.setText(Integer.toString(y_koordinata));
 			GridBagConstraints gbc_txtYKoordinata = new GridBagConstraints();
 			gbc_txtYKoordinata.insets = new Insets(0, 0, 5, 0);
 			gbc_txtYKoordinata.fill = GridBagConstraints.HORIZONTAL;
@@ -109,14 +144,14 @@ public class DlgRectangle extends JDialog {
 			contentPanel.add(lblSirina, gbc_lblSirina);
 		}
 		{
-			sirina = new JTextField();
-			sirina.setText(Integer.toString(sir));
+			width = new JTextField();
+			//width.setText(Integer.toString(sir));
 			GridBagConstraints gbc_txtSirina = new GridBagConstraints();
 			gbc_txtSirina.fill = GridBagConstraints.HORIZONTAL;
 			gbc_txtSirina.gridx = 1;
 			gbc_txtSirina.gridy = 3;
-			contentPanel.add(sirina, gbc_txtSirina);
-			sirina.setColumns(10);
+			contentPanel.add(width, gbc_txtSirina);
+			width.setColumns(10);
 		}
 		{
 			JLabel lblVisina = new JLabel("Visina je:");
@@ -128,14 +163,14 @@ public class DlgRectangle extends JDialog {
 			contentPanel.add(lblVisina, gbc_lblVisina);
 		}
 		{
-			visina = new JTextField();
-			visina.setText(Integer.toString(vis));
+			height = new JTextField();
+			//height.setText(Integer.toString(vis));
 			GridBagConstraints gbc_txtVisina = new GridBagConstraints();
 			gbc_txtVisina.fill = GridBagConstraints.HORIZONTAL;
 			gbc_txtVisina.gridx = 1;
 			gbc_txtVisina.gridy = 4;
-			contentPanel.add(visina, gbc_txtVisina);
-			visina.setColumns(10);
+			contentPanel.add(height, gbc_txtVisina);
+			height.setColumns(10);
 		}
 		
 		
@@ -224,8 +259,8 @@ public class DlgRectangle extends JDialog {
 							if(PanelDrawing.shapes.get(i).isSelected()) {
 								Rectangle r1 = new Rectangle(
 										new Point(Integer.parseInt(xKoordinata.getText()), Integer.parseInt(yKoordinata.getText())),
-										Integer.parseInt(sirina.getText()),
-										Integer.parseInt(visina.getText()));
+										Integer.parseInt(width.getText()),
+										Integer.parseInt(height.getText()));
 								r1.setColor(innerFill);
 								r1.setEdgeColor(borderFill);
 								PanelDrawing.shapes.set(i, r1);  // zameni tekuci element sa izmenjenim
@@ -237,8 +272,8 @@ public class DlgRectangle extends JDialog {
 						if (isModifying == false) {
 							Rectangle r1 = new Rectangle(
 									new Point(Integer.parseInt(xKoordinata.getText()), Integer.parseInt(yKoordinata.getText())),
-									Integer.parseInt(sirina.getText()),
-									Integer.parseInt(visina.getText()));
+									Integer.parseInt(width.getText()),
+									Integer.parseInt(height.getText()));
 							r1.setColor(innerFill);
 							r1.setEdgeColor(borderFill);
 							PanelDrawing.shapes.add(r1);
@@ -265,5 +300,8 @@ public class DlgRectangle extends JDialog {
 			}
 		}
 	}
+
+
+
 
 }

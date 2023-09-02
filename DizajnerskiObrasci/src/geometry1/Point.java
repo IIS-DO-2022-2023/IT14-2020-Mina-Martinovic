@@ -36,6 +36,12 @@ public class Point extends Shape{
 		// this.selected = selected;
 	}
 
+	public Point(int x, int y, Color color) {
+		this.x = x;
+		this.y = y;
+		setOutlineColor(color);
+	}
+
 	public double distance(int x2, int y2) {
 		double dx = this.x - x2;
 		double dy = this.y - y2;

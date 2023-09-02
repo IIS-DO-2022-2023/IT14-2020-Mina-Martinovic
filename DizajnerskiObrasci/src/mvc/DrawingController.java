@@ -17,10 +17,17 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Drawing.DlgCircle;
 import Drawing.DlgDonut;
+import Drawing.DlgHexagon;
 import Drawing.DlgLine;
 import Drawing.DlgPoint;
 import Drawing.DlgRectangle;
+import adapter.HexAdapter;
+import command.AddCircleCmd;
 import command.AddDonutCmd;
+import command.AddHexagonCmd;
+import command.AddLineCmd;
+import command.AddPointCmd;
+import command.AddRectangleCmd;
 import command.BringToBackCommand;
 import command.BringToFrontCommand;
 
@@ -30,9 +37,11 @@ import command.SelectCommand;
 import command.ToBackCommand;
 import command.ToFrontCommand;
 import command.UnselectCommand;
+import command.UpdateLineCmd;
 import command.UpdatePointCmd;
 import geometry1.Circle;
 import geometry1.Donut;
+import hexagon.Hexagon;
 import geometry1.Line;
 import geometry1.Point;
 import geometry1.Rectangle;
@@ -54,51 +63,60 @@ public class DrawingController implements PropertyChangeListener{
 	tofront to back i sve i za cuvanje i ucitavanje i readlog OVDE!!
 	*/
 	
+	private Color outColor = Color.BLACK;
+	private Color inColor = Color.WHITE;
+
 	private boolean isFirstClick = true;
 	private int line_x = 0;
 	private int line_y = 0;
+	
 	private DefaultListModel<String> actLog;
 	private FileManager fileManager;
-	//private PropertyChangeSupport propertyChangeSupport;
 
-//	public DrawingController() {
-	//	propertyChangeSupport = new PropertyChangeSupport(this);
-	//}
 	
 	public DrawingController(DrawingModel model, DrawingFrame frame) {
+		super();
 		this.model = model;
 		this.frame = frame;
 		this.actLog = frame.getDlmList();
 	}
 	
+	public void mouseClicked(MouseEvent e) throws Exception{
+		stateChecker(e);
+		if(checkShapes(e) == false) {
+			unselectAll();
+		}
+		frame.getView().repaint();
+	}
+	
 	private PropertyChangeEvent pce;
 	@Override 
-	public void propertyChange(PropertyChangeEvent evt) {
-		this.pce = evt;
-		if((int) evt.getNewValue() == 1 && evt.getPropertyName() == "Selected Shapes" || model.getSelectedShapes().size() == 1) {
-			frame.getbtnModifikacija().setVisible(true);
+	public void propertyChange(PropertyChangeEvent event) {
+		this.pce = event;
+		if((int) event.getNewValue() == 1 && event.getPropertyName() == "Selected Shapes" || model.getSelectedShapes().size() == 1) {
+			frame.getTglBtnModify().setVisible(true); //ako postoji selektovan oblik
 		} 
 		else {
-			frame.getbtnModifikacija().setVisible(false);
+			frame.getTglBtnModify().setVisible(false);
 		}
-		if((int) evt.getNewValue() == 1 && evt.getPropertyName() == "Selected Shapes" || model.getSelectedShapes().size() > 0) {
-			frame.getbtnBrisanje().setVisible(true);
+		if((int) event.getNewValue() == 1 && event.getPropertyName() == "Selected Shapes" || model.getSelectedShapes().size() > 0) {
+			frame.getTglBtnDelete().setVisible(true); //isto
 		} else {
-			frame.getbtnBrisanje().setVisible(false);
+			frame.getTglBtnDelete().setVisible(false);
 		}
-		if((int) evt.getNewValue() == 0 && evt.getPropertyName() == "Deleted Shapes") {
-			frame.getbtnModifikacija().setVisible(false);
-			frame.getbtnBrisanje().setVisible(false);
+		if((int) event.getNewValue() == 0 && event.getPropertyName() == "Deleted Shapes") {
+			frame.getTglBtnModify().setVisible(false);
+			frame.getTglBtnDelete().setVisible(false);
 		}
-		if(evt.getPropertyName() == "Undo Stack" && (int) evt.getNewValue() > 0) {
-			frame.getBtnUndo().setVisible(true);
-		} else if ((int)evt.getNewValue() == 0 && evt.getPropertyName() == "Undo Stack Remove"){
+		if(event.getPropertyName() == "Undo Stack" && (int) event.getNewValue() > 0) {
+			frame.getBtnUndo().setVisible(true); //dostupni kad je dostupna i funkcionalnost
+		} else if ((int)event.getNewValue() == 0 && event.getPropertyName() == "Undo Stack Remove"){
 			frame.getBtnUndo().setVisible(false);
 		}
 
-		if(evt.getPropertyName() == "Redo Stack" && (int) evt.getNewValue() > 0) {
-			frame.getBtnRedo().setVisible(true);
-		} else if ((int) evt.getNewValue() == 0 && evt.getPropertyName() == "Redo Stack Remove") {
+		if(event.getPropertyName() == "Redo Stack" && (int) event.getNewValue() > 0) {
+			frame.getBtnRedo().setVisible(true);//dostupni kad je dostupna i funkcionalnost
+		} else if ((int) event.getNewValue() == 0 && event.getPropertyName() == "Redo Stack Remove") {
 			frame.getBtnRedo().setVisible(false);
 		}
 	}
@@ -108,18 +126,143 @@ public class DrawingController implements PropertyChangeListener{
 
 	public void mousePressed(MouseEvent e) {}
 	
-	public void mouseClicked(MouseEvent e) {
-		/*
-		stateChecker(e);
-		if(checkShapes(e) == false) {
-			unselectAll();
-		}
-		*/
-		frame.getView().repaint();
-	}
+	public void mouseReleased(MouseEvent e) {}
 
-	public void mouseReleased(MouseEvent e) {
 	
+	private void drawPoint(MouseEvent e) {
+		Point point = new Point(e.getX(), e.getY(), getOutColor());
+		AddPointCmd addPoint = new AddPointCmd(model, point);
+		addPoint.execute();
+		model.pushToUndoStack(addPoint);
+		actLog.addElement("Added->" + point.toString());
+		frame.getBtnRedo().setVisible(false);
+		model.getRedoStack().removeAllElements();
+	}
+	
+	private void drawLine(MouseEvent e) {
+		if(model.getStartPoint() == null)
+			model.setStartPoint(new Point(e.getX(), e.getY())) ;
+		else
+		{
+			Line line = new Line(model.getStartPoint(), new Point(e.getX(), e.getY()), outColor);
+			AddLineCmd addLine = new AddLineCmd(line, model);
+			addLine.execute();
+			model.pushToUndoStack(addLine);
+			model.setStartPoint(null);
+			actLog.addElement("Added->" + line.toString());
+			frame.getBtnRedo().setVisible(false);
+			model.getRedoStack().removeAllElements();
+		}
+	}
+	
+	private void drawCircle(MouseEvent e) {
+		DlgCircle dlgCircle = new DlgCircle();
+		dlgCircle.setVisible(true);
+		
+		if(dlgCircle.isConfirmation()) {
+			
+				if(checkType(dlgCircle.getRadius().getText())) {
+					int radius = Integer.parseInt(dlgCircle.getRadius().getText());
+					Circle circle = null;
+					try {
+						circle = new Circle(new Point(e.getX(), e.getY()), radius, outColor, inColor);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					AddCircleCmd addCircle = new AddCircleCmd(model,circle);
+					addCircle.execute();
+					model.pushToUndoStack(addCircle);
+					actLog.addElement("Added->" + circle.toString());
+					frame.getBtnRedo().setVisible(false);
+					model.getRedoStack().removeAllElements();
+				} else {
+					JOptionPane.showMessageDialog(frame,
+							"Illegal input type!",
+							"Illegal radius error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			} 
+		}
+	
+	
+	private void drawRectangle(MouseEvent e) {
+		DlgRectangle dlgRectangle = new DlgRectangle();
+		dlgRectangle.setVisible(true);
+
+		if(dlgRectangle.isConfirmation()) {
+			if(checkType(dlgRectangle.getTxtWidth().getText()) && checkType(dlgRectangle.getTxtHeight().getText())) {
+				Rectangle rectangle = new Rectangle(new Point(e.getX(), e.getY()),Integer.parseInt(dlgRectangle.getTxtWidth().getText()),Integer.parseInt(dlgRectangle.getTxtHeight().getText()), outColor, inColor);
+				AddRectangleCmd addRect = new AddRectangleCmd(model, rectangle);
+				addRect.execute();
+				model.pushToUndoStack(addRect);
+				actLog.addElement("Added->" + rectangle.toString());
+				frame.getBtnRedo().setVisible(false);
+				model.getRedoStack().removeAllElements();
+		} else {
+			JOptionPane.showMessageDialog(frame,
+					"Illegal input type!",
+					"Illegal radius error",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
+}
+	
+	private void drawDonut(MouseEvent e) {
+		DlgDonut dlgDonut = new DlgDonut();
+		dlgDonut.setVisible(true);
+
+		if(dlgDonut.isConfirmation()) {
+		
+				if(checkType(dlgDonut.getOuterRadius().getText())) {
+					if(dlgDonut.getOuterRadius().getText() != null && dlgDonut.getInnerRadius().getText() != null ) {
+						Donut donut = new Donut(new Point(e.getX(), e.getY()), Integer.parseInt(dlgDonut.getOuterRadius().getText()), Integer.parseInt(dlgDonut.getInnerRadius().getText()), outColor, inColor);
+						AddDonutCmd addDonut = new AddDonutCmd(model,donut);
+						addDonut.execute();
+						model.pushToUndoStack(addDonut);
+						actLog.addElement("Added->" + donut.toString());
+						frame.getBtnRedo().setVisible(false);
+						model.getRedoStack().removeAllElements();
+					}
+				} else {
+					JOptionPane.showMessageDialog(frame,
+							"Illegal input type!",
+							"Illegal radius error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			
+		}
+	}
+	
+	private void drawHexagon(MouseEvent e) { 
+		DlgCircle dlgHex = new DlgCircle();
+		dlgHex.setTitle("Add Hexagon");
+		dlgHex.setVisible(true);
+
+		if(dlgHex.isConfirmation()) {
+			if(checkType(dlgHex.getRadius().getText())) {
+				Hexagon hexagon = new Hexagon(e.getX(),e.getY(),Integer.parseInt(dlgHex.getRadius().getText()));
+				hexagon.setBorderColor(outColor);
+				hexagon.setAreaColor(inColor);
+				HexAdapter adapter = new HexAdapter(hexagon);
+				AddHexagonCmd addHex = new AddHexagonCmd(model,adapter);
+				addHex.execute();
+				model.pushToUndoStack(addHex);
+				actLog.addElement("Added->" + adapter.toString());
+				frame.getBtnRedo().setVisible(false);
+				model.getRedoStack().removeAllElements();
+			} else {
+				JOptionPane.showMessageDialog(frame,
+						"Illegal input type!",
+						"Illegal radius error",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+	
+	
+	
+	/*
 		//obrisi selekciju
 		for(int i = DrawingModel.shapes.size()-1; i>=0; i--) {
 			DrawingModel.shapes.get(i).setSelected(false);
@@ -136,7 +279,7 @@ public class DrawingController implements PropertyChangeListener{
 		        } else {
 		        	DrawingModel.selectedShapes.add(clickedShape);
 		        }
-		        */
+		       
 
 				if(model.getShapes().get(i).isSelected())
 				{
@@ -150,7 +293,7 @@ public class DrawingController implements PropertyChangeListener{
 			}
 		}
 	
-		
+		/*
 		public void selectShapeFromLog(Shape shape) {
 			int index = model.getShapes().indexOf(shape);
 			Shape selectedShape = model.getShapes().get(index);
@@ -208,6 +351,9 @@ public class DrawingController implements PropertyChangeListener{
 			}
 		break;
 		case "Hexagon" :
+			DlgHexagon dialog = new DlgHexagon(e.getX(), e.getY(), 0);
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
 			try {
 				
 			} catch (Exception ex) {
@@ -231,8 +377,9 @@ public class DrawingController implements PropertyChangeListener{
 			System.out.println("Izabrali ste oblik koji nije na listi!");
 		}
 	}
-	
-	public void deleteObject(ActionEvent e) {
+	*/
+
+	public void deleteObject() {
 		for (int i=DrawingModel.shapes.size()-1; i>=0; i--) {
 			if(DrawingModel.shapes.get(i).isSelected() == true) {
 				int reply = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da zelite da obrisete Vas objekat?");
@@ -249,7 +396,181 @@ public class DrawingController implements PropertyChangeListener{
 		frame.repaint();
 	}
 	
-	public void modifyObject(ActionEvent e) {
+	public void modifyObject() {
+		
+		public void modifyShape() throws Exception {
+			{
+				if(model.getSelectedShapes().get(0) instanceof Point) {
+					if(model.getSelectedShapes().get(0).isSelected()) {
+						DlgPoint dlgPoint = new DlgPoint();
+						Point oldState = (Point) model.getSelectedShapes().get(0);
+						dlgPoint.getXKoordinata().setText(Integer.toString(oldState.getX()));
+						dlgPoint.getYKoordinata().setText(Integer.toString(oldState.getY()));
+						dlgPoint.setVisible(true);
+						if(dlgPoint.isConfirmation()) {
+							if(checkType(dlgPoint.getXKoordinata().getText()) && checkType(dlgPoint.getYKoordinata().getText())) {
+								Point newState = new Point(Integer.parseInt(dlgPoint.getXKoordinata().getText()), Integer.parseInt(dlgPoint.getYKoordinata().getText()), dlgPoint.getColor());
+								actLog.addElement("Updated->" + oldState.toString() + "->" + newState.toString());
+								UpdatePointCmd pointUpdate = new UpdatePointCmd(oldState , newState);
+								pointUpdate.execute();
+								model.pushToUndoStack(pointUpdate);
+								frame.repaint();
+							} else {
+								JOptionPane.showMessageDialog(frame,
+										"Illegal input type!",
+										"Illegal radius error",
+										JOptionPane.ERROR_MESSAGE);
+							}
+						}
+					}
+				} else if (model.getSelectedShapes().get(0) instanceof Line) {
+
+					if(model.getSelectedShapes().get(0).isSelected()) {
+						DlgLine dlgLine = new DlgLine();
+						Line oldLine = (Line) model.getSelectedShapes().get(0);
+						dlgLine.getXStartPoint().setText((Integer.toString(oldLine.getStartPoint().getX())));
+						dlgLine.getYStartPoint().setText((Integer.toString(oldLine.getStartPoint().getY())));
+						dlgLine.getXEndPoint().setText((Integer.toString(oldLine.getEndPoint().getX())));
+						dlgLine.getYEndPoint().setText((Integer.toString(oldLine.getEndPoint().getY())));
+						dlgLine.setVisible(true);
+						if(dlgLine.isConfirmation()) {
+							if(checkType(dlgLine.getXStartPoint().getText()) && checkType(dlgLine.getYStartPoint().getText()) && checkType(dlgLine.getXEndPoint().getText()) && checkType(dlgLine.getYEndPoint().getText())) {
+								Line newLine = new Line(new Point(Integer.parseInt(dlgLine.getXStartPoint().getText()), Integer.parseInt(dlgLine.getYStartPoint().getText())), new Point(Integer.parseInt(dlgLine.getXEndPoint().getText()), Integer.parseInt(dlgLine.getYEndPoint().getText())), dlgLine.getColor());
+								UpdateLineCmd lineUpdate = new UpdateLineCmd(oldLine,newLine);
+								actLog.addElement("Updated->" + oldLine.toString() + "->" + newLine.toString());
+								lineUpdate.execute();
+								model.pushToUndoStack(lineUpdate);
+								frame.repaint();
+							} else {
+								JOptionPane.showMessageDialog(frame,
+										"Illegal input type!",
+										"Illegal radius error",
+										JOptionPane.ERROR_MESSAGE);
+							}
+						}
+					}
+				} else if (model.getSelectedShapes().get(0) instanceof Rectangle) {
+					if(model.getSelectedShapes().get(0).isSelected()) {
+						DlgRectangleUpdate dlgRectangleUpdate = new DlgRectangleUpdate();
+						Rectangle oldRectangle = (Rectangle) model.getSelectedShapes().get(0);
+						dlgRectangleUpdate.getTxtUpperLeftPointX().setText(Integer.toString(oldRectangle.getUpperLeftPoint().getX()));
+						dlgRectangleUpdate.getTxtUpperLeftPointY().setText(Integer.toString(oldRectangle.getUpperLeftPoint().getY()));
+						dlgRectangleUpdate.getTxtHeight().setText(Integer.toString(oldRectangle.getHeight()));
+						dlgRectangleUpdate.getTxtWidth().setText(Integer.toString(oldRectangle.getWidth()));
+						dlgRectangleUpdate.setVisible(true);
+						if(dlgRectangleUpdate.isConfirmation()) {
+							if(checkType(dlgRectangleUpdate.getTxtUpperLeftPointX().getText()) && checkType(dlgRectangleUpdate.getTxtUpperLeftPointY().getText()) && checkType(dlgRectangleUpdate.getTxtWidth().getText()) && checkType(dlgRectangleUpdate.getTxtHeight().getText())) {
+								Rectangle newRectangle = new Rectangle(new Point(Integer.parseInt(dlgRectangleUpdate.getTxtUpperLeftPointX().getText()), Integer.parseInt(dlgRectangleUpdate.getTxtUpperLeftPointY().getText())), Integer.parseInt(dlgRectangleUpdate.getTxtWidth().getText()), Integer.parseInt(dlgRectangleUpdate.getTxtHeight().getText()),dlgRectangleUpdate.getOutlineColor(), dlgRectangleUpdate.getFillColor());
+								CmdRectangleUpdate CmdRectangleUpdate = new CmdRectangleUpdate(oldRectangle,newRectangle);
+								actLog.addElement("Updated->" + oldRectangle.toString() + "->" + newRectangle.toString());
+								CmdRectangleUpdate.execute();
+								model.pushToUndoStack(CmdRectangleUpdate);
+								model.getRedoStack().removeAllElements();
+								frame.repaint();
+							} else {
+								JOptionPane.showMessageDialog(frame,
+										"Illegal input type!",
+										"Illegal radius error",
+										JOptionPane.ERROR_MESSAGE);
+							}
+						}
+					}
+				}
+				else if (model.getSelectedShapes().get(0) instanceof Donut) {
+					if(model.getSelectedShapes().get(0).isSelected()) {
+						DlgDonutUpdate dlgDonutUpdate = new DlgDonutUpdate();
+						Donut oldDonut = (Donut) model.getSelectedShapes().get(0);
+						dlgDonutUpdate.getTxtX().setText(Integer.toString(oldDonut.getCenter().getX()));
+						dlgDonutUpdate.getTxtY().setText(Integer.toString(oldDonut.getCenter().getY()));
+						dlgDonutUpdate.getTxtInnerRadius().setText(Integer.toString(oldDonut.getInnerRadius()));
+						dlgDonutUpdate.getTxtOuterRadius().setText(Integer.toString(oldDonut.getOuterRadius()));
+						dlgDonutUpdate.setVisible(true);
+						if(dlgDonutUpdate.isConfirm()) {
+							if(checkType(dlgDonutUpdate.getTxtX().getText()) && checkType(dlgDonutUpdate.getTxtY().getText()) && checkType(dlgDonutUpdate.getTxtOuterRadius().getText()) && checkType(dlgDonutUpdate.getTxtInnerRadius().getText())) {
+								Donut newDonut = new Donut(new Point(Integer.parseInt(dlgDonutUpdate.getTxtX().getText()), Integer.parseInt(dlgDonutUpdate.getTxtY().getText())), Integer.parseInt(dlgDonutUpdate.getTxtOuterRadius().getText()), Integer.parseInt(dlgDonutUpdate.getTxtInnerRadius().getText()), dlgDonutUpdate.getBorderColor(), dlgDonutUpdate.getFillColor());
+								CmdDonutUpdate CmdDonutUpdate = new CmdDonutUpdate(oldDonut, newDonut);
+								actLog.addElement("Updated->" + oldDonut.toString() + "->" + newDonut.toString());
+								CmdDonutUpdate.execute();
+								model.pushToUndoStack(CmdDonutUpdate);
+								model.getRedoStack().removeAllElements();
+								frame.repaint();
+							} else {
+								JOptionPane.showMessageDialog(frame,
+										"Illegal input type!",
+										"Illegal radius error",
+										JOptionPane.ERROR_MESSAGE);
+							}
+						}
+					}
+				}
+				else if (model.getSelectedShapes().get(0) instanceof Circle) { 
+					if(model.getSelectedShapes().get(0).isSelected()) {
+						DlgCircleUpdate dlgCircleUpdate = new DlgCircleUpdate();
+						Circle oldCircle = (Circle) model.getSelectedShapes().get(0);
+						dlgCircleUpdate.getTxtRadius().setText(Integer.toString(oldCircle.getR()));
+						dlgCircleUpdate.getTxtCenterX().setText(Integer.toString(oldCircle.getCenter().getX()));
+						dlgCircleUpdate.getTxtCenterY().setText(Integer.toString(oldCircle.getCenter().getY()));
+						dlgCircleUpdate.setVisible(true);
+						if(dlgCircleUpdate.isConfirmation()) {
+							try {
+								if(checkType(dlgCircleUpdate.getTxtCenterX().getText()) && checkType(dlgCircleUpdate.getTxtCenterY().getText()) && checkType(dlgCircleUpdate.getTxtRadius().getText())) {
+									Circle newCircle = new Circle(new Point(Integer.parseInt(dlgCircleUpdate.getTxtCenterX().getText()), Integer.parseInt(dlgCircleUpdate.getTxtCenterY().getText())), Integer.parseInt(dlgCircleUpdate.getTxtRadius().getText()),dlgCircleUpdate.getOutlineColor(), dlgCircleUpdate.getFillColor());
+									CmdCircleUpdate CmdCircleUpdate = new CmdCircleUpdate(oldCircle, newCircle);
+									actLog.addElement("Updated->" + oldCircle.toString() + "->" + newCircle.toString());
+									CmdCircleUpdate.execute();
+									model.pushToUndoStack(CmdCircleUpdate);
+									model.getRedoStack().removeAllElements();
+									frame.repaint();
+								} else {
+									JOptionPane.showMessageDialog(frame,
+											"Illegal input type!",
+											"Illegal radius error",
+											JOptionPane.ERROR_MESSAGE);
+								}
+							} catch (NumberFormatException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+				} else if (model.getSelectedShapes().get(0) instanceof HexagonAdapter) {
+					if(((HexagonAdapter) model.getSelectedShapes().get(0)).getHexagon().isSelected()) {
+						DlgHexagonUpdate dlgHexagonUpdate = new DlgHexagonUpdate();
+						HexagonAdapter oldHexagon = (HexagonAdapter) model.getSelectedShapes().get(0);
+						dlgHexagonUpdate.getTxtCenterX().setText(Integer.toString(oldHexagon.getHexagon().getX()));
+						dlgHexagonUpdate.getTxtCenterY().setText(Integer.toString(oldHexagon.getHexagon().getY()));
+						dlgHexagonUpdate.getTxtR().setText(Integer.toString(oldHexagon.getHexagon().getR()));
+						dlgHexagonUpdate.setVisible(true);
+						if(dlgHexagonUpdate.isConfirmation()) {
+							try {
+								if(checkType(dlgHexagonUpdate.getTxtCenterX().getText()) && checkType(dlgHexagonUpdate.getTxtCenterY().getText()) && checkType(dlgHexagonUpdate.getTxtR().getText())) {
+									Hexagon hex = new Hexagon(Integer.parseInt(dlgHexagonUpdate.getTxtCenterX().getText()), Integer.parseInt(dlgHexagonUpdate.getTxtCenterY().getText()), Integer.parseInt(dlgHexagonUpdate.getTxtR().getText()));
+									hex.setAreaColor(dlgHexagonUpdate.getFillColor());
+									hex.setBorderColor(dlgHexagonUpdate.getOutlineColor());
+									HexagonAdapter adapter = new HexagonAdapter(hex);
+									CmdHexagonUpdate CmdHexagonUpdate = new CmdHexagonUpdate(oldHexagon, adapter);
+									actLog.addElement("Updated->" + oldHexagon.toString() + "->" + adapter.toString());
+									CmdHexagonUpdate.execute();
+									model.pushToUndoStack(CmdHexagonUpdate);
+									model.getRedoStack().removeAllElements();
+									frame.repaint();
+								} else {
+									JOptionPane.showMessageDialog(frame,
+											"Illegal input type!",
+											"Illegal radius error",
+											JOptionPane.ERROR_MESSAGE);
+								}
+							} catch (NumberFormatException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		
+		
+		/*
 		// prolazimo kroz sve promenljive kako bi proverili koja je selektovana
 		for (int i=DrawingModel.shapes.size()-1; i>=0; i--) {
 			if(DrawingModel.shapes.get(i).isSelected()) {
@@ -263,7 +584,7 @@ public class DrawingController implements PropertyChangeListener{
 						ex.printStackTrace();
 					}
 				
-				/*
+				
 				if (DrawingModel.shapes.get(i) instanceof Point) {
 				DlgPoint dlgPoint = new DlgPoint();
 				Point oldState = (Point) model.getSelectedShapes().get(0);
@@ -279,7 +600,7 @@ public class DrawingController implements PropertyChangeListener{
 						model.pushToUndoStack(CmdPointUpdate);
 						frame.repaint();
 					}
-					*/
+					
 				}
 				else if(DrawingModel.shapes.get(i) instanceof Donut) {							
 					try {
@@ -334,15 +655,37 @@ public class DrawingController implements PropertyChangeListener{
 						ex.printStackTrace();
 					}
 				}
+				else if(DrawingModel.shapes.get(i) instanceof HexAdapter) {
+					try {
+						DlgHexagon dialog = new DlgHexagon();
+						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						dialog.setVisible(true);
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
 				
 				break;
 			}
 		}
-
+*/
 	}
-
+			}
+		}
+	}
 	
-	public void BringToFront(ActionEvent e) {
+	public void unselectAll() {
+		for(int i = 0; i< model.getSelectedShapes().size(); i++) {
+			Shape shape = model.getSelectedShapes().get(i);
+			UnselectCommand unselect = new UnselectCommand(model, shape);
+			unselect.execute();
+			actLog.addElement("Unselected->" + shape.toString());
+		}
+		frame.getbtnModifikacija().setVisible(false);
+		frame.getbtnBrisanje().setVisible(false);
+	}
+	
+	public void BringToFront() {
 		if(model.getSelectedShapes().size() == 1) {
 			int index = model.getShapes().indexOf(model.getSelectedShapes().get(0));
 			Shape shape = model.getShapes().get(index);
@@ -354,7 +697,7 @@ public class DrawingController implements PropertyChangeListener{
 		frame.repaint();
 	}
 
-	public void BringToBack(ActionEvent e) {
+	public void BringToBack() {
 		if(model.getSelectedShapes().size() == 1) {
 			int index = model.getShapes().indexOf(model.getSelectedShapes().get(0));
 			Shape shape = model.getShapes().get(index);
@@ -366,7 +709,6 @@ public class DrawingController implements PropertyChangeListener{
 		frame.repaint();
 		
 	}
-
 
 	public void undo() {
 		if(model.getUndoStack().size()>0) {
@@ -443,8 +785,9 @@ public class DrawingController implements PropertyChangeListener{
 		if(chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
 			if (chooser.getFileFilter().getDescription().equals("Serialized draw")) fileManager = new FileManager(new SerializeFile(model));
 			else if (chooser.getFileFilter().getDescription().equals("Commands log")) fileManager = new FileManager(new SerializeLog(frame, model, this));
-			else /*if (chooser.getFileFilter().getDescription().equals("Image"))*/ fileManager = new FileManager(new SerializeDrawing(frame));
-			fileManager.saveFile(chooser.getSelectedFile());
+			else if (chooser.getFileFilter().getDescription().equals("Image"))
+				fileManager = new FileManager(new SerializeDrawing(frame));
+				fileManager.saveFile(chooser.getSelectedFile());
 		}
 		chooser.setVisible(false);
 	}
@@ -535,10 +878,98 @@ public class DrawingController implements PropertyChangeListener{
 		frame.getView().repaint(); 	
 		
 	}
-	public void selectShapeFromLog(Shape selectedShape) {
-		// TODO Auto-generated method stub
+	public void selectShapeFromLog(Shape shape) {
+		int index = model.getShapes().indexOf(shape);
+		Shape selectedShape = model.getShapes().get(index);
+		SelectCommand selectCmd = new SelectCommand(model, selectedShape);
+		selectCmd.execute();
+		model.getUndoStack().push(selectCmd);
+		frame.getView().repaint();
 		
 	}
 	
+	private void selectShape(MouseEvent e) {
+		for (int i = 0; i < model.getShapes().size(); i++) {
+			if(model.getShapes().get(i).contains(e.getX(), e.getY())) {
+			
+				if(model.getShapes().get(i).isSelected()) {
+					return;
+				}
+				Shape shape = model.getShapes().get(i);
+				SelectCommand selectCmd = new SelectCommand(model, shape);
+				selectCmd.execute();
+				actLog.addElement("Selected shapes ->" +shape.toString());
+				model.getUndoStack().push(selectCmd);
+			}
+		}
+	}
+	
+	
+	private boolean checkType(String s) {
+		try {
+			Integer.parseInt(s);
+			return true;
+		} catch(NumberFormatException e1) {
+			return false;
+		}
+	}
+	
+	private boolean checkShapes(MouseEvent e) {
+		for(int i = 0; i < model.getShapes().size(); i++)
+		{
+			if(model.getShapes().get(i).contains(e.getX(), e.getY())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void stateChecker(MouseEvent e) {
+		if(frame.getState() == 1)
+		{
+			drawPoint(e);
+		}
+		else if (frame.getState() == 2)
+		{
+			drawLine(e);
+		}
+		else if (frame.getState() == 3)
+		{
+			drawCircle(e);
+		}
+		else if (frame.getState() == 4)
+		{
+			drawRectangle(e);
+		}
+		else if(frame.getState() == 5)
+		{
+			drawDonut(e);
+		}
+		else if(frame.getState() == 6)
+		{
+			drawHexagon(e);
+		}
+		else if(frame.getState() == 7)           
+		{
+			selectShape(e);
+		}
+		else if(frame.getState() == 8)
+		{
+			modifyObject();
+		}
+	}
+	
 
+	public Color getOutColor() {
+		return outColor;
+	}
+	public void setOutColor(Color outColor) {
+		this.outColor = outColor;
+	}
+	public Color getInColor() {
+		return inColor;
+	}
+	public void setInColor(Color inColor) {
+		this.inColor = inColor;
+	}
 }

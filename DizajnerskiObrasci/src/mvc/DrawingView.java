@@ -41,5 +41,5 @@ public class DrawingView extends JPanel{
 		//	this.repaint();
 		}
 	}
-	//tjt Branka ima samo ovo
+	
 }

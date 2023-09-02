@@ -33,7 +33,7 @@ public class DlgDonut extends JDialog {
 	protected JTextField yKoordinata;
 	protected JTextField innerRadius;
 	protected JTextField outerRadius;
-	protected JTextField visina;
+	protected JTextField height;
 	protected boolean isOk;
 	
 	  private boolean confirmation;
@@ -43,10 +43,41 @@ public class DlgDonut extends JDialog {
 	  Color borderFill;
 	 
 
+	public JTextField getInnerRadius() {
+		return innerRadius;
+	}
+
+
+	public void setInnerRadius(JTextField innerRadius) {
+		this.innerRadius = innerRadius;
+	}
+
+
+	public JTextField getOuterRadius() {
+		return outerRadius;
+	}
+
+
+	public void setOuterRadius(JTextField outerRadius) {
+		this.outerRadius = outerRadius;
+	}
+
+	public boolean isConfirmation() {
+		return confirmation;
+	}
+
+
+	public void setConfirmation(boolean confirmation) {
+		this.confirmation = confirmation;
+	}
+
+
+
+
 	/**
 	 * Create the dialog.
 	 */
-	public DlgDonut(int x_koordinata, int y_koordinata, int pol, int unutrasnjiPol) {
+	public DlgDonut() {
 		setBounds(100, 100, 450, 300);
 		setTitle("Karakteristike kruga sa rupom");
 		setModal(true);
@@ -70,7 +101,7 @@ public class DlgDonut extends JDialog {
 		}
 		{
 			xKoordinata = new JTextField();
-			xKoordinata.setText(Integer.toString(x_koordinata));
+			//xKoordinata.setText(Integer.toString(x_koordinata));
 			GridBagConstraints gbc_txtXKoordinata = new GridBagConstraints();
 			gbc_txtXKoordinata.insets = new Insets(0, 0, 5, 0);
 			gbc_txtXKoordinata.fill = GridBagConstraints.HORIZONTAL;
@@ -90,7 +121,7 @@ public class DlgDonut extends JDialog {
 		}
 		{
 			yKoordinata = new JTextField();
-			yKoordinata.setText(Integer.toString(y_koordinata));
+			//yKoordinata.setText(Integer.toString(y_koordinata));
 			GridBagConstraints gbc_txtYKoordinata = new GridBagConstraints();
 			gbc_txtYKoordinata.insets = new Insets(0, 0, 5, 0);
 			gbc_txtYKoordinata.fill = GridBagConstraints.HORIZONTAL;
@@ -110,7 +141,7 @@ public class DlgDonut extends JDialog {
 		}
 		{
 			innerRadius = new JTextField();
-			innerRadius.setText(Integer.toString(unutrasnjiPol));
+			//innerRadius.setText(Integer.toString(unutrasnjiPol));
 			GridBagConstraints gbc_txtInnerRadius = new GridBagConstraints();
 			gbc_txtInnerRadius.fill = GridBagConstraints.HORIZONTAL;
 			gbc_txtInnerRadius.gridx = 1;
@@ -129,7 +160,7 @@ public class DlgDonut extends JDialog {
 		}
 		{
 			outerRadius = new JTextField();
-			outerRadius.setText(Integer.toString(pol));
+			//outerRadius.setText(Integer.toString(pol));
 			GridBagConstraints gbc_txtOuterRadius = new GridBagConstraints();
 			gbc_txtOuterRadius.fill = GridBagConstraints.HORIZONTAL;
 			gbc_txtOuterRadius.gridx = 1;
@@ -263,5 +294,8 @@ public class DlgDonut extends JDialog {
 			}
 		}
 	}
+
+
+	
 
 }

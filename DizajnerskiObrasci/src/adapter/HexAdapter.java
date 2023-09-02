@@ -10,7 +10,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 import geometry1.SurfaceShape;
-import geometry1.Hexagon;
+import hexagon.Hexagon;
 
 public class HexAdapter extends SurfaceShape{
 
@@ -48,7 +48,8 @@ public class HexAdapter extends SurfaceShape{
 	}
 
 
-	public int compareTo(Object o) {
+	public int compareTo(Shape hex) {
+		if (hex instanceof HexAdapter) return hexagon.getR() - ((HexAdapter) hex).getR();
 		return 0;
 	}
 

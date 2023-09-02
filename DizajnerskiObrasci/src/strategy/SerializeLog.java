@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import javax.swing.DefaultListModel;
 
+import Drawing.DlgLog;
 import adapter.HexAdapter;
 import command.AddCircleCmd;
 import command.AddDonutCmd;
@@ -48,7 +49,7 @@ public class SerializeLog implements OptionChooser{
 	private DrawingModel model;
 	private DrawingController controller;
 	
-	private DlgParse dlgParse;
+	private DlgLog dlgLog;
 	
 	private Point latestPoint;
 	private Line latestLine;
@@ -83,10 +84,10 @@ public class SerializeLog implements OptionChooser{
 	public void openFile(File file) {
 		try {
 			reader = new BufferedReader(new FileReader(file));
-			dlgParse = new DlgParse();
-			dlgParse.setFileLog(this);
-			dlgParse.addCommand(reader.readLine());
-			dlgParse.setVisible(true);
+			dlgLog = new DlgLog();
+			dlgLog.setFileLog(this);
+			dlgLog.addCommand(reader.readLine());
+			dlgLog.setVisible(true);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}		
@@ -196,9 +197,9 @@ public class SerializeLog implements OptionChooser{
 					break;
 			}
 			String line = reader.readLine();
-			if (line != null) dlgParse.addCommand(line);
+			if (line != null) dlgLog.addCommand(line);
 			else {
-				dlgParse.closeDialog();
+				dlgLog.closeDialog();
 				return;
 			}
 		} catch (Exception e){
@@ -206,7 +207,7 @@ public class SerializeLog implements OptionChooser{
 		}
 	}
 	
-	private Shape parseShape(String shape, String shapeParameters) {
+	private Shape parseShape(String shape, String shapeParameters) throws Exception {
 		if (shape.equals("Point")) return parsePoint(shapeParameters);
 		else if (shape.equals("Hexagon")) return parseHexagon(shapeParameters);
 		else if (shape.equals("Line")) return parseLine(shapeParameters);
@@ -237,7 +238,7 @@ public class SerializeLog implements OptionChooser{
 		return new Line(startPoint, endPoint, lineColor);
 	}
 
-	private Circle parseCircle(String string) throws NumberFormatException{
+	private Circle parseCircle(String string) throws Exception{
 		String [] circleParts = string.split(";"); 	
 		int radius = Integer.parseInt(circleParts[0].split("=")[1]);
 		int x = Integer.parseInt(circleParts[1].split("=")[1]);

@@ -33,6 +33,12 @@ public class Line extends Shape{
 		//this.selected = selected;
 	}
 
+	public Line(Point startPoint, Point endPoint, Color color) {
+		this.startPoint = startPoint;
+		this.endPoint = endPoint;
+		setOutlineColor(color);
+	}
+
 	public double length() {
 		return this.startPoint.distance(this.endPoint.getX(), this.endPoint.getY());
 	}

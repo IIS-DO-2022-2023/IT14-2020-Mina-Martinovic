@@ -41,6 +41,14 @@ public class Rectangle extends SurfaceShape {
 		// this.selected = selected;
 	}
 
+	public Rectangle(Point upperLeftPoint, int width, int height, Color outlineColor, Color fillColor) {
+		this.upperLeftPoint = upperLeftPoint;
+		this.width = width;
+		this.height = height;
+		setOutlineColor(outlineColor);
+		setFillColor(fillColor);
+	}
+
 	public int area() {
 		return this.width * this.height;
 	}

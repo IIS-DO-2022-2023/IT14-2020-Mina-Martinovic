@@ -1,6 +1,7 @@
 package Drawing;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -23,6 +24,40 @@ public class DlgPoint extends JDialog {
 	protected JTextField sirina;
 	protected JTextField visina;
 	protected boolean isOk;
+	private boolean confirmation;
+	private Color color = Color.BLACK;
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+	
+	public JTextField getXKoordinata() {
+		return xKoordinata;
+	}
+
+	public void setXKoordinata(JTextField xKoordinata) {
+		this.xKoordinata = xKoordinata;
+	}
+
+	public JTextField getYKoordinata() {
+		return yKoordinata;
+	}
+
+	public void setYKoordinata(JTextField yKoordinata) {
+		this.yKoordinata = yKoordinata;
+	}
+
+	public boolean isConfirmation() {
+		return confirmation;
+	}
+
+	public void setConfirmation(boolean confirmation) {
+		this.confirmation = confirmation;
+	}
 
 	/**
 	 * Launch the application.

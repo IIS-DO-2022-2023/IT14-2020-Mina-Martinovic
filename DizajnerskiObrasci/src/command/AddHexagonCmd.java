@@ -2,7 +2,7 @@ package command;
 
 
 import adapter.HexAdapter;
-import geometry1.Hexagon;
+import hexagon.Hexagon;
 import geometry1.Shape;
 import mvc.DrawingModel;
 

@@ -2,9 +2,10 @@ package geometry1;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.geom.Area;
+import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
-import java.util.ArrayList;
 
 import mvc.DrawingModel;
 
@@ -102,78 +103,23 @@ public class Donut extends Circle{
 
 @Override
 public void draw(Graphics g) {
-	//g.setColor(edgecolor);
-	//g.drawOval(center.getX() - getRadius(), center.getY() - getRadius(), getRadius()*2, getRadius()*2);
-	//g.setColor(color);
-	//g.fillOval(center.getX() - getRadius(), center.getY() - getRadius(), getRadius()*2, getRadius()*2);
+
+	Graphics2D g2D=(Graphics2D)g;
+	Shape outer=new Ellipse2D.Double(center.getX() - outerRadius, center.getY() - outerRadius, 2 * outerRadius, 2 * outerRadius);
+	Shape inner=new Ellipse2D.Double(this.getCenter().getX() - this.getInnerRadius(), this.getCenter().getY() - this.getInnerRadius(), this.getInnerRadius()*2, this.getInnerRadius()*2);
+	Area circle=new Area(outer);
+	circle.subtract(new Area(inner));
+	g2D.setColor(getColor());
+	g2D.fill(circle);
+	g2D.setColor(getColor());
+	g2D.draw(circle);
 	
-	Ellipse2D outerCircle = new Ellipse2D.Double();
-	g.drawOval(center.getX() - getRadius(), center.getY() - getRadius(), getRadius()*2, getRadius()*2);
-	
-	// fill Ellipse2D.Double
-	//GradientPaint redtowhite = new GradientPaint(0,0,color.RED,100, 0,color.WHITE);
-	//g2.setPaint(redtowhite);
-	//g2.fill (new Ellipse2D.Double(0, 0, 100, 50));
-	 ArrayList<Color>colors = new ArrayList<>();
-	 colors.add(new Color(0, 0, 0, 0)); 
-	//g.fillOval(new Ellipse2D.Double(0, 0, 100, 50));
-	//g.setColor(edgecolor);
-	//g.drawOval(center.getX() - innerRadius/2, center.getY() - innerRadius/2, innerRadius, innerRadius);
-	//g.setColor(Color.WHITE);
-	//g.fillOval(center.getX() - innerRadius/2, center.getY() - innerRadius/2, innerRadius, innerRadius);
-	
-	//Ellipse2D outerCircle = new Ellipse2D.Double(center.getX() - getRadius(), center.getY() - getRadius(), getRadius()*2, getRadius()*2);
-    Ellipse2D innerCircle = new Ellipse2D.Double(center.getX() - innerRadius/2, center.getY() - innerRadius/2, innerRadius, innerRadius);
+	 
     // Ova klasa ima konstruktor sa četiri parametra: 
     //(double x, double y, double width, double height). 
     //Ovi parametri se odnose na koordinate gornjeg levog ugla elipse (x i y),
     //širinu elipse (width) i visinu elipse (height)
 
-    Area area = new Area(outerCircle);
-    area.subtract(new Area(innerCircle));
-    g.fillOval(center.getX() - getRadius(), center.getY() - getRadius(), getRadius()*2, getRadius()*2);
-
-    Shape Shape = null; //izmeni!!!!!!!
-	 model.add(Shape);
-	// ArrayList<Color>colors = new ArrayList<>();
-	 //colors.add(new Color(0, 0, 0, 0)); // Transparentna boja
-	 
-	 /*
-	  * Color color = new Color (255.0f / 255.0f, 255.0f / 255.0f, 221.0f / 255.0f, 0.0f); 
-		g.setColor(color);
-		
-		g.fillOval(this.getCenter().getX() - this.getInnerRadius(), this.getCenter().getY() - this.getInnerRadius(),
-				this.getInnerRadius() * 2, this.getInnerRadius() * 2);
-		
-		if (getFillColor() != null) {
-			g.setColor(getFillColor());
-			for(int i = getInnerRadius(); i < getOuterRadius(); i++) {
-				g.drawOval(this.getCenter().getX() - i,
-						  this.getCenter().getY() - i, i * 2,
-						  i * 2);		
-			}	
-		}
-		
-		if (getOutlineColor() != null)
-			g.setColor(getOutlineColor());
-		g.drawOval(this.getCenter().getX() - this.getOuterRadius(), this.getCenter().getY() - this.getOuterRadius(),
-				this.getOuterRadius() * 2, this.getOuterRadius() * 2);
-		g.drawOval(this.getCenter().getX() - this.getInnerRadius(), this.getCenter().getY() - this.getInnerRadius(),
-				this.getInnerRadius() * 2, this.getInnerRadius() * 2);
-		
-		g.setColor(new Color(0, 0, 0));
-		if (isSelected()) {
-			g.setColor(Color.RED);
-			g.drawRect(this.getCenter().getX() - innerRadius - 3, this.getCenter().getY() - 3, 6, 6);
-			g.drawRect(this.getCenter().getX() + innerRadius - 3, this.getCenter().getY() - 3, 6, 6);
-			g.drawRect(this.getCenter().getX() - 3, this.getCenter().getY() - innerRadius - 3, 6, 6);
-			g.drawRect(this.getCenter().getX() - 3, this.getCenter().getY() + innerRadius - 3, 6, 6);
-			g.drawRect(this.getCenter().getX() - outerRadius - 3 , this.getCenter().getY() , 6, 6);
-			g.drawRect(this.getCenter().getX() + outerRadius - 3 , this.getCenter().getY() , 6, 6);
-			g.drawRect(this.getCenter().getX() - 3, this.getCenter().getY() - outerRadius - 3, 6, 6);
-			g.drawRect(this.getCenter().getX() - 3, this.getCenter().getY() + outerRadius - 3, 6, 6);
-		}
-	  */
 	
 	if(selected) {
 		g.setColor(Color.BLUE);
