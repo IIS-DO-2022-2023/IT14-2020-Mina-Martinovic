@@ -16,11 +16,15 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Drawing.DlgCircle;
+import Drawing.DlgCircleUpdate;
 import Drawing.DlgDonut;
+import Drawing.DlgDonutUpdate;
 import Drawing.DlgHexagon;
+import Drawing.DlgHexagonUpdate;
 import Drawing.DlgLine;
 import Drawing.DlgPoint;
 import Drawing.DlgRectangle;
+import Drawing.DlgRectangleUpdate;
 import adapter.HexAdapter;
 import command.AddCircleCmd;
 import command.AddDonutCmd;
@@ -37,8 +41,12 @@ import command.SelectCommand;
 import command.ToBackCommand;
 import command.ToFrontCommand;
 import command.UnselectCommand;
+import command.UpdateCircleCmd;
+import command.UpdateDonutCmd;
+import command.UpdateHexagonCmd;
 import command.UpdateLineCmd;
 import command.UpdatePointCmd;
+import command.UpdateRectangleCmd;
 import geometry1.Circle;
 import geometry1.Donut;
 import hexagon.Hexagon;
@@ -396,7 +404,6 @@ public class DrawingController implements PropertyChangeListener{
 		frame.repaint();
 	}
 	
-	public void modifyObject() {
 		
 		public void modifyShape() throws Exception {
 			{
@@ -461,10 +468,10 @@ public class DrawingController implements PropertyChangeListener{
 						if(dlgRectangleUpdate.isConfirmation()) {
 							if(checkType(dlgRectangleUpdate.getTxtUpperLeftPointX().getText()) && checkType(dlgRectangleUpdate.getTxtUpperLeftPointY().getText()) && checkType(dlgRectangleUpdate.getTxtWidth().getText()) && checkType(dlgRectangleUpdate.getTxtHeight().getText())) {
 								Rectangle newRectangle = new Rectangle(new Point(Integer.parseInt(dlgRectangleUpdate.getTxtUpperLeftPointX().getText()), Integer.parseInt(dlgRectangleUpdate.getTxtUpperLeftPointY().getText())), Integer.parseInt(dlgRectangleUpdate.getTxtWidth().getText()), Integer.parseInt(dlgRectangleUpdate.getTxtHeight().getText()),dlgRectangleUpdate.getOutlineColor(), dlgRectangleUpdate.getFillColor());
-								CmdRectangleUpdate CmdRectangleUpdate = new CmdRectangleUpdate(oldRectangle,newRectangle);
+								UpdateRectangleCmd rectangleUpdate = new UpdateRectangleCmd(oldRectangle,newRectangle);
 								actLog.addElement("Updated->" + oldRectangle.toString() + "->" + newRectangle.toString());
-								CmdRectangleUpdate.execute();
-								model.pushToUndoStack(CmdRectangleUpdate);
+								rectangleUpdate.execute();
+								model.pushToUndoStack(rectangleUpdate);
 								model.getRedoStack().removeAllElements();
 								frame.repaint();
 							} else {
@@ -488,10 +495,10 @@ public class DrawingController implements PropertyChangeListener{
 						if(dlgDonutUpdate.isConfirm()) {
 							if(checkType(dlgDonutUpdate.getTxtX().getText()) && checkType(dlgDonutUpdate.getTxtY().getText()) && checkType(dlgDonutUpdate.getTxtOuterRadius().getText()) && checkType(dlgDonutUpdate.getTxtInnerRadius().getText())) {
 								Donut newDonut = new Donut(new Point(Integer.parseInt(dlgDonutUpdate.getTxtX().getText()), Integer.parseInt(dlgDonutUpdate.getTxtY().getText())), Integer.parseInt(dlgDonutUpdate.getTxtOuterRadius().getText()), Integer.parseInt(dlgDonutUpdate.getTxtInnerRadius().getText()), dlgDonutUpdate.getBorderColor(), dlgDonutUpdate.getFillColor());
-								CmdDonutUpdate CmdDonutUpdate = new CmdDonutUpdate(oldDonut, newDonut);
+								UpdateDonutCmd donutUpdate = new UpdateDonutCmd(oldDonut, newDonut);
 								actLog.addElement("Updated->" + oldDonut.toString() + "->" + newDonut.toString());
-								CmdDonutUpdate.execute();
-								model.pushToUndoStack(CmdDonutUpdate);
+								donutUpdate.execute();
+								model.pushToUndoStack(donutUpdate);
 								model.getRedoStack().removeAllElements();
 								frame.repaint();
 							} else {
@@ -507,7 +514,7 @@ public class DrawingController implements PropertyChangeListener{
 					if(model.getSelectedShapes().get(0).isSelected()) {
 						DlgCircleUpdate dlgCircleUpdate = new DlgCircleUpdate();
 						Circle oldCircle = (Circle) model.getSelectedShapes().get(0);
-						dlgCircleUpdate.getTxtRadius().setText(Integer.toString(oldCircle.getR()));
+						dlgCircleUpdate.getTxtRadius().setText(Integer.toString(oldCircle.getRadius()));
 						dlgCircleUpdate.getTxtCenterX().setText(Integer.toString(oldCircle.getCenter().getX()));
 						dlgCircleUpdate.getTxtCenterY().setText(Integer.toString(oldCircle.getCenter().getY()));
 						dlgCircleUpdate.setVisible(true);
@@ -515,10 +522,10 @@ public class DrawingController implements PropertyChangeListener{
 							try {
 								if(checkType(dlgCircleUpdate.getTxtCenterX().getText()) && checkType(dlgCircleUpdate.getTxtCenterY().getText()) && checkType(dlgCircleUpdate.getTxtRadius().getText())) {
 									Circle newCircle = new Circle(new Point(Integer.parseInt(dlgCircleUpdate.getTxtCenterX().getText()), Integer.parseInt(dlgCircleUpdate.getTxtCenterY().getText())), Integer.parseInt(dlgCircleUpdate.getTxtRadius().getText()),dlgCircleUpdate.getOutlineColor(), dlgCircleUpdate.getFillColor());
-									CmdCircleUpdate CmdCircleUpdate = new CmdCircleUpdate(oldCircle, newCircle);
+									UpdateCircleCmd circleUpdate = new UpdateCircleCmd(oldCircle, newCircle);
 									actLog.addElement("Updated->" + oldCircle.toString() + "->" + newCircle.toString());
-									CmdCircleUpdate.execute();
-									model.pushToUndoStack(CmdCircleUpdate);
+									circleUpdate.execute();
+									model.pushToUndoStack(circleUpdate);
 									model.getRedoStack().removeAllElements();
 									frame.repaint();
 								} else {
@@ -532,10 +539,10 @@ public class DrawingController implements PropertyChangeListener{
 							}
 						}
 					}
-				} else if (model.getSelectedShapes().get(0) instanceof HexagonAdapter) {
-					if(((HexagonAdapter) model.getSelectedShapes().get(0)).getHexagon().isSelected()) {
+				} else if (model.getSelectedShapes().get(0) instanceof HexAdapter) {
+					if(((HexAdapter) model.getSelectedShapes().get(0)).getHexagon().isSelected()) {
 						DlgHexagonUpdate dlgHexagonUpdate = new DlgHexagonUpdate();
-						HexagonAdapter oldHexagon = (HexagonAdapter) model.getSelectedShapes().get(0);
+						HexAdapter oldHexagon = (HexAdapter) model.getSelectedShapes().get(0);
 						dlgHexagonUpdate.getTxtCenterX().setText(Integer.toString(oldHexagon.getHexagon().getX()));
 						dlgHexagonUpdate.getTxtCenterY().setText(Integer.toString(oldHexagon.getHexagon().getY()));
 						dlgHexagonUpdate.getTxtR().setText(Integer.toString(oldHexagon.getHexagon().getR()));
@@ -546,11 +553,11 @@ public class DrawingController implements PropertyChangeListener{
 									Hexagon hex = new Hexagon(Integer.parseInt(dlgHexagonUpdate.getTxtCenterX().getText()), Integer.parseInt(dlgHexagonUpdate.getTxtCenterY().getText()), Integer.parseInt(dlgHexagonUpdate.getTxtR().getText()));
 									hex.setAreaColor(dlgHexagonUpdate.getFillColor());
 									hex.setBorderColor(dlgHexagonUpdate.getOutlineColor());
-									HexagonAdapter adapter = new HexagonAdapter(hex);
-									CmdHexagonUpdate CmdHexagonUpdate = new CmdHexagonUpdate(oldHexagon, adapter);
+									HexAdapter adapter = new HexAdapter(hex);
+									UpdateHexagonCmd hexUpdate = new UpdateHexagonCmd(oldHexagon, adapter);
 									actLog.addElement("Updated->" + oldHexagon.toString() + "->" + adapter.toString());
-									CmdHexagonUpdate.execute();
-									model.pushToUndoStack(CmdHexagonUpdate);
+									hexUpdate.execute();
+									model.pushToUndoStack(hexUpdate);
 									model.getRedoStack().removeAllElements();
 									frame.repaint();
 								} else {
@@ -669,10 +676,8 @@ public class DrawingController implements PropertyChangeListener{
 			}
 		}
 */
-	}
-			}
-		}
-	}
+			
+
 	
 	public void unselectAll() {
 		for(int i = 0; i< model.getSelectedShapes().size(); i++) {
@@ -681,8 +686,8 @@ public class DrawingController implements PropertyChangeListener{
 			unselect.execute();
 			actLog.addElement("Unselected->" + shape.toString());
 		}
-		frame.getbtnModifikacija().setVisible(false);
-		frame.getbtnBrisanje().setVisible(false);
+		frame.getTglBtnModify().setVisible(false);
+		frame.getTglBtnDelete().setVisible(false);
 	}
 	
 	public void BringToFront() {
@@ -807,7 +812,7 @@ public class DrawingController implements PropertyChangeListener{
 		if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 			frame.getBtnUndo().setVisible(false);
 			frame.getBtnRedo().setVisible(false);
-			frame.getDlmBoje().clear();
+			//frame.getDlmBoje().clear();
 			model.getShapes().clear();
 			model.getUndoStack().clear();
 			model.getRedoStack().clear();
@@ -924,7 +929,7 @@ public class DrawingController implements PropertyChangeListener{
 		return false;
 	}
 	
-	public void stateChecker(MouseEvent e) {
+	public void stateChecker(MouseEvent e) throws Exception {
 		if(frame.getState() == 1)
 		{
 			drawPoint(e);
@@ -955,7 +960,7 @@ public class DrawingController implements PropertyChangeListener{
 		}
 		else if(frame.getState() == 8)
 		{
-			modifyObject();
+			modifyShape();
 		}
 	}
 	

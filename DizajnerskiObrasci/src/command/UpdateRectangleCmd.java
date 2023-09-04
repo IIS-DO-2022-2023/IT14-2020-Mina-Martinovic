@@ -1,5 +1,7 @@
 package command;
 
+import java.awt.Color;
+
 import geometry1.Rectangle;
 
 public class UpdateRectangleCmd implements Command{
@@ -24,6 +26,18 @@ public class UpdateRectangleCmd implements Command{
 		oldRect.getUpperLeftPoint().setY(newRect.getUpperLeftPoint().getY());
 		oldRect.setHeight(newRect.getHeight());
 		oldRect.setWidth(newRect.getWidth());	
+		
+		if(newRect.getOutlineColor() == Color.BLACK && originalState.getOutlineColor() != Color.BLACK) {
+			oldRect.setOutlineColor(originalState.getOutlineColor());
+		} else {
+			oldRect.setOutlineColor(newRect.getOutlineColor());
+		}
+		
+		if(newRect.getFillColor() == Color.WHITE && originalState.getFillColor() != Color.WHITE) {
+			oldRect.setFillColor(originalState.getFillColor());
+		} else {
+			oldRect.setFillColor(newRect.getFillColor());
+		}
 	}
 
 	@Override
@@ -32,6 +46,8 @@ public class UpdateRectangleCmd implements Command{
 		oldRect.getUpperLeftPoint().setY(originalState.getUpperLeftPoint().getY());
 		oldRect.setHeight(originalState.getHeight());
 		oldRect.setWidth(originalState.getWidth());
+		oldRect.setOutlineColor(originalState.getOutlineColor());
+		oldRect.setFillColor(originalState.getFillColor());
 
 	}
 	

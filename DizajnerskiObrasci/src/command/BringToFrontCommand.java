@@ -1,7 +1,6 @@
 package command;
 
 import geometry1.Shape;
-import geometry1.ShapeManager;
 import mvc.DrawingModel;
 
 public class BringToFrontCommand implements Command {

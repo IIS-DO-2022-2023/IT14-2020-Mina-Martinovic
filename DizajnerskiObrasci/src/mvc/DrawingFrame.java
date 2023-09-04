@@ -26,8 +26,6 @@ import Drawing.DlgDonut;
 import Drawing.DlgLine;
 import Drawing.DlgPoint;
 import Drawing.DlgRectangle;
-import Drawing.FrmDrawing;
-import Drawing.PanelListener;
 import geometry1.Circle;
 import geometry1.Donut;
 import geometry1.Line;
@@ -556,7 +554,12 @@ public class DrawingFrame extends JFrame{
 		tglbtnModify.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-					controller.modifyObject();
+				try {
+					controller.modifyShape();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 			}
 		});

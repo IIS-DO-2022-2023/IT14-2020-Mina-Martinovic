@@ -245,38 +245,11 @@ public class DlgDonut extends JDialog {
 					 * 
 					 */
 					
-					public void actionPerformed(ActionEvent e) {
-						boolean isModifying = false;
-						//provera da li se radi modifikacija
-						for (int i=PanelDrawing.shapes.size()-1; i>=0; i--) {
-							if(PanelDrawing.shapes.get(i).isSelected()) {
-								Donut d1 = new Donut(
-										new Point(Integer.parseInt(xKoordinata.getText()), Integer.parseInt(yKoordinata.getText())),
-										Integer.parseInt(outerRadius.getText()),
-										Integer.parseInt(innerRadius.getText())
-										);
-								d1.setColor(innerFill);
-								d1.setEdgeColor(borderFill);
-								PanelDrawing.shapes.set(i, d1); // zameni tekuci element sa izmenjenim
-								isModifying = true;
-								break;
-							}
-						}
-						//radimo dodavanje objekata
-						if(isModifying == false) {
-							Donut d1 = new Donut(
-									new Point(Integer.parseInt(xKoordinata.getText()), Integer.parseInt(yKoordinata.getText())),
-									Integer.parseInt(outerRadius.getText()),
-									Integer.parseInt(innerRadius.getText())
-									);
-							d1.setColor(innerFill);
-							d1.setEdgeColor(borderFill);
-							PanelDrawing.shapes.add(d1);
-						isOk=true;
+					public void actionPerformed(ActionEvent arg0) {
+						setConfirmation(true);
 						setVisible(false);
 					}
-				
-					}});
+					});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);

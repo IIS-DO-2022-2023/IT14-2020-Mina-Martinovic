@@ -191,32 +191,9 @@ public class DlgCircle extends JDialog {
 		JButton okButton = new JButton("OK");
 		okButton.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {
-				boolean isModifying = false;
-				// provera da li se radi modifikacija
-				for (int i = PanelDrawing.shapes.size() - 1; i >= 0; i--) {
-					if (PanelDrawing.shapes.get(i).isSelected()) {
-						Circle c1 = new Circle(new Point(Integer.parseInt(xKoordinata.getText()),
-								Integer.parseInt(yKoordinata.getText())), Integer.parseInt(radius.getText()));
-						c1.setColor(innerFill);
-						c1.setEdgeColor(borderFill);
-						PanelDrawing.shapes.set(i, c1); // zameni tekuci element sa izmenjenim
-						isModifying = true;
-						break;
-					}
-				}
-				// radimo dodavanje objekta
-				if (isModifying == false) {
-					Circle c1 = new Circle(new Point(Integer.parseInt(xKoordinata.getText()),
-							Integer.parseInt(yKoordinata.getText())), Integer.parseInt(radius.getText()));
-					c1.setColor(innerFill);
-					c1.setEdgeColor(borderFill);
-					PanelDrawing.shapes.add(c1);
-				}
-
-				isOk = true;
+			public void actionPerformed(ActionEvent arg0) {
+				setConfirmation(true);
 				setVisible(false);
-
 			}
 		});
 		okButton.setActionCommand("OK");

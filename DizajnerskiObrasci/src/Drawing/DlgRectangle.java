@@ -42,6 +42,30 @@ public class DlgRectangle extends JDialog {
 	  Color borderFill;
 
 
+	public JTextField getXKoordinata() {
+		return xKoordinata;
+	}
+
+
+
+	public void setXKoordinata(JTextField xKoordinata) {
+		this.xKoordinata = xKoordinata;
+	}
+
+
+
+	public JTextField getYKoordinata() {
+		return yKoordinata;
+	}
+
+
+
+	public void setYKoordinata(JTextField yKoordinata) {
+		this.yKoordinata = yKoordinata;
+	}
+
+
+
 	public JTextField getTxtWidth() {
 		return width;
 	}
@@ -251,7 +275,7 @@ public class DlgRectangle extends JDialog {
 					 * });
 					 * 
 					 */
-					
+					/*
 					public void actionPerformed(ActionEvent e) {
 						boolean isModifying = false;
 						// provera da li se radi modifikacija
@@ -280,6 +304,11 @@ public class DlgRectangle extends JDialog {
 						}
 						
 						isOk=true;
+						setVisible(false);
+					}
+					*/
+					public void actionPerformed(ActionEvent arg0) {
+						setConfirmation(true);
 						setVisible(false);
 					}
 				});
