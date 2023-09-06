@@ -3,8 +3,7 @@ package geometry1;
 import java.awt.Color;
 import java.awt.Graphics;
 
-
-public class Circle extends SurfaceShape{
+public class Circle extends ThreeDShape{
 	
 	protected Point center;
 	private int radius;
@@ -39,13 +38,22 @@ public class Circle extends SurfaceShape{
 		this.radius = radius;
 	}
 	
+	/*
 	public Circle(Point center, int radius, Color edgecolor, Color color) throws Exception {
 		this.center = center;
 		setRadius(radius);
 		setEdgeColor(edgecolor);
 		setColor(color);
 	}
-	public Circle(Point center, int radius, boolean selected) {
+	*/
+	
+	public Circle(Point center, int r, Color outlineColor, Color fillColor) throws Exception {
+		this.center = center;
+		setRadius(r);
+		setOutlineColor(outlineColor);
+		setFillColor(fillColor);
+	}
+	public Circle(Point center, int radius, boolean selected) throws Exception{
 		this(center, radius);
 		this.selected = selected;
 	}
@@ -90,14 +98,16 @@ public class Circle extends SurfaceShape{
     }
 	*/
 
-
 	public void draw(Graphics g) {
-		g.setColor(edgecolor);
+		g.setColor(getFillColor());
 		g.drawOval(center.getX()-radius, center.getY()-radius, radius*2, radius*2);
-		g.setColor(color);
-		g.fillOval(center.getX()- radius , center.getY() - radius , radius*2 , radius*2 );
+		g.setColor(getOutlineColor());
+		g.fillOval(center.getX()- radius , center.getY() - radius , radius*2 , radius*2 ); 
 
 		if(selected) {
+			// crta pravougaonik oko središta kruga. Pravougaonik je zapravo samo četiri tačke postavljene 
+			//tako da formiraju kvadrat širine i visine 4 piksela. Koordinate za x i y se računaju na 
+			//osnovu središta kruga (center.getX() i center.getY()), tako da pravougaonik bude centriran na tom središtu.
 			g.setColor(Color.BLUE);
 			g.drawRect(center.getX()-2	, center.getY() - 2, 4, 4);
 			g.drawRect(center.getX()-radius -2, center.getY() - 2, 4, 4);

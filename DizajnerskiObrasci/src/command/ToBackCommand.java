@@ -20,7 +20,7 @@ public class ToBackCommand implements Command {
 	@Override
 	public void execute() {
 		if(shapeIndex!=0) { 
-			Collections.swap(model.getShapes(), shapeIndex-1, shapeIndex);
+			Collections.swap(model.getShapes(), shapeIndex-1, shapeIndex);//pozicija po pozicija, jedan za drugim
 		}	
 	}
 

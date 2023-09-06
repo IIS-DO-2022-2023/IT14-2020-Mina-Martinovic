@@ -8,13 +8,10 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
-import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import geometry1.Point;
-import geometry1.Rectangle;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -33,11 +30,10 @@ public class DlgRectangle extends JDialog {
 	protected JTextField yKoordinata;
 	protected JTextField width;
 	protected JTextField height;
-	protected boolean isOk;
+	//protected boolean isOk;
 	
 	  private boolean confirmation;
-	  private boolean innerColorConfirmation;
-	  private boolean ColorConfirmation;
+
 	  Color innerFill = new Color(255, 255, 255);
 	  Color borderFill;
 
@@ -100,6 +96,15 @@ public class DlgRectangle extends JDialog {
 		this.confirmation = confirmation;
 	}
 
+	public static void main(String[] args) {
+		try {
+			DlgRectangle Dialog = new DlgRectangle();
+			Dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			Dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 
 	/**
@@ -210,7 +215,7 @@ public class DlgRectangle extends JDialog {
 			  {
 				  innerFill = JColorChooser.showDialog(null,"Izaberi boju unutrasnjosti tvog oblika", innerFill);
 				  innerColorButton.setBackground(innerFill);
-				  innerColorConfirmation = true;
+				  boolean innerColorConfirmation = true;
 				 
 			  }
 			}
@@ -320,7 +325,7 @@ public class DlgRectangle extends JDialog {
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						isOk=false;
+						confirmation=false;
 						setVisible(false);
 					}
 				});
@@ -330,7 +335,9 @@ public class DlgRectangle extends JDialog {
 		}
 	}
 
-
+	public JPanel getContentPanel() {
+		return contentPanel;
+	}
 
 
 }

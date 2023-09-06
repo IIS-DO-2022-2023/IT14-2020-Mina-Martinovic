@@ -1,9 +1,6 @@
 package command;
 
-
 import adapter.HexAdapter;
-import hexagon.Hexagon;
-import geometry1.Shape;
 import mvc.DrawingModel;
 
 public class AddHexagonCmd implements Command{

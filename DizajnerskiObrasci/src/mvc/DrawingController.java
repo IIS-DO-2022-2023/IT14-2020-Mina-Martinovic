@@ -1,16 +1,11 @@
 package mvc;
 
-
 import java.awt.Color;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -19,9 +14,9 @@ import Drawing.DlgCircle;
 import Drawing.DlgCircleUpdate;
 import Drawing.DlgDonut;
 import Drawing.DlgDonutUpdate;
-import Drawing.DlgHexagon;
 import Drawing.DlgHexagonUpdate;
 import Drawing.DlgLine;
+import Drawing.DlgOption;
 import Drawing.DlgPoint;
 import Drawing.DlgRectangle;
 import Drawing.DlgRectangleUpdate;
@@ -64,7 +59,6 @@ public class DrawingController implements PropertyChangeListener{
 
 	private DrawingModel model;
 	private DrawingFrame frame;
-	//nije potrebno referencirati model i frame nadji zasto
 	
 	/*ovde ce mi se nalaziti sve metode crtanje selektovanje 
 	undo redo delete modify
@@ -73,10 +67,6 @@ public class DrawingController implements PropertyChangeListener{
 	
 	private Color outColor = Color.BLACK;
 	private Color inColor = Color.WHITE;
-
-	private boolean isFirstClick = true;
-	private int line_x = 0;
-	private int line_y = 0;
 	
 	private DefaultListModel<String> actLog;
 	private FileManager fileManager;
@@ -168,16 +158,10 @@ public class DrawingController implements PropertyChangeListener{
 		dlgCircle.setVisible(true);
 		
 		if(dlgCircle.isConfirmation()) {
-			
+			try {
 				if(checkType(dlgCircle.getRadius().getText())) {
 					int radius = Integer.parseInt(dlgCircle.getRadius().getText());
-					Circle circle = null;
-					try {
-						circle = new Circle(new Point(e.getX(), e.getY()), radius, outColor, inColor);
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					Circle circle = new Circle(new Point(e.getX(), e.getY()), radius, outColor, inColor);
 					AddCircleCmd addCircle = new AddCircleCmd(model,circle);
 					addCircle.execute();
 					model.pushToUndoStack(addCircle);
@@ -187,6 +171,13 @@ public class DrawingController implements PropertyChangeListener{
 				} else {
 					JOptionPane.showMessageDialog(frame,
 							"Illegal input type!",
+							"Illegal radius error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			} catch (Exception ex)
+				{
+					JOptionPane.showMessageDialog(frame,
+							"Radius must be greater than 0!",
 							"Illegal radius error",
 							JOptionPane.ERROR_MESSAGE);
 				}
@@ -221,6 +212,7 @@ public class DrawingController implements PropertyChangeListener{
 		dlgDonut.setVisible(true);
 
 		if(dlgDonut.isConfirmation()) {
+			try {
 		
 				if(checkType(dlgDonut.getOuterRadius().getText())) {
 					if(dlgDonut.getOuterRadius().getText() != null && dlgDonut.getInnerRadius().getText() != null ) {
@@ -238,6 +230,14 @@ public class DrawingController implements PropertyChangeListener{
 							"Illegal radius error",
 							JOptionPane.ERROR_MESSAGE);
 				}
+				
+			} catch (Exception e1) {
+				JOptionPane.showMessageDialog(frame,
+						"Inner radius must be smaller than outer radius!",
+						"Inappropriate radius error",
+						JOptionPane.ERROR_MESSAGE);
+				e1.printStackTrace();
+			}
 			
 		}
 	}
@@ -268,136 +268,22 @@ public class DrawingController implements PropertyChangeListener{
 		}
 	}
 	
-	
-	
-	/*
-		//obrisi selekciju
-		for(int i = DrawingModel.shapes.size()-1; i>=0; i--) {
-			DrawingModel.shapes.get(i).setSelected(false);
-		}
-		
-		// provera selekcije
-		System.out.println(DrawingModel.shapes);
-		for (int i=DrawingModel.shapes.size()-1; i>=0; i--) {
-			
-			if ((DrawingModel.shapes.get(i)).contains(e.getX(), e.getY())) {		// ukoliko je tacka klika u objektu
-				/*Shape clickedShape = DrawingModel.shapes.get(i);
-		        if (DrawingModel.selectedShapes.contains(clickedShape)) {
-		        	DrawingModel.selectedShapes.remove(clickedShape);
-		        } else {
-		        	DrawingModel.selectedShapes.add(clickedShape);
-		        }
-		       
-
-				if(model.getShapes().get(i).isSelected())
-				{
-					return;
-				}
-				Shape shape = model.getShapes().get(i);
-				SelectCommand selectCmd = new SelectCommand(model, shape);
-				selectCmd.execute();
-				actLog.addElement("Selected->" + shape.toString());
-				model.getUndoStack().push(selectCmd);
-			}
-		}
-	
-		/*
-		public void selectShapeFromLog(Shape shape) {
-			int index = model.getShapes().indexOf(shape);
-			Shape selectedShape = model.getShapes().get(index);
-			SelectCommand CmdSelect = new SelectCommand(model, selectedShape);
-			CmdSelect.execute();
-			model.getUndoStack().push(CmdSelect);
-			frame.getView().repaint();
-		}
-
-		public void unselectAll() {
-			for(int i = 0; i< model.getSelectedShapes().size(); i++) {
-				Shape shape = model.getSelectedShapes().get(i);
-				UnselectCommand unselect = new UnselectCommand(model, shape);
-				unselect.execute();
-				actLog.addElement("Unselected->" + shape.toString());
-			}
-			frame.getbtnModifikacija().setVisible(false);
-			frame.getbtnBrisanje().setVisible(false);
-		}
-		
-		// ukoliko smo kliknuli van postojeceg objekta, onda crtamo
-		
-
-		switch(DrawingModel.drawingObject) {
-		case "Point" : 
-			Point p1 = new Point(e.getX(),e.getY());
-			p1.setColor(DrawingModel.color);
-			DrawingModel.shapes.add(p1);
-		break;
-		case "Circle" : 
-			try {
-				DlgCircle dialog = new DlgCircle(e.getX(), e.getY(), 0);
-				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				dialog.setVisible(true);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		break;
-		case "Rectangle" :
-			try {
-				DlgRectangle dialog = new DlgRectangle(e.getX(), e.getY(), 0, 0);
-				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				dialog.setVisible(true);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		break;
-		case "Donut" : 
-			try {
-				DlgDonut dialog = new DlgDonut(e.getX(), e.getY(), 0, 0);
-				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				dialog.setVisible(true);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		break;
-		case "Hexagon" :
-			DlgHexagon dialog = new DlgHexagon(e.getX(), e.getY(), 0);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-			try {
-				
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		break;
-		case "Line" : 
-			if (isFirstClick) {
-				line_x = e.getX();
-				line_y = e.getY();
-				isFirstClick = false;
-			}
-			else {
-				Line l1 = new Line(new Point(line_x, line_y), new Point(e.getX(), e.getY()));
-				l1.setColor(DrawingModel.color);
-				DrawingModel.shapes.add(l1);
-				isFirstClick = true;
-			}
-		break;
-		default: 
-			System.out.println("Izabrali ste oblik koji nije na listi!");
-		}
-	}
-	*/
 
 	public void deleteObject() {
+		DlgOption dlgOption = new DlgOption();
+		dlgOption.setVisible(true);
+		if(dlgOption.confirmation) {
 		for (int i=DrawingModel.shapes.size()-1; i>=0; i--) {
 			if(DrawingModel.shapes.get(i).isSelected() == true) {
-				int reply = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da zelite da obrisete Vas objekat?");
-				if(reply == JOptionPane.YES_OPTION) {
+				//int reply = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da zelite da obrisete Vas objekat?");
+				//if(reply == JOptionPane.YES_OPTION) {
 					Shape shape = model.getSelectedShapes().get(i);
 					RemoveShapeCmd CDS = new RemoveShapeCmd(model, shape);
 					CDS.execute();
 					actLog.addElement("Deleted->" + shape.toString());
 					model.getUndoStack().push(CDS);
 					DrawingModel.shapes.remove(i);
+					//}
 				}
 			}
 		}
@@ -567,6 +453,7 @@ public class DrawingController implements PropertyChangeListener{
 											JOptionPane.ERROR_MESSAGE);
 								}
 							} catch (NumberFormatException e) {
+								//kada se pokuša konvertovati niz znakova (string) u numerički tip podataka
 								e.printStackTrace();
 							}
 						}
@@ -575,109 +462,6 @@ public class DrawingController implements PropertyChangeListener{
 			}
 		}
 		
-		
-		
-		/*
-		// prolazimo kroz sve promenljive kako bi proverili koja je selektovana
-		for (int i=DrawingModel.shapes.size()-1; i>=0; i--) {
-			if(DrawingModel.shapes.get(i).isSelected()) {
-				// kreiramo dijalog
-				if (DrawingModel.shapes.get(i) instanceof Point) {
-					try {
-						DlgPoint dialog = new DlgPoint();
-						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-						dialog.setVisible(true);
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
-				
-				
-				if (DrawingModel.shapes.get(i) instanceof Point) {
-				DlgPoint dlgPoint = new DlgPoint();
-				Point oldState = (Point) model.getSelectedShapes().get(0);
-				dlgPoint.getX().setText(Integer.toString(oldState.getX()));
-				dlgPoint.getY().setText(Integer.toString(oldState.getY()));
-				dlgPoint.setVisible(true);
-				if(dlgPoint.isConfirm()) {
-					if(checkType(dlgPoint.getX().getText()) && checkType(dlgPoint.getY().getText())) {
-						Point newState = new Point(Integer.parseInt(dlgPoint.getX().getText()), Integer.parseInt(dlgPoint.getY().getText()), dlgPoint.getColor());
-						actLog.addElement("Updated->" + oldState.toString() + "->" + newState.toString());
-						UpdatePointCmd CmdPointUpdate = new UpdatePointCmd(oldState , newState);
-						UpdatePointCmd.execute();
-						model.pushToUndoStack(CmdPointUpdate);
-						frame.repaint();
-					}
-					
-				}
-				else if(DrawingModel.shapes.get(i) instanceof Donut) {							
-					try {
-						Donut d1 = (Donut) DrawingModel.shapes.get(i);
-						DlgDonut dialog = new DlgDonut(
-								d1.getCenter().getX(),
-								d1.getCenter().getY(),
-								d1.getRadius(),
-								d1.getInnerRadius());
-								//d1.getColor()
-		
-						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-						dialog.setVisible(true);
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
-				}
-				else if(DrawingModel.shapes.get(i) instanceof Circle) {
-
-					try {
-						Circle c1 = (Circle) DrawingModel.shapes.get(i);
-						DlgCircle dialog = new DlgCircle(
-								c1.getCenter().getX(),
-								c1.getCenter().getY(),
-								c1.getRadius());
-						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-						dialog.setVisible(true);
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
-				}
-				else if(DrawingModel.shapes.get(i) instanceof Rectangle) {
-					try {
-						Rectangle r1 = (Rectangle) DrawingModel.shapes.get(i);
-						DlgRectangle dialog = new DlgRectangle(
-								r1.getUpperLeftPoint().getX(),
-								r1.getUpperLeftPoint().getY(),
-								r1.getWidth(),
-								r1.getHeight());
-						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-						dialog.setVisible(true);
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
-				}
-				else if(DrawingModel.shapes.get(i) instanceof Line) {
-					try {
-						DlgLine dialog = new DlgLine();
-						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-						dialog.setVisible(true);
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
-				}
-				else if(DrawingModel.shapes.get(i) instanceof HexAdapter) {
-					try {
-						DlgHexagon dialog = new DlgHexagon();
-						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-						dialog.setVisible(true);
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
-				}
-				
-				break;
-			}
-		}
-*/
-			
-
 	
 	public void unselectAll() {
 		for(int i = 0; i< model.getSelectedShapes().size(); i++) {
@@ -740,9 +524,11 @@ public class DrawingController implements PropertyChangeListener{
 			Shape shape = model.getShapes().get(index);
 			ToFrontCommand ToFront = new ToFrontCommand(model, index , shape);
 			model.pushToUndoStack(ToFront);
-			actLog.addElement( shape.toString()+"moved to front");
 			ToFront.execute();
-		} 
+			actLog.addElement( shape.toString()+"moved to front");
+		} else {
+			System.out.println("More than 2 shapes have been selected!");
+		}
 		frame.repaint();
 	}
 	
@@ -759,6 +545,7 @@ public class DrawingController implements PropertyChangeListener{
 	}
 	
 	public void deleteFromLog() {
+		//služi za brisanje selektovanih oblika iz modela i njihovo belezenje u logu
 		while(model.getSelectedShapes().size()>0) {
 			for(int i = 0; i<model.getSelectedShapes().size(); i++) {
 				Shape shape = model.getSelectedShapes().get(i);
@@ -771,7 +558,7 @@ public class DrawingController implements PropertyChangeListener{
 		}	
 	}
 	
-	public void serialize() {
+	public void serialize() { //save
 		JFileChooser chooser = new JFileChooser();
 		chooser.setFileSelectionMode(JFileChooser.SAVE_DIALOG);
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY); 
@@ -784,20 +571,18 @@ public class DrawingController implements PropertyChangeListener{
 
 		if (!model.getShapes().isEmpty()) {
 			chooser.setFileFilter(new FileNameExtensionFilter("Serialized draw", "ser"));
-//			chooser.setFileFilter(new FileNameExtensionFilter("Image", "img"));
 		}
 		if (!model.getUndoStack().isEmpty() || model.getShapes().isEmpty()) chooser.setFileFilter(new FileNameExtensionFilter("Commands log", "log"));
 		if(chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
 			if (chooser.getFileFilter().getDescription().equals("Serialized draw")) fileManager = new FileManager(new SerializeFile(model));
 			else if (chooser.getFileFilter().getDescription().equals("Commands log")) fileManager = new FileManager(new SerializeLog(frame, model, this));
-			else if (chooser.getFileFilter().getDescription().equals("Image"))
-				fileManager = new FileManager(new SerializeDrawing(frame));
-				fileManager.saveFile(chooser.getSelectedFile());
+			else fileManager = new FileManager(new SerializeDrawing(frame));
+			fileManager.saveFile(chooser.getSelectedFile());
 		}
 		chooser.setVisible(false);
 	}
 	
-	public void unserialize() {
+	public void unserialize() { //open
 		JFileChooser chooser = new JFileChooser();
 		chooser.enableInputMethods(true);
 		chooser.setMultiSelectionEnabled(false);
@@ -812,83 +597,34 @@ public class DrawingController implements PropertyChangeListener{
 		if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 			frame.getBtnUndo().setVisible(false);
 			frame.getBtnRedo().setVisible(false);
-			//frame.getDlmBoje().clear();
+			frame.getDlmList().clear();
 			model.getShapes().clear();
 			model.getUndoStack().clear();
 			model.getRedoStack().clear();
 			frame.getView().repaint();
 			if (chooser.getFileFilter().getDescription().equals("Serialized draw")) {
-				FileManager fileManager = new FileManager(new SerializeFile(model));
+				 fileManager = new FileManager(new SerializeFile(model));
 			}
 			else if (chooser.getFileFilter().getDescription().equals("Commands log")) fileManager = new FileManager(new SerializeLog(frame, model, this));
 			fileManager.openFile(chooser.getSelectedFile());
 		}	
 		chooser.setVisible(false);
 	}
-	/*
-	public void save() {
-		JFileChooser chooser = new JFileChooser();
-		chooser.setFileSelectionMode(JFileChooser.SAVE_DIALOG);
-	    chooser.setFileSelectionMode(JFileChooser.FILES_ONLY); 
-		chooser.enableInputMethods(false);
-		chooser.setMultiSelectionEnabled(false);
-		chooser.setFileHidingEnabled(false);
-		chooser.setEnabled(true);
-		chooser.setDialogTitle("Save");
-		chooser.setAcceptAllFileFilterUsed(false);
-		if (!model.getAll().isEmpty()) {
-			chooser.setFileFilter(new FileNameExtensionFilter("Serialized draw", "ser"));
-			chooser.setFileFilter(new FileNameExtensionFilter("Picture", "jpeg"));
-		}
-		if (!commands.isEmpty()) chooser.setFileFilter(new FileNameExtensionFilter("Commands log", "log"));
-		if(chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-			if (chooser.getFileFilter().getDescription().equals("Serialized draw")) manager = new ManagerFile(new SerializableFile(model));
-			else if (chooser.getFileFilter().getDescription().equals("Commands log")) manager = new ManagerFile(new LogFile(frame, model, this));
-			else manager = new ManagerFile(new SaveDraw(frame));
-			manager.save(chooser.getSelectedFile());
-		}
-		chooser.setVisible(false);
-	}
 	
-	public void open() {
-		JFileChooser chooser = new JFileChooser();
-		chooser.enableInputMethods(true);
-		chooser.setMultiSelectionEnabled(false);
-		chooser.setFileHidingEnabled(false);
-		chooser.setEnabled(true);
-		chooser.setAcceptAllFileFilterUsed(false);
-		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		chooser.setFileSelectionMode(JFileChooser.OPEN_DIALOG);
-		chooser.setFileFilter(new FileNameExtensionFilter("Serialized draw", "ser"));
-		chooser.setFileFilter(new FileNameExtensionFilter("Commands log", "log"));
-		if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-			model.removeAll();
-			log.removeAllElements();
-			undoCommands.clear();
-			commands.clear();
-			frame.getView().repaint();
-			if (chooser.getFileFilter().getDescription().equals("Serialized draw")) {
-				manager = new ManagerFile(new SerializableFile(model));
-				propertyChangeSupport.firePropertyChange("serialized draw opened", false, true);
-			}
-			else if (chooser.getFileFilter().getDescription().equals("Commands log")) manager = new ManagerFile(new LogFile(frame, model, this));
-			manager.open(chooser.getSelectedFile());
-		}	
-		chooser.setVisible(false);
-	}
-	*/
 	public void executeCommand(Command command) {
+		//izvrsava sve komande i ovako se povezuje sa Command int
 		command.execute();
 		model.pushToUndoStack(command);
 		frame.getView().repaint(); 	
 		
 	}
-	public void selectShapeFromLog(Shape shape) {
+	public void selectShapeFromLog(Shape shape) { 
+		//ima zadatak da odabere oblik iz loga i stavi ga u stanje "selektovanog" u okviru modela
 		int index = model.getShapes().indexOf(shape);
 		Shape selectedShape = model.getShapes().get(index);
 		SelectCommand selectCmd = new SelectCommand(model, selectedShape);
 		selectCmd.execute();
-		model.getUndoStack().push(selectCmd);
+		model.getUndoStack().push(selectCmd); //omogućava korisniku da kasnije poništi selektovanje ako želi.
 		frame.getView().repaint();
 		
 	}
@@ -908,8 +644,7 @@ public class DrawingController implements PropertyChangeListener{
 			}
 		}
 	}
-	
-	
+		
 	private boolean checkType(String s) {
 		try {
 			Integer.parseInt(s);

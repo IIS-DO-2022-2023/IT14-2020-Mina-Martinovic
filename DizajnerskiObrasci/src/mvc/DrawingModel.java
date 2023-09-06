@@ -1,6 +1,5 @@
 package mvc;
 
-import java.awt.Color;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -13,22 +12,23 @@ import geometry1.Shape;
 
 public class DrawingModel {
 	
-	public static  ArrayList<Shape> shapes=new ArrayList<Shape>();	
+	public static ArrayList<Shape> shapes=new ArrayList<Shape>();	
 	
 	public static ArrayList<Shape> selectedShapes = new ArrayList<>();
 	
 	private Stack<Command> undoStack = new Stack<>();
 	private Stack<Command> redoStack = new Stack<>();
 
-	public static String drawingObject = "Point" ;
-	public static Color color = new Color(255, 255, 255);
+	//public static String drawingObject = "Point" ;
+	//public static Color color = new Color(255, 255, 255);
 	
 	private Point startPoint;
 	private PropertyChangeSupport propertyChangeSupport; //zaposmatranje objekata->Observer obrazac
 
 	
 	public DrawingModel() {
-		propertyChangeSupport = new PropertyChangeSupport(this);
+		propertyChangeSupport = new PropertyChangeSupport(this); //inicijalizacija propertyChangeSupport objekta
+		//prati svojstva trenutnog drawing model objekta pomocu ovog this
 	}
 	
 	public void addPropertyChangeListener(PropertyChangeListener propertyChangeListener) {
@@ -97,11 +97,6 @@ public class DrawingModel {
 			shapes.add(toBeAdded);
 		}
 
-		/*
-		public void remove(Shape s) {
-			shapes.remove(s);
-		}
-		*/
 		public void removeShape(Shape toBeRemoved) {
 			int selectedShapesSizeBefore = selectedShapes.size();
 			if(shapes.remove(toBeRemoved) == false) {

@@ -6,40 +6,14 @@ import mvc.DrawingModel;
 public class BringToFrontCommand implements Command {
 	
 	private DrawingModel model;
-   // private ShapeManager shapeManager;
     private int prevIndex;
     private Shape shape;
-   // private boolean wasSentToBack = false;
-
-    /*
-    public BringToFrontCommand(ShapeManager shapeManager, int shapeIndex) {
-        this.shapeManager = shapeManager;
-        this.shapeIndex = shapeIndex;
-    }
-    */
+ 
 
     public BringToFrontCommand(DrawingModel model,  Shape shape) {
 		this.model = model;
 		this.shape = shape;
 	}
-    
-    /*
-    @Override
-    public void execute() {
-        if (wasSentToBack) {
-            shapeManager.sendToBack(shapeIndex);
-            wasSentToBack = false;
-        } else {
-            shapeManager.bringToFront(shapeIndex);
-        }
-    }
-
-    @Override
-    public void unexecute() {
-        shapeManager.sendToBack(shapeIndex);
-        wasSentToBack = true;
-    }
-    */
     
     @Override
 	public void execute() {

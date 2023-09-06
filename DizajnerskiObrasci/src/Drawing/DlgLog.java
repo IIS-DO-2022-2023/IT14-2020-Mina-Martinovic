@@ -52,8 +52,10 @@ public class DlgLog  extends JDialog  {
 			contentPanel.add(scrollPane);
 		}
 		{
-			activityLog = new JList<String>();
-			log = new DefaultListModel<>();
+			activityLog = new JList<String>(); //JList komponenta (activityLog) 
+			//koja služi za prikazivanje liste stavki (logova) koje će biti prikazane korisniku.
+			log = new DefaultListModel<>(); //Postavlja DefaultListModel (log) za JList
+			//kako bi se dinamički mogli dodavati i uklanjati logovi.
 			activityLog.setModel(log);
 			activityLog.setVisibleRowCount(20);
 			activityLog.setEnabled(false);
@@ -107,7 +109,8 @@ public class DlgLog  extends JDialog  {
 		dispose();
 	}
 
-	public SerializeLog getFileLog() {
+	public SerializeLog getFileLog() { //metode služe za postavljanje i dobijanje referenci na SerializeLog objekat, 
+									//koji sluzi za čitanje ili manipulaciju logovima.
 		return fileLog;
 	}
 

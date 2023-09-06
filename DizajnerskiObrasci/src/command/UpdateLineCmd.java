@@ -1,4 +1,6 @@
 package command;
+import java.awt.Color;
+
 import geometry1.Line;
 
 public class UpdateLineCmd implements Command{
@@ -18,15 +20,17 @@ public class UpdateLineCmd implements Command{
 		originalState.getStartPoint().setY(oldLine.getStartPoint().getY());
 		originalState.getEndPoint().setX(oldLine.getEndPoint().getX());
 		originalState.getEndPoint().setY(oldLine.getEndPoint().getY());
-//		original.setStartPoint(oldLine.getStartPoint());
-//		original.setEndPoint(oldLine.getEndPoint());
 
 		oldLine.getStartPoint().setX(newLine.getStartPoint().getX());
 		oldLine.getStartPoint().setY(newLine.getStartPoint().getY());
 		oldLine.getEndPoint().setX(newLine.getEndPoint().getX());
 		oldLine.getEndPoint().setY(newLine.getEndPoint().getY());
-//		oldLine.setStartPoint(newLine.getStartPoint());
-//		oldLine.setEndPoint(newLine.getEndPoint());
+		
+		if(newLine.getOutlineColor() == Color.BLACK && originalState.getOutlineColor() != Color.BLACK) {
+			oldLine.setOutlineColor(originalState.getOutlineColor());
+		} else {
+			oldLine.setOutlineColor(newLine.getOutlineColor());
+		}
 
 	}
 
@@ -36,6 +40,7 @@ public class UpdateLineCmd implements Command{
 		oldLine.getStartPoint().setY(originalState.getStartPoint().getY());
 		oldLine.getEndPoint().setX(originalState.getEndPoint().getX());
 		oldLine.getEndPoint().setY(originalState.getEndPoint().getY());
+		oldLine.setOutlineColor(originalState.getOutlineColor());
 
 	}
 	

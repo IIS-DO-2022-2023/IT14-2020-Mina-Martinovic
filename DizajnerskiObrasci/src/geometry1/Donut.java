@@ -7,8 +7,6 @@ import java.awt.geom.Area;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 
-import mvc.DrawingModel;
-
 public class Donut extends Circle{
 	
 	private static final long serialVersionUID = 1L;
@@ -18,8 +16,8 @@ public class Donut extends Circle{
 	private boolean confirmation;
 
 	protected Color fillColor;
-	protected Color edgecolor;
-	private DrawingModel model = new DrawingModel();
+	protected Color outlineColor ;
+	//private DrawingModel model = new DrawingModel();
 	
 
 
@@ -27,23 +25,25 @@ public class Donut extends Circle{
 		
 	}
 	
-	public Donut(Point center, int radius, int innerRadius) {
-		//this.setCenter(center); --center je definisan kao private
-		//this.center=center;--center je definisan kao protected
-		super(center, radius);
-		this.innerRadius=innerRadius;
+	public Donut(Point center, int outerRadius, int innerRadius) throws Exception{
+		super(center,outerRadius);
+		if(innerRadius < outerRadius)
+		{
+			this.innerRadius = innerRadius;
+			this.outerRadius = outerRadius;
+		}
 	}
 	
-	public Donut(Point center, int radius, int innerRadius, boolean selected) {
-		this(center, radius, innerRadius);
+	public Donut(Point center, int outerRadius, int innerRadius, boolean selected) throws Exception{
+		this(center, outerRadius, innerRadius);
 		setSelected(selected);
 	}
 	
-	public Donut(Point center, int outerRadius, int innerRadius, Color edgecolor, Color fillColor) {
+	public Donut(Point center, int outerRadius, int innerRadius, Color outlineColor , Color fillColor) {
 		super(center,outerRadius);
 			this.innerRadius = innerRadius;
 			this.outerRadius = outerRadius;
-			this.edgecolor = edgecolor;
+			this.outlineColor  = outlineColor ;
 			this.fillColor = fillColor;
 	}
 	
@@ -72,12 +72,12 @@ public class Donut extends Circle{
     }
     */
 	
-	public Color getEdgecolor() {
-		return edgecolor;
+	public Color getOutlineColor() {
+		return outlineColor ;
 	}
 
-	public void setEdgecolor(Color edgecolor) {
-		this.edgecolor = edgecolor;
+	public void setOutlineColor(Color outlineColor) {
+		this.outlineColor = outlineColor;
 	}
 
 	public static long getSerialversionuid() {
@@ -86,10 +86,6 @@ public class Donut extends Circle{
 
 	public Color getFillColor() {
 		return fillColor;
-	}
-
-	public DrawingModel getModel() {
-		return model;
 	}
 
 	public boolean contains (int x, int y) {

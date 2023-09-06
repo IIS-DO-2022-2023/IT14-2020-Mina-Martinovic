@@ -8,14 +8,9 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
-import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import geometry1.Donut;
-import geometry1.Point;
-import geometry1.Rectangle;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -34,11 +29,10 @@ public class DlgDonut extends JDialog {
 	protected JTextField innerRadius;
 	protected JTextField outerRadius;
 	protected JTextField height;
-	protected boolean isOk;
+	//protected boolean isOk;
 	
 	  private boolean confirmation;
-	  private boolean innerColorConfirmation;
-	  private boolean ColorConfirmation;
+
 	  Color innerFill = new Color(255, 255, 255);
 	  Color borderFill;
 	 
@@ -72,6 +66,15 @@ public class DlgDonut extends JDialog {
 	}
 
 
+	public static void main(String[] args) {
+		try {
+			DlgDonut dialog = new DlgDonut();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 
 	/**
@@ -172,16 +175,17 @@ public class DlgDonut extends JDialog {
 		
 		
 //		  inner/border color
-		  {JButton innerColorButton = new JButton("Boja unutrasnjosti");
-		  innerColorButton.setBackground(SystemColor.activeCaption);
-		  innerColorButton.setForeground(new Color(0, 0, 0));
-		  innerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
-		  innerColorButton.addActionListener(new ActionListener() {
-		   public void actionPerformed(ActionEvent e)
 		  {
-		  innerFill = JColorChooser.showDialog(null,"Izaberi boju unutrasnjosti tvog oblika", innerFill);
-		  innerColorButton.setBackground(innerFill);
-		  innerColorConfirmation = true;
+			  JButton innerColorButton = new JButton("Boja unutrasnjosti");
+			  innerColorButton.setBackground(SystemColor.activeCaption);
+			  innerColorButton.setForeground(new Color(0, 0, 0));
+			  innerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
+			  innerColorButton.addActionListener(new ActionListener() {
+			   public void actionPerformed(ActionEvent e)
+			  {
+			  innerFill = JColorChooser.showDialog(null,"Izaberi boju unutrasnjosti tvog oblika", innerFill);
+			  innerColorButton.setBackground(innerFill);
+			  boolean innerColorConfirmation = true;
 		  }
 		  });
 		  GridBagConstraints gbc_innerColorButton = new GridBagConstraints();
@@ -258,7 +262,7 @@ public class DlgDonut extends JDialog {
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						isOk=false;
+						confirmation=false;
 						setVisible(false);
 					}
 				});
@@ -267,7 +271,9 @@ public class DlgDonut extends JDialog {
 			}
 		}
 	}
-
+	public JPanel getContentPanel() {
+		return contentPanel;
+	}
 
 	
 

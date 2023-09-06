@@ -23,7 +23,7 @@ public class DlgLine extends JDialog {
 	private JTextField YStartPoint;
 	private JTextField XEndPoint;
 	private JTextField YEndPoint;
-	protected boolean isOk;
+	//protected boolean isOk;
 	private boolean confirmation;
 	private Color color = Color.BLACK;
 
@@ -189,7 +189,7 @@ public class DlgLine extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						isOk=true;
+						confirmation=true;
 						setVisible(false);
 					}
 				});
@@ -201,7 +201,7 @@ public class DlgLine extends JDialog {
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						isOk=false;
+						confirmation=false;
 						setVisible(false);
 					}
 				});

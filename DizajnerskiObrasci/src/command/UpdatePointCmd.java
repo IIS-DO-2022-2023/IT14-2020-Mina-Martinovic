@@ -1,5 +1,7 @@
 package command;
 
+import java.awt.Color;
+
 import geometry1.Point;
 
 public class UpdatePointCmd implements Command{
@@ -21,13 +23,19 @@ public class UpdatePointCmd implements Command{
 		oldPoint.setX(newPoint.getX());
 		oldPoint.setY(newPoint.getY());
 		oldPoint.setColor(newPoint.getColor());
+		
+		if(newPoint.getOutlineColor() == Color.BLACK && originalState.getOutlineColor() != Color.BLACK) {
+			oldPoint.setOutlineColor(originalState.getOutlineColor());
+		} else {
+			oldPoint.setOutlineColor(newPoint.getOutlineColor());
+		}
 	}
  
 	@Override
 	public void unexecute() {
 		oldPoint.setX(originalState.getX());
 		oldPoint.setY(originalState.getY());   	
-		oldPoint.setColor(originalState.getColor());
+		oldPoint.setOutlineColor(originalState.getOutlineColor());
 	}
 	
 	@Override

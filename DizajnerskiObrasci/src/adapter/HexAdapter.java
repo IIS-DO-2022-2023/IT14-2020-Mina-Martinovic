@@ -2,17 +2,12 @@ package adapter;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.awt.Shape;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.PathIterator;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 
-import geometry1.SurfaceShape;
+import geometry1.ThreeDShape;
 import hexagon.Hexagon;
 
-public class HexAdapter extends SurfaceShape{
+public class HexAdapter extends ThreeDShape{
 
 	private static final long serialVersionUID = 1L; //za serijaklizaciju
 	private Hexagon hexagon;
@@ -22,7 +17,6 @@ public class HexAdapter extends SurfaceShape{
 		}
 		
 	public HexAdapter(Hexagon hexagon) {
-		super();
 		this.hexagon=hexagon;
 	}
 	
@@ -72,7 +66,7 @@ public class HexAdapter extends SurfaceShape{
 	
 	@Override
 	public String toString() {
-		return "Hexagon: radius=" + hexagon.getR() + "; x=" + hexagon.getX() + "; y=" + hexagon.getY() + "; edge color=" + getColor().toString().substring(14).replace('=', '-') + "; area color=" + getInteriorColor().toString().substring(14).replace('=', '-');
+		return "Hexagon-> radius=" + hexagon.getR() + "; x=" + hexagon.getX() + "; y=" + hexagon.getY() + "; edge color=" + getColor().toString().substring(14).replace('=', '-') + "; area color=" + getInteriorColor().toString().substring(14).replace('=', '-');
 	}
 	
 	public Color getColor() {

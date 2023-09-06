@@ -3,7 +3,7 @@ package geometry1;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class SurfaceShape extends Shape{
+public class ThreeDShape extends Shape{
 
 	//Ona predstavlja podklasu koja dodaje jednu konkretnu osobinu,
 	//a to je boja popune (fillColor). Ova klasa ne implementira konkretne metode poput 

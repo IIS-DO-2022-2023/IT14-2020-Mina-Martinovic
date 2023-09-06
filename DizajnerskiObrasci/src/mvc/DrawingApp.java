@@ -16,7 +16,6 @@ public class DrawingApp {
 		frame.setSize(600, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		//controller.addPropertyChangeListener(frame);
 	}
 	
 }

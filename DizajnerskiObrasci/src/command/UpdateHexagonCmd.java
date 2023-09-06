@@ -7,8 +7,7 @@ public class UpdateHexagonCmd implements Command{
 
 	private HexAdapter oldHex;
 	private HexAdapter newHex;
-	private HexAdapter originalState; 
-	//= new HexAdapter(new Hexagon(0, 0, 0));
+	private HexAdapter originalState= new HexAdapter(new Hexagon(0, 0, 0)); //x, y, r
 	
 	public UpdateHexagonCmd(HexAdapter oldHex, HexAdapter newHex) {
 		this.oldHex = oldHex;

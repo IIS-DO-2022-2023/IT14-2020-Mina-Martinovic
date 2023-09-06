@@ -3,27 +3,16 @@ package geometry1;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Rectangle extends SurfaceShape {
+public class Rectangle extends ThreeDShape {
 
 	private static final long serialVersionUID = 1L;
 	private Point upperLeftPoint;
 	private int width;
 	private int height;
-	protected Color color;
-	protected Color edgecolor;
-
-	public Color getColor() {
-		return color;
-	}
-
-	public void setColor(Color color) {
-		this.color = color;
-	}
 	
-	public void setEdgeColor(Color edgecolor) {
-		this.edgecolor = edgecolor;
-	}
+	private boolean confirmation;
 
+	
 	public Rectangle() {
 	}
 
@@ -47,6 +36,14 @@ public class Rectangle extends SurfaceShape {
 		this.height = height;
 		setOutlineColor(outlineColor);
 		setFillColor(fillColor);
+	}
+	
+	public Rectangle(int x, int y, int width, int height)
+	{
+		upperLeftPoint.setX(x);
+		upperLeftPoint.setY(y);
+		this.width = width;
+		this.height = height;
 	}
 
 	public int area() {
@@ -88,13 +85,13 @@ public class Rectangle extends SurfaceShape {
 
 	@Override
 	public void draw(Graphics g) {
-		g.setColor(edgecolor);
+		g.setColor(getFillColor());
 		g.drawRect(upperLeftPoint.getX(), upperLeftPoint.getY(), width, height);
-		g.setColor(color);
+		g.setColor(getOutlineColor());
 		g.fillRect(upperLeftPoint.getX() +1, upperLeftPoint.getY() +1, width -1, height-1);
 		if(selected) {
 			g.setColor(Color.blue);
-			g.drawRect(upperLeftPoint.getX() - 2, upperLeftPoint.getY() - 2, 4, 4);
+			g.drawRect(upperLeftPoint.getX() - 2, upperLeftPoint.getY() - 2, 4, 4); //4 4 su heigh i widt
 			g.drawRect(upperLeftPoint.getX() + width - 2, upperLeftPoint.getY() - 2, 4, 4);
 			g.drawRect(upperLeftPoint.getX() - 2, upperLeftPoint.getY() + height - 2, 4, 4);
 			g.drawRect(upperLeftPoint.getX() + width  - 2, upperLeftPoint.getY() + height - 2, 4, 4);
@@ -122,6 +119,7 @@ public class Rectangle extends SurfaceShape {
 		return 0;
 	}
 
+	
 	public Point getUpperLeftPoint() {
 		return upperLeftPoint;
 	}
@@ -148,9 +146,21 @@ public class Rectangle extends SurfaceShape {
 
 	public String toString() {
 		return upperLeftPoint.getX() + " " + upperLeftPoint.getY() + " " + width + " "+ height;
+	}	
+	
+	public boolean isConfirmation() {
+		return confirmation;
 	}
 
+	public void setConfirmation(boolean confirmation) {
+		this.confirmation = confirmation;
+	}
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+	
 }
-
-
-

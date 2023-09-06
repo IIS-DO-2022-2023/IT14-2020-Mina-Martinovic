@@ -20,7 +20,7 @@ public class ToFrontCommand implements Command{
 	@Override
 	public void execute() {
 		if(shapeIndex!=model.getShapes().size()-1) {
-			Collections.swap(model.getShapes(), shapeIndex+1, shapeIndex);
+			Collections.swap(model.getShapes(), shapeIndex+1, shapeIndex); //pozicija po pozicija, jedan za drugim
 		}	
 	}
 

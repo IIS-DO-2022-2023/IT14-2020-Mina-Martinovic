@@ -6,17 +6,11 @@ import java.awt.FlowLayout;
 import java.awt.SystemColor;
 import java.awt.Font;
 
-import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
-import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import geometry1.Circle;
-import geometry1.Point;
-import geometry1.Rectangle;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -34,12 +28,9 @@ public class DlgCircle extends JDialog {
 	protected JTextField yKoordinata;
 	protected JTextField radius;
 	protected JTextField visina;
-	protected boolean isOk;
-	//private boolean confirm;
+	//protected boolean isOk;
 
 	private boolean confirmation;
-	private boolean innerColorConfirmation;
-	private boolean ColorConfirmation;
 	Color innerFill = new Color(255, 255, 255);
 	Color borderFill;
 	
@@ -59,6 +50,16 @@ public class DlgCircle extends JDialog {
 		this.radius = radius;
 	}
 
+	public static void main(String[] args) {
+		try {
+			DlgCircle dialog = new DlgCircle();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	* Create the dialog.
 	*/
@@ -171,7 +172,7 @@ public class DlgCircle extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					innerFill = JColorChooser.showDialog(null, "Izaberi boju unutrasnjosti tvog oblika", innerFill);
 					innerColorButton.setBackground(innerFill);
-					innerColorConfirmation = true;
+					boolean innerColorConfirmation = true;
 				}
 
 			});
@@ -202,7 +203,7 @@ public class DlgCircle extends JDialog {
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				isOk = false;
+				confirmation = false;
 				setVisible(false);
 			};
 		});

@@ -8,8 +8,7 @@ public class Point extends Shape{
 	private int y;
 	protected Color color;
 
-
-
+	
 	public Color getColor() {
 		return color;
 	}
