@@ -64,8 +64,8 @@ public class SerializeLog implements OptionChooser{
 	@Override
 	public void saveFile(File file) {
 		try {
-			writer = new BufferedWriter(new FileWriter(file + ".log"));
-			DefaultListModel<String> list = frame.getDlmList();
+			writer = new BufferedWriter(new FileWriter(file + ".log")); //pisanje u datoteku
+			DefaultListModel<String> list = frame.getDlmList(); //prolazi kroz svaku liniju
 			for (int i = 0; i < frame.getDlmList().size(); i++) {
 				writer.write(list.getElementAt(i));
 				writer.newLine();
@@ -84,7 +84,7 @@ public class SerializeLog implements OptionChooser{
 	public void openFile(File file) {
 		try {
 			reader = new BufferedReader(new FileReader(file));
-			dlgLog = new DlgLog();
+			dlgLog = new DlgLog(); //prikazuje mi log u prozoru
 			dlgLog.setFileLog(this);
 			dlgLog.addCommand(reader.readLine());
 			dlgLog.setVisible(true);
@@ -93,7 +93,9 @@ public class SerializeLog implements OptionChooser{
 		}		
 	}
 	
-	public void readLogLine(String command) {
+	public void readLogLine(String command) { // obrađuje liniju loga 
+		//Na osnovu komande u liniji, razdvaja se linija na komandu i
+		//parametre, a zatim se izvršava odgovarajuća akcija.
 		try {
 			String[] commands = command.split("->");
 			switch(commands[0]) {
@@ -206,7 +208,7 @@ public class SerializeLog implements OptionChooser{
 			System.out.println(e.getMessage());
 		}
 	}
-	
+	//služe za analizu i konverziju tekstualnih opisa oblika iz linije loga u odgovarajuće objekte.
 	private Shape parseShape(String shape, String shapeParameters) throws Exception {
 		if (shape.equals("Point")) return parsePoint(shapeParameters);
 		else if (shape.equals("Hexagon")) return parseHexagon(shapeParameters);

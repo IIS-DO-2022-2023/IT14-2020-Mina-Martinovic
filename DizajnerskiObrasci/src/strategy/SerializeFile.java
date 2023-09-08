@@ -12,7 +12,7 @@ import mvc.DrawingModel;
 
 public class SerializeFile implements OptionChooser {
 
-	private FileOutputStream fileOutputStream;
+	private FileOutputStream fileOutputStream; 
 	private FileInputStream fileInputStream;
 	private DrawingModel model;
 
@@ -24,8 +24,8 @@ public class SerializeFile implements OptionChooser {
 	@Override
 	public void saveFile(File file) {
 		try {
-			fileOutputStream = new FileOutputStream(file + ".ser");
-			ObjectOutputStream out = new ObjectOutputStream(fileOutputStream);
+			fileOutputStream = new FileOutputStream(file + ".ser"); //da bi se otvorio izlazni tok za datoteku sa ekstenzijom .ser
+			ObjectOutputStream out = new ObjectOutputStream(fileOutputStream); //serijalizovanje -> ( proces pretvaranja objekata u binarni format) liste svih oblika
 			out.writeObject(model.getAllShapes());
 			out.close();
 			fileOutputStream.close();
@@ -34,13 +34,13 @@ public class SerializeFile implements OptionChooser {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") // potiskuje upozorenja kompajlera. U ovom slučaju, potiskuje upozorenje koje bi se pojavilo kada se kastuje objekat iz Object u ArrayList<Shape>
 	@Override
 	public void openFile(File file) {
 		try {
-			fileInputStream = new FileInputStream(file);
-			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-	        model.addMultipleShapes((ArrayList<Shape>) objectInputStream.readObject());
+			fileInputStream = new FileInputStream(file); //otvara ulazni tok ka datoteci
+			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream); //kako bi pročitao binarne podatke iz datoteke i konvertovao ih u listu oblika
+	        model.addMultipleShapes((ArrayList<Shape>) objectInputStream.readObject()); //dodaje se u DrawigModel
 	        objectInputStream.close();
 	        fileInputStream.close();
 		} catch (Exception e) {
