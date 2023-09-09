@@ -16,10 +16,13 @@ public class UpdateLineCmd implements Command{
 
 	@Override
 	public void execute() {
+		/*
 		originalState.getStartPoint().setX(oldLine.getStartPoint().getX());
 		originalState.getStartPoint().setY(oldLine.getStartPoint().getY());
 		originalState.getEndPoint().setX(oldLine.getEndPoint().getX());
 		originalState.getEndPoint().setY(oldLine.getEndPoint().getY());
+		*/
+		originalState = oldLine.clone();
 
 		oldLine.getStartPoint().setX(newLine.getStartPoint().getX());
 		oldLine.getStartPoint().setY(newLine.getStartPoint().getY());

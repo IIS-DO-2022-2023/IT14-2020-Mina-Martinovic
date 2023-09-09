@@ -159,8 +159,8 @@ public class DrawingController implements PropertyChangeListener{
 		
 		if(dlgCircle.isConfirmation()) {
 			try {
-				if(checkType(dlgCircle.getRadius().getText())) {
-					int radius = Integer.parseInt(dlgCircle.getRadius().getText());
+				if(checkType(dlgCircle.getTxtRadius().getText())) {
+					int radius = Integer.parseInt(dlgCircle.getTxtRadius().getText());
 					Circle circle = new Circle(new Point(e.getX(), e.getY()), radius, outColor, inColor);
 					AddCircleCmd addCircle = new AddCircleCmd(model,circle);
 					addCircle.execute();
@@ -248,8 +248,8 @@ public class DrawingController implements PropertyChangeListener{
 		dlgHex.setVisible(true);
 
 		if(dlgHex.isConfirmation()) {
-			if(checkType(dlgHex.getRadius().getText())) {
-				Hexagon hexagon = new Hexagon(e.getX(),e.getY(),Integer.parseInt(dlgHex.getRadius().getText()));
+			if(checkType(dlgHex.getTxtRadius().getText())) {
+				Hexagon hexagon = new Hexagon(e.getX(),e.getY(),Integer.parseInt(dlgHex.getTxtRadius().getText()));
 				hexagon.setBorderColor(outColor);
 				hexagon.setAreaColor(inColor);
 				HexAdapter adapter = new HexAdapter(hexagon);
@@ -273,22 +273,18 @@ public class DrawingController implements PropertyChangeListener{
 		DlgOption dlgOption = new DlgOption();
 		dlgOption.setVisible(true);
 		if(dlgOption.confirmation) {
-		for (int i=DrawingModel.shapes.size()-1; i>=0; i--) {
-			if(DrawingModel.shapes.get(i).isSelected() == true) {
-				//int reply = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da zelite da obrisete Vas objekat?");
-				//if(reply == JOptionPane.YES_OPTION) {
+			while(model.getSelectedShapes().size()>0) {
+				for(int i = 0; i<model.getSelectedShapes().size(); i++) {
 					Shape shape = model.getSelectedShapes().get(i);
 					RemoveShapeCmd CDS = new RemoveShapeCmd(model, shape);
 					CDS.execute();
 					actLog.addElement("Deleted->" + shape.toString());
 					model.getUndoStack().push(CDS);
-					DrawingModel.shapes.remove(i);
-					//}
+						}	
+					}
 				}
+				frame.repaint();
 			}
-		}
-		frame.repaint();
-	}
 	
 		
 		public void modifyShape() throws Exception {

@@ -14,6 +14,7 @@ public class Rectangle extends ThreeDShape {
 
 	
 	public Rectangle() {
+		
 	}
 
 	public Rectangle(Point upperLeftPoint, int width, int height) {
@@ -54,6 +55,10 @@ public class Rectangle extends ThreeDShape {
 		return 2 * this.width + 2 * this.height;
 	}
 
+	public Rectangle clone() {
+    	return new Rectangle(upperLeftPoint.clone(), width, height, getOutlineColor(), getFillColor());
+    }
+	
 	public boolean equals(Object obj) {
 
 		if (obj instanceof Rectangle) {
@@ -86,10 +91,9 @@ public class Rectangle extends ThreeDShape {
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(getFillColor());
-		g.drawRect(upperLeftPoint.getX(), upperLeftPoint.getY(), width, height);
-		g.setColor(getOutlineColor());
 		g.fillRect(upperLeftPoint.getX() +1, upperLeftPoint.getY() +1, width -1, height-1);
-		if(selected) {
+		g.setColor(getOutlineColor());
+		g.drawRect(upperLeftPoint.getX(), upperLeftPoint.getY(), width, height);		if(selected) {
 			g.setColor(Color.blue);
 			g.drawRect(upperLeftPoint.getX() - 2, upperLeftPoint.getY() - 2, 4, 4); //4 4 su heigh i widt
 			g.drawRect(upperLeftPoint.getX() + width - 2, upperLeftPoint.getY() - 2, 4, 4);

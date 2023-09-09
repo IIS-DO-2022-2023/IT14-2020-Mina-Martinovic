@@ -16,11 +16,13 @@ public class UpdateDonutCmd implements Command{
 	}
 	
 	@Override
-	public void execute() {
+	public void execute() {/*
 		originalState.getCenter().setX(oldDonut.getCenter().getX());
 		originalState.getCenter().setY(oldDonut.getCenter().getY());
 		originalState.setInnerRadius(oldDonut.getInnerRadius());
 		originalState.setOuterRadius(oldDonut.getOuterRadius());
+		*/
+		originalState = oldDonut.clone();
 		
 		oldDonut.getCenter().setX(newDonut.getCenter().getX());
 		oldDonut.getCenter().setY(newDonut.getCenter().getY());

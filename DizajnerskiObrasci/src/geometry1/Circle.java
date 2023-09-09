@@ -33,19 +33,11 @@ public class Circle extends ThreeDShape{
 	
 	public Circle() {
 	}
+	
 	public Circle(Point center, int radius) {
 		this.center = center;
 		this.radius = radius;
 	}
-	
-	/*
-	public Circle(Point center, int radius, Color edgecolor, Color color) throws Exception {
-		this.center = center;
-		setRadius(radius);
-		setEdgeColor(edgecolor);
-		setColor(color);
-	}
-	*/
 	
 	public Circle(Point center, int r, Color outlineColor, Color fillColor) throws Exception {
 		this.center = center;
@@ -86,18 +78,17 @@ public class Circle extends ThreeDShape{
 	public boolean contains(Point p) {
 		return center.distance(p.getX(), p.getY())<= radius;
 	}
-	/*
+	
 	public Circle clone() {
     	try {
-			return new Circle(center.clone(), radius, setEdgeColor(edgecolor), setColor(color));
+			return new Circle(center.clone(), radius, getOutlineColor(), getFillColor());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
     }
-	*/
-
+	
 	public void draw(Graphics g) {
 		g.setColor(getFillColor());
 		g.drawOval(center.getX()-radius, center.getY()-radius, radius*2, radius*2);

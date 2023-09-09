@@ -18,9 +18,12 @@ public class UpdateCircleCmd implements Command{
 
 	@Override
 	public void execute() {
+		/*
 		originalState.getCenter().setX(oldCircle.getCenter().getX());
 		originalState.getCenter().setY(oldCircle.getCenter().getY());
 		originalState.setRadius(oldCircle.getRadius());
+		*/
+		originalState = oldCircle.clone();
 		
 		oldCircle.getCenter().setX(newCircle.getCenter().getX());
 		oldCircle.getCenter().setY(newCircle.getCenter().getY());

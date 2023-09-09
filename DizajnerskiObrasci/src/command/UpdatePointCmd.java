@@ -16,9 +16,12 @@ public class UpdatePointCmd implements Command{
 	}
 
 	public void execute() {
+		/*
 		originalState.setX(oldPoint.getX());
 		originalState.setY(oldPoint.getY());
 		originalState.setColor(oldPoint.getColor());
+		*/
+		originalState = oldPoint.clone();
 		
 		oldPoint.setX(newPoint.getX());
 		oldPoint.setY(newPoint.getY());

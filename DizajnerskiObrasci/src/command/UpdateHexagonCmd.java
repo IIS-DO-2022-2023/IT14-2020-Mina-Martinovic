@@ -1,6 +1,9 @@
 package command;
 
 import hexagon.Hexagon;
+
+import java.awt.Color;
+
 import adapter.HexAdapter;
 
 public class UpdateHexagonCmd implements Command{
@@ -16,13 +19,28 @@ public class UpdateHexagonCmd implements Command{
 
 	@Override
 	public void execute() {
+		/*
 		originalState.getHexagon().setX(oldHex.getHexagon().getX());
 		originalState.getHexagon().setY(oldHex.getHexagon().getY());
 		originalState.getHexagon().setR(oldHex.getHexagon().getR());
+		*/
+		originalState = oldHex.clone();
 		
 		oldHex.getHexagon().setX(newHex.getHexagon().getX());
 		oldHex.getHexagon().setY(newHex.getHexagon().getY());
 		oldHex.getHexagon().setR(newHex.getHexagon().getR());
+		
+		if(newHex.getHexagon().getBorderColor() == Color.BLACK && originalState.getHexagon().getBorderColor() != Color.BLACK) {
+			oldHex.getHexagon().setBorderColor(originalState.getHexagon().getBorderColor());
+		} else {
+			oldHex.getHexagon().setBorderColor(newHex.getHexagon().getBorderColor());
+		}
+		
+		if(newHex.getHexagon().getAreaColor()== Color.WHITE && originalState.getHexagon().getAreaColor()!= Color.WHITE) {
+			oldHex.getHexagon().setAreaColor(originalState.getHexagon().getAreaColor());
+		} else {
+			oldHex.getHexagon().setAreaColor(newHex.getHexagon().getAreaColor());
+		}
 		
 	}
 
@@ -31,6 +49,8 @@ public class UpdateHexagonCmd implements Command{
 		oldHex.getHexagon().setX(originalState.getHexagon().getX());
 		oldHex.getHexagon().setY(originalState.getHexagon().getY());
 		oldHex.getHexagon().setR(originalState.getHexagon().getR());
+		oldHex.getHexagon().setBorderColor(originalState.getHexagon().getBorderColor());
+		oldHex.getHexagon().setAreaColor(originalState.getHexagon().getAreaColor());
 		
 	}
 

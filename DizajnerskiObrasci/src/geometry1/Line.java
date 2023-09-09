@@ -62,7 +62,10 @@ public class Line extends Shape{
 	}
 	
 	
-
+	public Line clone() {
+		return new Line(startPoint.clone(), endPoint.clone(), getOutlineColor());
+	}
+	
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(color);

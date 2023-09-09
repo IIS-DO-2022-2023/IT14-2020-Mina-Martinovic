@@ -64,13 +64,16 @@ public class Donut extends Circle{
 			return false;
 		}
 	}
-	/*
+	
 	public Donut clone() {
-		
-		return new Donut(center.clone(), outerRadius, innerRadius, getEdgecolor(), getFillColor());
-
+    	try {
+			return new Donut(center.clone(), outerRadius, innerRadius, getOutlineColor(), getFillColor());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
     }
-    */
 	
 	public Color getOutlineColor() {
 		return outlineColor ;

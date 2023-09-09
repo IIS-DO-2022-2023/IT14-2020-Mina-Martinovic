@@ -48,6 +48,10 @@ public class Point extends Shape{
 		return d;
 	}
 
+	public Point clone() {
+    	return new Point(x, y, getOutlineColor());
+    }
+	
 	public boolean equals(Object obj) {
 
 		if (obj instanceof Point) {

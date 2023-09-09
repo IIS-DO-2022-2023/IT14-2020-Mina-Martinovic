@@ -2,13 +2,14 @@ package command;
 
 import java.awt.Color;
 
+import geometry1.Point;
 import geometry1.Rectangle;
 
 public class UpdateRectangleCmd implements Command{
 
 	private Rectangle oldRect;
 	private Rectangle newRect;
-	private Rectangle originalState;
+	private Rectangle originalState = new Rectangle(new Point(), 1, 1);
 	
 	public UpdateRectangleCmd(Rectangle oldRect, Rectangle newRect) {
 		this.oldRect = oldRect;
@@ -17,10 +18,13 @@ public class UpdateRectangleCmd implements Command{
 
 	@Override
 	public void execute() {
+		/*
 		originalState.getUpperLeftPoint().setX(oldRect.getUpperLeftPoint().getX());
 		originalState.getUpperLeftPoint().setY(oldRect.getUpperLeftPoint().getY());
 		originalState.setHeight(oldRect.getHeight());
 		originalState.setWidth(oldRect.getWidth());	
+		*/
+		originalState = oldRect.clone();
 		
 		oldRect.getUpperLeftPoint().setX(newRect.getUpperLeftPoint().getX());
 		oldRect.getUpperLeftPoint().setY(newRect.getUpperLeftPoint().getY());

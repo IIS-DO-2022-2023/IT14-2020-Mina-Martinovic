@@ -45,7 +45,6 @@ public class DrawingFrame extends JFrame{
 	private DefaultListModel <String> dlmList;
 	
 	
-	
 	public JList<String> getActivityLog() {
 		return activityLog;
 	}
@@ -131,91 +130,6 @@ public class DrawingFrame extends JFrame{
 	 */
 	
 	public DrawingFrame() {	
-		/*
-		setForeground(Color.BLUE);
-		setBackground(Color.CYAN);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setExtendedState(JFrame.MAXIMIZED_BOTH); 
-		setLocationRelativeTo(null);
-		
-		JPanel mainPanel = new JPanel();
-		mainPanel.setBackground(Color.WHITE);
-		mainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		mainPanel.setLayout(new BorderLayout(0, 0));
-		setContentPane(mainPanel);
-		dlmList = new DefaultListModel<String>();
-	
-		JPanel buttonsPanelForDrawing = new JPanel();
-		buttonsPanelForDrawing.setBackground(Color.WHITE);
-		JPanel buttonsPanel = new JPanel();
-		buttonsPanel.setBackground(Color.WHITE);
-
-		view = new DrawingView();
-		view.setBackground(Color.WHITE);
-		mainPanel.add(buttonsPanel, BorderLayout.NORTH);
-		mainPanel.add(buttonsPanelForDrawing, BorderLayout.SOUTH);
-		mainPanel.add(view, BorderLayout.CENTER);
-		ButtonGroup buttonsGroup = new ButtonGroup();
-
-		JButton btnSaveDraw = new JButton();
-		btnSaveDraw.setEnabled(false);
-		btnSaveDraw.setText("Save");
-		buttonsPanelForDrawing.add(btnSaveDraw);
-		
-		JButton btnNewDraw = new JButton();
-		btnNewDraw.setText("New draw");
-		btnNewDraw.setEnabled(false);
-		buttonsPanelForDrawing.add(btnNewDraw);
-		
-		JButton btnOpenDraw = new JButton();
-		btnOpenDraw.setText("Open");
-		buttonsPanelForDrawing.add(btnOpenDraw);
-		
-		JButton btnLog = new JButton();
-		btnLog.setEnabled(false);
-		btnLog.setText("Log");
-		buttonsPanelForDrawing.add(btnLog);
-
-	
-		JList<String> activityLog = new JList<String>();
-		activityLog.setEnabled(false);
-		activityLog.setModel(dlmList);
-		activityLog.setFont(new Font("Lucida Console", Font.BOLD, 12));
-		scrollPane.setViewportView(activityLog);
-
-			
-		MouseAdapter mouseAdapterSaveDrawing = new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent click) {
-				controller.save();
-			}
-		};
-		
-		MouseAdapter mouseAdapterLog = new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent click) {
-				if (btnLog.getText().equals("Log")) {
-					mainPanel.remove(view);
-					mainPanel.add(scrollPane, BorderLayout.CENTER);
-					btnLog.setText("Draw");
-					
-				} else if (btnLog.getText().equals("Draw")) {
-					mainPanel.remove(scrollPane);
-					mainPanel.add(view, BorderLayout.CENTER);
-					btnLog.setText("Log");
-				}			
-				repaint();
-			}
-		};
-		
-		btnOpenDraw.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				controller.open();
-			}
-		});
-			
-		*/
 		
 		final Color LIGHT_BLUE = new Color(51, 153, 255);
 		this.setBackground(Color.WHITE);
