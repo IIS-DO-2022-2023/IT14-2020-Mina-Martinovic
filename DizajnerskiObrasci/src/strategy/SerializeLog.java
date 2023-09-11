@@ -41,6 +41,7 @@ import mvc.DrawingFrame;
 import mvc.DrawingModel;
 
 public class SerializeLog implements OptionChooser{
+	// čuvanje i čitanje logova akcija iz aplikacije 
 
 	private BufferedReader reader;
 	private BufferedWriter writer;
@@ -58,7 +59,7 @@ public class SerializeLog implements OptionChooser{
 	public SerializeLog(DrawingFrame frame, DrawingModel model, DrawingController controller) {
 		this.frame = frame;
 		this.model = model;
-		this.controller = controller;
+		this.controller = controller; //omogucava klasi pristup tren stanju 
 	}
 
 	@Override
@@ -77,7 +78,7 @@ public class SerializeLog implements OptionChooser{
 			writer.close();
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
-		}
+		}//Svaka linija se zapisuje u datoteku, nakon završetka upisa zatvaraju se tokovi
 	}
 
 	@Override
@@ -85,8 +86,8 @@ public class SerializeLog implements OptionChooser{
 		try {
 			reader = new BufferedReader(new FileReader(file));
 			dlgLog = new DlgLog(); //prikazuje mi log u prozoru
-			dlgLog.setFileLog(this);
-			dlgLog.addCommand(reader.readLine());
+			dlgLog.setFileLog(this);//postavlja mu s e ref na tren instancu klase
+			dlgLog.addCommand(reader.readLine()); //dodaje se pocetna komanda loga
 			dlgLog.setVisible(true);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -208,7 +209,8 @@ public class SerializeLog implements OptionChooser{
 			System.out.println(e.getMessage());
 		}
 	}
-	//služe za analizu i konverziju tekstualnih opisa oblika iz linije loga u odgovarajuće objekte.
+	//služe za analizu i konverziju tekstualnih opisa oblika iz linije loga u odgovarajuće objekte
+	//npr point mi razdvaja tekstualni opis x, y i boju
 	private Shape parseShape(String shape, String shapeParameters) throws Exception {
 		if (shape.equals("Point")) return parsePoint(shapeParameters);
 		else if (shape.equals("Hexagon")) return parseHexagon(shapeParameters);

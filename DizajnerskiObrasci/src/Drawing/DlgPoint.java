@@ -17,13 +17,11 @@ import java.awt.Insets;
 import javax.swing.JTextField;
 
 public class DlgPoint extends JDialog {
-
 	private final JPanel contentPanel = new JPanel();
-	protected JTextField xKoordinata;
-	protected JTextField yKoordinata;
-	protected JTextField sirina;
-	protected JTextField visina;
-	protected boolean isOk;
+	protected JTextField txtX;
+	protected JTextField txtY;
+	
+
 	private boolean confirmation;
 	private Color color = Color.BLACK;
 
@@ -35,20 +33,20 @@ public class DlgPoint extends JDialog {
 		this.color = color;
 	}
 	
-	public JTextField getXKoordinata() {
-		return xKoordinata;
+	public JTextField getTxtX() {
+		return txtX;
 	}
 
-	public void setXKoordinata(JTextField xKoordinata) {
-		this.xKoordinata = xKoordinata;
+	public void setTxtX(JTextField txtX) {
+		this.txtX = txtX;
 	}
 
-	public JTextField getYKoordinata() {
-		return yKoordinata;
+	public JTextField getTxtY() {
+		return txtY;
 	}
 
-	public void setYKoordinata(JTextField yKoordinata) {
-		this.yKoordinata = yKoordinata;
+	public void setTxtY(JTextField txtY) {
+		this.txtY = txtY;
 	}
 
 	public boolean isConfirmation() {
@@ -98,14 +96,14 @@ public class DlgPoint extends JDialog {
 			contentPanel.add(lblXKoordinata, gbc_lblXKoordinata);
 		}
 		{
-			xKoordinata = new JTextField();
+			txtX = new JTextField();
 			GridBagConstraints gbc_txtXKoordinata = new GridBagConstraints();
 			gbc_txtXKoordinata.insets = new Insets(0, 0, 5, 0);
 			gbc_txtXKoordinata.fill = GridBagConstraints.HORIZONTAL;
 			gbc_txtXKoordinata.gridx = 1;
 			gbc_txtXKoordinata.gridy = 1;
-			contentPanel.add(xKoordinata, gbc_txtXKoordinata);
-			xKoordinata.setColumns(10);
+			contentPanel.add(txtX, gbc_txtXKoordinata);
+			txtX.setColumns(10);
 		}
 		{
 			JLabel lblYKoordinata = new JLabel("Y koordinata je:");
@@ -117,14 +115,14 @@ public class DlgPoint extends JDialog {
 			contentPanel.add(lblYKoordinata, gbc_lblYKoordinata);
 		}
 		{
-			yKoordinata = new JTextField();
+			txtY = new JTextField();
 			GridBagConstraints gbc_txtYKoordinata = new GridBagConstraints();
 			gbc_txtYKoordinata.insets = new Insets(0, 0, 5, 0);
 			gbc_txtYKoordinata.fill = GridBagConstraints.HORIZONTAL;
 			gbc_txtYKoordinata.gridx = 1;
 			gbc_txtYKoordinata.gridy = 2;
-			contentPanel.add(yKoordinata, gbc_txtYKoordinata);
-			yKoordinata.setColumns(10);
+			contentPanel.add(txtY, gbc_txtYKoordinata);
+			txtY.setColumns(10);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -134,7 +132,7 @@ public class DlgPoint extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						isOk=true;
+						confirmation=true;
 						setVisible(false);
 					}
 				});
@@ -146,7 +144,7 @@ public class DlgPoint extends JDialog {
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						isOk=false;
+						confirmation=false;
 						setVisible(false);
 					}
 				});

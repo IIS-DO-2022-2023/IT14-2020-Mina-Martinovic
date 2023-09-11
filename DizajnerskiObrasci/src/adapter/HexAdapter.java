@@ -34,8 +34,13 @@ public class HexAdapter extends ThreeDShape{
 	}
 	
 	public HexAdapter clone() {
-		Hexagon h;
-		h = new Hexagon(hexagon.getX(), hexagon.getY(), hexagon.getR());
+		Hexagon h = null;
+		try {
+			h = new Hexagon(hexagon.getX(), hexagon.getY(), hexagon.getR());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		h.setBorderColor(hexagon.getBorderColor());
 		h.setAreaColor(hexagon.getAreaColor());
 		return new HexAdapter(h);

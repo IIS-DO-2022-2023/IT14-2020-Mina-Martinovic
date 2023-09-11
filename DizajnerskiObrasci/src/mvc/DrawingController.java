@@ -242,7 +242,7 @@ public class DrawingController implements PropertyChangeListener{
 		}
 	}
 	
-	private void drawHexagon(MouseEvent e) { 
+	private void drawHexagon(MouseEvent e) throws NumberFormatException, Exception { 
 		DlgCircle dlgHex = new DlgCircle();
 		dlgHex.setTitle("Add Hexagon");
 		dlgHex.setVisible(true);
@@ -293,12 +293,12 @@ public class DrawingController implements PropertyChangeListener{
 					if(model.getSelectedShapes().get(0).isSelected()) {
 						DlgPoint dlgPoint = new DlgPoint();
 						Point oldState = (Point) model.getSelectedShapes().get(0);
-						dlgPoint.getXKoordinata().setText(Integer.toString(oldState.getX()));
-						dlgPoint.getYKoordinata().setText(Integer.toString(oldState.getY()));
+						dlgPoint.getTxtX().setText(Integer.toString(oldState.getX()));
+						dlgPoint.getTxtY().setText(Integer.toString(oldState.getY()));
 						dlgPoint.setVisible(true);
 						if(dlgPoint.isConfirmation()) {
-							if(checkType(dlgPoint.getXKoordinata().getText()) && checkType(dlgPoint.getYKoordinata().getText())) {
-								Point newState = new Point(Integer.parseInt(dlgPoint.getXKoordinata().getText()), Integer.parseInt(dlgPoint.getYKoordinata().getText()), dlgPoint.getColor());
+							if(checkType(dlgPoint.getTxtX().getText()) && checkType(dlgPoint.getTxtY().getText())) {
+								Point newState = new Point(Integer.parseInt(dlgPoint.getTxtX().getText()), Integer.parseInt(dlgPoint.getTxtY().getText()), dlgPoint.getColor());
 								actLog.addElement("Updated->" + oldState.toString() + "->" + newState.toString());
 								UpdatePointCmd pointUpdate = new UpdatePointCmd(oldState , newState);
 								pointUpdate.execute();

@@ -11,6 +11,7 @@ import geometry1.Shape;
 import mvc.DrawingModel;
 
 public class SerializeFile implements OptionChooser {
+	//služi za serijalizaciju i deserijalizaciju liste oblika u i iz binarnih datoteka.  korisno za čuvanje i ponovno učitavanje stanja crteža, omogućavajući da sačuvam crtež u datoteku i kasnije ga ponovo ucitam
 
 	private FileOutputStream fileOutputStream; 
 	private FileInputStream fileInputStream;
@@ -18,7 +19,7 @@ public class SerializeFile implements OptionChooser {
 
 
 	public SerializeFile(DrawingModel model) {
-		this.model = model;
+		this.model = model; //prima ref na ovajmodel objekat sto mi je lista oblika koje hocu da ser i deser
 	}
 
 	@Override
@@ -34,7 +35,7 @@ public class SerializeFile implements OptionChooser {
 		}
 	}
 
-	@SuppressWarnings("unchecked") // potiskuje upozorenja kompajlera. U ovom slučaju, potiskuje upozorenje koje bi se pojavilo kada se kastuje objekat iz Object u ArrayList<Shape>
+	@SuppressWarnings("unchecked") // potiskuje upozorenja kompajlera, potiskuje upozorenje koje bi se pojavilo kada se kastuje objekat iz Object u ArrayList<Shape>
 	@Override
 	public void openFile(File file) {
 		try {

@@ -19,7 +19,7 @@ public class SerializeDrawing implements OptionChooser {
 
 	@Override
 	public void saveFile(File file) {
-		BufferedImage imageBuffer = null;
+		BufferedImage imageBuffer = null; //cuva mi sliku a postavlj ase inicijalno na null jer mi prvo ne sadrzi nijednu sliku
 		try {
 			imageBuffer = new Robot().createScreenCapture(frame.getView().getBounds());
 			//prvo se koristi Robot klasa da bi se kreirala slika trenutnog sadržaja frame.getView()

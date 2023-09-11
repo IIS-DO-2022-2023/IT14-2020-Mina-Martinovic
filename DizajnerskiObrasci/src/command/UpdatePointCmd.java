@@ -25,7 +25,6 @@ public class UpdatePointCmd implements Command{
 		
 		oldPoint.setX(newPoint.getX());
 		oldPoint.setY(newPoint.getY());
-		oldPoint.setColor(newPoint.getColor());
 		
 		if(newPoint.getOutlineColor() == Color.BLACK && originalState.getOutlineColor() != Color.BLACK) {
 			oldPoint.setOutlineColor(originalState.getOutlineColor());

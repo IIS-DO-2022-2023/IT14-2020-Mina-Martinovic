@@ -16,18 +16,14 @@ public class UpdateDonutCmd implements Command{
 	}
 	
 	@Override
-	public void execute() {/*
-		originalState.getCenter().setX(oldDonut.getCenter().getX());
-		originalState.getCenter().setY(oldDonut.getCenter().getY());
-		originalState.setInnerRadius(oldDonut.getInnerRadius());
-		originalState.setOuterRadius(oldDonut.getOuterRadius());
-		*/
+	public void execute() {
 		originalState = oldDonut.clone();
 		
-		oldDonut.getCenter().setX(newDonut.getCenter().getX());
-		oldDonut.getCenter().setY(newDonut.getCenter().getY());
+		//oldDonut.getCenter().setX(newDonut.getCenter().getX());
+		//oldDonut.getCenter().setY(newDonut.getCenter().getY());
 		oldDonut.setInnerRadius(newDonut.getInnerRadius());
 		oldDonut.setOuterRadius(newDonut.getOuterRadius());
+		oldDonut.setCenter(newDonut.getCenter().clone());
 		
 		if(newDonut.getOutlineColor() == Color.BLACK && originalState.getOutlineColor() != Color.BLACK) {
 			oldDonut.setOutlineColor(originalState.getOutlineColor());
