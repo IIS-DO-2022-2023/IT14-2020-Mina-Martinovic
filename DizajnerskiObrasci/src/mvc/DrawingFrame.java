@@ -34,6 +34,9 @@ public class DrawingFrame extends JFrame{
 	private JToggleButton tglBtnSelect;
 	private JToggleButton tglBtnModify;
 	private JToggleButton tglBtnDelete;
+	
+	private JButton btnFillColor = new JButton("Fill color");
+	private JButton btnOutlineColor = new JButton("Outline color");
 
 	private JButton btnUndo;
 	private JButton btnRedo;
@@ -115,6 +118,24 @@ public class DrawingFrame extends JFrame{
 
 	public void setController(DrawingController controller) {
 		this.controller = controller;
+	}
+	
+	public void setInnerColorBtnBackgroundColor (Color color)
+	{
+		this.btnFillColor.setBackground(color);
+	}
+	public Color getInnerColorBtnBackgroundColor ()
+	{
+		return this.btnFillColor.getBackground();
+	}
+	
+	public Color getBtnOutlineColorBackgroundColor() {
+		
+		return this.btnOutlineColor.getBackground();
+	}
+
+	public void setBtnOutlineColorBackgroundColor(Color color) {
+		this.btnOutlineColor.setBackground(color);
 	}
 	
 	public DefaultListModel<String> getDlmList() {
@@ -456,7 +477,7 @@ public class DrawingFrame extends JFrame{
 		shapesGroup.add(tglbtnModify);
 		shapesGroup.add(tglbtnSelect);
 		
-		JButton btnFillColor = new JButton("Fill color");
+		
 		btnFillColor.setBackground(Color.WHITE);
 		btnFillColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -468,7 +489,7 @@ public class DrawingFrame extends JFrame{
 			}
 		});
 		
-		JButton btnOutlineColor = new JButton("Outline color");
+	
 		btnOutlineColor.setBackground(Color.WHITE);
 		btnOutlineColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -558,6 +579,8 @@ public class DrawingFrame extends JFrame{
 		view.setBackground(Color.WHITE);
 		scrollPane.setBounds(586, 452, 784, 461);
 	}
+
+
 	
 
 	//dodas dugmice sve to jev frmDrawing i listeneri 

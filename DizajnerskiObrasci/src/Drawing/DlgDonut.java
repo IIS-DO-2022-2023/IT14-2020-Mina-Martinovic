@@ -68,7 +68,7 @@ public class DlgDonut extends JDialog {
 
 	public static void main(String[] args) {
 		try {
-			DlgDonut dialog = new DlgDonut(0,0);
+			DlgDonut dialog = new DlgDonut();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -82,7 +82,7 @@ public class DlgDonut extends JDialog {
 	 */
 	
 
-	public DlgDonut(int xKoordinata, int yKoordinata ) {
+	public DlgDonut(int xKoordinata, int yKoordinata, Color innerC, Color outerC ) {
 		
 		setBounds(100, 100, 450, 300);
 		setTitle("Karakteristike kruga sa rupom");
@@ -181,7 +181,7 @@ public class DlgDonut extends JDialog {
 //		  inner/border color
 		  {
 			  JButton innerColorButton = new JButton("Boja unutrasnjosti");
-			  innerColorButton.setBackground(SystemColor.activeCaption);
+			  innerColorButton.setBackground(innerC);
 			  innerColorButton.setForeground(new Color(0, 0, 0));
 			  innerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
 			  innerColorButton.addActionListener(new ActionListener() {
@@ -201,7 +201,7 @@ public class DlgDonut extends JDialog {
 		  
 		  {
 		  JButton borderColorButton = new JButton(" Boja ivice");
-		  borderColorButton.setBackground(SystemColor.activeCaption);
+		  borderColorButton.setBackground(outerC);
 		  borderColorButton.setForeground(new Color(0, 0, 0));
 		  borderColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
 		  borderColorButton.addActionListener(new ActionListener() {

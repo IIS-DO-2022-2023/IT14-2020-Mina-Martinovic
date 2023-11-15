@@ -221,7 +221,7 @@ public class DrawingController implements PropertyChangeListener{
 }
 	
 	private void drawDonut(MouseEvent e) {
-		DlgDonut dlgDonut = new DlgDonut(e.getX(), e.getY());
+		DlgDonut dlgDonut = new DlgDonut(e.getX(), e.getY(), frame.getInnerColorBtnBackgroundColor(), frame.getBtnOutlineColorBackgroundColor());
 		dlgDonut.setVisible(true);
 
 		if(dlgDonut.isConfirmation()) {
