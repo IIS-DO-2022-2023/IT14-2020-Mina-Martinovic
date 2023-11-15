@@ -25,6 +25,6 @@ public class AddCircleCmd implements Command {
 	
 	@Override
 	public String toString() {
-		return circle.toString() +"added.";
+		return "Added->"+circle.toString();
 	}
 }

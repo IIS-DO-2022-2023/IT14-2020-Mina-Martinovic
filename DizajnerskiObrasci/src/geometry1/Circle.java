@@ -153,7 +153,6 @@ public class Circle extends ThreeDShape{
 
 	public String toString() {
 		// Center=(x,y), radius= radius
-		return "Center=" + center + ", radius=" + radius;
-	}
+		return "Circle: radius=" + radius + "; x=" + center.getX() + "; y=" + center.getY() + "; edge color=" + getOutlineColor().toString().substring(14).replace('=', '-') + "; area color=" + getFillColor().toString().substring(14).replace('=', '-');	}
 	
 }

@@ -25,6 +25,6 @@ public class AddRectangleCmd implements Command{
 	
 	@Override
 	public String toString() {
-		return rectangle.toString()+"added";
+		return "Added->"+rectangle.toString();
 	}
 }

@@ -147,10 +147,7 @@ public class Rectangle extends ThreeDShape {
 	public void setHeight(int height) {
 		this.height = height;
 	}
-
-	public String toString() {
-		return upperLeftPoint.getX() + " " + upperLeftPoint.getY() + " " + width + " "+ height;
-	}	
+	
 	
 	public boolean isConfirmation() {
 		return confirmation;
@@ -167,4 +164,8 @@ public class Rectangle extends ThreeDShape {
 		this.selected = selected;
 	}
 	
+	public String toString() {
+		//return upperLeftPoint.getX() + " " + upperLeftPoint.getY() + " " + width + " "+ height;
+		return "Rectangle: x=" + upperLeftPoint.getX() + "; y=" + upperLeftPoint.getY() + "; height=" + height + "; width=" + width + "; edge color=" + getOutlineColor().toString().substring(14).replace('=', '-') + "; area color=" + getFillColor().toString().substring(14).replace('=', '-');
+	}
 }

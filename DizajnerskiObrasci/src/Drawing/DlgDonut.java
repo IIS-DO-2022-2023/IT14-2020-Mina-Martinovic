@@ -82,10 +82,9 @@ public class DlgDonut extends JDialog {
 	 */
 	
 
-	public DlgDonut(int xKoordinata, int yKoordinata, Color innerC, Color outerC ) {
-		
+	public DlgDonut(int xKoordinata, int yKoordinata, Color innerC, Color outerC ) {	
 		setBounds(100, 100, 450, 300);
-		setTitle("Karakteristike kruga sa rupom");
+		setTitle("Add Donut");
 		setModal(true);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -126,8 +125,7 @@ public class DlgDonut extends JDialog {
 			contentPanel.add(lblYKoordinata, gbc_lblYKoordinata);
 		}
 		{
-			this.yKoordinata = new JTextField();
-			
+			this.yKoordinata = new JTextField();			
 			this.yKoordinata.setText(Integer.toString(yKoordinata));
 			GridBagConstraints gbc_txtYKoordinata = new GridBagConstraints();
 			gbc_txtYKoordinata.insets = new Insets(0, 0, 5, 0);

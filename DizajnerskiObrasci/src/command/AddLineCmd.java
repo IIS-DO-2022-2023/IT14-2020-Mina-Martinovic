@@ -26,6 +26,6 @@ public class AddLineCmd implements Command{
 	
 	@Override
 	public String toString() {
-		return line.toString() +"added.";
+		return "Added->"+line.toString();
 	}
 }

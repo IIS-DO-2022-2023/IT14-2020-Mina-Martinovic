@@ -118,7 +118,6 @@ public class Line extends Shape{
 	}
 	
 	public String toString() {
-		return startPoint+"-- >"+endPoint;
-	}
+		 return "Line: start point x=" + startPoint.getX() + "; start point y=" + startPoint.getY() + "; end point x=" + endPoint.getX() + "; end point y=" + endPoint.getY() + "; color=" + getOutlineColor().toString().substring(14).replace('=', '-');	}
 
 }

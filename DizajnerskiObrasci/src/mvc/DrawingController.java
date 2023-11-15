@@ -167,7 +167,7 @@ public class DrawingController implements PropertyChangeListener{
 	}
 	
 	private void drawCircle(MouseEvent e) {
-		DlgCircle dlgCircle = new DlgCircle();
+		DlgCircle dlgCircle = new DlgCircle(e.getX(), e.getY(), frame.getInnerColorBtnBackgroundColor(), frame.getBtnOutlineColorBackgroundColor());
 		dlgCircle.setVisible(true);
 		
 		if(dlgCircle.isConfirmation()) {
@@ -256,7 +256,7 @@ public class DrawingController implements PropertyChangeListener{
 	}
 	
 	private void drawHexagon(MouseEvent e) throws NumberFormatException, Exception { 
-		DlgCircle dlgHex = new DlgCircle();
+		DlgCircle dlgHex = new DlgCircle(e.getX(), e.getY(), frame.getInnerColorBtnBackgroundColor(), frame.getBtnOutlineColorBackgroundColor());
 		dlgHex.setTitle("Add Hexagon");
 		dlgHex.setVisible(true);
 
@@ -295,6 +295,7 @@ public class DrawingController implements PropertyChangeListener{
 					model.getUndoStack().push(CDS);
 						}	
 					}
+				model.getRedoStack().removeAllElements();
 				}
 				frame.repaint();
 			}
@@ -651,6 +652,7 @@ public class DrawingController implements PropertyChangeListener{
 				selectCmd.execute();
 				actLog.addElement("Selected shapes ->" +shape.toString());
 				model.getUndoStack().push(selectCmd);
+				model.getRedoStack().removeAllElements();
 			}
 		}
 	}
