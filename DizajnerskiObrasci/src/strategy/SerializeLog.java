@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.swing.DefaultListModel;
 
@@ -99,6 +100,7 @@ public class SerializeLog implements OptionChooser{
 		//parametre, a zatim se izvršava odgovarajuća akcija.
 		try {
 			String[] commands = command.split("->");
+			System.out.println(Arrays.toString(commands));
 			switch(commands[0]) {
 				case "Undo":
 					controller.undo();

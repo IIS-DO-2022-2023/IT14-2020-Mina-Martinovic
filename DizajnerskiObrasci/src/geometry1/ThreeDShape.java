@@ -8,8 +8,8 @@ public class ThreeDShape extends Shape{
 	//Ona predstavlja podklasu koja dodaje jednu konkretnu osobinu,
 	//a to je boja popune (fillColor). Ova klasa ne implementira konkretne metode poput 
 	//compareTo, contains, draw, itd.,već ostavlja te metode za konkretne
-	//oblike koji nasleđuju SurfaceShape.
-	//Svrha klase SurfaceShape je da omogući dodavanje osobine 
+	//oblike koji nasleđuju ThreeDShape.
+	//Svrha klase ThreeDShape je da omogući dodavanje osobine 
 	//boje popune svim oblicima koji je nasleđuju. Na taj način, 
 	//svi oblici koji nasleđuju SurfaceShape automatski dobijaju sposobnost 
 	//da imaju boju popune,dok istovremeno dele zajedničke metode definisane u Shape.

@@ -42,6 +42,7 @@ import command.UpdateHexagonCmd;
 import command.UpdateLineCmd;
 import command.UpdatePointCmd;
 import command.UpdateRectangleCmd;
+import drawingTool.DrawingTool;
 import geometry1.Circle;
 import geometry1.Donut;
 import hexagon.Hexagon;
@@ -59,6 +60,11 @@ public class DrawingController implements PropertyChangeListener{
 
 	private DrawingModel model;
 	private DrawingFrame frame;
+	private DrawingTool currentTool;
+	
+	 public void setCurrentTool(DrawingTool tool) {
+	        this.currentTool = tool;
+	    }
 	
 	/*ovde ce mi se nalaziti sve metode crtanje selektovanje 
 	undo redo delete modify
@@ -81,6 +87,9 @@ public class DrawingController implements PropertyChangeListener{
 	
 	public void mouseClicked(MouseEvent e) throws Exception{
 		stateChecker(e);
+		 if (currentTool != null) {
+	            currentTool.mouseClicked(e);
+	        }
 		if(checkShapes(e) == false) {
 			unselectAll();
 		}
@@ -98,7 +107,8 @@ public class DrawingController implements PropertyChangeListener{
 			frame.getTglBtnModify().setVisible(false);
 		}
 		if((int) event.getNewValue() == 1 && event.getPropertyName() == "Selected Shapes" || model.getSelectedShapes().size() > 0) {
-			frame.getTglBtnDelete().setVisible(true); //isto
+			//prvi deo uslova mi proverava da li postoji neki trenutni event, novi i da li je on 1 odnosno da li je neki taster pritisnut ili ne
+			frame.getTglBtnDelete().setVisible(true); //isto, proberava da li mi postoji makar  jedan selektovan shape
 		} else {
 			frame.getTglBtnDelete().setVisible(false);
 		}
@@ -127,6 +137,8 @@ public class DrawingController implements PropertyChangeListener{
 	public void mouseReleased(MouseEvent e) {}
 
 	
+	
+	
 	private void drawPoint(MouseEvent e) {
 		Point point = new Point(e.getX(), e.getY(), getOutColor());
 		AddPointCmd addPoint = new AddPointCmd(model, point);
@@ -151,6 +163,7 @@ public class DrawingController implements PropertyChangeListener{
 			frame.getBtnRedo().setVisible(false);
 			model.getRedoStack().removeAllElements();
 		}
+		
 	}
 	
 	private void drawCircle(MouseEvent e) {
@@ -208,7 +221,7 @@ public class DrawingController implements PropertyChangeListener{
 }
 	
 	private void drawDonut(MouseEvent e) {
-		DlgDonut dlgDonut = new DlgDonut();
+		DlgDonut dlgDonut = new DlgDonut(e.getX(), e.getY());
 		dlgDonut.setVisible(true);
 
 		if(dlgDonut.isConfirmation()) {
@@ -267,7 +280,7 @@ public class DrawingController implements PropertyChangeListener{
 			}
 		}
 	}
-	
+
 
 	public void deleteObject() {
 		DlgOption dlgOption = new DlgOption();
@@ -587,7 +600,7 @@ public class DrawingController implements PropertyChangeListener{
 		chooser.setAcceptAllFileFilterUsed(false);
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		chooser.setFileSelectionMode(JFileChooser.OPEN_DIALOG);
-		chooser.setFileFilter(new FileNameExtensionFilter("Serialized draw", "ser"));
+//		chooser.setFileFilter(new FileNameExtensionFilter("Serialized draw", "ser"));
 		chooser.setFileFilter(new FileNameExtensionFilter("Commands log", "log"));
 
 		if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
@@ -630,6 +643,7 @@ public class DrawingController implements PropertyChangeListener{
 			if(model.getShapes().get(i).contains(e.getX(), e.getY())) {
 			
 				if(model.getShapes().get(i).isSelected()) {
+					model.getShapes().get(i).setSelected(false);
 					return;
 				}
 				Shape shape = model.getShapes().get(i);
@@ -659,6 +673,7 @@ public class DrawingController implements PropertyChangeListener{
 		}
 		return false;
 	}
+	
 	
 	public void stateChecker(MouseEvent e) throws Exception {
 		if(frame.getState() == 1)

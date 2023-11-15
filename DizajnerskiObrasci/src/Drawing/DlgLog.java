@@ -71,7 +71,7 @@ public class DlgLog  extends JDialog  {
 				JButton okButton = new JButton("Execute");
 				okButton.addMouseListener(new MouseAdapter() {
 					@Override
-					public void mouseClicked(MouseEvent click) {
+					public void mouseClicked(MouseEvent click) {;
 						if (fileLog != null) 
 							{
 								if(log.getElementAt(log.size() - 1) == null) {

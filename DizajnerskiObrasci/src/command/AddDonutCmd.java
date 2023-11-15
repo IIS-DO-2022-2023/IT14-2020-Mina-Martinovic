@@ -25,6 +25,6 @@ public class AddDonutCmd implements Command {
 	
 	@Override
 	public String toString() {
-		return donut.toString()+" added";
+		return "Added->" + donut.toString();
 	}
 }

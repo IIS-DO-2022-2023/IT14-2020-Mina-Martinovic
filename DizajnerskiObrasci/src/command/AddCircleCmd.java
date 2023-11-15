@@ -9,7 +9,7 @@ public class AddCircleCmd implements Command {
 	private Circle circle;
 	
 	public AddCircleCmd(DrawingModel model, Circle circle) {
-		this.model = model;
+		this.model = model; //azuriranje liste oblika i ostalo
 		this.circle = circle;
 	}
 
