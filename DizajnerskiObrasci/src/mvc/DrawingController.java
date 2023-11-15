@@ -199,7 +199,7 @@ public class DrawingController implements PropertyChangeListener{
 	
 	
 	private void drawRectangle(MouseEvent e) {
-		DlgRectangle dlgRectangle = new DlgRectangle();
+		DlgRectangle dlgRectangle = new DlgRectangle(e.getX(), e.getY(), frame.getInnerColorBtnBackgroundColor(), frame.getBtnOutlineColorBackgroundColor());
 		dlgRectangle.setVisible(true);
 
 		if(dlgRectangle.isConfirmation()) {
