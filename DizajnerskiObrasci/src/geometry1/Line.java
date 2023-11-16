@@ -36,6 +36,7 @@ public class Line extends Shape{
 	public Line(Point startPoint, Point endPoint, Color color) {
 		this.startPoint = startPoint;
 		this.endPoint = endPoint;
+		this.color = color;
 		setOutlineColor(color);
 	}
 
@@ -63,7 +64,7 @@ public class Line extends Shape{
 	
 	
 	public Line clone() {
-		return new Line(startPoint.clone(), endPoint.clone(), getOutlineColor());
+		return new Line(startPoint.clone(), endPoint.clone(), this.color);
 	}
 	
 	@Override

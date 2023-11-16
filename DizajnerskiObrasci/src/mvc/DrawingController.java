@@ -229,7 +229,7 @@ public class DrawingController implements PropertyChangeListener{
 		
 				if(checkType(dlgDonut.getOuterRadius().getText())) {
 					if(dlgDonut.getOuterRadius().getText() != null && dlgDonut.getInnerRadius().getText() != null ) {
-						Donut donut = new Donut(new Point(e.getX(), e.getY()), Integer.parseInt(dlgDonut.getOuterRadius().getText()), Integer.parseInt(dlgDonut.getInnerRadius().getText()), outColor, inColor);
+						Donut donut = new Donut(new Point(e.getX(), e.getY()), Integer.parseInt(dlgDonut.getOuterRadius().getText()), Integer.parseInt(dlgDonut.getInnerRadius().getText()), dlgDonut.getBorderFill(), dlgDonut.getInnerFill());
 						AddDonutCmd addDonut = new AddDonutCmd(model,donut);
 						addDonut.execute();
 						model.pushToUndoStack(addDonut);
@@ -295,8 +295,9 @@ public class DrawingController implements PropertyChangeListener{
 					model.getUndoStack().push(CDS);
 						}	
 					}
-				model.getRedoStack().removeAllElements();
+				
 				}
+				model.getRedoStack().removeAllElements();
 				frame.repaint();
 			}
 	
@@ -317,6 +318,7 @@ public class DrawingController implements PropertyChangeListener{
 								UpdatePointCmd pointUpdate = new UpdatePointCmd(oldState , newState);
 								pointUpdate.execute();
 								model.pushToUndoStack(pointUpdate);
+								model.getRedoStack().removeAllElements();
 								frame.repaint();
 							} else {
 								JOptionPane.showMessageDialog(frame,
@@ -335,14 +337,16 @@ public class DrawingController implements PropertyChangeListener{
 						dlgLine.getYStartPoint().setText((Integer.toString(oldLine.getStartPoint().getY())));
 						dlgLine.getXEndPoint().setText((Integer.toString(oldLine.getEndPoint().getX())));
 						dlgLine.getYEndPoint().setText((Integer.toString(oldLine.getEndPoint().getY())));
+						dlgLine.setOuterColorBtnBackgroundColor(outColor);
 						dlgLine.setVisible(true);
 						if(dlgLine.isConfirmation()) {
 							if(checkType(dlgLine.getXStartPoint().getText()) && checkType(dlgLine.getYStartPoint().getText()) && checkType(dlgLine.getXEndPoint().getText()) && checkType(dlgLine.getYEndPoint().getText())) {
-								Line newLine = new Line(new Point(Integer.parseInt(dlgLine.getXStartPoint().getText()), Integer.parseInt(dlgLine.getYStartPoint().getText())), new Point(Integer.parseInt(dlgLine.getXEndPoint().getText()), Integer.parseInt(dlgLine.getYEndPoint().getText())), dlgLine.getColor());
+								Line newLine = new Line(new Point(Integer.parseInt(dlgLine.getXStartPoint().getText()), Integer.parseInt(dlgLine.getYStartPoint().getText())), new Point(Integer.parseInt(dlgLine.getXEndPoint().getText()), Integer.parseInt(dlgLine.getYEndPoint().getText())), dlgLine.getOuterColorBtnBackgroundColor());
 								UpdateLineCmd lineUpdate = new UpdateLineCmd(oldLine,newLine);
 								actLog.addElement("Updated->" + oldLine.toString() + "->" + newLine.toString());
 								lineUpdate.execute();
 								model.pushToUndoStack(lineUpdate);
+								model.getRedoStack().removeAllElements();
 								frame.repaint();
 							} else {
 								JOptionPane.showMessageDialog(frame,
@@ -490,6 +494,7 @@ public class DrawingController implements PropertyChangeListener{
 			Shape shape = model.getShapes().get(index);
 			BringToFrontCommand BringToFront = new BringToFrontCommand(model,shape);
 			model.pushToUndoStack(BringToFront);
+			model.getRedoStack().removeAllElements();
 			actLog.addElement(shape.toString()+"brought to front");
 			BringToFront.execute();
 		}
@@ -502,6 +507,7 @@ public class DrawingController implements PropertyChangeListener{
 			Shape shape = model.getShapes().get(index);
 			BringToBackCommand BringToBack = new BringToBackCommand(model, index, shape);
 			model.pushToUndoStack(BringToBack);
+			model.getRedoStack().removeAllElements();
 			actLog.addElement(shape.toString()+"brought to back");
 			BringToBack.execute();
 		}
@@ -534,6 +540,7 @@ public class DrawingController implements PropertyChangeListener{
 			Shape shape = model.getShapes().get(index);
 			ToFrontCommand ToFront = new ToFrontCommand(model, index , shape);
 			model.pushToUndoStack(ToFront);
+			model.getRedoStack().removeAllElements();
 			ToFront.execute();
 			actLog.addElement( shape.toString()+"moved to front");
 		} else {
@@ -548,6 +555,7 @@ public class DrawingController implements PropertyChangeListener{
 			Shape shape = model.getShapes().get(index);
 			ToBackCommand ToBack = new ToBackCommand(model, index, shape);
 			model.pushToUndoStack(ToBack);
+			model.getRedoStack().removeAllElements();
 			actLog.addElement(shape.toString()+"moved to back");
 			ToBack.execute();
 		}

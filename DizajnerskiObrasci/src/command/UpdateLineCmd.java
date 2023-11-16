@@ -28,12 +28,7 @@ public class UpdateLineCmd implements Command{
 		oldLine.getStartPoint().setY(newLine.getStartPoint().getY());
 		oldLine.getEndPoint().setX(newLine.getEndPoint().getX());
 		oldLine.getEndPoint().setY(newLine.getEndPoint().getY());
-		
-		if(newLine.getOutlineColor() == Color.BLACK && originalState.getOutlineColor() != Color.BLACK) {
-			oldLine.setOutlineColor(originalState.getOutlineColor());
-		} else {
-			oldLine.setOutlineColor(newLine.getOutlineColor());
-		}
+		oldLine.setColor(newLine.getColor());
 
 	}
 

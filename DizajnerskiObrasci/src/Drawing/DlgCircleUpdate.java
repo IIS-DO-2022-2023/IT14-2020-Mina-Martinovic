@@ -202,4 +202,6 @@ public class DlgCircleUpdate extends JDialog{
 		gbc_btnCancel.gridy = 6;
 		panel.add(btnCancel, gbc_btnCancel);
 	}
+	
+	
 }

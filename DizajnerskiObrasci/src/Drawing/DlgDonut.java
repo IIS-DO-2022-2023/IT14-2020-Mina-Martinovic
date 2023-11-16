@@ -66,6 +66,26 @@ public class DlgDonut extends JDialog {
 	}
 
 
+	public Color getInnerFill() {
+		return innerFill;
+	}
+
+
+	public void setInnerFill(Color innerFill) {
+		this.innerFill = innerFill;
+	}
+
+
+	public Color getBorderFill() {
+		return borderFill;
+	}
+
+
+	public void setBorderFill(Color borderFill) {
+		this.borderFill = borderFill;
+	}
+
+
 	public static void main(String[] args) {
 		try {
 			DlgDonut dialog = new DlgDonut();
