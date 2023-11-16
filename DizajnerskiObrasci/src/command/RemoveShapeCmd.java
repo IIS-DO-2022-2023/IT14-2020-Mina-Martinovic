@@ -26,6 +26,6 @@ public class RemoveShapeCmd implements Command{
 	
 	@Override
 	public String toString() {
-		return shape.toString()+"deleted";
+		return "Removed->" + shape.toString();
 	}
 }

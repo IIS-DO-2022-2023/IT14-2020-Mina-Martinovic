@@ -35,8 +35,8 @@ public class DrawingFrame extends JFrame{
 	private JToggleButton tglBtnModify;
 	private JToggleButton tglBtnDelete;
 	
-	private JButton btnFillColor = new JButton("Fill color");
-	private JButton btnOutlineColor = new JButton("Outline color");
+	private JButton innerColorButton = new JButton("Inner color");
+	private JButton outerColorButton = new JButton("Outer color");
 
 	private JButton btnUndo;
 	private JButton btnRedo;
@@ -122,20 +122,20 @@ public class DrawingFrame extends JFrame{
 	
 	public void setInnerColorBtnBackgroundColor (Color color)
 	{
-		this.btnFillColor.setBackground(color);
+		this.innerColorButton.setBackground(color);
 	}
 	public Color getInnerColorBtnBackgroundColor ()
 	{
-		return this.btnFillColor.getBackground();
+		return this.innerColorButton.getBackground();
 	}
 	
 	public Color getBtnOutlineColorBackgroundColor() {
 		
-		return this.btnOutlineColor.getBackground();
+		return this.outerColorButton.getBackground();
 	}
 
 	public void setBtnOutlineColorBackgroundColor(Color color) {
-		this.btnOutlineColor.setBackground(color);
+		this.outerColorButton.setBackground(color);
 	}
 	
 	public DefaultListModel<String> getDlmList() {
@@ -478,25 +478,25 @@ public class DrawingFrame extends JFrame{
 		shapesGroup.add(tglbtnSelect);
 		
 		
-		btnFillColor.setBackground(Color.WHITE);
-		btnFillColor.addActionListener(new ActionListener() {
+		innerColorButton.setBackground(Color.WHITE);
+		innerColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Color fillColor = JColorChooser.showDialog(btnFillColor, "Izaberite boju", Color.WHITE);
+				Color fillColor = JColorChooser.showDialog(innerColorButton, "Izaberite boju", Color.WHITE);
 				if(fillColor!=null) { //korisnik nije odustao od izbora boje)
 					controller.setInColor(fillColor);
-					btnFillColor.setBackground(fillColor); // postavljamo pozadinu dugmeta btnFillColor na izabranu boju, što je vizuelni pokazatelj izabrane boje
+					innerColorButton.setBackground(fillColor); // postavljamo pozadinu dugmeta btnFillColor na izabranu boju, što je vizuelni pokazatelj izabrane boje
 				}
 			}
 		});
 		
 	
-		btnOutlineColor.setBackground(Color.WHITE);
-		btnOutlineColor.addActionListener(new ActionListener() {
+		outerColorButton.setBackground(Color.WHITE);
+		outerColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Color outlineColor = JColorChooser.showDialog(btnOutlineColor, "Izaberite boju", Color.BLACK);
+				Color outlineColor = JColorChooser.showDialog(outerColorButton, "Izaberite boju", Color.BLACK);
 				if(outlineColor!=null) {
 					controller.setOutColor(outlineColor);
-					btnOutlineColor.setBackground(outlineColor);
+					outerColorButton.setBackground(outlineColor);
 				}	
 			}
 		});
@@ -542,12 +542,12 @@ public class DrawingFrame extends JFrame{
 		gbc_btnOutlineColor.insets = new Insets(0, 0, 5, 0);
 		gbc_btnOutlineColor.gridx = 0;
 		gbc_btnOutlineColor.gridy = 10;
-		pnlWest.add(btnOutlineColor, gbc_btnOutlineColor);
+		pnlWest.add(outerColorButton, gbc_btnOutlineColor);
 		GridBagConstraints gbc_btnFillColor = new GridBagConstraints();
 		gbc_btnFillColor.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnFillColor.gridx = 0;
 		gbc_btnFillColor.gridy = 11;
-		pnlWest.add(btnFillColor, gbc_btnFillColor);
+		pnlWest.add(innerColorButton, gbc_btnFillColor);
 		getContentPane().add(view, BorderLayout.CENTER);
 		
 		JPanel pnlSouth = new JPanel();

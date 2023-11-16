@@ -25,11 +25,93 @@ public class DlgDonutUpdate extends JDialog{
 	private JTextField txtInnerRadius;
 	private boolean confirm;
 	private JTextField txtOuterRadius;
-	private Color borderColor = Color.BLACK;
-	private Color fillColor = Color.WHITE;
+	private Color outerColor;
+	private Color innerColor;
 	private JTextField txtX;
 	private JTextField txtY;
 	
+	private JButton outerColorButton;
+	private JButton innerColorButton;
+	
+	public JTextField getTxtInnerRadius() {
+		return txtInnerRadius;
+	}
+	
+	public void setTxtInnerRadius(JTextField txtInnerRadius) {
+		this.txtInnerRadius = txtInnerRadius;
+	}
+	
+	public boolean isConfirm() {
+		return confirm;
+	}
+	
+	public void setConfirm(boolean confirm) {
+		this.confirm = confirm;
+	}
+	
+	public JTextField getTxtOuterRadius() {
+		return txtOuterRadius;
+	}
+	
+	public void setTxtOuterRadius(JTextField txtOuterRadius) {
+		this.txtOuterRadius = txtOuterRadius;
+	}
+	
+	public Color getOuterColor() {
+		return outerColor;
+	}
+	
+	public void setOuterColor(Color outerColor) {
+		this.outerColor = outerColor;
+	}
+	
+	public Color getInnerColor() {
+		return innerColor;
+	}
+	
+	public void setInnerColor(Color innerColor) {
+		this.innerColor = innerColor;
+	}
+	
+	public JTextField getTxtX() {
+		return txtX;
+	}
+	
+	public void setTxtX(JTextField txtX) {
+		this.txtX = txtX;
+	}
+	
+	public JTextField getTxtY() {
+		return txtY;
+	}
+	
+	public void setTxtY(JTextField txtY) {
+		this.txtY = txtY;
+	}
+	
+	public JPanel getContentPanel() {
+		return contentPanel;
+	}
+
+	public Color getOuterColorBtnBackgroundColor()
+	{
+		return this.outerColorButton.getBackground();
+	}
+	
+	public void setOuterColorBtnBackgroundColor(Color color)
+	{
+		this.outerColorButton.setBackground(color);
+	}
+	
+	public Color getInnerColorBtnBackgroundColor()
+	{
+		return this.innerColorButton.getBackground();
+	}
+	
+	public void setInnerColorBtnBackgroundColor(Color color)
+	{
+		this.innerColorButton.setBackground(color);
+	}
 	
 		/**
 		 * Launch the application.
@@ -62,11 +144,11 @@ public class DlgDonutUpdate extends JDialog{
 			gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 			contentPanel.setLayout(gbl_contentPanel);
 			{
-				JButton btnBorderColor = new JButton("Border Color");
-				btnBorderColor.setFont(new Font("Tahoma", Font.BOLD, 10));
-				btnBorderColor.addActionListener(new ActionListener() {
+				outerColorButton = new JButton("Outer Color");
+				outerColorButton.setFont(new Font("Tahoma", Font.BOLD, 10));
+				outerColorButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						borderColor =  JColorChooser.showDialog(btnBorderColor, "Izaberite boju", Color.BLACK);
+						outerColor =  JColorChooser.showDialog(outerColorButton, "Choose your colour", Color.BLACK);
 					}
 				});
 				{
@@ -148,28 +230,28 @@ public class DlgDonutUpdate extends JDialog{
 					contentPanel.add(txtOuterRadius, gbc_txtOuterRadius);
 					txtOuterRadius.setColumns(10);
 				}
-				GridBagConstraints gbc_btnBorderColor = new GridBagConstraints();
-				gbc_btnBorderColor.fill = GridBagConstraints.HORIZONTAL;
-				gbc_btnBorderColor.anchor = GridBagConstraints.SOUTH;
-				gbc_btnBorderColor.insets = new Insets(0, 0, 5, 5);
-				gbc_btnBorderColor.gridx = 0;
-				gbc_btnBorderColor.gridy = 4;
-				contentPanel.add(btnBorderColor, gbc_btnBorderColor);
+				GridBagConstraints gbc_btnOuterColor = new GridBagConstraints();
+				gbc_btnOuterColor.fill = GridBagConstraints.HORIZONTAL;
+				gbc_btnOuterColor.anchor = GridBagConstraints.SOUTH;
+				gbc_btnOuterColor.insets = new Insets(0, 0, 5, 5);
+				gbc_btnOuterColor.gridx = 0;
+				gbc_btnOuterColor.gridy = 4;
+				contentPanel.add(outerColorButton, gbc_btnOuterColor);
 			}
 			{
-				JButton btnFillColor = new JButton("Fill Color");
-				btnFillColor.setFont(new Font("Tahoma", Font.BOLD, 10));
-				btnFillColor.addActionListener(new ActionListener() {
+				innerColorButton = new JButton("Inner Color");
+				innerColorButton.setFont(new Font("Tahoma", Font.BOLD, 10));
+				innerColorButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						fillColor = JColorChooser.showDialog(btnFillColor, "Izaberite boju", Color.BLACK);
+						innerColor = JColorChooser.showDialog(innerColorButton, "Izaberite boju", Color.BLACK);
 					}
 				});
-				GridBagConstraints gbc_btnFillColor = new GridBagConstraints();
-				gbc_btnFillColor.fill = GridBagConstraints.HORIZONTAL;
-				gbc_btnFillColor.insets = new Insets(0, 0, 0, 5);
-				gbc_btnFillColor.gridx = 0;
-				gbc_btnFillColor.gridy = 5;
-				contentPanel.add(btnFillColor, gbc_btnFillColor);
+				GridBagConstraints gbc_btnInnerColor = new GridBagConstraints();
+				gbc_btnInnerColor.fill = GridBagConstraints.HORIZONTAL;
+				gbc_btnInnerColor.insets = new Insets(0, 0, 0, 5);
+				gbc_btnInnerColor.gridx = 0;
+				gbc_btnInnerColor.gridy = 5;
+				contentPanel.add(innerColorButton, gbc_btnInnerColor);
 			}
 			{
 				JPanel buttonPane = new JPanel();
@@ -202,65 +284,4 @@ public class DlgDonutUpdate extends JDialog{
 			}
 		}
 
-	
-	
-	public JTextField getTxtInnerRadius() {
-		return txtInnerRadius;
-	}
-	
-	public void setTxtInnerRadius(JTextField txtInnerRadius) {
-		this.txtInnerRadius = txtInnerRadius;
-	}
-	
-	public boolean isConfirm() {
-		return confirm;
-	}
-	
-	public void setConfirm(boolean confirm) {
-		this.confirm = confirm;
-	}
-	
-	public JTextField getTxtOuterRadius() {
-		return txtOuterRadius;
-	}
-	
-	public void setTxtOuterRadius(JTextField txtOuterRadius) {
-		this.txtOuterRadius = txtOuterRadius;
-	}
-	
-	public Color getBorderColor() {
-		return borderColor;
-	}
-	
-	public void setBorderColor(Color borderColor) {
-		this.borderColor = borderColor;
-	}
-	
-	public Color getFillColor() {
-		return fillColor;
-	}
-	
-	public void setFillColor(Color fillColor) {
-		this.fillColor = fillColor;
-	}
-	
-	public JTextField getTxtX() {
-		return txtX;
-	}
-	
-	public void setTxtX(JTextField txtX) {
-		this.txtX = txtX;
-	}
-	
-	public JTextField getTxtY() {
-		return txtY;
-	}
-	
-	public void setTxtY(JTextField txtY) {
-		this.txtY = txtY;
-	}
-	
-	public JPanel getContentPanel() {
-		return contentPanel;
-	}
 }

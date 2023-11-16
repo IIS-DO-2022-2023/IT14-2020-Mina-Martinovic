@@ -1,12 +1,14 @@
 package command;
 
 import geometry1.Donut;
+import geometry1.Shape;
 import mvc.DrawingModel;
 
 public class RemoveDonutCmd implements Command{
 
 	private DrawingModel model;
 	private Donut donut;
+	private Shape shape;
 	
 	public RemoveDonutCmd (DrawingModel model, Donut donut) {
 		this.model = model;
@@ -24,6 +26,6 @@ public class RemoveDonutCmd implements Command{
 	
 	@Override
 	public String toString() {
-		return donut.toString() +"removed.";
+		return "Removed->" + shape.toString();
 	}
 }

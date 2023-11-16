@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Shape;
 
+import geometry1.Point;
 import geometry1.ThreeDShape;
 import hexagon.Hexagon;
 
@@ -11,6 +12,64 @@ public class HexAdapter extends ThreeDShape{
 
 	private static final long serialVersionUID = 1L; //za serijaklizaciju
 	private Hexagon hexagon;
+	//private Point center;
+	
+	public Color getColor() {
+		return hexagon.getBorderColor();
+	}
+	
+	public void setColor(Color color) {
+		hexagon.setBorderColor(color);
+		super.setOuterColor(color);
+	}
+	
+	
+	public Color getInteriorColor() {
+		return hexagon.getAreaColor();
+	}
+	
+	public void setInteriorColor(Color color) {
+		hexagon.setAreaColor(color);
+		super.setInnerColor(color);
+	}
+	
+	public void setSelected(boolean selected) {
+		this.hexagon.setSelected(selected);
+	}
+	
+	public int getR() {
+		return hexagon.getR();
+	}
+	
+	public void setR(int r) throws Exception {
+		hexagon.setR(r);
+	}
+	
+	public int getX() {
+		return hexagon.getX();
+	}
+	
+	public int getY() {
+		return hexagon.getY();
+	}
+	
+	public void setX(int x) {
+		hexagon.setX(x);
+	}
+	
+	public void setY(int y) {
+		hexagon.setY(y);
+	}
+	
+	/*
+	 * public Point getCenter() {
+		return center;
+	}
+
+	public void setCenter(Point center) {
+		this.center = center;
+	}
+	 * */
 	
 	public HexAdapter() {
 			
@@ -19,6 +78,14 @@ public class HexAdapter extends ThreeDShape{
 	public HexAdapter(Hexagon hexagon) {
 		this.hexagon=hexagon;
 	}
+	/*
+	public HexAdapter(Point center, int r, Color outerColor, Color innerColor) throws Exception {
+		this.setCenter(center);
+		setR(r);
+		setOuterColor(outerColor);
+		setInnerColor(innerColor);
+	}
+	*/
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -71,54 +138,8 @@ public class HexAdapter extends ThreeDShape{
 	
 	@Override
 	public String toString() {
-		return "Hexagon-> radius=" + hexagon.getR() + "; x=" + hexagon.getX() + "; y=" + hexagon.getY() + "; edge color=" + getColor().toString().substring(14).replace('=', '-') + "; area color=" + getInteriorColor().toString().substring(14).replace('=', '-');
+		return "Hexagon: radius=" + hexagon.getR() + "; x=" + hexagon.getX() + "; y=" + hexagon.getY() + "; edge color=" + getColor().toString().substring(14).replace('=', '-') + "; area color=" + getInteriorColor().toString().substring(14).replace('=', '-');
 	}
-	
-	public Color getColor() {
-		return hexagon.getBorderColor();
-	}
-	
-	public void setColor(Color color) {
-		hexagon.setBorderColor(color);
-		super.setOutlineColor(color);
-	}
-	
-	
-	public Color getInteriorColor() {
-		return hexagon.getAreaColor();
-	}
-	
-	
-	public void setInteriorColor(Color color) {
-		hexagon.setAreaColor(color);
-		super.setFillColor(color);
-	}
-	
-	public void setSelected(boolean selected) {
-		this.hexagon.setSelected(selected);
-	}
-	
-	public int getR() {
-		return hexagon.getR();
-	}
-	
-	public void setR(int r) throws Exception {
-		hexagon.setR(r);
-	}
-	
-	public int getX() {
-		return hexagon.getX();
-	}
-	
-	public int getY() {
-		return hexagon.getY();
-	}
-	
-	public void setX(int x) {
-		hexagon.setX(x);
-	}
-	
-	public void setY(int y) {
-		hexagon.setY(y);
-	}
+
+
 }

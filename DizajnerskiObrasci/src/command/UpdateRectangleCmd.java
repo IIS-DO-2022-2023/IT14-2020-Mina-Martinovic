@@ -31,18 +31,18 @@ public class UpdateRectangleCmd implements Command{
 		//oldRect.setHeight(newRect.getHeight());
 		//oldRect.setWidth(newRect.getWidth());	
 		
-		if(newRect.getOutlineColor() == Color.BLACK && originalState.getOutlineColor() != Color.BLACK) {
-			oldRect.setOutlineColor(originalState.getOutlineColor());
+		if(newRect.getOuterColor() == Color.BLACK && originalState.getOuterColor() != Color.BLACK) {
+			oldRect.setOuterColor(originalState.getOuterColor());
 		} else {
-			oldRect.setOutlineColor(newRect.getOutlineColor());
+			oldRect.setOuterColor(newRect.getOuterColor());
 		} //Ako je boja ivice newRect crna, a boja ivice originalState nije crna, tada će postaviti boju ivice
 		//oldRect na boju ivice originalState. U suprotnom, ako boja ivice newRect nije crna ili 
 		//ako je boja ivice originalState crna, postaviće boju ivice oldRect na boju ivice newRect.
 		
-		if(newRect.getFillColor() == Color.WHITE && originalState.getFillColor() != Color.WHITE) {
-			oldRect.setFillColor(originalState.getFillColor());
+		if(newRect.getInnerColor() == Color.WHITE && originalState.getInnerColor() != Color.WHITE) {
+			oldRect.setInnerColor(originalState.getInnerColor());
 		} else {
-			oldRect.setFillColor(newRect.getFillColor());
+			oldRect.setInnerColor(newRect.getInnerColor());
 		}
 	}
 
@@ -52,8 +52,8 @@ public class UpdateRectangleCmd implements Command{
 		oldRect.getUpperLeftPoint().setY(originalState.getUpperLeftPoint().getY());
 		oldRect.setHeight(originalState.getHeight());
 		oldRect.setWidth(originalState.getWidth());
-		oldRect.setOutlineColor(originalState.getOutlineColor());
-		oldRect.setFillColor(originalState.getFillColor());
+		oldRect.setOuterColor(originalState.getOuterColor());
+		oldRect.setInnerColor(originalState.getInnerColor());
 
 	}
 	

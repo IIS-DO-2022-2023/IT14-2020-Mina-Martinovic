@@ -15,11 +15,8 @@ public class Donut extends Circle{
 
 	private boolean confirmation;
 
-	protected Color fillColor;
-	protected Color outlineColor ;
-	//private DrawingModel model = new DrawingModel();
-	
-
+	protected Color innerColor;
+	protected Color outerColor;	
 
 	public Donut() {
 		
@@ -39,12 +36,12 @@ public class Donut extends Circle{
 		setSelected(selected);
 	}
 	
-	public Donut(Point center, int outerRadius, int innerRadius, Color outlineColor , Color fillColor) {
+	public Donut(Point center, int outerRadius, int innerRadius, Color outerColor , Color innerColor) {
 		super(center,outerRadius);
 			this.innerRadius = innerRadius;
 			this.outerRadius = outerRadius;
-			this.outlineColor  = outlineColor ;
-			this.fillColor = fillColor;
+			this.outerColor  = outerColor ;
+			this.innerColor = innerColor;
 	}
 	
 	public double area() {
@@ -67,7 +64,7 @@ public class Donut extends Circle{
 	
 	public Donut clone() {
     	try {
-			return new Donut(center.clone(), outerRadius, innerRadius, getOutlineColor(), getFillColor());
+			return new Donut(center.clone(), outerRadius, innerRadius, getOuterColor(), getInnerColor());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,20 +72,24 @@ public class Donut extends Circle{
 		return null;
     }
 	
-	public Color getOutlineColor() {
-		return outlineColor ;
+	public Color getOuterColor() {
+		return outerColor ;
 	}
 
-	public void setOutlineColor(Color outlineColor) {
-		this.outlineColor = outlineColor;
+	public void setOuterColor(Color outerColor) {
+		this.outerColor = outerColor;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	public Color getFillColor() {
-		return fillColor;
+	public Color getInnerColor() {
+		return innerColor;
+	}
+
+	public void setInnerColor(Color innerColor) {
+		this.innerColor = innerColor;
 	}
 
 	public boolean contains (int x, int y) {
@@ -108,9 +109,9 @@ public void draw(Graphics g) {
 	Shape inner=new Ellipse2D.Double(this.getCenter().getX() - this.getInnerRadius(), this.getCenter().getY() - this.getInnerRadius(), this.getInnerRadius()*2, this.getInnerRadius()*2);
 	Area circle=new Area(outer);
 	circle.subtract(new Area(inner));
-	g2D.setColor(getColor());
+	g2D.setColor(getInnerColor());
 	g2D.fill(circle);
-	g2D.setColor(getColor());
+	g2D.setColor(getInnerColor());
 	g2D.draw(circle);
 	
 	 
@@ -143,11 +144,6 @@ public void draw(Graphics g) {
 	public int getInnerRadius() {
 		return innerRadius;
 	}
-	protected Color getInnerColor() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 
 	public void setInnerRadius(int innerRadius) {
 		this.innerRadius = innerRadius;
@@ -161,18 +157,6 @@ public void draw(Graphics g) {
 		this.outerRadius = outerRadius;
 	}
 	
-	public Color getColor() {
-		return fillColor;
-	}
-
-	public void setColor(Color color) {
-		this.fillColor = color;
-	}
-	
-	public void setEdgeColor(Color edgecolor) {
-		this.edgecolor = edgecolor;
-	}
-
 	public boolean isConfirmation() {
 		return confirmation;
 	}
@@ -183,7 +167,7 @@ public void draw(Graphics g) {
 	
 	public String toString() {
 		// Center=(x,y), radius= radius, innerRadius=innerRadius
-		return "Donut: radius=" + outerRadius + "; x=" + center.getX() + "; y=" + center.getY() + "; edge color=" + getOutlineColor().toString().substring(14).replace('=', '-') + "; area color=" + getFillColor().toString().substring(14).replace('=', '-') + "; inner radius=" + innerRadius;
+		return "Donut: radius=" + outerRadius + "; x=" + center.getX() + "; y=" + center.getY() + "; edge color=" + getOuterColor().toString().substring(14).replace('=', '-') + "; area color=" + getInnerColor().toString().substring(14).replace('=', '-') + "; inner radius=" + innerRadius;
 	}
 
 }

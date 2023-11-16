@@ -31,6 +31,6 @@ public class BringToFrontCommand implements Command {
 	
 	@Override
 	public String toString() {
-		return shape.toString() +"has been brought to front";
+		return "Brought to front->" + shape.toString();
 	}
 }

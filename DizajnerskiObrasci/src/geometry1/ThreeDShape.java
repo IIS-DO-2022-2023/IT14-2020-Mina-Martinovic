@@ -15,14 +15,14 @@ public class ThreeDShape extends Shape{
 	//da imaju boju popune,dok istovremeno dele zajedničke metode definisane u Shape.
 	//linij i tacka mi se ne oopunjavaju zato nasledjuju i dalje samo shape
 	private static final long serialVersionUID = 1L;
-	private Color fillColor;
+	private Color innerColor;
 	
-	public Color getFillColor() {
-		return fillColor;
+	public Color getInnerColor() {
+		return innerColor;
 	}
  
-	public void setFillColor(Color fillColor) {
-		this.fillColor = fillColor;
+	public void setInnerColor(Color innerColor) {
+		this.innerColor = innerColor;
 	}
 
 	@Override

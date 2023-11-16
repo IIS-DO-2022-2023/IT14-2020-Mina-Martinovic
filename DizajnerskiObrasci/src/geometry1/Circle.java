@@ -8,8 +8,8 @@ public class Circle extends ThreeDShape{
 	protected Point center;
 	private int radius;
 	protected boolean selected;
-	protected Color color;
-	protected Color edgecolor;
+	protected Color innerColor;
+	protected Color outerColor;	
 	private boolean confirmation;
 
 	public boolean isConfirmation() {
@@ -19,18 +19,23 @@ public class Circle extends ThreeDShape{
 	public void setConfirmation(boolean confirmation) {
 		this.confirmation = confirmation;
 	}
+	
+	public Color getInnerColor() {
+		return innerColor;
+	}
 
-	public Color getColor() {
-		return color;
+	public void setInnerColor(Color innerColor) {
+		this.innerColor = innerColor;
 	}
-	public void setColor(Color color) {
-		this.color = color;
+
+	public Color getOuterColor() {
+		return outerColor;
 	}
-	
-	public void setEdgeColor(Color edgecolor) {
-		this.edgecolor = edgecolor;
+
+	public void setOuterColor(Color outerColor) {
+		this.outerColor = outerColor;
 	}
-	
+
 	public Circle() {
 	}
 	
@@ -39,11 +44,11 @@ public class Circle extends ThreeDShape{
 		this.radius = radius;
 	}
 	
-	public Circle(Point center, int r, Color outlineColor, Color fillColor) throws Exception {
+	public Circle(Point center, int r, Color outerColor, Color innerColor) throws Exception {
 		this.center = center;
 		setRadius(r);
-		setOutlineColor(outlineColor);
-		setFillColor(fillColor);
+		setOuterColor(outerColor);
+		setInnerColor(innerColor);
 	}
 	public Circle(Point center, int radius, boolean selected) throws Exception{
 		this(center, radius);
@@ -81,7 +86,7 @@ public class Circle extends ThreeDShape{
 	
 	public Circle clone() {
     	try {
-			return new Circle(center.clone(), radius, getOutlineColor(), getFillColor());
+			return new Circle(center.clone(), radius, getOuterColor(), getInnerColor());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -90,9 +95,9 @@ public class Circle extends ThreeDShape{
     }
 	
 	public void draw(Graphics g) {
-		g.setColor(getFillColor());
+		g.setColor(getInnerColor());
 		g.drawOval(center.getX()-radius, center.getY()-radius, radius*2, radius*2);
-		g.setColor(getOutlineColor());
+		g.setColor(getOuterColor());
 		g.fillOval(center.getX()- radius , center.getY() - radius , radius*2 , radius*2 ); 
 
 		if(selected) {
@@ -153,7 +158,7 @@ public class Circle extends ThreeDShape{
 
 	public String toString() {
 		// Center=(x,y), radius= radius
-		return "Circle: radius=" + radius + "; x=" + center.getX() + "; y=" + center.getY() + "; edge color=" + getOutlineColor().toString().substring(14).replace('=', '-') + "; area color=" + getFillColor().toString().substring(14).replace('=', '-'); 
+		return "Circle: radius=" + radius + "; x=" + center.getX() + "; y=" + center.getY() + "; edge color=" + getOuterColor().toString().substring(14).replace('=', '-') + "; area color=" + getInnerColor().toString().substring(14).replace('=', '-'); 
 		//splitujem partove circla tipa radius koord i to a crtica misplituje boju znam da se radi o boji	}
 	}
 }

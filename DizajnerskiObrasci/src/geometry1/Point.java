@@ -6,15 +6,15 @@ import java.awt.Graphics;
 public class Point extends Shape{
 	private int x;
 	private int y;
-	protected Color color;
+	protected Color outerColor;
 
 	
-	public Color getColor() {
-		return color;
+	public Color getOuterColor() {
+		return outerColor;
 	}
 
-	public void setColor(Color color) {
-		this.color = color;
+	public void setOuterColor(Color outerColor) {
+		this.outerColor = outerColor;
 	}
 
 	public Point() {
@@ -38,7 +38,7 @@ public class Point extends Shape{
 	public Point(int x, int y, Color color) {
 		this.x = x;
 		this.y = y;
-		setOutlineColor(color);
+		setOuterColor(color);
 	}
 
 	public double distance(int x2, int y2) {
@@ -49,7 +49,7 @@ public class Point extends Shape{
 	}
 
 	public Point clone() {
-    	return new Point(x, y, getOutlineColor());
+    	return new Point(x, y, getOuterColor());
     }
 	
 	public boolean equals(Object obj) {
@@ -72,7 +72,7 @@ public class Point extends Shape{
 
 	@Override
 	public void draw(Graphics g) {
-		g.setColor(color);
+		g.setColor(outerColor);
 		g.drawLine(x - 2, y, x + 2, y);
 		g.drawLine(x, y - 2, x, y + 2);
 		g.setColor(Color.RED);
@@ -123,7 +123,7 @@ public class Point extends Shape{
 
 	public String toString() {
 		//return "(" + x + "," + y + ")";
-		return "Point: x=" + x + "; y=" + y + "; color=" + getOutlineColor().toString().substring(14).replace('=', '-');
+		return "Point: x=" + x + "; y=" + y + "; color=" + getOuterColor().toString().substring(14).replace('=', '-');
 	}
 
 }

@@ -2,11 +2,13 @@ package command;
 
 import geometry1.Line;
 import mvc.DrawingModel;
+import geometry1.Shape;
 
 public class RemoveLineCmd implements Command{
 
 	private Line line;
 	private DrawingModel model;
+	private Shape shape;
 	
 	public RemoveLineCmd(Line line, DrawingModel model) {
 		this.line = line;
@@ -27,6 +29,6 @@ public class RemoveLineCmd implements Command{
 	
 	@Override
 	public String toString() {
-		return line.toString() +"removed.";
+		return "Removed->" + shape.toString();
 	}
 }

@@ -29,16 +29,16 @@ public class UpdateCircleCmd implements Command{
 		oldCircle.getCenter().setY(newCircle.getCenter().getY());
 		oldCircle.setRadius(newCircle.getRadius());
 	
-		if(newCircle.getOutlineColor() == Color.BLACK && originalState.getOutlineColor() != Color.BLACK) {
-			oldCircle.setOutlineColor(originalState.getOutlineColor());
+		if(newCircle.getOuterColor() == Color.BLACK && originalState.getOuterColor() != Color.BLACK) {
+			oldCircle.setOuterColor(originalState.getOuterColor());
 		} else {
-			oldCircle.setOutlineColor(newCircle.getOutlineColor());
+			oldCircle.setOuterColor(newCircle.getOuterColor());
 		}
 		
-		if(newCircle.getFillColor() == Color.WHITE && originalState.getFillColor() != Color.WHITE) {
-			oldCircle.setFillColor(originalState.getFillColor());
+		if(newCircle.getInnerColor() == Color.WHITE && originalState.getInnerColor() != Color.WHITE) {
+			oldCircle.setInnerColor(originalState.getInnerColor());
 		} else {
-			oldCircle.setFillColor(newCircle.getFillColor());
+			oldCircle.setInnerColor(newCircle.getInnerColor());
 		}
 	}
 
@@ -47,12 +47,12 @@ public class UpdateCircleCmd implements Command{
 		oldCircle.getCenter().setX(originalState.getCenter().getX());
 		oldCircle.getCenter().setY(originalState.getCenter().getY());
 		oldCircle.setRadius(originalState.getRadius());
-		oldCircle.setOutlineColor(originalState.getOutlineColor());
-		oldCircle.setFillColor(originalState.getFillColor());
+		oldCircle.setOuterColor(originalState.getOuterColor());
+		oldCircle.setInnerColor(originalState.getInnerColor());
 	}
 
 	@Override
 	public String toString() {
-		return "Updated->"+oldCircle.toString()+"to"+newCircle.toString();
+		return "Updated->"+oldCircle.toString()+"->"+newCircle.toString();
 	}
 }

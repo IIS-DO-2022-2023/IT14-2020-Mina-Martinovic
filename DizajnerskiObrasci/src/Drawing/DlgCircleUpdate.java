@@ -21,10 +21,13 @@ public class DlgCircleUpdate extends JDialog{
 	private JTextField txtRadius;
 	private boolean confirmation;
 	private int radius;
-	private Color outlineColor = Color.BLACK;
-	private Color fillColor = Color.WHITE;
+	private Color outerColor;
+	private Color innerColor;
 	private JTextField txtCenterX;
 	private JTextField txtCenterY;
+	private JButton outerColorButton;
+	private JButton innerColorButton;
+
 	
 	public JTextField getTxtCenterX() {
 		return txtCenterX;
@@ -66,21 +69,44 @@ public class DlgCircleUpdate extends JDialog{
 		this.confirmation = confirmation;
 	}
 
-	public Color getOutlineColor() {
-		return outlineColor;
+	public Color getOuterColor() {
+		return outerColor;
 	}
 
-	public void setOutlineColor(Color outlineColor) {
-		this.outlineColor = outlineColor;
+	public void setOuterColor(Color outerColor) {
+		this.outerColor = outerColor;
 	}
 
-	public Color getFillColor() {
-		return fillColor;
+	public Color getInnerColor() {
+		return innerColor;
 	}
 
-	public void setFillColor(Color fillColor) {
-		this.fillColor = fillColor;
+	public void setInnerColor(Color innerColor) {
+		this.innerColor = innerColor;
 	}
+	
+	public Color getOuterColorBtnBackgroundColor()
+	{
+		return this.outerColorButton.getBackground();
+	}
+	
+	public void setOuterColorBtnBackgroundColor(Color color)
+	{
+		
+		this.outerColorButton.setBackground(color);
+	}
+	
+	public Color getInnerColorBtnBackgroundColor()
+	{
+		return this.innerColorButton.getBackground();
+	}
+	
+	public void setInnerColorBtnBackgroundColor(Color color)
+	{
+		
+		this.innerColorButton.setBackground(color);
+	}
+	
 
 	public DlgCircleUpdate() {
 		setResizable(true);
@@ -96,10 +122,10 @@ public class DlgCircleUpdate extends JDialog{
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		JButton btnOutlineColor = new JButton("Outline Color");
-		btnOutlineColor.addActionListener(new ActionListener() {
+		JButton btnOuterColor = new JButton("Outer Color");
+		btnOuterColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				outlineColor = JColorChooser.showDialog(btnOutlineColor, "Izaberite boju", Color.BLACK);
+				outerColor = JColorChooser.showDialog(btnOuterColor, "Choose your color", Color.BLACK);
 			}
 		});
 		
@@ -153,27 +179,27 @@ public class DlgCircleUpdate extends JDialog{
 		gbc_txtCenterX1.gridy = 3;
 		panel.add(txtRadius, gbc_txtCenterX1);
 		txtRadius.setColumns(10);
-		btnOutlineColor.setFont(new Font("Yu Gothic Medium", Font.PLAIN, 14));
-		GridBagConstraints gbc_btnOutlineColor = new GridBagConstraints();
-		gbc_btnOutlineColor.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnOutlineColor.insets = new Insets(0, 0, 5, 5);
-		gbc_btnOutlineColor.gridx = 2;
-		gbc_btnOutlineColor.gridy = 4;
-		panel.add(btnOutlineColor, gbc_btnOutlineColor);
+		btnOuterColor.setFont(new Font("Yu Gothic Medium", Font.PLAIN, 14));
+		GridBagConstraints gbc_btnOuterColor = new GridBagConstraints();
+		gbc_btnOuterColor.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnOuterColor.insets = new Insets(0, 0, 5, 5);
+		gbc_btnOuterColor.gridx = 2;
+		gbc_btnOuterColor.gridy = 4;
+		panel.add(btnOuterColor, gbc_btnOuterColor);
 		
-		JButton btnFillColor = new JButton("Fill Color");
-		btnFillColor.addActionListener(new ActionListener() {
+		JButton btnInnerColor = new JButton("Inner Color");
+		btnInnerColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				fillColor = JColorChooser.showDialog(btnFillColor, "Izaberite boju", Color.WHITE);
+				innerColor = JColorChooser.showDialog(btnInnerColor, "Choose your color", Color.WHITE);
 			}
 		});
-		btnFillColor.setFont(new Font("Yu Gothic Medium", Font.PLAIN, 14));
-		GridBagConstraints gbc_btnFillColor = new GridBagConstraints();
-		gbc_btnFillColor.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnFillColor.insets = new Insets(0, 0, 5, 5);
-		gbc_btnFillColor.gridx = 3;
-		gbc_btnFillColor.gridy = 4;
-		panel.add(btnFillColor, gbc_btnFillColor);
+		btnInnerColor.setFont(new Font("Yu Gothic Medium", Font.PLAIN, 14));
+		GridBagConstraints gbc_btnInnerColor = new GridBagConstraints();
+		gbc_btnInnerColor.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnInnerColor.insets = new Insets(0, 0, 5, 5);
+		gbc_btnInnerColor.gridx = 3;
+		gbc_btnInnerColor.gridy = 4;
+		panel.add(btnInnerColor, gbc_btnInnerColor);
 		
 		JButton btnNewButton = new JButton("Ok");
 		btnNewButton.addActionListener(new ActionListener() {

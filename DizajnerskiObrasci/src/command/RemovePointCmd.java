@@ -1,12 +1,14 @@
 package command;
 
 import geometry1.Point;
+import geometry1.Shape;
 import mvc.DrawingModel;
 
 public class RemovePointCmd implements Command{
 
 	private DrawingModel model;
 	private Point point;
+	private Shape shape;
 
 	public RemovePointCmd(DrawingModel model, Point point) {
 		super();
@@ -28,7 +30,7 @@ public class RemovePointCmd implements Command{
 	
 	@Override
 	public String toString() {
-		return point.toString() +"removed.";
+		return "Removed->" + shape.toString();
 	}
 
 }

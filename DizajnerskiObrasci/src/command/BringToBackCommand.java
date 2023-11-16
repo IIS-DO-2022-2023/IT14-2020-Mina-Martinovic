@@ -29,9 +29,9 @@ public class BringToBackCommand implements Command {
 		model.getShapes().remove(shape);
 		model.getShapes().add(shapeIndex, shape);
 	}
-	
+
 	@Override
 	public String toString() {
-		return shape.toString() +"has been brought to back-";
+		return "Brought to back->" + shape.toString();
 	}
 }

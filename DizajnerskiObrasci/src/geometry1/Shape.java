@@ -8,18 +8,18 @@ public abstract class Shape implements Moveable, Comparable, Serializable {
 	
 	//private boolean selected;//mozemo definisati i kao protected pa ne bismo morali da menjamo konstruktore u ostalim klasama
 	protected boolean selected;
-	private Color outlineColor;
+	private Color outerColor;
 	//protected ShapeManager shapeManager; // Dodajte referencu na ShapeManager
 	
 	public Shape () {
 	}
 	
-	public Color getOutlineColor() {
-		return outlineColor;
+	public Color getOuterColor() {
+		return outerColor;
 	}
 
-	public void setOutlineColor(Color outlineColor) {
-		this.outlineColor = outlineColor;
+	public void setOuterColor(Color outerColor) {
+		this.outerColor = outerColor;
 	}
 
 	public Shape (boolean selected) {

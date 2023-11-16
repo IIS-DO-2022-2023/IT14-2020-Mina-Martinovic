@@ -37,7 +37,7 @@ public class Line extends Shape{
 		this.startPoint = startPoint;
 		this.endPoint = endPoint;
 		this.color = color;
-		setOutlineColor(color);
+		setOuterColor(color);
 	}
 
 	public double length() {
@@ -119,6 +119,6 @@ public class Line extends Shape{
 	}
 	
 	public String toString() {
-		 return "Line: start point x=" + startPoint.getX() + "; start point y=" + startPoint.getY() + "; end point x=" + endPoint.getX() + "; end point y=" + endPoint.getY() + "; color=" + getOutlineColor().toString().substring(14).replace('=', '-');	}
+		 return "Line: start point x=" + startPoint.getX() + "; start point y=" + startPoint.getY() + "; end point x=" + endPoint.getX() + "; end point y=" + endPoint.getY() + "; color=" + getOuterColor().toString().substring(14).replace('=', '-');	}
 
 }

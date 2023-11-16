@@ -31,12 +31,12 @@ public class Rectangle extends ThreeDShape {
 		// this.selected = selected;
 	}
 
-	public Rectangle(Point upperLeftPoint, int width, int height, Color outlineColor, Color fillColor) {
+	public Rectangle(Point upperLeftPoint, int width, int height, Color outerColor, Color innerColor) {
 		this.upperLeftPoint = upperLeftPoint;
 		this.width = width;
 		this.height = height;
-		setOutlineColor(outlineColor);
-		setFillColor(fillColor);
+		setOuterColor(outerColor);
+		setInnerColor(innerColor);
 	}
 	
 	public Rectangle(int x, int y, int width, int height)
@@ -56,7 +56,7 @@ public class Rectangle extends ThreeDShape {
 	}
 
 	public Rectangle clone() {
-    	return new Rectangle(upperLeftPoint.clone(), width, height, getOutlineColor(), getFillColor());
+    	return new Rectangle(upperLeftPoint.clone(), width, height, getOuterColor(), getInnerColor());
     }
 	
 	public boolean equals(Object obj) {
@@ -90,9 +90,9 @@ public class Rectangle extends ThreeDShape {
 
 	@Override
 	public void draw(Graphics g) {
-		g.setColor(getFillColor());
+		g.setColor(getInnerColor());
 		g.fillRect(upperLeftPoint.getX() +1, upperLeftPoint.getY() +1, width -1, height-1);
-		g.setColor(getOutlineColor());
+		g.setColor(getOuterColor());
 		g.drawRect(upperLeftPoint.getX(), upperLeftPoint.getY(), width, height);		if(selected) {
 			g.setColor(Color.blue);
 			g.drawRect(upperLeftPoint.getX() - 2, upperLeftPoint.getY() - 2, 4, 4); //4 4 su heigh i widt
@@ -166,6 +166,6 @@ public class Rectangle extends ThreeDShape {
 	
 	public String toString() {
 		//return upperLeftPoint.getX() + " " + upperLeftPoint.getY() + " " + width + " "+ height;
-		return "Rectangle: x=" + upperLeftPoint.getX() + "; y=" + upperLeftPoint.getY() + "; height=" + height + "; width=" + width + "; edge color=" + getOutlineColor().toString().substring(14).replace('=', '-') + "; area color=" + getFillColor().toString().substring(14).replace('=', '-');
+		return "Rectangle: x=" + upperLeftPoint.getX() + "; y=" + upperLeftPoint.getY() + "; height=" + height + "; width=" + width + "; edge color=" + getOuterColor().toString().substring(14).replace('=', '-') + "; area color=" + getInnerColor().toString().substring(14).replace('=', '-');
 	}
 }

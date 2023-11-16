@@ -24,10 +24,91 @@ public class DlgRectangleUpdate extends JDialog{
 	private JTextField txtWidth;
 	private JTextField txtHeight;
 	private boolean confirmation;
-	private Color outlineColor = Color.BLACK;
-	private Color fillColor = Color.WHITE;
+	private Color outerColor;
+	private Color innerColor;
+	
+	private JButton outerColorButton;
+	private JButton innerColorButton;
+
 	
 	private final JButton btnCancel = new JButton("Cancel");
+	
+	
+	public JTextField getTxtUpperLeftPointX() {
+		return txtUpperLeftPointX;
+	}
+	
+	public void setTxtUpperLeftPointX(JTextField txtUpperLeftPointX) {
+		this.txtUpperLeftPointX = txtUpperLeftPointX;
+	}
+	
+	public JTextField getTxtUpperLeftPointY() {
+		return txtUpperLeftPointY;
+	}
+	
+	public void setTxtUpperLeftPointY(JTextField txtUpperLeftPointY) {
+		this.txtUpperLeftPointY = txtUpperLeftPointY;
+	}
+	
+	public JTextField getTxtWidth() {
+		return txtWidth;
+	}
+	
+	public void setTxtWidth(JTextField txtWidth) {
+		this.txtWidth = txtWidth;
+	}
+	
+	public JTextField getTxtHeight() {
+		return txtHeight;
+	}
+	
+	public void setTxtHeight(JTextField txtHeight) {
+		this.txtHeight = txtHeight;
+	}
+	
+	public boolean isConfirmation() {
+		return confirmation;
+	}
+	
+	public void setConfirmation(boolean confirmation) {
+		this.confirmation = confirmation;
+	}
+	
+	public Color getOutlineColor() {
+		return outerColor;
+	}
+	
+	public void setOutlineColor(Color outlineColor) {
+		this.outerColor = outlineColor;
+	}
+	
+	public Color getInnerColor() {
+		return innerColor;
+	}
+	
+	public void setInnerColor(Color innerColor) {
+		this.innerColor = innerColor;
+	}	
+	
+	public Color getOuterColorBtnBackgroundColor()
+	{
+		return this.outerColorButton.getBackground();
+	}
+	
+	public void setOuterColorBtnBackgroundColor(Color color)
+	{
+		this.outerColorButton.setBackground(color);
+	}
+	
+	public Color getInnerColorBtnBackgroundColor()
+	{
+		return this.innerColorButton.getBackground();
+	}
+	
+	public void setInnerColorBtnBackgroundColor(Color color)
+	{
+		this.innerColorButton.setBackground(color);
+	}
 	
 	
 	public DlgRectangleUpdate () {
@@ -62,20 +143,20 @@ public class DlgRectangleUpdate extends JDialog{
 			txtUpperLeftPointX.setColumns(10);
 		}
 		{
-			JButton btnOutlineColor = new JButton("Outline Color");
-			btnOutlineColor.addActionListener(new ActionListener() {
+			JButton btnOuterColor = new JButton("Outer Color");
+			btnOuterColor.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					outlineColor = JColorChooser.showDialog(btnOutlineColor, "Izaberite boju", Color.BLACK);
+					outerColor = JColorChooser.showDialog(btnOuterColor, "Izaberite boju", Color.BLACK);
 				}
 			});
-			btnOutlineColor.setFont(new Font("Yu Gothic Medium", Font.BOLD, 14));
-			GridBagConstraints gbc_btnOutlineColor = new GridBagConstraints();
-			gbc_btnOutlineColor.fill = GridBagConstraints.HORIZONTAL;
-			gbc_btnOutlineColor.anchor = GridBagConstraints.NORTH;
-			gbc_btnOutlineColor.insets = new Insets(0, 0, 5, 0);
-			gbc_btnOutlineColor.gridx = 5;
-			gbc_btnOutlineColor.gridy = 1;
-			panel.add(btnOutlineColor, gbc_btnOutlineColor);
+			btnOuterColor.setFont(new Font("Yu Gothic Medium", Font.BOLD, 14));
+			GridBagConstraints gbc_btnOuterColor = new GridBagConstraints();
+			gbc_btnOuterColor.fill = GridBagConstraints.HORIZONTAL;
+			gbc_btnOuterColor.anchor = GridBagConstraints.NORTH;
+			gbc_btnOuterColor.insets = new Insets(0, 0, 5, 0);
+			gbc_btnOuterColor.gridx = 5;
+			gbc_btnOuterColor.gridy = 1;
+			panel.add(btnOuterColor, gbc_btnOuterColor);
 		}
 		{
 			JLabel lblUpperLeftPointY = new JLabel("Upper Left Point Y :");
@@ -96,19 +177,19 @@ public class DlgRectangleUpdate extends JDialog{
 			txtUpperLeftPointY.setColumns(10);
 		}
 		{
-			JButton btnFillColor = new JButton("Fill Color");
-			btnFillColor.addActionListener(new ActionListener() {
+			JButton btnInnerColor = new JButton("Inner Color");
+			btnInnerColor.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					fillColor = JColorChooser.showDialog(btnFillColor, "Izaberite boju", Color.WHITE);
+					innerColor = JColorChooser.showDialog(btnInnerColor, "Choose your colour", Color.WHITE);
 				}
 			});
-			btnFillColor.setFont(new Font("Yu Gothic Medium", Font.BOLD, 14));
-			GridBagConstraints gbc_btnFillColor = new GridBagConstraints();
-			gbc_btnFillColor.fill = GridBagConstraints.HORIZONTAL;
-			gbc_btnFillColor.insets = new Insets(0, 0, 5, 0);
-			gbc_btnFillColor.gridx = 5;
-			gbc_btnFillColor.gridy = 3;
-			panel.add(btnFillColor, gbc_btnFillColor);
+			btnInnerColor.setFont(new Font("Yu Gothic Medium", Font.BOLD, 14));
+			GridBagConstraints gbc_btnInnerColor = new GridBagConstraints();
+			gbc_btnInnerColor.fill = GridBagConstraints.HORIZONTAL;
+			gbc_btnInnerColor.insets = new Insets(0, 0, 5, 0);
+			gbc_btnInnerColor.gridx = 5;
+			gbc_btnInnerColor.gridy = 3;
+			panel.add(btnInnerColor, gbc_btnInnerColor);
 		}
 		{
 			JLabel lblWidth = new JLabel("Width :");
@@ -174,63 +255,6 @@ public class DlgRectangleUpdate extends JDialog{
 		btnCancel.setFont(new Font("Yu Gothic Medium", Font.BOLD, 12));
 		btnCancel.setHorizontalAlignment(SwingConstants.CENTER); //POZICIONIRANJE KOMPONENTI na ekranu
 		panel.add(btnCancel, gbc_btnCancel);
-	}	
-			
-	
-	public JTextField getTxtUpperLeftPointX() {
-		return txtUpperLeftPointX;
-	}
-	
-	public void setTxtUpperLeftPointX(JTextField txtUpperLeftPointX) {
-		this.txtUpperLeftPointX = txtUpperLeftPointX;
-	}
-	
-	public JTextField getTxtUpperLeftPointY() {
-		return txtUpperLeftPointY;
-	}
-	
-	public void setTxtUpperLeftPointY(JTextField txtUpperLeftPointY) {
-		this.txtUpperLeftPointY = txtUpperLeftPointY;
-	}
-	
-	public JTextField getTxtWidth() {
-		return txtWidth;
-	}
-	
-	public void setTxtWidth(JTextField txtWidth) {
-		this.txtWidth = txtWidth;
-	}
-	
-	public JTextField getTxtHeight() {
-		return txtHeight;
-	}
-	
-	public void setTxtHeight(JTextField txtHeight) {
-		this.txtHeight = txtHeight;
-	}
-	
-	public boolean isConfirmation() {
-		return confirmation;
-	}
-	
-	public void setConfirmation(boolean confirmation) {
-		this.confirmation = confirmation;
-	}
-	
-	public Color getOutlineColor() {
-		return outlineColor;
-	}
-	
-	public void setOutlineColor(Color outlineColor) {
-		this.outlineColor = outlineColor;
-	}
-	
-	public Color getFillColor() {
-		return fillColor;
-	}
-	
-	public void setFillColor(Color fillColor) {
-		this.fillColor = fillColor;
 	}	
 	
 }

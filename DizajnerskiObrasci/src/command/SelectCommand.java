@@ -27,6 +27,6 @@ public class SelectCommand implements Command {
 
 	@Override
 	public String toString() {
-		return selectedShape.toString()+"selected";
+		return "Selected->" + selectedShape.toString();
 	}
 }

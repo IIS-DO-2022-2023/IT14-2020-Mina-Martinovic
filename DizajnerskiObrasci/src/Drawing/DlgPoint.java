@@ -21,6 +21,8 @@ public class DlgPoint extends JDialog {
 	protected JTextField txtX;
 	protected JTextField txtY;
 	
+	private JButton outerColorButton;
+	
 
 	private boolean confirmation;
 	private Color color = Color.BLACK;
@@ -55,6 +57,17 @@ public class DlgPoint extends JDialog {
 
 	public void setConfirmation(boolean confirmation) {
 		this.confirmation = confirmation;
+	}
+	
+	public Color getOuterColorBtnBackgroundColor()
+	{
+		return this.outerColorButton.getBackground();
+	}
+	
+	public void setOuterColorBtnBackgroundColor(Color color)
+	{
+		
+		this.outerColorButton.setBackground(color);
 	}
 
 	/**

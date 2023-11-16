@@ -33,6 +33,6 @@ public class ToBackCommand implements Command {
 	
 	@Override
 	public String toString() {
-		return shape.toString()+"moved to back";
+		return "Moved to back->" + shape.toString();
 	}
 }

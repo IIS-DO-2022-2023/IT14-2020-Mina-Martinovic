@@ -26,10 +26,10 @@ public class UpdatePointCmd implements Command{
 		oldPoint.setX(newPoint.getX());
 		oldPoint.setY(newPoint.getY());
 		
-		if(newPoint.getOutlineColor() == Color.BLACK && originalState.getOutlineColor() != Color.BLACK) {
-			oldPoint.setOutlineColor(originalState.getOutlineColor());
+		if(newPoint.getOuterColor() == Color.BLACK && originalState.getOuterColor() != Color.BLACK) {
+			oldPoint.setOuterColor(originalState.getOuterColor());
 		} else {
-			oldPoint.setOutlineColor(newPoint.getOutlineColor());
+			oldPoint.setOuterColor(newPoint.getOuterColor());
 		}
 	}
  
@@ -37,7 +37,7 @@ public class UpdatePointCmd implements Command{
 	public void unexecute() {
 		oldPoint.setX(originalState.getX());
 		oldPoint.setY(originalState.getY());   	
-		oldPoint.setOutlineColor(originalState.getOutlineColor());
+		oldPoint.setOuterColor(originalState.getOuterColor());
 	}
 	
 	@Override

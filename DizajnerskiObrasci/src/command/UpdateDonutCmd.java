@@ -25,16 +25,16 @@ public class UpdateDonutCmd implements Command{
 		oldDonut.setOuterRadius(newDonut.getOuterRadius());
 		oldDonut.setCenter(newDonut.getCenter().clone());
 		
-		if(newDonut.getOutlineColor() == Color.BLACK && originalState.getOutlineColor() != Color.BLACK) {
-			oldDonut.setOutlineColor(originalState.getOutlineColor());
+		if(newDonut.getOuterColor() == Color.BLACK && originalState.getOuterColor() != Color.BLACK) {
+			oldDonut.setOuterColor(originalState.getOuterColor());
 		} else {
-			oldDonut.setOutlineColor(newDonut.getOutlineColor());
+			oldDonut.setOuterColor(newDonut.getOuterColor());
 		}
 
-		if(newDonut.getFillColor() == Color.WHITE && originalState.getFillColor() != Color.WHITE) {
-			oldDonut.setFillColor(originalState.getFillColor());
+		if(newDonut.getInnerColor() == Color.WHITE && originalState.getInnerColor() != Color.WHITE) {
+			oldDonut.setInnerColor(originalState.getInnerColor());
 		} else {
-			oldDonut.setFillColor(newDonut.getFillColor());
+			oldDonut.setInnerColor(newDonut.getInnerColor());
 		}
 
 	}
@@ -43,8 +43,8 @@ public class UpdateDonutCmd implements Command{
 		oldDonut.setOuterRadius(originalState.getOuterRadius());
 		oldDonut.setInnerRadius(originalState.getInnerRadius());
 		oldDonut.setCenter(originalState.getCenter());	
-		oldDonut.setOutlineColor(originalState.getOutlineColor());
-		oldDonut.setFillColor(originalState.getFillColor());	
+		oldDonut.setOuterColor(originalState.getOuterColor());
+		oldDonut.setInnerColor(originalState.getInnerColor());	
 	}
 	
 	@Override

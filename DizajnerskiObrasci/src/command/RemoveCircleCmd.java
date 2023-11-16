@@ -1,12 +1,14 @@
 package command;
 
 import geometry1.Circle;
+import geometry1.Shape;
 import mvc.DrawingModel;
 
 public class RemoveCircleCmd implements Command{
 
 	private DrawingModel model;
 	private Circle circle;
+	private Shape shape;
 
 	public RemoveCircleCmd(DrawingModel model, Circle circle) {
 		this.model = model;
@@ -25,6 +27,6 @@ public class RemoveCircleCmd implements Command{
 	
 	@Override
 	public String toString() {
-		return circle.toString() +"removed.";
+		return "Removed->" + shape.toString();
 	}
 }

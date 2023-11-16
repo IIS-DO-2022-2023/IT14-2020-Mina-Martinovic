@@ -75,13 +75,13 @@ public class DlgCircle extends JDialog {
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JLabel lblPoluprecnik = new JLabel("Enter radius:");
-			lblPoluprecnik.setFont(new Font("Bahnschrift", Font.BOLD, 14));
-			GridBagConstraints gbc_lblPoluprecnik = new GridBagConstraints();
-			gbc_lblPoluprecnik.insets = new Insets(0, 0, 0, 5);
-			gbc_lblPoluprecnik.gridx = 0;
-			gbc_lblPoluprecnik.gridy = 1;
-			contentPanel.add(lblPoluprecnik, gbc_lblPoluprecnik);
+			JLabel lblRadius = new JLabel("Enter radius:");
+			lblRadius.setFont(new Font("Bahnschrift", Font.BOLD, 14));
+			GridBagConstraints gbc_lblRadius = new GridBagConstraints();
+			gbc_lblRadius.insets = new Insets(0, 0, 0, 5);
+			gbc_lblRadius.gridx = 0;
+			gbc_lblRadius.gridy = 1;
+			contentPanel.add(lblRadius, gbc_lblRadius);
 		}
 		{
 			 txtRadius = new JTextField();
@@ -154,54 +154,54 @@ public class DlgCircle extends JDialog {
 			gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 			contentPanel.setLayout(gbl_contentPanel);
 			{
-				JLabel lblXKoordinata = new JLabel("X koordinata je:");
-				GridBagConstraints gbc_lblXKoordinata = new GridBagConstraints();
-				gbc_lblXKoordinata.anchor = GridBagConstraints.EAST;
-				gbc_lblXKoordinata.insets = new Insets(0, 0, 5, 5);
-				gbc_lblXKoordinata.gridx = 0;
-				gbc_lblXKoordinata.gridy = 1;
-				contentPanel.add(lblXKoordinata, gbc_lblXKoordinata);
+				JLabel lblXCoord = new JLabel("X coord:");
+				GridBagConstraints gbc_lblXCoord = new GridBagConstraints();
+				gbc_lblXCoord.anchor = GridBagConstraints.EAST;
+				gbc_lblXCoord.insets = new Insets(0, 0, 5, 5);
+				gbc_lblXCoord.gridx = 0;
+				gbc_lblXCoord.gridy = 1;
+				contentPanel.add(lblXCoord, gbc_lblXCoord);
 			}
 			{
 				txtX = new JTextField();
 				txtX.setText(Integer.toString(x)); 
-				GridBagConstraints gbc_txtXKoordinata = new GridBagConstraints();
-				gbc_txtXKoordinata.insets = new Insets(0, 0, 5, 0);
-				gbc_txtXKoordinata.fill = GridBagConstraints.HORIZONTAL;
-				gbc_txtXKoordinata.gridx = 1;
-				gbc_txtXKoordinata.gridy = 1;
-				contentPanel.add(txtX, gbc_txtXKoordinata);
+				GridBagConstraints gbc_txtXCoord = new GridBagConstraints();
+				gbc_txtXCoord.insets = new Insets(0, 0, 5, 0);
+				gbc_txtXCoord.fill = GridBagConstraints.HORIZONTAL;
+				gbc_txtXCoord.gridx = 1;
+				gbc_txtXCoord.gridy = 1;
+				contentPanel.add(txtX, gbc_txtXCoord);
 				txtX.setColumns(10);
 			}
 			{
-				JLabel lblYKoordinata = new JLabel("Y koordinata je:");
-				GridBagConstraints gbc_lblYKoordinata = new GridBagConstraints();
-				gbc_lblYKoordinata.anchor = GridBagConstraints.EAST;
-				gbc_lblYKoordinata.insets = new Insets(0, 0, 5, 5);
-				gbc_lblYKoordinata.gridx = 0;
-				gbc_lblYKoordinata.gridy = 2;
-				contentPanel.add(lblYKoordinata, gbc_lblYKoordinata);
+				JLabel lblYCoord = new JLabel("Y coord:");
+				GridBagConstraints gbc_lblYCoord = new GridBagConstraints();
+				gbc_lblYCoord.anchor = GridBagConstraints.EAST;
+				gbc_lblYCoord.insets = new Insets(0, 0, 5, 5);
+				gbc_lblYCoord.gridx = 0;
+				gbc_lblYCoord.gridy = 2;
+				contentPanel.add(lblYCoord, gbc_lblYCoord);
 			}
 			{
 				txtY = new JTextField();				
 				txtY.setText(Integer.toString(y));
-				GridBagConstraints gbc_txtYKoordinata = new GridBagConstraints();
-				gbc_txtYKoordinata.insets = new Insets(0, 0, 5, 0);
-				gbc_txtYKoordinata.fill = GridBagConstraints.HORIZONTAL;
-				gbc_txtYKoordinata.gridx = 1;
-				gbc_txtYKoordinata.gridy = 2;
-				contentPanel.add(txtY, gbc_txtYKoordinata);
+				GridBagConstraints gbc_txtYCoord = new GridBagConstraints();
+				gbc_txtYCoord.insets = new Insets(0, 0, 5, 0);
+				gbc_txtYCoord.fill = GridBagConstraints.HORIZONTAL;
+				gbc_txtYCoord.gridx = 1;
+				gbc_txtYCoord.gridy = 2;
+				contentPanel.add(txtY, gbc_txtYCoord);
 				txtY.setColumns(10);
 			}	
 			
 			{
-				JLabel lblPoluprecnik = new JLabel("Enter radius:");
-				lblPoluprecnik.setFont(new Font("Bahnschrift", Font.BOLD, 14));
-				GridBagConstraints gbc_lblPoluprecnik = new GridBagConstraints();
-				gbc_lblPoluprecnik.insets = new Insets(0, 0, 0, 5);
-				gbc_lblPoluprecnik.gridx = 0;
-				gbc_lblPoluprecnik.gridy = 3;
-				contentPanel.add(lblPoluprecnik, gbc_lblPoluprecnik);
+				JLabel lblRadius = new JLabel("Enter radius:");
+				lblRadius.setFont(new Font("Bahnschrift", Font.BOLD, 14));
+				GridBagConstraints gbc_lblRadius = new GridBagConstraints();
+				gbc_lblRadius.insets = new Insets(0, 0, 0, 5);
+				gbc_lblRadius.gridx = 0;
+				gbc_lblRadius.gridy = 3;
+				contentPanel.add(lblRadius, gbc_lblRadius);
 			}
 			
 			{

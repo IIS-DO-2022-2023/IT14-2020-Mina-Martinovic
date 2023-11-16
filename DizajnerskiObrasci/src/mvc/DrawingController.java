@@ -310,10 +310,11 @@ public class DrawingController implements PropertyChangeListener{
 						Point oldState = (Point) model.getSelectedShapes().get(0);
 						dlgPoint.getTxtX().setText(Integer.toString(oldState.getX()));
 						dlgPoint.getTxtY().setText(Integer.toString(oldState.getY()));
+						dlgPoint.setOuterColorBtnBackgroundColor(outColor);
 						dlgPoint.setVisible(true);
 						if(dlgPoint.isConfirmation()) {
 							if(checkType(dlgPoint.getTxtX().getText()) && checkType(dlgPoint.getTxtY().getText())) {
-								Point newState = new Point(Integer.parseInt(dlgPoint.getTxtX().getText()), Integer.parseInt(dlgPoint.getTxtY().getText()), dlgPoint.getColor());
+								Point newState = new Point(Integer.parseInt(dlgPoint.getTxtX().getText()), Integer.parseInt(dlgPoint.getTxtY().getText()), dlgPoint.getOuterColorBtnBackgroundColor());
 								actLog.addElement("Updated->" + oldState.toString() + "->" + newState.toString());
 								UpdatePointCmd pointUpdate = new UpdatePointCmd(oldState , newState);
 								pointUpdate.execute();
@@ -364,10 +365,12 @@ public class DrawingController implements PropertyChangeListener{
 						dlgRectangleUpdate.getTxtUpperLeftPointY().setText(Integer.toString(oldRectangle.getUpperLeftPoint().getY()));
 						dlgRectangleUpdate.getTxtHeight().setText(Integer.toString(oldRectangle.getHeight()));
 						dlgRectangleUpdate.getTxtWidth().setText(Integer.toString(oldRectangle.getWidth()));
+						dlgRectangleUpdate.setOuterColorBtnBackgroundColor(outColor);
+						dlgRectangleUpdate.setOuterColorBtnBackgroundColor(inColor);
 						dlgRectangleUpdate.setVisible(true);
 						if(dlgRectangleUpdate.isConfirmation()) {
 							if(checkType(dlgRectangleUpdate.getTxtUpperLeftPointX().getText()) && checkType(dlgRectangleUpdate.getTxtUpperLeftPointY().getText()) && checkType(dlgRectangleUpdate.getTxtWidth().getText()) && checkType(dlgRectangleUpdate.getTxtHeight().getText())) {
-								Rectangle newRectangle = new Rectangle(new Point(Integer.parseInt(dlgRectangleUpdate.getTxtUpperLeftPointX().getText()), Integer.parseInt(dlgRectangleUpdate.getTxtUpperLeftPointY().getText())), Integer.parseInt(dlgRectangleUpdate.getTxtWidth().getText()), Integer.parseInt(dlgRectangleUpdate.getTxtHeight().getText()),dlgRectangleUpdate.getOutlineColor(), dlgRectangleUpdate.getFillColor());
+								Rectangle newRectangle = new Rectangle(new Point(Integer.parseInt(dlgRectangleUpdate.getTxtUpperLeftPointX().getText()), Integer.parseInt(dlgRectangleUpdate.getTxtUpperLeftPointY().getText())), Integer.parseInt(dlgRectangleUpdate.getTxtWidth().getText()), Integer.parseInt(dlgRectangleUpdate.getTxtHeight().getText()),dlgRectangleUpdate.getOuterColorBtnBackgroundColor(), dlgRectangleUpdate.getInnerColorBtnBackgroundColor());
 								UpdateRectangleCmd rectangleUpdate = new UpdateRectangleCmd(oldRectangle,newRectangle);
 								actLog.addElement("Updated->" + oldRectangle.toString() + "->" + newRectangle.toString());
 								rectangleUpdate.execute();
@@ -391,10 +394,12 @@ public class DrawingController implements PropertyChangeListener{
 						dlgDonutUpdate.getTxtY().setText(Integer.toString(oldDonut.getCenter().getY()));
 						dlgDonutUpdate.getTxtInnerRadius().setText(Integer.toString(oldDonut.getInnerRadius()));
 						dlgDonutUpdate.getTxtOuterRadius().setText(Integer.toString(oldDonut.getOuterRadius()));
+						dlgDonutUpdate.setOuterColorBtnBackgroundColor(outColor);
+						dlgDonutUpdate.setOuterColorBtnBackgroundColor(inColor);
 						dlgDonutUpdate.setVisible(true);
 						if(dlgDonutUpdate.isConfirm()) {
 							if(checkType(dlgDonutUpdate.getTxtX().getText()) && checkType(dlgDonutUpdate.getTxtY().getText()) && checkType(dlgDonutUpdate.getTxtOuterRadius().getText()) && checkType(dlgDonutUpdate.getTxtInnerRadius().getText())) {
-								Donut newDonut = new Donut(new Point(Integer.parseInt(dlgDonutUpdate.getTxtX().getText()), Integer.parseInt(dlgDonutUpdate.getTxtY().getText())), Integer.parseInt(dlgDonutUpdate.getTxtOuterRadius().getText()), Integer.parseInt(dlgDonutUpdate.getTxtInnerRadius().getText()), dlgDonutUpdate.getBorderColor(), dlgDonutUpdate.getFillColor());
+								Donut newDonut = new Donut(new Point(Integer.parseInt(dlgDonutUpdate.getTxtX().getText()), Integer.parseInt(dlgDonutUpdate.getTxtY().getText())), Integer.parseInt(dlgDonutUpdate.getTxtOuterRadius().getText()), Integer.parseInt(dlgDonutUpdate.getTxtInnerRadius().getText()), dlgDonutUpdate.getOuterColorBtnBackgroundColor(), dlgDonutUpdate.getInnerColorBtnBackgroundColor());
 								UpdateDonutCmd donutUpdate = new UpdateDonutCmd(oldDonut, newDonut);
 								actLog.addElement("Updated->" + oldDonut.toString() + "->" + newDonut.toString());
 								donutUpdate.execute();
@@ -417,11 +422,13 @@ public class DrawingController implements PropertyChangeListener{
 						dlgCircleUpdate.getTxtRadius().setText(Integer.toString(oldCircle.getRadius()));
 						dlgCircleUpdate.getTxtCenterX().setText(Integer.toString(oldCircle.getCenter().getX()));
 						dlgCircleUpdate.getTxtCenterY().setText(Integer.toString(oldCircle.getCenter().getY()));
+						dlgCircleUpdate.setOuterColorBtnBackgroundColor(outColor);
+						dlgCircleUpdate.setOuterColorBtnBackgroundColor(inColor);
 						dlgCircleUpdate.setVisible(true);
 						if(dlgCircleUpdate.isConfirmation()) {
 							try {
 								if(checkType(dlgCircleUpdate.getTxtCenterX().getText()) && checkType(dlgCircleUpdate.getTxtCenterY().getText()) && checkType(dlgCircleUpdate.getTxtRadius().getText())) {
-									Circle newCircle = new Circle(new Point(Integer.parseInt(dlgCircleUpdate.getTxtCenterX().getText()), Integer.parseInt(dlgCircleUpdate.getTxtCenterY().getText())), Integer.parseInt(dlgCircleUpdate.getTxtRadius().getText()),dlgCircleUpdate.getOutlineColor(), dlgCircleUpdate.getFillColor());
+									Circle newCircle = new Circle(new Point(Integer.parseInt(dlgCircleUpdate.getTxtCenterX().getText()), Integer.parseInt(dlgCircleUpdate.getTxtCenterY().getText())), Integer.parseInt(dlgCircleUpdate.getTxtRadius().getText()),dlgCircleUpdate.getOuterColorBtnBackgroundColor(), dlgCircleUpdate.getInnerColorBtnBackgroundColor());
 									UpdateCircleCmd circleUpdate = new UpdateCircleCmd(oldCircle, newCircle);
 									actLog.addElement("Updated->" + oldCircle.toString() + "->" + newCircle.toString());
 									circleUpdate.execute();
@@ -445,15 +452,17 @@ public class DrawingController implements PropertyChangeListener{
 						HexAdapter oldHexagon = (HexAdapter) model.getSelectedShapes().get(0);
 						dlgHexagonUpdate.getTxtCenterX().setText(Integer.toString(oldHexagon.getHexagon().getX()));
 						dlgHexagonUpdate.getTxtCenterY().setText(Integer.toString(oldHexagon.getHexagon().getY()));
-						dlgHexagonUpdate.getTxtR().setText(Integer.toString(oldHexagon.getHexagon().getR()));
+						dlgHexagonUpdate.getTxtRadius().setText(Integer.toString(oldHexagon.getHexagon().getR()));
+						//dlgHexagonUpdate.setOuterColorBtnBackgroundColor(outColor);
+						//dlgHexagonUpdate.setOuterColorBtnBackgroundColor(inColor);
 						dlgHexagonUpdate.setVisible(true);
 						if(dlgHexagonUpdate.isConfirmation()) {
 							try {
-								if(checkType(dlgHexagonUpdate.getTxtCenterX().getText()) && checkType(dlgHexagonUpdate.getTxtCenterY().getText()) && checkType(dlgHexagonUpdate.getTxtR().getText())) {
-									Hexagon hex = new Hexagon(Integer.parseInt(dlgHexagonUpdate.getTxtCenterX().getText()), Integer.parseInt(dlgHexagonUpdate.getTxtCenterY().getText()), Integer.parseInt(dlgHexagonUpdate.getTxtR().getText()));
-									hex.setAreaColor(dlgHexagonUpdate.getFillColor());
-									hex.setBorderColor(dlgHexagonUpdate.getOutlineColor());
-									HexAdapter adapter = new HexAdapter(hex);
+								if(checkType(dlgHexagonUpdate.getTxtCenterX().getText()) && checkType(dlgHexagonUpdate.getTxtCenterY().getText()) && checkType(dlgHexagonUpdate.getTxtRadius().getText())) {
+									Hexagon newHex = new Hexagon(Integer.parseInt(dlgHexagonUpdate.getTxtCenterX().getText()), Integer.parseInt(dlgHexagonUpdate.getTxtCenterY().getText()), Integer.parseInt(dlgHexagonUpdate.getTxtRadius().getText()));
+									//newHex.setAreaColor(dlgHexagonUpdate.getInnerColor());
+									//newHex.setBorderColor(dlgHexagonUpdate.getOuterColor());
+									HexAdapter adapter = new HexAdapter(newHex);
 									UpdateHexagonCmd hexUpdate = new UpdateHexagonCmd(oldHexagon, adapter);
 									actLog.addElement("Updated->" + oldHexagon.toString() + "->" + adapter.toString());
 									hexUpdate.execute();
