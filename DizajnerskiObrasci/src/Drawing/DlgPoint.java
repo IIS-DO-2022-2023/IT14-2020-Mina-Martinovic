@@ -3,8 +3,10 @@ package Drawing;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -15,11 +17,13 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class DlgPoint extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	protected JTextField txtX;
 	protected JTextField txtY;
+	private Color outerColor;
 	
 	private JButton outerColorButton;
 	
@@ -34,7 +38,13 @@ public class DlgPoint extends JDialog {
 	public void setColor(Color color) {
 		this.color = color;
 	}
-	
+	public Color getOuterColor() {
+		return outerColor;
+	}
+
+	public void setOuterColor(Color outerColor) {
+		this.outerColor = outerColor;
+	}
 	public JTextField getTxtX() {
 		return txtX;
 	}
@@ -88,7 +98,7 @@ public class DlgPoint extends JDialog {
 	 */
 	public DlgPoint() {
 		setBounds(100, 100, 450, 300);
-		setTitle("Karakteristike tacke");
+		setTitle("Add Point");
 		setModal(true);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -100,41 +110,41 @@ public class DlgPoint extends JDialog {
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JLabel lblXKoordinata = new JLabel("X koordinata je:");
-			GridBagConstraints gbc_lblXKoordinata = new GridBagConstraints();
-			gbc_lblXKoordinata.anchor = GridBagConstraints.EAST;
-			gbc_lblXKoordinata.insets = new Insets(0, 0, 5, 5);
-			gbc_lblXKoordinata.gridx = 0;
-			gbc_lblXKoordinata.gridy = 1;
-			contentPanel.add(lblXKoordinata, gbc_lblXKoordinata);
+			JLabel lblXCoord = new JLabel("X coord:");
+			GridBagConstraints gbc_lblXCoord = new GridBagConstraints();
+			gbc_lblXCoord.anchor = GridBagConstraints.EAST;
+			gbc_lblXCoord.insets = new Insets(0, 0, 5, 5);
+			gbc_lblXCoord.gridx = 0;
+			gbc_lblXCoord.gridy = 1;
+			contentPanel.add(lblXCoord, gbc_lblXCoord);
 		}
 		{
 			txtX = new JTextField();
-			GridBagConstraints gbc_txtXKoordinata = new GridBagConstraints();
-			gbc_txtXKoordinata.insets = new Insets(0, 0, 5, 0);
-			gbc_txtXKoordinata.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtXKoordinata.gridx = 1;
-			gbc_txtXKoordinata.gridy = 1;
-			contentPanel.add(txtX, gbc_txtXKoordinata);
+			GridBagConstraints gbc_txtXKCoord = new GridBagConstraints();
+			gbc_txtXKCoord.insets = new Insets(0, 0, 5, 0);
+			gbc_txtXKCoord.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtXKCoord.gridx = 1;
+			gbc_txtXKCoord.gridy = 1;
+			contentPanel.add(txtX, gbc_txtXKCoord);
 			txtX.setColumns(10);
 		}
 		{
-			JLabel lblYKoordinata = new JLabel("Y koordinata je:");
-			GridBagConstraints gbc_lblYKoordinata = new GridBagConstraints();
-			gbc_lblYKoordinata.anchor = GridBagConstraints.EAST;
-			gbc_lblYKoordinata.insets = new Insets(0, 0, 5, 5);
-			gbc_lblYKoordinata.gridx = 0;
-			gbc_lblYKoordinata.gridy = 2;
-			contentPanel.add(lblYKoordinata, gbc_lblYKoordinata);
+			JLabel lblYCoord = new JLabel("Y coord:");
+			GridBagConstraints gbc_lblYCoord = new GridBagConstraints();
+			gbc_lblYCoord.anchor = GridBagConstraints.EAST;
+			gbc_lblYCoord.insets = new Insets(0, 0, 5, 5);
+			gbc_lblYCoord.gridx = 0;
+			gbc_lblYCoord.gridy = 2;
+			contentPanel.add(lblYCoord, gbc_lblYCoord);
 		}
 		{
 			txtY = new JTextField();
-			GridBagConstraints gbc_txtYKoordinata = new GridBagConstraints();
-			gbc_txtYKoordinata.insets = new Insets(0, 0, 5, 0);
-			gbc_txtYKoordinata.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtYKoordinata.gridx = 1;
-			gbc_txtYKoordinata.gridy = 2;
-			contentPanel.add(txtY, gbc_txtYKoordinata);
+			GridBagConstraints gbc_txtYCoord = new GridBagConstraints();
+			gbc_txtYCoord.insets = new Insets(0, 0, 5, 0);
+			gbc_txtYCoord.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtYCoord.gridx = 1;
+			gbc_txtYCoord.gridy = 2;
+			contentPanel.add(txtY, gbc_txtYCoord);
 			txtY.setColumns(10);
 		}
 		{
@@ -167,9 +177,9 @@ public class DlgPoint extends JDialog {
 		}
 	}
 	
-	public DlgPoint(int x, int y) {
+	public DlgPoint(int x, int y, Color outColor) {
 		setBounds(100, 100, 450, 300);
-		setTitle("Karakteristike tacke");
+		setTitle("Add point:");
 		setModal(true);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -181,45 +191,64 @@ public class DlgPoint extends JDialog {
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JLabel lblXKoordinata = new JLabel("X koordinata je:");
-			GridBagConstraints gbc_lblXKoordinata = new GridBagConstraints();
-			gbc_lblXKoordinata.anchor = GridBagConstraints.EAST;
-			gbc_lblXKoordinata.insets = new Insets(0, 0, 5, 5);
-			gbc_lblXKoordinata.gridx = 0;
-			gbc_lblXKoordinata.gridy = 1;
-			contentPanel.add(lblXKoordinata, gbc_lblXKoordinata);
+			JLabel lblXCoord = new JLabel("X coord:");
+			GridBagConstraints gbc_lblXCoord = new GridBagConstraints();
+			gbc_lblXCoord.anchor = GridBagConstraints.EAST;
+			gbc_lblXCoord.insets = new Insets(0, 0, 5, 5);
+			gbc_lblXCoord.gridx = 0;
+			gbc_lblXCoord.gridy = 1;
+			contentPanel.add(lblXCoord, gbc_lblXCoord);
 		}
 		{
 			txtX = new JTextField();
 			this.txtX.setText(Integer.toString(x)); 
-			GridBagConstraints gbc_txtXKoordinata = new GridBagConstraints();
-			gbc_txtXKoordinata.insets = new Insets(0, 0, 5, 0);
-			gbc_txtXKoordinata.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtXKoordinata.gridx = 1;
-			gbc_txtXKoordinata.gridy = 1;
-			contentPanel.add(txtX, gbc_txtXKoordinata);
+			GridBagConstraints gbc_txtXCoord = new GridBagConstraints();
+			gbc_txtXCoord.insets = new Insets(0, 0, 5, 0);
+			gbc_txtXCoord.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtXCoord.gridx = 1;
+			gbc_txtXCoord.gridy = 1;
+			contentPanel.add(txtX, gbc_txtXCoord);
 			txtX.setColumns(10);
 		}
 		{
-			JLabel lblYKoordinata = new JLabel("Y koordinata je:");
-			GridBagConstraints gbc_lblYKoordinata = new GridBagConstraints();
-			gbc_lblYKoordinata.anchor = GridBagConstraints.EAST;
-			gbc_lblYKoordinata.insets = new Insets(0, 0, 5, 5);
-			gbc_lblYKoordinata.gridx = 0;
-			gbc_lblYKoordinata.gridy = 2;
-			contentPanel.add(lblYKoordinata, gbc_lblYKoordinata);
+			JLabel lblYCoord = new JLabel("Y coord:");
+			GridBagConstraints gbc_lblYCoord = new GridBagConstraints();
+			gbc_lblYCoord.anchor = GridBagConstraints.EAST;
+			gbc_lblYCoord.insets = new Insets(0, 0, 5, 5);
+			gbc_lblYCoord.gridx = 0;
+			gbc_lblYCoord.gridy = 2;
+			contentPanel.add(lblYCoord, gbc_lblYCoord);
 		}
 		{
 			txtY = new JTextField();
 			this.txtY.setText(Integer.toString(y));
-			GridBagConstraints gbc_txtYKoordinata = new GridBagConstraints();
-			gbc_txtYKoordinata.insets = new Insets(0, 0, 5, 0);
-			gbc_txtYKoordinata.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtYKoordinata.gridx = 1;
-			gbc_txtYKoordinata.gridy = 2;
-			contentPanel.add(txtY, gbc_txtYKoordinata);
+			GridBagConstraints gbc_txtYCoord = new GridBagConstraints();
+			gbc_txtYCoord.insets = new Insets(0, 0, 5, 0);
+			gbc_txtYCoord.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtYCoord.gridx = 1;
+			gbc_txtYCoord.gridy = 2;
+			contentPanel.add(txtY, gbc_txtYCoord);
 			txtY.setColumns(10);
 		}
+		
+		  {
+			  outerColorButton = new JButton("Outer color:");
+			  outerColorButton.setBackground(outColor);
+			  outerColorButton.setForeground(new Color(0, 0, 0));
+			  outerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
+			  outerColorButton.addActionListener(new ActionListener() {
+			  public void actionPerformed(ActionEvent e)
+			  {
+				  outerColor = JColorChooser.showDialog(null,"Choose the outer color of your circle", outerColor);
+				  outerColorButton.setBackground(outerColor);
+			  }
+			  });
+			  outerColorButton.setHorizontalAlignment(SwingConstants.LEFT);
+			  GridBagConstraints gbc_outerColorButton = new GridBagConstraints();
+			  gbc_outerColorButton.gridx = 1;
+			  gbc_outerColorButton.gridy = 6;
+			  contentPanel.add(outerColorButton, gbc_outerColorButton);
+			  }
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

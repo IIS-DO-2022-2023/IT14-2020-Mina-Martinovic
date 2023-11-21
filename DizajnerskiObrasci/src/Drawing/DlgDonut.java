@@ -24,33 +24,30 @@ import javax.swing.SwingConstants;
 public class DlgDonut extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	protected JTextField xKoordinata;
-	protected JTextField yKoordinata;
+	protected JTextField xCoord;
+	protected JTextField yCoord;
 	protected JTextField innerRadius;
 	protected JTextField outerRadius;
 	protected JTextField height;
-	//protected boolean isOk;
 	
 	  private boolean confirmation;
-
-	  Color innerFill = new Color(255, 255, 255);
-	  Color borderFill;
-	 
+	  private Color innerColor;
+	  private Color outerColor;
+		
+	  private JButton outerColorButton;
+	  private JButton innerColorButton;
 
 	public JTextField getInnerRadius() {
 		return innerRadius;
 	}
 
-
 	public void setInnerRadius(JTextField innerRadius) {
 		this.innerRadius = innerRadius;
 	}
 
-
 	public JTextField getOuterRadius() {
 		return outerRadius;
 	}
-
 
 	public void setOuterRadius(JTextField outerRadius) {
 		this.outerRadius = outerRadius;
@@ -60,31 +57,46 @@ public class DlgDonut extends JDialog {
 		return confirmation;
 	}
 
-
 	public void setConfirmation(boolean confirmation) {
 		this.confirmation = confirmation;
 	}
 
-
-	public Color getInnerFill() {
-		return innerFill;
+	public Color getOuterColor() {
+		return outerColor;
 	}
 
-
-	public void setInnerFill(Color innerFill) {
-		this.innerFill = innerFill;
+	public void setOuterColor(Color outerColor) {
+		this.outerColor = outerColor;
 	}
 
-
-	public Color getBorderFill() {
-		return borderFill;
+	public Color getInnerColor() {
+		return innerColor;
 	}
 
-
-	public void setBorderFill(Color borderFill) {
-		this.borderFill = borderFill;
+	public void setInnerColor(Color innerColor) {
+		this.innerColor = innerColor;
+	}
+	public Color getOuterColorBtnBackgroundColor()
+	{
+		return this.outerColorButton.getBackground();
+	}
+	
+	public void setOuterColorBtnBackgroundColor(Color color)
+	{
+		this.outerColorButton.setBackground(color);
+	}
+	
+	public Color getInnerColorBtnBackgroundColor()
+	{
+		return this.innerColorButton.getBackground();
+	}
+	
+	public void setInnerColorBtnBackgroundColor(Color color)
+	{
+		this.innerColorButton.setBackground(color);
 	}
 
+	
 
 	public static void main(String[] args) {
 		try {
@@ -102,7 +114,7 @@ public class DlgDonut extends JDialog {
 	 */
 	
 
-	public DlgDonut(int xKoordinata, int yKoordinata, Color innerC, Color outerC ) {	
+	public DlgDonut(int x, int y, Color inColor, Color outColor ) {	
 		setBounds(100, 100, 450, 300);
 		setTitle("Add Donut");
 		setModal(true);
@@ -116,47 +128,47 @@ public class DlgDonut extends JDialog {
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JLabel lblXKoordinata = new JLabel("X koordinata je:");
-			GridBagConstraints gbc_lblXKoordinata = new GridBagConstraints();
-			gbc_lblXKoordinata.anchor = GridBagConstraints.EAST;
-			gbc_lblXKoordinata.insets = new Insets(0, 0, 5, 5);
-			gbc_lblXKoordinata.gridx = 0;
-			gbc_lblXKoordinata.gridy = 1;
-			contentPanel.add(lblXKoordinata, gbc_lblXKoordinata);
+			JLabel lblXCoord = new JLabel("X coord:");
+			GridBagConstraints gbc_lblXCoord = new GridBagConstraints();
+			gbc_lblXCoord.anchor = GridBagConstraints.EAST;
+			gbc_lblXCoord.insets = new Insets(0, 0, 5, 5);
+			gbc_lblXCoord.gridx = 0;
+			gbc_lblXCoord.gridy = 1;
+			contentPanel.add(lblXCoord, gbc_lblXCoord);
 		}
 		{
-			this.xKoordinata = new JTextField();
-			this.xKoordinata.setText(Integer.toString(xKoordinata)); 
-			GridBagConstraints gbc_txtXKoordinata = new GridBagConstraints();
-			gbc_txtXKoordinata.insets = new Insets(0, 0, 5, 0);
-			gbc_txtXKoordinata.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtXKoordinata.gridx = 1;
-			gbc_txtXKoordinata.gridy = 1;
-			contentPanel.add(this.xKoordinata, gbc_txtXKoordinata);
-			this.xKoordinata.setColumns(10);
+			xCoord= new JTextField();
+			xCoord.setText(Integer.toString(x)); 
+			GridBagConstraints gbc_txtXCoord = new GridBagConstraints();
+			gbc_txtXCoord.insets = new Insets(0, 0, 5, 0);
+			gbc_txtXCoord.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtXCoord.gridx = 1;
+			gbc_txtXCoord.gridy = 1;
+			contentPanel.add(xCoord, gbc_txtXCoord);
+			xCoord.setColumns(10);
 		}
 		{
-			JLabel lblYKoordinata = new JLabel("Y koordinata je:");
-			GridBagConstraints gbc_lblYKoordinata = new GridBagConstraints();
-			gbc_lblYKoordinata.anchor = GridBagConstraints.EAST;
-			gbc_lblYKoordinata.insets = new Insets(0, 0, 5, 5);
-			gbc_lblYKoordinata.gridx = 0;
-			gbc_lblYKoordinata.gridy = 2;
-			contentPanel.add(lblYKoordinata, gbc_lblYKoordinata);
+			JLabel lblYCoord = new JLabel("Y coord:");
+			GridBagConstraints gbc_lblYCoord = new GridBagConstraints();
+			gbc_lblYCoord.anchor = GridBagConstraints.EAST;
+			gbc_lblYCoord.insets = new Insets(0, 0, 5, 5);
+			gbc_lblYCoord.gridx = 0;
+			gbc_lblYCoord.gridy = 2;
+			contentPanel.add(lblYCoord, gbc_lblYCoord);
 		}
 		{
-			this.yKoordinata = new JTextField();			
-			this.yKoordinata.setText(Integer.toString(yKoordinata));
-			GridBagConstraints gbc_txtYKoordinata = new GridBagConstraints();
-			gbc_txtYKoordinata.insets = new Insets(0, 0, 5, 0);
-			gbc_txtYKoordinata.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtYKoordinata.gridx = 1;
-			gbc_txtYKoordinata.gridy = 2;
-			contentPanel.add(this.yKoordinata, gbc_txtYKoordinata);
-			this.yKoordinata.setColumns(10);
+			yCoord = new JTextField();			
+			yCoord.setText(Integer.toString(y));
+			GridBagConstraints gbc_txtYCoord = new GridBagConstraints();
+			gbc_txtYCoord.insets = new Insets(0, 0, 5, 0);
+			gbc_txtYCoord.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtYCoord.gridx = 1;
+			gbc_txtYCoord.gridy = 2;
+			contentPanel.add(yCoord, gbc_txtYCoord);
+			yCoord.setColumns(10);
 		}
 		{
-			JLabel lblInnerRadius = new JLabel("Unutrasnji poluprecnik je:");
+			JLabel lblInnerRadius = new JLabel("Inner radius:");
 			GridBagConstraints gbc_lblInnerRadius = new GridBagConstraints();
 			gbc_lblInnerRadius.insets = new Insets(0, 0, 0, 5);
 			gbc_lblInnerRadius.anchor = GridBagConstraints.EAST;
@@ -166,7 +178,6 @@ public class DlgDonut extends JDialog {
 		}
 		{
 			innerRadius = new JTextField();
-			//innerRadius.setText(Integer.toString(unutrasnjiPol));
 			GridBagConstraints gbc_txtInnerRadius = new GridBagConstraints();
 			gbc_txtInnerRadius.fill = GridBagConstraints.HORIZONTAL;
 			gbc_txtInnerRadius.gridx = 1;
@@ -175,7 +186,7 @@ public class DlgDonut extends JDialog {
 			innerRadius.setColumns(10);
 		}
 		{
-			JLabel lblRadius = new JLabel("Spoljasnji poluprecnik je:");
+			JLabel lblRadius = new JLabel("Outer radius:");
 			GridBagConstraints gbc_lblRadius = new GridBagConstraints();
 			gbc_lblRadius.insets = new Insets(0, 0, 0, 5);
 			gbc_lblRadius.anchor = GridBagConstraints.EAST;
@@ -185,7 +196,6 @@ public class DlgDonut extends JDialog {
 		}
 		{
 			outerRadius = new JTextField();
-			//outerRadius.setText(Integer.toString(pol));
 			GridBagConstraints gbc_txtOuterRadius = new GridBagConstraints();
 			gbc_txtOuterRadius.fill = GridBagConstraints.HORIZONTAL;
 			gbc_txtOuterRadius.gridx = 1;
@@ -198,18 +208,18 @@ public class DlgDonut extends JDialog {
 		
 //		  inner/border color
 		  {
-			  JButton innerColorButton = new JButton("Boja unutrasnjosti");
-			  innerColorButton.setBackground(innerC);
+			  innerColorButton = new JButton("Inner color");
+			  innerColorButton.setBackground(inColor);
+			  innerColor = inColor;
 			  innerColorButton.setForeground(new Color(0, 0, 0));
 			  innerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
 			  innerColorButton.addActionListener(new ActionListener() {
-			   public void actionPerformed(ActionEvent e)
-			  {
-			  innerFill = JColorChooser.showDialog(null,"Izaberi boju unutrasnjosti tvog oblika", innerFill);
-			  innerColorButton.setBackground(innerFill);
-			  boolean innerColorConfirmation = true;
-		  }
-		  });
+				  public void actionPerformed(ActionEvent e)
+				  {
+					  innerColor = JColorChooser.showDialog(null,"Choose the inner color of your donut", innerColor);
+					  innerColorButton.setBackground(innerColor);
+				  }
+			  });
 		  GridBagConstraints gbc_innerColorButton = new GridBagConstraints();
 		  gbc_innerColorButton.insets = new Insets(0, 0, 0, 5);
 		  gbc_innerColorButton.gridx = 0;
@@ -218,23 +228,23 @@ public class DlgDonut extends JDialog {
 		  }
 		  
 		  {
-		  JButton borderColorButton = new JButton(" Boja ivice");
-		  borderColorButton.setBackground(outerC);
-		  borderColorButton.setForeground(new Color(0, 0, 0));
-		  borderColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
-		  borderColorButton.addActionListener(new ActionListener() {
+		  outerColorButton = new JButton("Outer color");
+		  outerColorButton.setBackground(outColor);
+		  outerColor = outColor;
+		  outerColorButton.setForeground(new Color(0, 0, 0));
+		  outerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
+		  outerColorButton.addActionListener(new ActionListener() {
 		  public void actionPerformed(ActionEvent e)
 		  {
-			  borderFill = JColorChooser.showDialog(null,"Izaberi boju ivice tvog oblika", borderFill);
-			  borderColorButton.setBackground(borderFill);
-			  boolean borderColorConfirmation = true;
+			  outerColor = JColorChooser.showDialog(null,"Choose the outer color of your donut", outerColor);
+			  outerColorButton.setBackground(outerColor);
 		  }
 		  });
-		  borderColorButton.setHorizontalAlignment(SwingConstants.LEFT);
-		  GridBagConstraints gbc_borderColorButton = new GridBagConstraints();
-		  gbc_borderColorButton.gridx = 1;
-		  gbc_borderColorButton.gridy = 6;
-		  contentPanel.add(borderColorButton, gbc_borderColorButton);
+		  outerColorButton.setHorizontalAlignment(SwingConstants.LEFT);
+		  GridBagConstraints gbc_outerColorButton = new GridBagConstraints();
+		  gbc_outerColorButton.gridx = 1;
+		  gbc_outerColorButton.gridy = 6;
+		  contentPanel.add(outerColorButton, gbc_outerColorButton);
 		  }
 		{
 			JPanel buttonPane = new JPanel();
@@ -297,7 +307,7 @@ public class DlgDonut extends JDialog {
 public DlgDonut() {
 		
 		setBounds(100, 100, 450, 300);
-		setTitle("Karakteristike kruga sa rupom");
+		setTitle("Add donut:");
 		setModal(true);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -309,45 +319,45 @@ public DlgDonut() {
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JLabel lblXKoordinata = new JLabel("X koordinata je:");
-			GridBagConstraints gbc_lblXKoordinata = new GridBagConstraints();
-			gbc_lblXKoordinata.anchor = GridBagConstraints.EAST;
-			gbc_lblXKoordinata.insets = new Insets(0, 0, 5, 5);
-			gbc_lblXKoordinata.gridx = 0;
-			gbc_lblXKoordinata.gridy = 1;
-			contentPanel.add(lblXKoordinata, gbc_lblXKoordinata);
+			JLabel lblXCoord = new JLabel("X coord:");
+			GridBagConstraints gbc_lblXCoord = new GridBagConstraints();
+			gbc_lblXCoord.anchor = GridBagConstraints.EAST;
+			gbc_lblXCoord.insets = new Insets(0, 0, 5, 5);
+			gbc_lblXCoord.gridx = 0;
+			gbc_lblXCoord.gridy = 1;
+			contentPanel.add(lblXCoord, gbc_lblXCoord);
 		}
 		{
-			this.xKoordinata = new JTextField();
-			GridBagConstraints gbc_txtXKoordinata = new GridBagConstraints();
-			gbc_txtXKoordinata.insets = new Insets(0, 0, 5, 0);
-			gbc_txtXKoordinata.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtXKoordinata.gridx = 1;
-			gbc_txtXKoordinata.gridy = 1;
-			contentPanel.add(this.xKoordinata, gbc_txtXKoordinata);
-			this.xKoordinata.setColumns(10);
+			xCoord = new JTextField();
+			GridBagConstraints gbc_txtXCoord = new GridBagConstraints();
+			gbc_txtXCoord.insets = new Insets(0, 0, 5, 0);
+			gbc_txtXCoord.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtXCoord.gridx = 1;
+			gbc_txtXCoord.gridy = 1;
+			contentPanel.add(xCoord, gbc_txtXCoord);
+			xCoord.setColumns(10);
 		}
 		{
-			JLabel lblYKoordinata = new JLabel("Y koordinata je:");
-			GridBagConstraints gbc_lblYKoordinata = new GridBagConstraints();
-			gbc_lblYKoordinata.anchor = GridBagConstraints.EAST;
-			gbc_lblYKoordinata.insets = new Insets(0, 0, 5, 5);
-			gbc_lblYKoordinata.gridx = 0;
-			gbc_lblYKoordinata.gridy = 2;
-			contentPanel.add(lblYKoordinata, gbc_lblYKoordinata);
+			JLabel lblYCoord = new JLabel("Y coord:");
+			GridBagConstraints gbc_lblYCoord = new GridBagConstraints();
+			gbc_lblYCoord.anchor = GridBagConstraints.EAST;
+			gbc_lblYCoord.insets = new Insets(0, 0, 5, 5);
+			gbc_lblYCoord.gridx = 0;
+			gbc_lblYCoord.gridy = 2;
+			contentPanel.add(lblYCoord, gbc_lblYCoord);
 		}
 		{
-			this.yKoordinata = new JTextField();			
-			GridBagConstraints gbc_txtYKoordinata = new GridBagConstraints();
-			gbc_txtYKoordinata.insets = new Insets(0, 0, 5, 0);
-			gbc_txtYKoordinata.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtYKoordinata.gridx = 1;
-			gbc_txtYKoordinata.gridy = 2;
-			contentPanel.add(this.yKoordinata, gbc_txtYKoordinata);
-			this.yKoordinata.setColumns(10);
+			yCoord = new JTextField();			
+			GridBagConstraints gbc_txtYCoord= new GridBagConstraints();
+			gbc_txtYCoord.insets = new Insets(0, 0, 5, 0);
+			gbc_txtYCoord.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtYCoord.gridx = 1;
+			gbc_txtYCoord.gridy = 2;
+			contentPanel.add(yCoord, gbc_txtYCoord);
+			yCoord.setColumns(10);
 		}
 		{
-			JLabel lblInnerRadius = new JLabel("Unutrasnji poluprecnik je:");
+			JLabel lblInnerRadius = new JLabel("Inner radius:");
 			GridBagConstraints gbc_lblInnerRadius = new GridBagConstraints();
 			gbc_lblInnerRadius.insets = new Insets(0, 0, 0, 5);
 			gbc_lblInnerRadius.anchor = GridBagConstraints.EAST;
@@ -357,7 +367,6 @@ public DlgDonut() {
 		}
 		{
 			innerRadius = new JTextField();
-			//innerRadius.setText(Integer.toString(unutrasnjiPol));
 			GridBagConstraints gbc_txtInnerRadius = new GridBagConstraints();
 			gbc_txtInnerRadius.fill = GridBagConstraints.HORIZONTAL;
 			gbc_txtInnerRadius.gridx = 1;
@@ -366,7 +375,7 @@ public DlgDonut() {
 			innerRadius.setColumns(10);
 		}
 		{
-			JLabel lblRadius = new JLabel("Spoljasnji poluprecnik je:");
+			JLabel lblRadius = new JLabel("Outer radius:");
 			GridBagConstraints gbc_lblRadius = new GridBagConstraints();
 			gbc_lblRadius.insets = new Insets(0, 0, 0, 5);
 			gbc_lblRadius.anchor = GridBagConstraints.EAST;
@@ -376,7 +385,6 @@ public DlgDonut() {
 		}
 		{
 			outerRadius = new JTextField();
-			//outerRadius.setText(Integer.toString(pol));
 			GridBagConstraints gbc_txtOuterRadius = new GridBagConstraints();
 			gbc_txtOuterRadius.fill = GridBagConstraints.HORIZONTAL;
 			gbc_txtOuterRadius.gridx = 1;
@@ -385,20 +393,16 @@ public DlgDonut() {
 			outerRadius.setColumns(10);
 		}
 		
-		
-		
-//		  inner/border color
 		  {
-			  JButton innerColorButton = new JButton("Boja unutrasnjosti");
+			  innerColorButton = new JButton("Inner color");
 			  innerColorButton.setBackground(SystemColor.activeCaption);
 			  innerColorButton.setForeground(new Color(0, 0, 0));
 			  innerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
 			  innerColorButton.addActionListener(new ActionListener() {
 			   public void actionPerformed(ActionEvent e)
 			  {
-			  innerFill = JColorChooser.showDialog(null,"Izaberi boju unutrasnjosti tvog oblika", innerFill);
-			  innerColorButton.setBackground(innerFill);
-			  boolean innerColorConfirmation = true;
+			  innerColor = JColorChooser.showDialog(null,"Choose the inner color of your donut", innerColor);
+			  innerColorButton.setBackground(innerColor);
 		  }
 		  });
 		  GridBagConstraints gbc_innerColorButton = new GridBagConstraints();
@@ -409,23 +413,22 @@ public DlgDonut() {
 		  }
 		  
 		  {
-		  JButton borderColorButton = new JButton(" Boja ivice");
-		  borderColorButton.setBackground(SystemColor.activeCaption);
-		  borderColorButton.setForeground(new Color(0, 0, 0));
-		  borderColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
-		  borderColorButton.addActionListener(new ActionListener() {
+		  outerColorButton = new JButton("Outer color");
+		  outerColorButton.setBackground(SystemColor.activeCaption);
+		  outerColorButton.setForeground(new Color(0, 0, 0));
+		  outerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
+		  outerColorButton.addActionListener(new ActionListener() {
 		  public void actionPerformed(ActionEvent e)
 		  {
-			  borderFill = JColorChooser.showDialog(null,"Izaberi boju ivice tvog oblika", borderFill);
-			  borderColorButton.setBackground(borderFill);
-			  boolean borderColorConfirmation = true;
+			  outerColor = JColorChooser.showDialog(null,"Choose the outer color of your donut", outerColor);
+			  outerColorButton.setBackground(outerColor);
 		  }
 		  });
-		  borderColorButton.setHorizontalAlignment(SwingConstants.LEFT);
-		  GridBagConstraints gbc_borderColorButton = new GridBagConstraints();
-		  gbc_borderColorButton.gridx = 1;
-		  gbc_borderColorButton.gridy = 6;
-		  contentPanel.add(borderColorButton, gbc_borderColorButton);
+		  outerColorButton.setHorizontalAlignment(SwingConstants.LEFT);
+		  GridBagConstraints gbc_outerColorButton = new GridBagConstraints();
+		  gbc_outerColorButton.gridx = 1;
+		  gbc_outerColorButton.gridy = 6;
+		  contentPanel.add(outerColorButton, gbc_outerColorButton);
 		  }
 		{
 			JPanel buttonPane = new JPanel();

@@ -37,6 +37,10 @@ public class HexAdapter extends ThreeDShape{
 		this.hexagon.setSelected(selected);
 	}
 	
+	public boolean isSelected() {
+		return this.hexagon.isSelected();
+	}
+	
 	public int getR() {
 		return hexagon.getR();
 	}

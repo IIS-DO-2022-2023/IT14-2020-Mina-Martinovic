@@ -27,8 +27,11 @@ public class DlgCircle extends JDialog {
 	private JTextField txtY;
 
 	private boolean confirmation;
-	Color innerFill = new Color(255, 255, 255);
-	Color borderFill;
+	private Color innerColor;
+	private Color outerColor;
+	
+	private JButton outerColorButton;
+	private JButton innerColorButton;
 	
 	public JTextField getTxtRadius() {
 		return txtRadius;
@@ -44,6 +47,42 @@ public class DlgCircle extends JDialog {
 
 	public void setConfirmation(boolean confirmation) {
 		this.confirmation = confirmation;
+	}
+	
+	public Color getOuterColor() {
+		return outerColor;
+	}
+
+	public void setOuterColor(Color outerColor) {
+		this.outerColor = outerColor;
+	}
+
+	public Color getInnerColor() {
+		return innerColor;
+	}
+
+	public void setInnerColor(Color innerColor) {
+		this.innerColor = innerColor;
+	}
+	
+	public Color getOuterColorBtnBackgroundColor()
+	{
+		return this.outerColorButton.getBackground();
+	}
+	
+	public void setOuterColorBtnBackgroundColor(Color color)
+	{
+		this.outerColorButton.setBackground(color);
+	}
+	
+	public Color getInnerColorBtnBackgroundColor()
+	{
+		return this.innerColorButton.getBackground();
+	}
+	
+	public void setInnerColorBtnBackgroundColor(Color color)
+	{
+		this.innerColorButton.setBackground(color);
 	}
 
 
@@ -84,7 +123,7 @@ public class DlgCircle extends JDialog {
 			contentPanel.add(lblRadius, gbc_lblRadius);
 		}
 		{
-			 txtRadius = new JTextField();
+			txtRadius = new JTextField();
 			GridBagConstraints gbc_txtRadius = new GridBagConstraints();
 			gbc_txtRadius.fill = GridBagConstraints.HORIZONTAL;
 			gbc_txtRadius.insets = new Insets(0, 0, 5, 5);
@@ -217,16 +256,15 @@ public class DlgCircle extends JDialog {
 			}
 			
 			{
-				JButton innerColorButton = new JButton("Boja unutrasnjosti");
+				innerColorButton = new JButton("Inner color:");
 				innerColorButton.setBackground(inColor);
 				innerColorButton.setForeground(new Color(0, 0, 0));
 				innerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
 				innerColorButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
-				  innerFill = JColorChooser.showDialog(null,"Izaberi boju unutrasnjosti tvog oblika", innerFill);
-				  innerColorButton.setBackground(innerFill);
-				  boolean innerColorConfirmation = true;
+				  innerColor = JColorChooser.showDialog(null,"Choose the inner color for your circle", innerColor);
+				  innerColorButton.setBackground(innerColor);
 			  }
 			  });
 			  GridBagConstraints gbc_innerColorButton = new GridBagConstraints();
@@ -237,23 +275,22 @@ public class DlgCircle extends JDialog {
 			  }
 			  
 			  {
-			  JButton borderColorButton = new JButton(" Boja ivice");
-			  borderColorButton.setBackground(outColor);
-			  borderColorButton.setForeground(new Color(0, 0, 0));
-			  borderColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
-			  borderColorButton.addActionListener(new ActionListener() {
+			  outerColorButton = new JButton("Outer color:");
+			  outerColorButton.setBackground(outColor);
+			  outerColorButton.setForeground(new Color(0, 0, 0));
+			  outerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
+			  outerColorButton.addActionListener(new ActionListener() {
 			  public void actionPerformed(ActionEvent e)
 			  {
-				  borderFill = JColorChooser.showDialog(null,"Izaberi boju ivice tvog oblika", borderFill);
-				  borderColorButton.setBackground(borderFill);
-				  boolean borderColorConfirmation = true;
+				  outerColor = JColorChooser.showDialog(null,"Choose the outer color of your circle", outerColor);
+				  outerColorButton.setBackground(outerColor);
 			  }
 			  });
-			  borderColorButton.setHorizontalAlignment(SwingConstants.LEFT);
-			  GridBagConstraints gbc_borderColorButton = new GridBagConstraints();
-			  gbc_borderColorButton.gridx = 1;
-			  gbc_borderColorButton.gridy = 6;
-			  contentPanel.add(borderColorButton, gbc_borderColorButton);
+			  outerColorButton.setHorizontalAlignment(SwingConstants.LEFT);
+			  GridBagConstraints gbc_outerColorButton = new GridBagConstraints();
+			  gbc_outerColorButton.gridx = 1;
+			  gbc_outerColorButton.gridy = 6;
+			  contentPanel.add(outerColorButton, gbc_outerColorButton);
 			  }
 			{
 				JPanel panel = new JPanel();

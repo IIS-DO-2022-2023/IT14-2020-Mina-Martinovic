@@ -144,13 +144,6 @@ public class DlgDonutUpdate extends JDialog{
 			gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 			contentPanel.setLayout(gbl_contentPanel);
 			{
-				outerColorButton = new JButton("Outer Color");
-				outerColorButton.setFont(new Font("Tahoma", Font.BOLD, 10));
-				outerColorButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						outerColor =  JColorChooser.showDialog(outerColorButton, "Choose your colour", Color.BLACK);
-					}
-				});
 				{
 					JLabel lblX = new JLabel("X:");
 					lblX.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 14));
@@ -230,13 +223,21 @@ public class DlgDonutUpdate extends JDialog{
 					contentPanel.add(txtOuterRadius, gbc_txtOuterRadius);
 					txtOuterRadius.setColumns(10);
 				}
-				GridBagConstraints gbc_btnOuterColor = new GridBagConstraints();
-				gbc_btnOuterColor.fill = GridBagConstraints.HORIZONTAL;
-				gbc_btnOuterColor.anchor = GridBagConstraints.SOUTH;
-				gbc_btnOuterColor.insets = new Insets(0, 0, 5, 5);
-				gbc_btnOuterColor.gridx = 0;
-				gbc_btnOuterColor.gridy = 4;
-				contentPanel.add(outerColorButton, gbc_btnOuterColor);
+				
+				outerColorButton = new JButton("Outer Color");
+				outerColorButton.setFont(new Font("Tahoma", Font.BOLD, 10));
+				outerColorButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						outerColor =  JColorChooser.showDialog(outerColorButton, "Choose your colour", Color.BLACK);
+					}
+				});
+				GridBagConstraints gbc_outerColorButton = new GridBagConstraints();
+				gbc_outerColorButton.fill = GridBagConstraints.HORIZONTAL;
+				gbc_outerColorButton.anchor = GridBagConstraints.SOUTH;
+				gbc_outerColorButton.insets = new Insets(0, 0, 5, 5);
+				gbc_outerColorButton.gridx = 0;
+				gbc_outerColorButton.gridy = 4;
+				contentPanel.add(outerColorButton, gbc_outerColorButton);
 			}
 			{
 				innerColorButton = new JButton("Inner Color");
@@ -246,12 +247,12 @@ public class DlgDonutUpdate extends JDialog{
 						innerColor = JColorChooser.showDialog(innerColorButton, "Izaberite boju", Color.BLACK);
 					}
 				});
-				GridBagConstraints gbc_btnInnerColor = new GridBagConstraints();
-				gbc_btnInnerColor.fill = GridBagConstraints.HORIZONTAL;
-				gbc_btnInnerColor.insets = new Insets(0, 0, 0, 5);
-				gbc_btnInnerColor.gridx = 0;
-				gbc_btnInnerColor.gridy = 5;
-				contentPanel.add(innerColorButton, gbc_btnInnerColor);
+				GridBagConstraints gbc_innerColorButton = new GridBagConstraints();
+				gbc_innerColorButton.fill = GridBagConstraints.HORIZONTAL;
+				gbc_innerColorButton.insets = new Insets(0, 0, 0, 5);
+				gbc_innerColorButton.gridx = 0;
+				gbc_innerColorButton.gridy = 5;
+				contentPanel.add(innerColorButton, gbc_innerColorButton);
 			}
 			{
 				JPanel buttonPane = new JPanel();

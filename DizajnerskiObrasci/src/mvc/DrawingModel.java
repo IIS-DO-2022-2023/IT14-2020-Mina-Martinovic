@@ -162,5 +162,18 @@ public class DrawingModel {
 			selectedShapes.remove(toBeRemoved);
 		}
 		
+		
+		public boolean isAnyShapeSelected()
+		{
+			for (int i = 0; i < shapes.size(); i++)
+			{
+				if(shapes.get(i).isSelected())
+				{
+					return true;
+				}
+			}
+			return false;
+		};
+		
 	
 }

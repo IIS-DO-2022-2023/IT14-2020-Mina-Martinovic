@@ -148,20 +148,20 @@ public class DlgHexagonUpdate extends JDialog{
 		panel.add(txtCenterY, gbc_txtCenterY);
 		txtCenterY.setColumns(10);
 		
-		JButton btnOuterColor = new JButton("Outline Color");
-		btnOuterColor.setFont(new Font("Tahoma", Font.BOLD, 10));
-		btnOuterColor.addActionListener(new ActionListener() {
+		JButton outerColorButton = new JButton("Outline Color");
+		outerColorButton.setFont(new Font("Tahoma", Font.BOLD, 10));
+		outerColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				outerColor = JColorChooser.showDialog(btnOuterColor, "Choose your color", Color.BLACK);
+				outerColor = JColorChooser.showDialog(outerColorButton, "Choose your color", Color.BLACK);
 			}
 		});
-		GridBagConstraints gbc_btnOuterColor = new GridBagConstraints();
-		gbc_btnOuterColor.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnOuterColor.anchor = GridBagConstraints.NORTH;
-		gbc_btnOuterColor.insets = new Insets(0, 0, 5, 5);
-		gbc_btnOuterColor.gridx = 4;
-		gbc_btnOuterColor.gridy = 4;
-		panel.add(btnOuterColor, gbc_btnOuterColor);
+		GridBagConstraints gbc_outerColorButton = new GridBagConstraints();
+		gbc_outerColorButton.fill = GridBagConstraints.HORIZONTAL;
+		gbc_outerColorButton.anchor = GridBagConstraints.NORTH;
+		gbc_outerColorButton.insets = new Insets(0, 0, 5, 5);
+		gbc_outerColorButton.gridx = 4;
+		gbc_outerColorButton.gridy = 4;
+		panel.add(outerColorButton, gbc_outerColorButton);
 		
 		JLabel lblRadius = new JLabel("Radius :");
 		lblRadius.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 14));
@@ -181,19 +181,19 @@ public class DlgHexagonUpdate extends JDialog{
 		panel.add(txtR, gbc_txtR);
 		txtR.setColumns(10);
 		
-		JButton btnInnerColor = new JButton("Inner Color");
-		GridBagConstraints gbc_btnInnerColor = new GridBagConstraints();
-		gbc_btnInnerColor.fill = GridBagConstraints.BOTH;
-		gbc_btnInnerColor.insets = new Insets(0, 0, 5, 5);
-		gbc_btnInnerColor.gridx = 4;
-		gbc_btnInnerColor.gridy = 5;
-		btnInnerColor.setFont(new Font("Tahoma", Font.BOLD, 10));
-		btnInnerColor.addActionListener(new ActionListener() {
+		innerColorButton = new JButton("Inner Color");
+		GridBagConstraints gbc_innerColorButton = new GridBagConstraints();
+		gbc_innerColorButton.fill = GridBagConstraints.BOTH;
+		gbc_innerColorButton.insets = new Insets(0, 0, 5, 5);
+		gbc_innerColorButton.gridx = 4;
+		gbc_innerColorButton.gridy = 5;
+		innerColorButton.setFont(new Font("Tahoma", Font.BOLD, 10));
+		innerColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				innerColor = JColorChooser.showDialog(btnOuterColor, "Choose your color", Color.WHITE);
+				innerColor = JColorChooser.showDialog(innerColorButton, "Choose your color", Color.WHITE);
 			}
 		});
-		panel.add(btnInnerColor, gbc_btnInnerColor);
+		panel.add(innerColorButton, gbc_innerColorButton);
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setFont(new Font("Tahoma", Font.BOLD, 10));

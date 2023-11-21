@@ -26,74 +26,91 @@ import javax.swing.SwingConstants;
 public class DlgRectangle extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	protected JTextField xKoordinata;
-	protected JTextField yKoordinata;
+	protected JTextField xCoord;
+	protected JTextField yCoord;
 	protected JTextField width;
 	protected JTextField height;
-	//protected boolean isOk;
 	
-	  private boolean confirmation;
+	private boolean confirmation;
+	private Color innerColor = new Color(255, 255, 255);
+	private Color outerColor;
+	
+	private JButton outerColorButton;
+	private JButton innerColorButton;
 
-	  Color innerFill = new Color(255, 255, 255);
-	  Color borderFill;
-
-
-	public JTextField getXKoordinata() {
-		return xKoordinata;
+	public JTextField getXCoord() {
+		return xCoord;
 	}
 
-
-
-	public void setXKoordinata(JTextField xKoordinata) {
-		this.xKoordinata = xKoordinata;
+	public void setXCoord(JTextField xCoord) {
+		this.xCoord = xCoord;
 	}
 
-
-
-	public JTextField getYKoordinata() {
-		return yKoordinata;
+	public JTextField getYCoord() {
+		return yCoord;
 	}
 
-
-
-	public void setYKoordinata(JTextField yKoordinata) {
-		this.yKoordinata = yKoordinata;
+	public void setYCoord(JTextField yCoord) {
+		this.yCoord = yCoord;
 	}
-
-
 
 	public JTextField getTxtWidth() {
 		return width;
 	}
 
-
-
 	public void setWidth(JTextField width) {
 		this.width = width;
 	}
 
-
-
 	public JTextField getTxtHeight() {
 		return height;
 	}
+	public Color getOuterColor() {
+		return outerColor;
+	}
 
+	public void setOuterColor(Color outerColor) {
+		this.outerColor = outerColor;
+	}
 
+	public Color getInnerColor() {
+		return innerColor;
+	}
+
+	public void setInnerColor(Color innerColor) {
+		this.innerColor = innerColor;
+	}
 
 	public void setHeight(JTextField height) {
 		this.height = height;
 	}
 
-
-
 	public boolean isConfirmation() {
 		return confirmation;
 	}
 
-
-
 	public void setConfirmation(boolean confirmation) {
 		this.confirmation = confirmation;
+	}
+	
+	public Color getOuterColorBtnBackgroundColor()
+	{
+		return this.outerColorButton.getBackground();
+	}
+	
+	public void setOuterColorBtnBackgroundColor(Color color)
+	{
+		this.outerColorButton.setBackground(color);
+	}
+	
+	public Color getInnerColorBtnBackgroundColor()
+	{
+		return this.innerColorButton.getBackground();
+	}
+	
+	public void setInnerColorBtnBackgroundColor(Color color)
+	{
+		this.innerColorButton.setBackground(color);
 	}
 
 	public static void main(String[] args) {
@@ -112,7 +129,7 @@ public class DlgRectangle extends JDialog {
 	 */
 	public DlgRectangle() {
 		setBounds(100, 100, 450, 300);
-		setTitle("Karakteristike pravougaonika");
+		setTitle("Add rectangle");
 		setModal(true);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -124,98 +141,92 @@ public class DlgRectangle extends JDialog {
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JLabel lblXKoordinata = new JLabel("X koordinata je:");
-			GridBagConstraints gbc_lblXKoordinata = new GridBagConstraints();
-			gbc_lblXKoordinata.anchor = GridBagConstraints.EAST;
-			gbc_lblXKoordinata.insets = new Insets(0, 0, 5, 5);
-			gbc_lblXKoordinata.gridx = 0;
-			gbc_lblXKoordinata.gridy = 1;
-			contentPanel.add(lblXKoordinata, gbc_lblXKoordinata);
+			JLabel lblXCoord = new JLabel("X coord:");
+			GridBagConstraints gbc_lblXCoord = new GridBagConstraints();
+			gbc_lblXCoord.anchor = GridBagConstraints.EAST;
+			gbc_lblXCoord.insets = new Insets(0, 0, 5, 5);
+			gbc_lblXCoord.gridx = 0;
+			gbc_lblXCoord.gridy = 1;
+			contentPanel.add(lblXCoord, gbc_lblXCoord);
 		}
 		{
-			xKoordinata = new JTextField();
-			//xKoordinata.setText(Integer.toString(x_koordinata));
-			GridBagConstraints gbc_txtXKoordinata = new GridBagConstraints();
-			gbc_txtXKoordinata.insets = new Insets(0, 0, 5, 0);
-			gbc_txtXKoordinata.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtXKoordinata.gridx = 1;
-			gbc_txtXKoordinata.gridy = 1;
-			contentPanel.add(xKoordinata, gbc_txtXKoordinata);
-			xKoordinata.setColumns(10);
+			xCoord = new JTextField();
+			GridBagConstraints gbc_txtXCoord = new GridBagConstraints();
+			gbc_txtXCoord.insets = new Insets(0, 0, 5, 0);
+			gbc_txtXCoord.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtXCoord.gridx = 1;
+			gbc_txtXCoord.gridy = 1;
+			contentPanel.add(xCoord, gbc_txtXCoord);
+			xCoord.setColumns(10);
 		}
 		{
-			JLabel lblYKoordinata = new JLabel("Y koordinata je:");
-			GridBagConstraints gbc_lblYKoordinata = new GridBagConstraints();
-			gbc_lblYKoordinata.anchor = GridBagConstraints.EAST;
-			gbc_lblYKoordinata.insets = new Insets(0, 0, 5, 5);
-			gbc_lblYKoordinata.gridx = 0;
-			gbc_lblYKoordinata.gridy = 2;
-			contentPanel.add(lblYKoordinata, gbc_lblYKoordinata);
+			JLabel lblYCoord = new JLabel("Y coord:");
+			GridBagConstraints gbc_lblYCoord = new GridBagConstraints();
+			gbc_lblYCoord.anchor = GridBagConstraints.EAST;
+			gbc_lblYCoord.insets = new Insets(0, 0, 5, 5);
+			gbc_lblYCoord.gridx = 0;
+			gbc_lblYCoord.gridy = 2;
+			contentPanel.add(lblYCoord, gbc_lblYCoord);
 		}
 		{
-			yKoordinata = new JTextField();
-			//yKoordinata.setText(Integer.toString(y_koordinata));
-			GridBagConstraints gbc_txtYKoordinata = new GridBagConstraints();
-			gbc_txtYKoordinata.insets = new Insets(0, 0, 5, 0);
-			gbc_txtYKoordinata.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtYKoordinata.gridx = 1;
-			gbc_txtYKoordinata.gridy = 2;
-			contentPanel.add(yKoordinata, gbc_txtYKoordinata);
-			yKoordinata.setColumns(10);
+			yCoord = new JTextField();
+			GridBagConstraints gbc_txtYCoord = new GridBagConstraints();
+			gbc_txtYCoord.insets = new Insets(0, 0, 5, 0);
+			gbc_txtYCoord.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtYCoord.gridx = 1;
+			gbc_txtYCoord.gridy = 2;
+			contentPanel.add(yCoord, gbc_txtYCoord);
+			yCoord.setColumns(10);
 		}
 		{
-			JLabel lblSirina = new JLabel("Sirina je:");
-			GridBagConstraints gbc_lblSirina = new GridBagConstraints();
-			gbc_lblSirina.insets = new Insets(0, 0, 0, 5);
-			gbc_lblSirina.anchor = GridBagConstraints.EAST;
-			gbc_lblSirina.gridx = 0;
-			gbc_lblSirina.gridy = 3;
-			contentPanel.add(lblSirina, gbc_lblSirina);
+			JLabel lblWIdth = new JLabel("Width:");
+			GridBagConstraints gbc_lblWidth = new GridBagConstraints();
+			gbc_lblWidth.insets = new Insets(0, 0, 0, 5);
+			gbc_lblWidth.anchor = GridBagConstraints.EAST;
+			gbc_lblWidth.gridx = 0;
+			gbc_lblWidth.gridy = 3;
+			contentPanel.add(lblWIdth, gbc_lblWidth);
 		}
 		{
 			width = new JTextField();
-			//width.setText(Integer.toString(sir));
-			GridBagConstraints gbc_txtSirina = new GridBagConstraints();
-			gbc_txtSirina.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtSirina.gridx = 1;
-			gbc_txtSirina.gridy = 3;
-			contentPanel.add(width, gbc_txtSirina);
+			GridBagConstraints gbc_txtWidth = new GridBagConstraints();
+			gbc_txtWidth.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtWidth.gridx = 1;
+			gbc_txtWidth.gridy = 3;
+			contentPanel.add(width, gbc_txtWidth);
 			width.setColumns(10);
 		}
 		{
-			JLabel lblVisina = new JLabel("Visina je:");
-			GridBagConstraints gbc_lblVisina = new GridBagConstraints();
-			gbc_lblVisina.insets = new Insets(0, 0, 0, 5);
-			gbc_lblVisina.anchor = GridBagConstraints.EAST;
-			gbc_lblVisina.gridx = 0;
-			gbc_lblVisina.gridy = 4;
-			contentPanel.add(lblVisina, gbc_lblVisina);
+			JLabel lblHeight = new JLabel("Height:");
+			GridBagConstraints gbc_lblHeight = new GridBagConstraints();
+			gbc_lblHeight.insets = new Insets(0, 0, 0, 5);
+			gbc_lblHeight.anchor = GridBagConstraints.EAST;
+			gbc_lblHeight.gridx = 0;
+			gbc_lblHeight.gridy = 4;
+			contentPanel.add(lblHeight, gbc_lblHeight);
 		}
 		{
 			height = new JTextField();
-			//height.setText(Integer.toString(vis));
-			GridBagConstraints gbc_txtVisina = new GridBagConstraints();
-			gbc_txtVisina.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtVisina.gridx = 1;
-			gbc_txtVisina.gridy = 4;
-			contentPanel.add(height, gbc_txtVisina);
+			GridBagConstraints gbc_txtHeight = new GridBagConstraints();
+			gbc_txtHeight.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtHeight.gridx = 1;
+			gbc_txtHeight.gridy = 4;
+			contentPanel.add(height, gbc_txtHeight);
 			height.setColumns(10);
 		}
 		
-		
-
-//		  inner/border color
+	
 		{
-		  JButton innerColorButton = new JButton("Boja unutrasnjosti");
+		  innerColorButton = new JButton("Inner color:");
 		  innerColorButton.setBackground(SystemColor.activeCaption);
 		  innerColorButton.setForeground(new Color(0, 0, 0));
 		  innerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
 		  innerColorButton.addActionListener(new ActionListener() {
 			  public void actionPerformed(ActionEvent e)
 			  {
-				  innerFill = JColorChooser.showDialog(null,"Izaberi boju unutrasnjosti tvog oblika", innerFill);
-				  innerColorButton.setBackground(innerFill);
-				  boolean innerColorConfirmation = true;
+				  innerColor = JColorChooser.showDialog(null,"Choose the inner color of your rectangle", innerColor);
+				  innerColorButton.setBackground(innerColor);
+				 // boolean innerColorConfirmation = true;
 				 
 			  }
 			}
@@ -228,23 +239,22 @@ public class DlgRectangle extends JDialog {
 		}
 		  
 		  {
-		  JButton borderColorButton = new JButton(" Boja ivice");
-		  borderColorButton.setBackground(SystemColor.activeCaption);
-		  borderColorButton.setForeground(new Color(0, 0, 0));
-		  borderColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
-		  borderColorButton.addActionListener(new ActionListener() {
+		  outerColorButton = new JButton("Outer color:");
+		  outerColorButton.setBackground(SystemColor.activeCaption);
+		  outerColorButton.setForeground(new Color(0, 0, 0));
+		  outerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
+		  outerColorButton.addActionListener(new ActionListener() {
 			  public void actionPerformed(ActionEvent e)
 			  {
-				  borderFill = JColorChooser.showDialog(null,"Izaberi boju ivice tvog oblika", borderFill);
-				  borderColorButton.setBackground(borderFill);
-				  boolean borderColorConfirmation = true;
+				  outerColor = JColorChooser.showDialog(null,"Choose the outer color of your rectangle", outerColor);
+				  outerColorButton.setBackground(outerColor);
 			  }
  		  });
-		  borderColorButton.setHorizontalAlignment(SwingConstants.LEFT);
-		  GridBagConstraints gbc_borderColorButton = new GridBagConstraints();
-		  gbc_borderColorButton.gridx = 1;
-		  gbc_borderColorButton.gridy = 7;
-		  contentPanel.add(borderColorButton, gbc_borderColorButton);
+		  outerColorButton.setHorizontalAlignment(SwingConstants.LEFT);
+		  GridBagConstraints gbc_outerColorButton = new GridBagConstraints();
+		  gbc_outerColorButton.gridx = 1;
+		  gbc_outerColorButton.gridy = 7;
+		  contentPanel.add(outerColorButton, gbc_outerColorButton);
 		  }
 		
 		{
@@ -335,9 +345,9 @@ public class DlgRectangle extends JDialog {
 		}
 	}
 	
-	public DlgRectangle(int xKoordinata, int yKoordinata, Color outerC, Color innerC) {
+	public DlgRectangle(int x, int y, Color outColor, Color inColor) {
 		setBounds(100, 100, 450, 300);
-		setTitle("Karakteristike pravougaonika");
+		setTitle("Add rectangle:");
 		setModal(true);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -349,83 +359,79 @@ public class DlgRectangle extends JDialog {
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JLabel lblXKoordinata = new JLabel("X koordinata je:");
-			GridBagConstraints gbc_lblXKoordinata = new GridBagConstraints();
-			gbc_lblXKoordinata.anchor = GridBagConstraints.EAST;
-			gbc_lblXKoordinata.insets = new Insets(0, 0, 5, 5);
-			gbc_lblXKoordinata.gridx = 0;
-			gbc_lblXKoordinata.gridy = 1;
-			contentPanel.add(lblXKoordinata, gbc_lblXKoordinata);
+			JLabel lblXCoord = new JLabel("X coord:");
+			GridBagConstraints gbc_lblXCoord = new GridBagConstraints();
+			gbc_lblXCoord.anchor = GridBagConstraints.EAST;
+			gbc_lblXCoord.insets = new Insets(0, 0, 5, 5);
+			gbc_lblXCoord.gridx = 0;
+			gbc_lblXCoord.gridy = 1;
+			contentPanel.add(lblXCoord, gbc_lblXCoord);
 		}
 		{
-			this.xKoordinata = new JTextField();
-			this.xKoordinata.setText(Integer.toString(xKoordinata));
-			//xKoordinata.setText(Integer.toString(x_koordinata));
-			GridBagConstraints gbc_txtXKoordinata = new GridBagConstraints();
-			gbc_txtXKoordinata.insets = new Insets(0, 0, 5, 0);
-			gbc_txtXKoordinata.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtXKoordinata.gridx = 1;
-			gbc_txtXKoordinata.gridy = 1;
-			contentPanel.add(this.xKoordinata, gbc_txtXKoordinata);
-			this.xKoordinata.setColumns(10);
+			xCoord = new JTextField();
+			xCoord.setText(Integer.toString(x));
+			GridBagConstraints gbc_txtXCoord = new GridBagConstraints();
+			gbc_txtXCoord.insets = new Insets(0, 0, 5, 0);
+			gbc_txtXCoord.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtXCoord.gridx = 1;
+			gbc_txtXCoord.gridy = 1;
+			contentPanel.add(this.xCoord, gbc_txtXCoord);
+			this.xCoord.setColumns(10);
 		}
 		{
-			JLabel lblYKoordinata = new JLabel("Y koordinata je:");
-			GridBagConstraints gbc_lblYKoordinata = new GridBagConstraints();
-			gbc_lblYKoordinata.anchor = GridBagConstraints.EAST;
-			gbc_lblYKoordinata.insets = new Insets(0, 0, 5, 5);
-			gbc_lblYKoordinata.gridx = 0;
-			gbc_lblYKoordinata.gridy = 2;
-			contentPanel.add(lblYKoordinata, gbc_lblYKoordinata);
+			JLabel lblYCoord = new JLabel("Y coord:");
+			GridBagConstraints gbc_lblYCoord = new GridBagConstraints();
+			gbc_lblYCoord.anchor = GridBagConstraints.EAST;
+			gbc_lblYCoord.insets = new Insets(0, 0, 5, 5);
+			gbc_lblYCoord.gridx = 0;
+			gbc_lblYCoord.gridy = 2;
+			contentPanel.add(lblYCoord, gbc_lblYCoord);
 		}
 		{
-			this.yKoordinata = new JTextField();
-			this.yKoordinata.setText(Integer.toString(yKoordinata));
-			//yKoordinata.setText(Integer.toString(y_koordinata));
-			GridBagConstraints gbc_txtYKoordinata = new GridBagConstraints();
-			gbc_txtYKoordinata.insets = new Insets(0, 0, 5, 0);
-			gbc_txtYKoordinata.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtYKoordinata.gridx = 1;
-			gbc_txtYKoordinata.gridy = 2;
-			contentPanel.add(this.yKoordinata, gbc_txtYKoordinata);
-			this.yKoordinata.setColumns(10);
+			yCoord = new JTextField();
+			yCoord.setText(Integer.toString(y));
+			GridBagConstraints gbc_txtYCoord = new GridBagConstraints();
+			gbc_txtYCoord.insets = new Insets(0, 0, 5, 0);
+			gbc_txtYCoord.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtYCoord.gridx = 1;
+			gbc_txtYCoord.gridy = 2;
+			contentPanel.add(this.yCoord, gbc_txtYCoord);
+			this.yCoord.setColumns(10);
 		}
 		{
-			JLabel lblSirina = new JLabel("Sirina je:");
-			GridBagConstraints gbc_lblSirina = new GridBagConstraints();
-			gbc_lblSirina.insets = new Insets(0, 0, 0, 5);
-			gbc_lblSirina.anchor = GridBagConstraints.EAST;
-			gbc_lblSirina.gridx = 0;
-			gbc_lblSirina.gridy = 3;
-			contentPanel.add(lblSirina, gbc_lblSirina);
+			JLabel lblWidth = new JLabel("Width:");
+			GridBagConstraints gbc_lblWidth = new GridBagConstraints();
+			gbc_lblWidth.insets = new Insets(0, 0, 0, 5);
+			gbc_lblWidth.anchor = GridBagConstraints.EAST;
+			gbc_lblWidth.gridx = 0;
+			gbc_lblWidth.gridy = 3;
+			contentPanel.add(lblWidth, gbc_lblWidth);
 		}
 		{
 			width = new JTextField();
-			//width.setText(Integer.toString(sir));
-			GridBagConstraints gbc_txtSirina = new GridBagConstraints();
-			gbc_txtSirina.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtSirina.gridx = 1;
-			gbc_txtSirina.gridy = 3;
-			contentPanel.add(width, gbc_txtSirina);
+			GridBagConstraints gbc_txtWidth = new GridBagConstraints();
+			gbc_txtWidth.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtWidth.gridx = 1;
+			gbc_txtWidth.gridy = 3;
+			contentPanel.add(width, gbc_txtWidth);
 			width.setColumns(10);
 		}
 		{
-			JLabel lblVisina = new JLabel("Visina je:");
-			GridBagConstraints gbc_lblVisina = new GridBagConstraints();
-			gbc_lblVisina.insets = new Insets(0, 0, 0, 5);
-			gbc_lblVisina.anchor = GridBagConstraints.EAST;
-			gbc_lblVisina.gridx = 0;
-			gbc_lblVisina.gridy = 4;
-			contentPanel.add(lblVisina, gbc_lblVisina);
+			JLabel lblHeight = new JLabel("Height:");
+			GridBagConstraints gbc_lblHeight = new GridBagConstraints();
+			gbc_lblHeight.insets = new Insets(0, 0, 0, 5);
+			gbc_lblHeight.anchor = GridBagConstraints.EAST;
+			gbc_lblHeight.gridx = 0;
+			gbc_lblHeight.gridy = 4;
+			contentPanel.add(lblHeight, gbc_lblHeight);
 		}
 		{
 			height = new JTextField();
-			//height.setText(Integer.toString(vis));
-			GridBagConstraints gbc_txtVisina = new GridBagConstraints();
-			gbc_txtVisina.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtVisina.gridx = 1;
-			gbc_txtVisina.gridy = 4;
-			contentPanel.add(height, gbc_txtVisina);
+			GridBagConstraints gbc_txtHeight = new GridBagConstraints();
+			gbc_txtHeight.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtHeight.gridx = 1;
+			gbc_txtHeight.gridy = 4;
+			contentPanel.add(height, gbc_txtHeight);
 			height.setColumns(10);
 		}
 		
@@ -433,17 +439,15 @@ public class DlgRectangle extends JDialog {
 
 //		  inner/border color
 		{
-		  JButton innerColorButton = new JButton("Boja unutrasnjosti");
-		  innerColorButton.setBackground(innerC);
+		  innerColorButton = new JButton("Inner color:");
+		  innerColorButton.setBackground(inColor);
 		  innerColorButton.setForeground(new Color(0, 0, 0));
 		  innerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
 		  innerColorButton.addActionListener(new ActionListener() {
 			  public void actionPerformed(ActionEvent e)
 			  {
-				  innerFill = JColorChooser.showDialog(null,"Izaberi boju unutrasnjosti tvog oblika", innerFill);
-				  innerColorButton.setBackground(innerFill);
-				  boolean innerColorConfirmation = true;
-				 
+				  innerColor = JColorChooser.showDialog(null,"Choose the inner color of your rectangle", innerColor);
+				  innerColorButton.setBackground(innerColor);				 
 			  }
 			}
 		  );
@@ -455,23 +459,21 @@ public class DlgRectangle extends JDialog {
 		}
 		  
 		  {
-		  JButton borderColorButton = new JButton(" Boja ivice");
-		  borderColorButton.setBackground(outerC);
-		  borderColorButton.setForeground(new Color(0, 0, 0));
-		  borderColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
-		  borderColorButton.addActionListener(new ActionListener() {
+		  outerColorButton = new JButton("Outer color:");
+		  outerColorButton.setBackground(outColor);
+		  outerColorButton.setForeground(new Color(0, 0, 0));
+		  outerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
+		  outerColorButton.addActionListener(new ActionListener() {
 			  public void actionPerformed(ActionEvent e)
 			  {
-				  borderFill = JColorChooser.showDialog(null,"Izaberi boju ivice tvog oblika", borderFill);
-				  borderColorButton.setBackground(borderFill);
-				  boolean borderColorConfirmation = true;
-			  }
+				  outerColor = JColorChooser.showDialog(null,"Choose the outer color of your rectangle", outerColor);
+				  outerColorButton.setBackground(outerColor);			  }
  		  });
-		  borderColorButton.setHorizontalAlignment(SwingConstants.LEFT);
+		  outerColorButton.setHorizontalAlignment(SwingConstants.LEFT);
 		  GridBagConstraints gbc_borderColorButton = new GridBagConstraints();
 		  gbc_borderColorButton.gridx = 1;
 		  gbc_borderColorButton.gridy = 7;
-		  contentPanel.add(borderColorButton, gbc_borderColorButton);
+		  contentPanel.add(outerColorButton, gbc_borderColorButton);
 		  }
 		
 		{

@@ -26,7 +26,7 @@ public class DlgLine extends JDialog {
 	private JTextField YStartPoint;
 	private JTextField XEndPoint;
 	private JTextField YEndPoint;
-	//protected boolean isOk;
+
 	private boolean confirmation;
 	private Color outerColor;
 	
@@ -206,7 +206,6 @@ public class DlgLine extends JDialog {
 		  {
 			  outerColor = JColorChooser.showDialog(null,"Choose outer color for your line", outerColor);
 			  outerColorButton.setBackground(outerColor);
-			  boolean borderColorConfirmation = true;
 		  }
 		  });
 		  outerColorButton.setHorizontalAlignment(SwingConstants.LEFT);

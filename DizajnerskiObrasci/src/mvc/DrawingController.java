@@ -167,7 +167,7 @@ public class DrawingController implements PropertyChangeListener{
 	}
 	
 	private void drawCircle(MouseEvent e) {
-		DlgCircle dlgCircle = new DlgCircle(e.getX(), e.getY(), frame.getInnerColorBtnBackgroundColor(), frame.getBtnOutlineColorBackgroundColor());
+		DlgCircle dlgCircle = new DlgCircle(e.getX(), e.getY(), frame.getInnerColorBtnBackgroundColor(), frame.getOuterColorBtnBackgroundColor());
 		dlgCircle.setVisible(true);
 		
 		if(dlgCircle.isConfirmation()) {
@@ -199,7 +199,7 @@ public class DrawingController implements PropertyChangeListener{
 	
 	
 	private void drawRectangle(MouseEvent e) {
-		DlgRectangle dlgRectangle = new DlgRectangle(e.getX(), e.getY(), frame.getInnerColorBtnBackgroundColor(), frame.getBtnOutlineColorBackgroundColor());
+		DlgRectangle dlgRectangle = new DlgRectangle(e.getX(), e.getY(), frame.getInnerColorBtnBackgroundColor(), frame.getOuterColorBtnBackgroundColor());
 		dlgRectangle.setVisible(true);
 
 		if(dlgRectangle.isConfirmation()) {
@@ -221,7 +221,7 @@ public class DrawingController implements PropertyChangeListener{
 }
 	
 	private void drawDonut(MouseEvent e) {
-		DlgDonut dlgDonut = new DlgDonut(e.getX(), e.getY(), frame.getInnerColorBtnBackgroundColor(), frame.getBtnOutlineColorBackgroundColor());
+		DlgDonut dlgDonut = new DlgDonut(e.getX(), e.getY(), frame.getInnerColorBtnBackgroundColor(), frame.getOuterColorBtnBackgroundColor());
 		dlgDonut.setVisible(true);
 
 		if(dlgDonut.isConfirmation()) {
@@ -229,7 +229,7 @@ public class DrawingController implements PropertyChangeListener{
 		
 				if(checkType(dlgDonut.getOuterRadius().getText())) {
 					if(dlgDonut.getOuterRadius().getText() != null && dlgDonut.getInnerRadius().getText() != null ) {
-						Donut donut = new Donut(new Point(e.getX(), e.getY()), Integer.parseInt(dlgDonut.getOuterRadius().getText()), Integer.parseInt(dlgDonut.getInnerRadius().getText()), dlgDonut.getBorderFill(), dlgDonut.getInnerFill());
+						Donut donut = new Donut(new Point(e.getX(), e.getY()), Integer.parseInt(dlgDonut.getOuterRadius().getText()), Integer.parseInt(dlgDonut.getInnerRadius().getText()), dlgDonut.getOuterColor(), dlgDonut.getInnerColor());
 						AddDonutCmd addDonut = new AddDonutCmd(model,donut);
 						addDonut.execute();
 						model.pushToUndoStack(addDonut);
@@ -256,7 +256,7 @@ public class DrawingController implements PropertyChangeListener{
 	}
 	
 	private void drawHexagon(MouseEvent e) throws NumberFormatException, Exception { 
-		DlgCircle dlgHex = new DlgCircle(e.getX(), e.getY(), frame.getInnerColorBtnBackgroundColor(), frame.getBtnOutlineColorBackgroundColor());
+		DlgCircle dlgHex = new DlgCircle(e.getX(), e.getY(), frame.getInnerColorBtnBackgroundColor(), frame.getOuterColorBtnBackgroundColor());
 		dlgHex.setTitle("Add Hexagon");
 		dlgHex.setVisible(true);
 
@@ -453,15 +453,15 @@ public class DrawingController implements PropertyChangeListener{
 						dlgHexagonUpdate.getTxtCenterX().setText(Integer.toString(oldHexagon.getHexagon().getX()));
 						dlgHexagonUpdate.getTxtCenterY().setText(Integer.toString(oldHexagon.getHexagon().getY()));
 						dlgHexagonUpdate.getTxtRadius().setText(Integer.toString(oldHexagon.getHexagon().getR()));
-						//dlgHexagonUpdate.setOuterColorBtnBackgroundColor(outColor);
-						//dlgHexagonUpdate.setOuterColorBtnBackgroundColor(inColor);
+						dlgHexagonUpdate.setOuterColorBtnBackgroundColor(outColor);
+						dlgHexagonUpdate.setOuterColorBtnBackgroundColor(inColor);
 						dlgHexagonUpdate.setVisible(true);
 						if(dlgHexagonUpdate.isConfirmation()) {
 							try {
 								if(checkType(dlgHexagonUpdate.getTxtCenterX().getText()) && checkType(dlgHexagonUpdate.getTxtCenterY().getText()) && checkType(dlgHexagonUpdate.getTxtRadius().getText())) {
 									Hexagon newHex = new Hexagon(Integer.parseInt(dlgHexagonUpdate.getTxtCenterX().getText()), Integer.parseInt(dlgHexagonUpdate.getTxtCenterY().getText()), Integer.parseInt(dlgHexagonUpdate.getTxtRadius().getText()));
-									//newHex.setAreaColor(dlgHexagonUpdate.getInnerColor());
-									//newHex.setBorderColor(dlgHexagonUpdate.getOuterColor());
+									newHex.setAreaColor(dlgHexagonUpdate.getInnerColorBtnBackgroundColor());
+									newHex.setBorderColor(dlgHexagonUpdate.getOuterColorBtnBackgroundColor());
 									HexAdapter adapter = new HexAdapter(newHex);
 									UpdateHexagonCmd hexUpdate = new UpdateHexagonCmd(oldHexagon, adapter);
 									actLog.addElement("Updated->" + oldHexagon.toString() + "->" + adapter.toString());
@@ -504,7 +504,7 @@ public class DrawingController implements PropertyChangeListener{
 			BringToFrontCommand BringToFront = new BringToFrontCommand(model,shape);
 			model.pushToUndoStack(BringToFront);
 			model.getRedoStack().removeAllElements();
-			actLog.addElement(shape.toString()+"brought to front");
+			actLog.addElement("Brought to front->" + shape.toString());
 			BringToFront.execute();
 		}
 		frame.repaint();
@@ -517,7 +517,7 @@ public class DrawingController implements PropertyChangeListener{
 			BringToBackCommand BringToBack = new BringToBackCommand(model, index, shape);
 			model.pushToUndoStack(BringToBack);
 			model.getRedoStack().removeAllElements();
-			actLog.addElement(shape.toString()+"brought to back");
+			actLog.addElement("Brought to back->" + shape.toString());
 			BringToBack.execute();
 		}
 		frame.repaint();
@@ -528,7 +528,7 @@ public class DrawingController implements PropertyChangeListener{
 		if(model.getUndoStack().size()>0) {
 			Command command = model.getUndoStack().peek();
 			model.pushToRedoStack(command);
-			actLog.addElement("Undo is done to" + model.getUndoStack().peek().toString());
+			actLog.addElement("Undo->" + model.getUndoStack().peek().toString());
 			model.removeFromUndoStack(); //maknem gai z stack-a jer sam ga vec prrbacila u redo sack tj pushovala
 			frame.getView().repaint(); 
 		}
@@ -537,7 +537,7 @@ public class DrawingController implements PropertyChangeListener{
 	public void redo() {
 		if(model.getRedoStack().size()>0) {
 			model.pushToUndoStack(model.getRedoStack().peek());
-			actLog.addElement("Redo is done to" + model.getRedoStack().peek().toString());
+			actLog.addElement("Redo->" + model.getRedoStack().peek().toString());
 			model.removeFromRedoStack();
 			frame.getView().repaint();
 		}	
@@ -551,7 +551,7 @@ public class DrawingController implements PropertyChangeListener{
 			model.pushToUndoStack(ToFront);
 			model.getRedoStack().removeAllElements();
 			ToFront.execute();
-			actLog.addElement( shape.toString()+"moved to front");
+			actLog.addElement( "Moved to front->" + shape.toString());
 		} else {
 			System.out.println("More than 2 shapes have been selected!");
 		}
@@ -565,7 +565,7 @@ public class DrawingController implements PropertyChangeListener{
 			ToBackCommand ToBack = new ToBackCommand(model, index, shape);
 			model.pushToUndoStack(ToBack);
 			model.getRedoStack().removeAllElements();
-			actLog.addElement(shape.toString()+"moved to back");
+			actLog.addElement("Moved to back->" + shape.toString());
 			ToBack.execute();
 		}
 		frame.repaint();
@@ -648,6 +648,7 @@ public class DrawingController implements PropertyChangeListener{
 	public void selectShapeFromLog(Shape shape) { 
 		//ima zadatak da odabere oblik iz loga i stavi ga u stanje "selektovanog" u okviru modela
 		int index = model.getShapes().indexOf(shape);
+		System.out.println("INDEX " + index);
 		Shape selectedShape = model.getShapes().get(index);
 		SelectCommand selectCmd = new SelectCommand(model, selectedShape);
 		selectCmd.execute();
@@ -660,19 +661,35 @@ public class DrawingController implements PropertyChangeListener{
 		for (int i = 0; i < model.getShapes().size(); i++) {
 			if(model.getShapes().get(i).contains(e.getX(), e.getY())) {
 			
-				if(model.getShapes().get(i).isSelected()) {
-					model.getShapes().get(i).setSelected(false);
-					return;
-				}
 				Shape shape = model.getShapes().get(i);
-				SelectCommand selectCmd = new SelectCommand(model, shape);
-				selectCmd.execute();
-				actLog.addElement("Selected shapes ->" +shape.toString());
-				model.getUndoStack().push(selectCmd);
-				model.getRedoStack().removeAllElements();
+				
+				if(model.getShapes().get(i).isSelected()) {
+					UnselectCommand unselect = new UnselectCommand(model, shape);
+					unselect.execute();
+					actLog.addElement("Unselected->" + shape.toString());					
+					model.getUndoStack().push(unselect);
+					model.getRedoStack().removeAllElements();
+				}
+				else {
+					SelectCommand selectCmd = new SelectCommand(model, shape);
+					selectCmd.execute();
+					actLog.addElement("Selected->" +shape.toString());
+					model.getUndoStack().push(selectCmd);
+					model.getRedoStack().removeAllElements();
+				}
 			}
 		}
+		
+		//proveri da li postoji selektova n oblik iz modela
+		//ako ne postoji disableuj dugmad modify i delete
+		
+		if(!model.isAnyShapeSelected())
+		{
+			frame.getTglBtnModify().setVisible(false);
+			frame.getTglBtnDelete().setVisible(false);
+		}
 	}
+
 		
 	private boolean checkType(String s) {
 		try {

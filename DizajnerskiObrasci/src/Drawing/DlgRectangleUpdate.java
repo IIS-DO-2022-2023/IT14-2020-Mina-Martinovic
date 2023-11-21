@@ -143,20 +143,20 @@ public class DlgRectangleUpdate extends JDialog{
 			txtUpperLeftPointX.setColumns(10);
 		}
 		{
-			JButton btnOuterColor = new JButton("Outer Color");
-			btnOuterColor.addActionListener(new ActionListener() {
+			outerColorButton = new JButton("Outer Color");
+			outerColorButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					outerColor = JColorChooser.showDialog(btnOuterColor, "Izaberite boju", Color.BLACK);
+					outerColor = JColorChooser.showDialog(outerColorButton, "Choose your color", Color.BLACK);
 				}
 			});
-			btnOuterColor.setFont(new Font("Yu Gothic Medium", Font.BOLD, 14));
-			GridBagConstraints gbc_btnOuterColor = new GridBagConstraints();
-			gbc_btnOuterColor.fill = GridBagConstraints.HORIZONTAL;
-			gbc_btnOuterColor.anchor = GridBagConstraints.NORTH;
-			gbc_btnOuterColor.insets = new Insets(0, 0, 5, 0);
-			gbc_btnOuterColor.gridx = 5;
-			gbc_btnOuterColor.gridy = 1;
-			panel.add(btnOuterColor, gbc_btnOuterColor);
+			outerColorButton.setFont(new Font("Yu Gothic Medium", Font.BOLD, 14));
+			GridBagConstraints gbc_outerColorButton = new GridBagConstraints();
+			gbc_outerColorButton.fill = GridBagConstraints.HORIZONTAL;
+			gbc_outerColorButton.anchor = GridBagConstraints.NORTH;
+			gbc_outerColorButton.insets = new Insets(0, 0, 5, 0);
+			gbc_outerColorButton.gridx = 5;
+			gbc_outerColorButton.gridy = 1;
+			panel.add(outerColorButton, gbc_outerColorButton);
 		}
 		{
 			JLabel lblUpperLeftPointY = new JLabel("Upper Left Point Y :");
@@ -177,19 +177,19 @@ public class DlgRectangleUpdate extends JDialog{
 			txtUpperLeftPointY.setColumns(10);
 		}
 		{
-			JButton btnInnerColor = new JButton("Inner Color");
-			btnInnerColor.addActionListener(new ActionListener() {
+			innerColorButton = new JButton("Inner Color");
+			innerColorButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					innerColor = JColorChooser.showDialog(btnInnerColor, "Choose your colour", Color.WHITE);
+					innerColor = JColorChooser.showDialog(innerColorButton, "Choose your colour", Color.WHITE);
 				}
 			});
-			btnInnerColor.setFont(new Font("Yu Gothic Medium", Font.BOLD, 14));
-			GridBagConstraints gbc_btnInnerColor = new GridBagConstraints();
-			gbc_btnInnerColor.fill = GridBagConstraints.HORIZONTAL;
-			gbc_btnInnerColor.insets = new Insets(0, 0, 5, 0);
-			gbc_btnInnerColor.gridx = 5;
-			gbc_btnInnerColor.gridy = 3;
-			panel.add(btnInnerColor, gbc_btnInnerColor);
+			innerColorButton.setFont(new Font("Yu Gothic Medium", Font.BOLD, 14));
+			GridBagConstraints gbc_innerColorButton = new GridBagConstraints();
+			gbc_innerColorButton.fill = GridBagConstraints.HORIZONTAL;
+			gbc_innerColorButton.insets = new Insets(0, 0, 5, 0);
+			gbc_innerColorButton.gridx = 5;
+			gbc_innerColorButton.gridy = 3;
+			panel.add(innerColorButton, gbc_innerColorButton);
 		}
 		{
 			JLabel lblWidth = new JLabel("Width :");

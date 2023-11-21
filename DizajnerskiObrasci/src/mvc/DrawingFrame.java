@@ -129,12 +129,12 @@ public class DrawingFrame extends JFrame{
 		return this.innerColorButton.getBackground();
 	}
 	
-	public Color getBtnOutlineColorBackgroundColor() {
+	public Color getOuterColorBtnBackgroundColor() {
 		
 		return this.outerColorButton.getBackground();
 	}
 
-	public void setBtnOutlineColorBackgroundColor(Color color) {
+	public void setOuterColorBtnBackgroundColor(Color color) {
 		this.outerColorButton.setBackground(color);
 	}
 	
