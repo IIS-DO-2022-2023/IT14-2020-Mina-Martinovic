@@ -137,6 +137,13 @@ public class DrawingModel {
 			propertyChangeSupport.firePropertyChange("Redo Stack Remove", redoStackSizeBefore, redoStack.size());
 		}
 		
+		public void clearRedoStack() {
+			int redoStackSizeBefore = redoStack.size();
+			redoStack.removeAllElements();
+			propertyChangeSupport.firePropertyChange("Redo Stack Remove", redoStackSizeBefore, 0);
+		}
+		
+		
 		public int getIndexOfShape(Shape s) {
 			int listSize = shapes.size() - 1;
 			
@@ -152,7 +159,6 @@ public class DrawingModel {
 		public void addSelectedShape(Shape selectedShape) {
 			int selectedShapesSizeBefore = selectedShapes.size();
 			selectedShapes.add(selectedShape);
-			System.out.println(shapes.get(0).isSelected());
 			propertyChangeSupport.firePropertyChange("Selected Shapes", selectedShapesSizeBefore, selectedShapes.size()); //generiše događaj koji obaveštava sve registrovane slušaoce (listener-e) o promeni u svojstvima modela
 		}
 		

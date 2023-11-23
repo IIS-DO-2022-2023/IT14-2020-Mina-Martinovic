@@ -22,6 +22,7 @@ public class RemoveShapeCmd implements Command{
 	@Override
 	public void unexecute() {
 		model.getShapes().add(shape);
+		model.addSelectedShape(shape);
 	}
 	
 	@Override

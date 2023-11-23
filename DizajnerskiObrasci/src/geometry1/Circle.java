@@ -46,9 +46,9 @@ public class Circle extends ThreeDShape{
 	
 	public Circle(Point center, int r, Color outerColor, Color innerColor) throws Exception {
 		this.center = center;
-		setRadius(r);
-		setOuterColor(outerColor);
-		setInnerColor(innerColor);
+		this.radius = r;
+		this.outerColor = outerColor;
+		this.innerColor = innerColor;
 	}
 	public Circle(Point center, int radius, boolean selected) throws Exception{
 		this(center, radius);

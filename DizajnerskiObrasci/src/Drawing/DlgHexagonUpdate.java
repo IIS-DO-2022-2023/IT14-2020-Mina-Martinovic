@@ -148,7 +148,7 @@ public class DlgHexagonUpdate extends JDialog{
 		panel.add(txtCenterY, gbc_txtCenterY);
 		txtCenterY.setColumns(10);
 		
-		JButton outerColorButton = new JButton("Outline Color");
+		outerColorButton = new JButton("Outline Color");
 		outerColorButton.setFont(new Font("Tahoma", Font.BOLD, 10));
 		outerColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

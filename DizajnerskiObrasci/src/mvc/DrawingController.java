@@ -99,6 +99,7 @@ public class DrawingController implements PropertyChangeListener{
 	private PropertyChangeEvent pce;
 	@Override 
 	public void propertyChange(PropertyChangeEvent event) {
+		System.out.println(event.toString());
 		this.pce = event;
 		if((int) event.getNewValue() == 1 && event.getPropertyName() == "Selected Shapes" || model.getSelectedShapes().size() == 1) {
 			frame.getTglBtnModify().setVisible(true); //ako postoji selektovan oblik
@@ -174,7 +175,7 @@ public class DrawingController implements PropertyChangeListener{
 			try {
 				if(checkType(dlgCircle.getTxtRadius().getText())) {
 					int radius = Integer.parseInt(dlgCircle.getTxtRadius().getText());
-					Circle circle = new Circle(new Point(e.getX(), e.getY()), radius, outColor, inColor);
+					Circle circle = new Circle(new Point(e.getX(), e.getY()), radius, dlgCircle.getOuterColorBtnBackgroundColor(), dlgCircle.getInnerColorBtnBackgroundColor());
 					AddCircleCmd addCircle = new AddCircleCmd(model,circle);
 					addCircle.execute();
 					model.pushToUndoStack(addCircle);
@@ -204,7 +205,7 @@ public class DrawingController implements PropertyChangeListener{
 
 		if(dlgRectangle.isConfirmation()) {
 			if(checkType(dlgRectangle.getTxtWidth().getText()) && checkType(dlgRectangle.getTxtHeight().getText())) {
-				Rectangle rectangle = new Rectangle(new Point(e.getX(), e.getY()),Integer.parseInt(dlgRectangle.getTxtWidth().getText()),Integer.parseInt(dlgRectangle.getTxtHeight().getText()), outColor, inColor);
+				Rectangle rectangle = new Rectangle(new Point(e.getX(), e.getY()),Integer.parseInt(dlgRectangle.getTxtWidth().getText()),Integer.parseInt(dlgRectangle.getTxtHeight().getText()), dlgRectangle.getOuterColorBtnBackgroundColor(), dlgRectangle.getInnerColorBtnBackgroundColor());
 				AddRectangleCmd addRect = new AddRectangleCmd(model, rectangle);
 				addRect.execute();
 				model.pushToUndoStack(addRect);
@@ -454,7 +455,7 @@ public class DrawingController implements PropertyChangeListener{
 						dlgHexagonUpdate.getTxtCenterY().setText(Integer.toString(oldHexagon.getHexagon().getY()));
 						dlgHexagonUpdate.getTxtRadius().setText(Integer.toString(oldHexagon.getHexagon().getR()));
 						dlgHexagonUpdate.setOuterColorBtnBackgroundColor(outColor);
-						dlgHexagonUpdate.setOuterColorBtnBackgroundColor(inColor);
+						dlgHexagonUpdate.setInnerColorBtnBackgroundColor(inColor);
 						dlgHexagonUpdate.setVisible(true);
 						if(dlgHexagonUpdate.isConfirmation()) {
 							try {
@@ -648,7 +649,6 @@ public class DrawingController implements PropertyChangeListener{
 	public void selectShapeFromLog(Shape shape) { 
 		//ima zadatak da odabere oblik iz loga i stavi ga u stanje "selektovanog" u okviru modela
 		int index = model.getShapes().indexOf(shape);
-		System.out.println("INDEX " + index);
 		Shape selectedShape = model.getShapes().get(index);
 		SelectCommand selectCmd = new SelectCommand(model, selectedShape);
 		selectCmd.execute();
@@ -668,14 +668,14 @@ public class DrawingController implements PropertyChangeListener{
 					unselect.execute();
 					actLog.addElement("Unselected->" + shape.toString());					
 					model.getUndoStack().push(unselect);
-					model.getRedoStack().removeAllElements();
+					model.clearRedoStack();
 				}
 				else {
 					SelectCommand selectCmd = new SelectCommand(model, shape);
 					selectCmd.execute();
 					actLog.addElement("Selected->" +shape.toString());
 					model.getUndoStack().push(selectCmd);
-					model.getRedoStack().removeAllElements();
+					model.clearRedoStack();
 				}
 			}
 		}
@@ -688,6 +688,8 @@ public class DrawingController implements PropertyChangeListener{
 			frame.getTglBtnModify().setVisible(false);
 			frame.getTglBtnDelete().setVisible(false);
 		}
+		
+		frame.getView().repaint();
 	}
 
 		
