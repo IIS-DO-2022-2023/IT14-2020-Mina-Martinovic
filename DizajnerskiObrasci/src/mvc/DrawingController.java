@@ -147,8 +147,8 @@ public class DrawingController implements PropertyChangeListener{
 		model.pushToUndoStack(addPoint);
 		actLog.addElement("Added->" + point.toString());
 		frame.getBtnRedo().setVisible(false);
-		model.getRedoStack().removeAllElements();
-	}
+		model.clearRedoStack();
+		}
 	
 	private void drawLine(MouseEvent e) {
 		if(model.getStartPoint() == null)
@@ -162,7 +162,7 @@ public class DrawingController implements PropertyChangeListener{
 			model.setStartPoint(null);
 			actLog.addElement("Added->" + line.toString());
 			frame.getBtnRedo().setVisible(false);
-			model.getRedoStack().removeAllElements();
+			model.clearRedoStack();		
 		}
 		
 	}
@@ -181,7 +181,7 @@ public class DrawingController implements PropertyChangeListener{
 					model.pushToUndoStack(addCircle);
 					actLog.addElement("Added->" + circle.toString());
 					frame.getBtnRedo().setVisible(false);
-					model.getRedoStack().removeAllElements();
+					model.clearRedoStack();
 				} else {
 					JOptionPane.showMessageDialog(frame,
 							"Illegal input type!",
@@ -211,7 +211,7 @@ public class DrawingController implements PropertyChangeListener{
 				model.pushToUndoStack(addRect);
 				actLog.addElement("Added->" + rectangle.toString());
 				frame.getBtnRedo().setVisible(false);
-				model.getRedoStack().removeAllElements();
+				model.clearRedoStack();
 		} else {
 			JOptionPane.showMessageDialog(frame,
 					"Illegal input type!",
@@ -236,7 +236,7 @@ public class DrawingController implements PropertyChangeListener{
 						model.pushToUndoStack(addDonut);
 						actLog.addElement("Added->" + donut.toString());
 						frame.getBtnRedo().setVisible(false);
-						model.getRedoStack().removeAllElements();
+						model.clearRedoStack();
 					}
 				} else {
 					JOptionPane.showMessageDialog(frame,
@@ -272,7 +272,7 @@ public class DrawingController implements PropertyChangeListener{
 				model.pushToUndoStack(addHex);
 				actLog.addElement("Added->" + adapter.toString());
 				frame.getBtnRedo().setVisible(false);
-				model.getRedoStack().removeAllElements();
+				model.clearRedoStack();
 			} else {
 				JOptionPane.showMessageDialog(frame,
 						"Illegal input type!",
@@ -298,7 +298,7 @@ public class DrawingController implements PropertyChangeListener{
 					}
 				
 				}
-				model.getRedoStack().removeAllElements();
+				model.clearRedoStack();
 				frame.repaint();
 			}
 	
@@ -320,7 +320,7 @@ public class DrawingController implements PropertyChangeListener{
 								UpdatePointCmd pointUpdate = new UpdatePointCmd(oldState , newState);
 								pointUpdate.execute();
 								model.pushToUndoStack(pointUpdate);
-								model.getRedoStack().removeAllElements();
+								model.clearRedoStack();
 								frame.repaint();
 							} else {
 								JOptionPane.showMessageDialog(frame,
@@ -348,7 +348,7 @@ public class DrawingController implements PropertyChangeListener{
 								actLog.addElement("Updated->" + oldLine.toString() + "->" + newLine.toString());
 								lineUpdate.execute();
 								model.pushToUndoStack(lineUpdate);
-								model.getRedoStack().removeAllElements();
+								model.clearRedoStack();
 								frame.repaint();
 							} else {
 								JOptionPane.showMessageDialog(frame,
@@ -376,7 +376,7 @@ public class DrawingController implements PropertyChangeListener{
 								actLog.addElement("Updated->" + oldRectangle.toString() + "->" + newRectangle.toString());
 								rectangleUpdate.execute();
 								model.pushToUndoStack(rectangleUpdate);
-								model.getRedoStack().removeAllElements();
+								model.clearRedoStack();
 								frame.repaint();
 							} else {
 								JOptionPane.showMessageDialog(frame,
@@ -405,7 +405,7 @@ public class DrawingController implements PropertyChangeListener{
 								actLog.addElement("Updated->" + oldDonut.toString() + "->" + newDonut.toString());
 								donutUpdate.execute();
 								model.pushToUndoStack(donutUpdate);
-								model.getRedoStack().removeAllElements();
+								model.clearRedoStack();
 								frame.repaint();
 							} else {
 								JOptionPane.showMessageDialog(frame,
@@ -434,7 +434,7 @@ public class DrawingController implements PropertyChangeListener{
 									actLog.addElement("Updated->" + oldCircle.toString() + "->" + newCircle.toString());
 									circleUpdate.execute();
 									model.pushToUndoStack(circleUpdate);
-									model.getRedoStack().removeAllElements();
+									model.clearRedoStack();
 									frame.repaint();
 								} else {
 									JOptionPane.showMessageDialog(frame,
@@ -468,7 +468,7 @@ public class DrawingController implements PropertyChangeListener{
 									actLog.addElement("Updated->" + oldHexagon.toString() + "->" + adapter.toString());
 									hexUpdate.execute();
 									model.pushToUndoStack(hexUpdate);
-									model.getRedoStack().removeAllElements();
+									model.clearRedoStack();
 									frame.repaint();
 								} else {
 									JOptionPane.showMessageDialog(frame,
@@ -504,7 +504,7 @@ public class DrawingController implements PropertyChangeListener{
 			Shape shape = model.getShapes().get(index);
 			BringToFrontCommand BringToFront = new BringToFrontCommand(model,shape);
 			model.pushToUndoStack(BringToFront);
-			model.getRedoStack().removeAllElements();
+			model.clearRedoStack();
 			actLog.addElement("Brought to front->" + shape.toString());
 			BringToFront.execute();
 		}
@@ -517,7 +517,7 @@ public class DrawingController implements PropertyChangeListener{
 			Shape shape = model.getShapes().get(index);
 			BringToBackCommand BringToBack = new BringToBackCommand(model, index, shape);
 			model.pushToUndoStack(BringToBack);
-			model.getRedoStack().removeAllElements();
+			model.clearRedoStack();
 			actLog.addElement("Brought to back->" + shape.toString());
 			BringToBack.execute();
 		}
@@ -550,7 +550,7 @@ public class DrawingController implements PropertyChangeListener{
 			Shape shape = model.getShapes().get(index);
 			ToFrontCommand ToFront = new ToFrontCommand(model, index , shape);
 			model.pushToUndoStack(ToFront);
-			model.getRedoStack().removeAllElements();
+			model.clearRedoStack();
 			ToFront.execute();
 			actLog.addElement( "Moved to front->" + shape.toString());
 		} else {
@@ -565,7 +565,7 @@ public class DrawingController implements PropertyChangeListener{
 			Shape shape = model.getShapes().get(index);
 			ToBackCommand ToBack = new ToBackCommand(model, index, shape);
 			model.pushToUndoStack(ToBack);
-			model.getRedoStack().removeAllElements();
+			model.clearRedoStack();
 			actLog.addElement("Moved to back->" + shape.toString());
 			ToBack.execute();
 		}

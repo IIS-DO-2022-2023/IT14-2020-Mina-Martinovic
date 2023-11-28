@@ -122,10 +122,10 @@ public class DlgCircleUpdate extends JDialog{
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		JButton btnOuterColor = new JButton("Outer Color");
-		btnOuterColor.addActionListener(new ActionListener() {
+		outerColorButton = new JButton("Outer Color");
+		outerColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				outerColor = JColorChooser.showDialog(btnOuterColor, "Choose your color", Color.BLACK);
+				outerColor = JColorChooser.showDialog(outerColorButton, "Choose your color", Color.BLACK);
 			}
 		});
 		
@@ -179,27 +179,28 @@ public class DlgCircleUpdate extends JDialog{
 		gbc_txtCenterX1.gridy = 3;
 		panel.add(txtRadius, gbc_txtCenterX1);
 		txtRadius.setColumns(10);
-		btnOuterColor.setFont(new Font("Yu Gothic Medium", Font.PLAIN, 14));
-		GridBagConstraints gbc_btnOuterColor = new GridBagConstraints();
-		gbc_btnOuterColor.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnOuterColor.insets = new Insets(0, 0, 5, 5);
-		gbc_btnOuterColor.gridx = 2;
-		gbc_btnOuterColor.gridy = 4;
-		panel.add(btnOuterColor, gbc_btnOuterColor);
 		
-		JButton btnInnerColor = new JButton("Inner Color");
-		btnInnerColor.addActionListener(new ActionListener() {
+		outerColorButton.setFont(new Font("Yu Gothic Medium", Font.PLAIN, 14));
+		GridBagConstraints gbc_outerColorButton = new GridBagConstraints();
+		gbc_outerColorButton.fill = GridBagConstraints.HORIZONTAL;
+		gbc_outerColorButton.insets = new Insets(0, 0, 5, 5);
+		gbc_outerColorButton.gridx = 2;
+		gbc_outerColorButton.gridy = 4;
+		panel.add(outerColorButton, gbc_outerColorButton);
+		
+		innerColorButton = new JButton("Inner Color");
+		innerColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				innerColor = JColorChooser.showDialog(btnInnerColor, "Choose your color", Color.WHITE);
+				innerColor = JColorChooser.showDialog(innerColorButton, "Choose your color", Color.WHITE);
 			}
 		});
-		btnInnerColor.setFont(new Font("Yu Gothic Medium", Font.PLAIN, 14));
-		GridBagConstraints gbc_btnInnerColor = new GridBagConstraints();
-		gbc_btnInnerColor.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnInnerColor.insets = new Insets(0, 0, 5, 5);
-		gbc_btnInnerColor.gridx = 3;
-		gbc_btnInnerColor.gridy = 4;
-		panel.add(btnInnerColor, gbc_btnInnerColor);
+		innerColorButton.setFont(new Font("Yu Gothic Medium", Font.PLAIN, 14));
+		GridBagConstraints gbc_innerColorButton = new GridBagConstraints();
+		gbc_innerColorButton.fill = GridBagConstraints.HORIZONTAL;
+		gbc_innerColorButton.insets = new Insets(0, 0, 5, 5);
+		gbc_innerColorButton.gridx = 3;
+		gbc_innerColorButton.gridy = 4;
+		panel.add(innerColorButton, gbc_innerColorButton);
 		
 		JButton btnNewButton = new JButton("Ok");
 		btnNewButton.addActionListener(new ActionListener() {

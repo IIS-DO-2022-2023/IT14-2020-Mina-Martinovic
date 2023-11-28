@@ -244,7 +244,7 @@ public class DlgDonutUpdate extends JDialog{
 				innerColorButton.setFont(new Font("Tahoma", Font.BOLD, 10));
 				innerColorButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						innerColor = JColorChooser.showDialog(innerColorButton, "Izaberite boju", Color.BLACK);
+						innerColor = JColorChooser.showDialog(innerColorButton, "Choose your color:", Color.WHITE);
 					}
 				});
 				GridBagConstraints gbc_innerColorButton = new GridBagConstraints();
