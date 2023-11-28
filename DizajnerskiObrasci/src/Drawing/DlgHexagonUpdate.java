@@ -153,6 +153,7 @@ public class DlgHexagonUpdate extends JDialog{
 		outerColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				outerColor = JColorChooser.showDialog(outerColorButton, "Choose your color", Color.BLACK);
+				outerColorButton.setBackground(outerColor);
 			}
 		});
 		GridBagConstraints gbc_outerColorButton = new GridBagConstraints();
@@ -191,6 +192,7 @@ public class DlgHexagonUpdate extends JDialog{
 		innerColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				innerColor = JColorChooser.showDialog(innerColorButton, "Choose your color", Color.WHITE);
+				innerColorButton.setBackground(innerColor);
 			}
 		});
 		panel.add(innerColorButton, gbc_innerColorButton);

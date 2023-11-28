@@ -229,6 +229,7 @@ public class DlgDonutUpdate extends JDialog{
 				outerColorButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						outerColor =  JColorChooser.showDialog(outerColorButton, "Choose your colour", Color.BLACK);
+						outerColorButton.setBackground(outerColor);
 					}
 				});
 				GridBagConstraints gbc_outerColorButton = new GridBagConstraints();
@@ -245,6 +246,7 @@ public class DlgDonutUpdate extends JDialog{
 				innerColorButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						innerColor = JColorChooser.showDialog(innerColorButton, "Choose your color:", Color.WHITE);
+						innerColorButton.setBackground(innerColor);
 					}
 				});
 				GridBagConstraints gbc_innerColorButton = new GridBagConstraints();

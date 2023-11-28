@@ -147,6 +147,7 @@ public class DlgRectangleUpdate extends JDialog{
 			outerColorButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					outerColor = JColorChooser.showDialog(outerColorButton, "Choose your color", Color.BLACK);
+					outerColorButton.setBackground(outerColor);
 				}
 			});
 			outerColorButton.setFont(new Font("Yu Gothic Medium", Font.BOLD, 14));
@@ -181,6 +182,7 @@ public class DlgRectangleUpdate extends JDialog{
 			innerColorButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					innerColor = JColorChooser.showDialog(innerColorButton, "Choose your colour", Color.WHITE);
+					innerColorButton.setBackground(innerColor);
 				}
 			});
 			innerColorButton.setFont(new Font("Yu Gothic Medium", Font.BOLD, 14));

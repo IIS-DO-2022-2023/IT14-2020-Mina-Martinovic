@@ -367,7 +367,7 @@ public class DrawingController implements PropertyChangeListener{
 						dlgRectangleUpdate.getTxtHeight().setText(Integer.toString(oldRectangle.getHeight()));
 						dlgRectangleUpdate.getTxtWidth().setText(Integer.toString(oldRectangle.getWidth()));
 						dlgRectangleUpdate.setOuterColorBtnBackgroundColor(outColor);
-						dlgRectangleUpdate.setOuterColorBtnBackgroundColor(inColor);
+						dlgRectangleUpdate.setInnerColorBtnBackgroundColor(inColor);
 						dlgRectangleUpdate.setVisible(true);
 						if(dlgRectangleUpdate.isConfirmation()) {
 							if(checkType(dlgRectangleUpdate.getTxtUpperLeftPointX().getText()) && checkType(dlgRectangleUpdate.getTxtUpperLeftPointY().getText()) && checkType(dlgRectangleUpdate.getTxtWidth().getText()) && checkType(dlgRectangleUpdate.getTxtHeight().getText())) {
@@ -396,7 +396,7 @@ public class DrawingController implements PropertyChangeListener{
 						dlgDonutUpdate.getTxtInnerRadius().setText(Integer.toString(oldDonut.getInnerRadius()));
 						dlgDonutUpdate.getTxtOuterRadius().setText(Integer.toString(oldDonut.getOuterRadius()));
 						dlgDonutUpdate.setOuterColorBtnBackgroundColor(outColor);
-						dlgDonutUpdate.setOuterColorBtnBackgroundColor(inColor);
+						dlgDonutUpdate.setInnerColorBtnBackgroundColor(inColor);
 						dlgDonutUpdate.setVisible(true);
 						if(dlgDonutUpdate.isConfirm()) {
 							if(checkType(dlgDonutUpdate.getTxtX().getText()) && checkType(dlgDonutUpdate.getTxtY().getText()) && checkType(dlgDonutUpdate.getTxtOuterRadius().getText()) && checkType(dlgDonutUpdate.getTxtInnerRadius().getText())) {
@@ -424,7 +424,7 @@ public class DrawingController implements PropertyChangeListener{
 						dlgCircleUpdate.getTxtCenterX().setText(Integer.toString(oldCircle.getCenter().getX()));
 						dlgCircleUpdate.getTxtCenterY().setText(Integer.toString(oldCircle.getCenter().getY()));
 						dlgCircleUpdate.setOuterColorBtnBackgroundColor(outColor);
-						dlgCircleUpdate.setOuterColorBtnBackgroundColor(inColor);
+						dlgCircleUpdate.setInnerColorBtnBackgroundColor(inColor);
 						dlgCircleUpdate.setVisible(true);
 						if(dlgCircleUpdate.isConfirmation()) {
 							try {
