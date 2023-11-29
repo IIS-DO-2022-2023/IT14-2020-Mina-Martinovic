@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
@@ -284,23 +286,30 @@ public class DrawingController implements PropertyChangeListener{
 
 
 	public void deleteObject() {
-		DlgOption dlgOption = new DlgOption();
-		dlgOption.setVisible(true);
-		if(dlgOption.confirmation) {
-			while(model.getSelectedShapes().size()>0) {
-				for(int i = 0; i<model.getSelectedShapes().size(); i++) {
-					Shape shape = model.getSelectedShapes().get(i);
-					RemoveShapeCmd CDS = new RemoveShapeCmd(model, shape);
-					CDS.execute();
-					actLog.addElement("Deleted->" + shape.toString());
-					model.getUndoStack().push(CDS);
-						}	
-					}
-				
-				}
-				model.clearRedoStack();
-				frame.repaint();
-			}
+	    DlgOption dlgOption = new DlgOption();
+	    dlgOption.setVisible(true);
+	    if (dlgOption.confirmation) {
+	        List<Shape> shapesToDelete = new ArrayList<>();
+
+	        List<Shape> shapes = model.getShapes();
+	        for (int i = shapes.size() - 1; i >= 0; i--) {
+	            Shape shape = shapes.get(i);
+	            if (shape.isSelected()) {
+	                shapesToDelete.add(shape);
+	            }
+	        }
+
+	        for (Shape shape : shapesToDelete) {
+	            RemoveShapeCmd CDS = new RemoveShapeCmd(model, shape);
+	            CDS.execute();
+	            actLog.addElement("Deleted->" + shape.toString());
+	            model.getUndoStack().push(CDS);
+	        }
+
+	        model.clearRedoStack();
+	        frame.repaint();
+	    }
+	}
 	
 		
 		public void modifyShape() throws Exception {
