@@ -658,7 +658,7 @@ public class DrawingController implements PropertyChangeListener{
 	}
 	
 	private void selectShape(MouseEvent e) {
-		for (int i = 0; i < model.getShapes().size(); i++) {
+		for (int i =  model.getShapes().size() - 1; i >= 0; i--) {
 			if(model.getShapes().get(i).contains(e.getX(), e.getY())) {
 			
 				Shape shape = model.getShapes().get(i);
@@ -677,7 +677,10 @@ public class DrawingController implements PropertyChangeListener{
 					model.getUndoStack().push(selectCmd);
 					model.clearRedoStack();
 				}
+				
+				break;
 			}
+			
 		}
 		
 		//proveri da li postoji selektova n oblik iz modela
