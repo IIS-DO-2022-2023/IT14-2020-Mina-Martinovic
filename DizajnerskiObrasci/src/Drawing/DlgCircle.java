@@ -178,7 +178,7 @@ public class DlgCircle extends JDialog {
 		}
 	}
 		
-		public DlgCircle(int x, int y, Color outColor, Color inColor) {
+		public DlgCircle(int x, int y, Color inColor, Color outColor) {
 			setResizable(false);
 			setModal(true);
 			setTitle("Add Circle");

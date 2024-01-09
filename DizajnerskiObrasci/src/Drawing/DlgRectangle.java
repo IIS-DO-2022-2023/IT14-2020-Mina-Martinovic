@@ -345,7 +345,7 @@ public class DlgRectangle extends JDialog {
 		}
 	}
 	
-	public DlgRectangle(int x, int y, Color outColor, Color inColor) {
+	public DlgRectangle(int x, int y, Color inColor, Color outColor) {
 		setBounds(100, 100, 450, 300);
 		setTitle("Add rectangle:");
 		setModal(true);

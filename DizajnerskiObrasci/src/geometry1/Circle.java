@@ -95,9 +95,9 @@ public class Circle extends ThreeDShape{
     }
 	
 	public void draw(Graphics g) {
-		g.setColor(getInnerColor());
-		g.drawOval(center.getX()-radius, center.getY()-radius, radius*2, radius*2);
 		g.setColor(getOuterColor());
+		g.drawOval(center.getX()-radius, center.getY()-radius, radius*2, radius*2);
+		g.setColor(getInnerColor());
 		g.fillOval(center.getX()- radius , center.getY() - radius , radius*2 , radius*2 ); 
 
 		if(selected) {
