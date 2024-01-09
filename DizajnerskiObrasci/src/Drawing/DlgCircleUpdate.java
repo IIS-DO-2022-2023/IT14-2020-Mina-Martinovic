@@ -8,6 +8,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
@@ -15,6 +17,9 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import command.RemoveShapeCmd;
+import geometry1.Shape;
 
 public class DlgCircleUpdate extends JDialog{
 
@@ -108,6 +113,9 @@ public class DlgCircleUpdate extends JDialog{
 	}
 	
 
+	
+	
+	
 	public DlgCircleUpdate() {
 		setResizable(true);
 		setModal(true);

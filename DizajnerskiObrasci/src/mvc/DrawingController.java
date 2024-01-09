@@ -289,7 +289,7 @@ public class DrawingController implements PropertyChangeListener{
 	    DlgOption dlgOption = new DlgOption();
 	    dlgOption.setVisible(true);
 	    if (dlgOption.confirmation) {
-	        List<Shape> shapesToDelete = new ArrayList<>();
+	    	ArrayList<Shape> shapesToDelete = new ArrayList<>();
 
 	        List<Shape> shapes = model.getShapes();
 	        for (int i = shapes.size() - 1; i >= 0; i--) {
@@ -582,17 +582,25 @@ public class DrawingController implements PropertyChangeListener{
 	}
 	
 	public void deleteFromLog() {
-		//služi za brisanje selektovanih oblika iz modela i njihovo belezenje u logu
-		while(model.getSelectedShapes().size()>0) {
-			for(int i = 0; i<model.getSelectedShapes().size(); i++) {
-				Shape shape = model.getSelectedShapes().get(i);
-				RemoveShapeCmd RMShape = new RemoveShapeCmd(model, shape);
-				RMShape.execute();
-				actLog.addElement("Deleted->" + shape.toString());
-				model.getUndoStack().push(RMShape);
-		}
-			frame.getView().repaint();
-		}	
+		ArrayList<Shape> shapesToDelete = new ArrayList<>();
+
+        List<Shape> shapes = model.getShapes();
+        for (int i = shapes.size() - 1; i >= 0; i--) {
+            Shape shape = shapes.get(i);
+            if (shape.isSelected()) {
+                shapesToDelete.add(shape);
+            }
+        }
+
+        for (Shape shape : shapesToDelete) {
+            RemoveShapeCmd CDS = new RemoveShapeCmd(model, shape);
+            CDS.execute();
+            actLog.addElement("Deleted->" + shape.toString());
+            model.getUndoStack().push(CDS);
+        }
+
+        model.clearRedoStack();
+        frame.repaint();
 	}
 	
 	public void serialize() { //save
