@@ -292,7 +292,7 @@ public class DrawingController implements PropertyChangeListener{
 	    	ArrayList<Shape> shapesToDelete = new ArrayList<>();
 
 	        List<Shape> shapes = model.getShapes();
-	        for (int i = shapes.size() - 1; i >= 0; i--) {
+	        for (int i =0; i < shapes.size(); i++) {
 	            Shape shape = shapes.get(i);
 	            if (shape.isSelected()) {
 	                shapesToDelete.add(shape);
