@@ -23,6 +23,8 @@ import javax.swing.SwingConstants;
 
 public class DlgDonut extends JDialog {
 
+	
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	protected JTextField xCoord;
 	protected JTextField yCoord;
@@ -37,66 +39,6 @@ public class DlgDonut extends JDialog {
 	  private JButton outerColorButton;
 	  private JButton innerColorButton;
 
-	public JTextField getInnerRadius() {
-		return innerRadius;
-	}
-
-	public void setInnerRadius(JTextField innerRadius) {
-		this.innerRadius = innerRadius;
-	}
-
-	public JTextField getOuterRadius() {
-		return outerRadius;
-	}
-
-	public void setOuterRadius(JTextField outerRadius) {
-		this.outerRadius = outerRadius;
-	}
-
-	public boolean isConfirmation() {
-		return confirmation;
-	}
-
-	public void setConfirmation(boolean confirmation) {
-		this.confirmation = confirmation;
-	}
-
-	public Color getOuterColor() {
-		return outerColor;
-	}
-
-	public void setOuterColor(Color outerColor) {
-		this.outerColor = outerColor;
-	}
-
-	public Color getInnerColor() {
-		return innerColor;
-	}
-
-	public void setInnerColor(Color innerColor) {
-		this.innerColor = innerColor;
-	}
-	public Color getOuterColorBtnBackgroundColor()
-	{
-		return this.outerColorButton.getBackground();
-	}
-	
-	public void setOuterColorBtnBackgroundColor(Color color)
-	{
-		this.outerColorButton.setBackground(color);
-	}
-	
-	public Color getInnerColorBtnBackgroundColor()
-	{
-		return this.innerColorButton.getBackground();
-	}
-	
-	public void setInnerColorBtnBackgroundColor(Color color)
-	{
-		this.innerColorButton.setBackground(color);
-	}
-
-	
 
 	public static void main(String[] args) {
 		try {
@@ -203,9 +145,7 @@ public class DlgDonut extends JDialog {
 			contentPanel.add(outerRadius, gbc_txtOuterRadius);
 			outerRadius.setColumns(10);
 		}
-		
-		
-		
+	
 //		  inner/border color
 		  {
 			  innerColorButton = new JButton("Inner color");
@@ -253,33 +193,6 @@ public class DlgDonut extends JDialog {
 			{
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
-					/**
-					 * okButton.addActionListener(new ActionListener() {
-					 * public void actionPerformed(Actionevent e) 
-					 * {
-					 * try
-					 * {
-					 * int newX = Integer.parseInt(xKoordinata.getText());
-					 * int newY = Integer.parseInt(yKoordinata.getText());
-					 * int newInnerRadius = Integer.parseInt(outerRadius.getText());
-					 * int newInnerRadius = Integer.parseInt(innerRadius.getText());
-					 * 
-					 * if(newX < 0 || newY < 0 || newInnerRadius < 1 || newInnerRadius < 1)
-					 * {
-					 * JOptionPane.showMessageDialog(null, "Uneli ste pogresnu vrednost!", JOptionPane.ERROR_MESSAGE);
-					 * return;
-					 * }
-					 * confirmation = true;
-					 * dispose();
-					 * }
-					 * catch(Exeption E)
-					 * {
-					 * JOptionPane.showMessageDialog(null, "Uneli ste pogresan tip podatka!", JOptionPane.ERROR_MESSAGE);
-					 * }
-					 * }
-					 * });
-					 * 
-					 */
 					
 					public void actionPerformed(ActionEvent arg0) {
 						setConfirmation(true);
@@ -437,33 +350,6 @@ public DlgDonut() {
 			{
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
-					/**
-					 * okButton.addActionListener(new ActionListener() {
-					 * public void actionPerformed(Actionevent e) 
-					 * {
-					 * try
-					 * {
-					 * int newX = Integer.parseInt(xKoordinata.getText());
-					 * int newY = Integer.parseInt(yKoordinata.getText());
-					 * int newInnerRadius = Integer.parseInt(outerRadius.getText());
-					 * int newInnerRadius = Integer.parseInt(innerRadius.getText());
-					 * 
-					 * if(newX < 0 || newY < 0 || newInnerRadius < 1 || newInnerRadius < 1)
-					 * {
-					 * JOptionPane.showMessageDialog(null, "Uneli ste pogresnu vrednost!", JOptionPane.ERROR_MESSAGE);
-					 * return;
-					 * }
-					 * confirmation = true;
-					 * dispose();
-					 * }
-					 * catch(Exeption E)
-					 * {
-					 * JOptionPane.showMessageDialog(null, "Uneli ste pogresan tip podatka!", JOptionPane.ERROR_MESSAGE);
-					 * }
-					 * }
-					 * });
-					 * 
-					 */
 					
 					public void actionPerformed(ActionEvent arg0) {
 						setConfirmation(true);
@@ -492,6 +378,65 @@ public DlgDonut() {
 		return contentPanel;
 	}
 
+	
+	public JTextField getInnerRadius() {
+		return innerRadius;
+	}
+
+	public void setInnerRadius(JTextField innerRadius) {
+		this.innerRadius = innerRadius;
+	}
+
+	public JTextField getOuterRadius() {
+		return outerRadius;
+	}
+
+	public void setOuterRadius(JTextField outerRadius) {
+		this.outerRadius = outerRadius;
+	}
+
+	public boolean isConfirmation() {
+		return confirmation;
+	}
+
+	public void setConfirmation(boolean confirmation) {
+		this.confirmation = confirmation;
+	}
+
+	public Color getOuterColor() {
+		return outerColor;
+	}
+
+	public void setOuterColor(Color outerColor) {
+		this.outerColor = outerColor;
+	}
+
+	public Color getInnerColor() {
+		return innerColor;
+	}
+
+	public void setInnerColor(Color innerColor) {
+		this.innerColor = innerColor;
+	}
+	public Color getOuterColorBtnBackgroundColor()
+	{
+		return this.outerColorButton.getBackground();
+	}
+	
+	public void setOuterColorBtnBackgroundColor(Color color)
+	{
+		this.outerColorButton.setBackground(color);
+	}
+	
+	public Color getInnerColorBtnBackgroundColor()
+	{
+		return this.innerColorButton.getBackground();
+	}
+	
+	public void setInnerColorBtnBackgroundColor(Color color)
+	{
+		this.innerColorButton.setBackground(color);
+	}
 	
 
 }

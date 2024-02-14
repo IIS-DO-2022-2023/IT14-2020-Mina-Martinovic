@@ -15,9 +15,6 @@ public class Donut extends Circle{
 
 	private boolean confirmation;
 
-	protected Color innerColor;
-	protected Color outerColor;	
-
 	public Donut() {
 		
 	}
@@ -40,8 +37,8 @@ public class Donut extends Circle{
 		super(center,outerRadius);
 			this.innerRadius = innerRadius;
 			this.outerRadius = outerRadius;
-			this.outerColor  = outerColor ;
-			this.innerColor = innerColor;
+			setInnerColor(innerColor);
+			setOuterColor(outerColor);
 	}
 	
 	public double area() {
@@ -71,26 +68,11 @@ public class Donut extends Circle{
 		}
 		return null;
     }
-	
-	public Color getOuterColor() {
-		return outerColor ;
-	}
-
-	public void setOuterColor(Color outerColor) {
-		this.outerColor = outerColor;
-	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	public Color getInnerColor() {
-		return innerColor;
-	}
-
-	public void setInnerColor(Color innerColor) {
-		this.innerColor = innerColor;
-	}
 
 	public boolean contains (int x, int y) {
 		return center.distance(x, y) >= innerRadius && super.contains(x,y);
@@ -114,11 +96,6 @@ public void draw(Graphics g) {
 	g2D.setColor(getInnerColor());
 	g2D.draw(circle);
 	
-	 
-    // Ova klasa ima konstruktor sa četiri parametra: 
-    //(double x, double y, double width, double height). 
-    //Ovi parametri se odnose na koordinate gornjeg levog ugla elipse (x i y),
-    //širinu elipse (width) i visinu elipse (height)
 
 	
 	if(selected) {
@@ -132,6 +109,7 @@ public void draw(Graphics g) {
 	}
 
 }
+/*
 	@Override
 	public int compareTo(Object o) {
 
@@ -140,7 +118,7 @@ public void draw(Graphics g) {
 		}
 		return 0;
 	}
-
+*/
 	public int getInnerRadius() {
 		return innerRadius;
 	}
@@ -167,7 +145,7 @@ public void draw(Graphics g) {
 	
 	public String toString() {
 		// Center=(x,y), radius= radius, innerRadius=innerRadius
-		return "Donut: radius=" + outerRadius + "; x=" + center.getX() + "; y=" + center.getY() + "; edge color=" + outerColor.toString().substring(14).replace('=', '-') + "; area color=" + innerColor.toString().substring(14).replace('=', '-') + "; inner radius=" + innerRadius;
+		return "Donut: radius=" + outerRadius + "; x=" + center.getX() + "; y=" + center.getY() + "; edge color=" + getOuterColor().toString().substring(14).replace('=', '-') + "; area color=" + getInnerColor().toString().substring(14).replace('=', '-') + "; inner radius=" + innerRadius;
 	}
 
 }

@@ -5,36 +5,12 @@ import java.awt.Graphics;
 
 public class Circle extends ThreeDShape{
 	
+
+	private static final long serialVersionUID = 1L;
 	protected Point center;
 	private int radius;
-	protected boolean selected;
-	protected Color innerColor;
-	protected Color outerColor;	
 	private boolean confirmation;
 
-	public boolean isConfirmation() {
-		return confirmation;
-	}
-
-	public void setConfirmation(boolean confirmation) {
-		this.confirmation = confirmation;
-	}
-	
-	public Color getInnerColor() {
-		return innerColor;
-	}
-
-	public void setInnerColor(Color innerColor) {
-		this.innerColor = innerColor;
-	}
-
-	public Color getOuterColor() {
-		return outerColor;
-	}
-
-	public void setOuterColor(Color outerColor) {
-		this.outerColor = outerColor;
-	}
 
 	public Circle() {
 	}
@@ -47,12 +23,12 @@ public class Circle extends ThreeDShape{
 	public Circle(Point center, int r, Color outerColor, Color innerColor) throws Exception {
 		this.center = center;
 		this.radius = r;
-		this.outerColor = outerColor;
-		this.innerColor = innerColor;
+		setInnerColor(innerColor);
+		setOuterColor(outerColor);
 	}
 	public Circle(Point center, int radius, boolean selected) throws Exception{
 		this(center, radius);
-		this.selected = selected;
+		setSelected(selected);
 	}
 
 	public double area() {
@@ -101,9 +77,6 @@ public class Circle extends ThreeDShape{
 		g.fillOval(center.getX()- radius , center.getY() - radius , radius*2 , radius*2 ); 
 
 		if(selected) {
-			// crta pravougaonik oko središta kruga. Pravougaonik je zapravo samo četiri tačke postavljene 
-			//tako da formiraju kvadrat širine i visine 4 piksela. Koordinate za x i y se računaju na 
-			//osnovu središta kruga (center.getX() i center.getY()), tako da pravougaonik bude centriran na tom središtu.
 			g.setColor(Color.BLUE);
 			g.drawRect(center.getX()-2	, center.getY() - 2, 4, 4);
 			g.drawRect(center.getX()-radius -2, center.getY() - 2, 4, 4);
@@ -113,6 +86,7 @@ public class Circle extends ThreeDShape{
 		}
 	}
 
+	/*
 	public void moveTo(int x, int y) {
 		// TODO Auto-generated method stub
 		center.moveTo(x,y);
@@ -132,6 +106,7 @@ public class Circle extends ThreeDShape{
 		}
 		return 0;
 	}
+	*/
 
 	public Point getCenter() {
 		return center;
@@ -147,18 +122,20 @@ public class Circle extends ThreeDShape{
 	public void setRadius (int radius){
 		this.radius = radius;
 	}
-	
-	public boolean isSelected() {
-		return selected;
-	}
-
-	public void setSelected(boolean selected) {
-		this.selected = selected;
-	}
 
 	public String toString() {
-		// Center=(x,y), radius= radius
 		return "Circle: radius=" + radius + "; x=" + center.getX() + "; y=" + center.getY() + "; edge color=" + getOuterColor().toString().substring(14).replace('=', '-') + "; area color=" + getInnerColor().toString().substring(14).replace('=', '-'); 
 		//splitujem partove circla tipa radius koord i to a crtica misplituje boju znam da se radi o boji	}
+
 	}
+	
+	public boolean isConfirmation() {
+		return confirmation;
+	}
+
+	public void setConfirmation(boolean confirmation) {
+		this.confirmation = confirmation;
+	}
+	
+
 }

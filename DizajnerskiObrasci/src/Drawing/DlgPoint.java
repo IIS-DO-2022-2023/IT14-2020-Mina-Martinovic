@@ -20,6 +20,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 public class DlgPoint extends JDialog {
+	
+	
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	protected JTextField txtX;
 	protected JTextField txtY;
@@ -31,55 +34,7 @@ public class DlgPoint extends JDialog {
 	private boolean confirmation;
 	private Color color = Color.BLACK;
 
-	public Color getColor() {
-		return color;
-	}
-
-	public void setColor(Color color) {
-		this.color = color;
-	}
-	public Color getOuterColor() {
-		return outerColor;
-	}
-
-	public void setOuterColor(Color outerColor) {
-		this.outerColor = outerColor;
-	}
-	public JTextField getTxtX() {
-		return txtX;
-	}
-
-	public void setTxtX(JTextField txtX) {
-		this.txtX = txtX;
-	}
-
-	public JTextField getTxtY() {
-		return txtY;
-	}
-
-	public void setTxtY(JTextField txtY) {
-		this.txtY = txtY;
-	}
-
-	public boolean isConfirmation() {
-		return confirmation;
-	}
-
-	public void setConfirmation(boolean confirmation) {
-		this.confirmation = confirmation;
-	}
 	
-	public Color getOuterColorBtnBackgroundColor()
-	{
-		return this.outerColorButton.getBackground();
-	}
-	
-	public void setOuterColorBtnBackgroundColor(Color color)
-	{
-		
-		this.outerColorButton.setBackground(color);
-	}
-
 	/**
 	 * Launch the application.
 	 */
@@ -277,6 +232,55 @@ public class DlgPoint extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+	public Color getOuterColor() {
+		return outerColor;
+	}
+
+	public void setOuterColor(Color outerColor) {
+		this.outerColor = outerColor;
+	}
+	public JTextField getTxtX() {
+		return txtX;
+	}
+
+	public void setTxtX(JTextField txtX) {
+		this.txtX = txtX;
+	}
+
+	public JTextField getTxtY() {
+		return txtY;
+	}
+
+	public void setTxtY(JTextField txtY) {
+		this.txtY = txtY;
+	}
+
+	public boolean isConfirmation() {
+		return confirmation;
+	}
+
+	public void setConfirmation(boolean confirmation) {
+		this.confirmation = confirmation;
+	}
+	
+	public Color getOuterColorBtnBackgroundColor()
+	{
+		return this.outerColorButton.getBackground();
+	}
+	
+	public void setOuterColorBtnBackgroundColor(Color color)
+	{
+		
+		this.outerColorButton.setBackground(color);
 	}
 
 }

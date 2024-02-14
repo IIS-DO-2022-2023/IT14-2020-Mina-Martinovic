@@ -33,57 +33,7 @@ public class DlgCircle extends JDialog {
 	private JButton outerColorButton;
 	private JButton innerColorButton;
 	
-	public JTextField getTxtRadius() {
-		return txtRadius;
-	}
 
-	public void setTxtRadius(JTextField txtRadius) {
-		this.txtRadius = txtRadius;
-	}
-
-	public boolean isConfirmation() {
-		return confirmation;
-	}
-
-	public void setConfirmation(boolean confirmation) {
-		this.confirmation = confirmation;
-	}
-	
-	public Color getOuterColor() {
-		return outerColor;
-	}
-
-	public void setOuterColor(Color outerColor) {
-		this.outerColor = outerColor;
-	}
-
-	public Color getInnerColor() {
-		return innerColor;
-	}
-
-	public void setInnerColor(Color innerColor) {
-		this.innerColor = innerColor;
-	}
-	
-	public Color getOuterColorBtnBackgroundColor()
-	{
-		return this.outerColorButton.getBackground();
-	}
-	
-	public void setOuterColorBtnBackgroundColor(Color color)
-	{
-		this.outerColorButton.setBackground(color);
-	}
-	
-	public Color getInnerColorBtnBackgroundColor()
-	{
-		return this.innerColorButton.getBackground();
-	}
-	
-	public void setInnerColorBtnBackgroundColor(Color color)
-	{
-		this.innerColorButton.setBackground(color);
-	}
 
 
 	public static void main(String[] args) {
@@ -335,5 +285,59 @@ public class DlgCircle extends JDialog {
 				});
 				cancelButton.setActionCommand("Cancel");
 			}
+			
+			
 	}
+		
+		public JTextField getTxtRadius() {
+			return txtRadius;
+		}
+
+		public void setTxtRadius(JTextField txtRadius) {
+			this.txtRadius = txtRadius;
+		}
+
+		public boolean isConfirmation() {
+			return confirmation;
+		}
+
+		public void setConfirmation(boolean confirmation) {
+			this.confirmation = confirmation;
+		}
+		
+		public Color getOuterColor() {
+			return outerColor;
+		}
+
+		public void setOuterColor(Color outerColor) {
+			this.outerColor = outerColor;
+		}
+
+		public Color getInnerColor() {
+			return innerColor;
+		}
+
+		public void setInnerColor(Color innerColor) {
+			this.innerColor = innerColor;
+		}
+		
+		public Color getOuterColorBtnBackgroundColor()
+		{
+			return this.outerColorButton.getBackground();
+		}
+		
+		public void setOuterColorBtnBackgroundColor(Color color)
+		{
+			this.outerColorButton.setBackground(color);
+		}
+		
+		public Color getInnerColorBtnBackgroundColor()
+		{
+			return this.innerColorButton.getBackground();
+		}
+		
+		public void setInnerColorBtnBackgroundColor(Color color)
+		{
+			this.innerColorButton.setBackground(color);
+		}
 }

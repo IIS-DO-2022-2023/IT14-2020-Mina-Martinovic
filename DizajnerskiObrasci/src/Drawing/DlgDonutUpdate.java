@@ -21,6 +21,8 @@ import java.awt.Font;
 
 public class DlgDonutUpdate extends JDialog{
 
+	
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtInnerRadius;
 	private boolean confirm;
@@ -33,85 +35,7 @@ public class DlgDonutUpdate extends JDialog{
 	private JButton outerColorButton;
 	private JButton innerColorButton;
 	
-	public JTextField getTxtInnerRadius() {
-		return txtInnerRadius;
-	}
 	
-	public void setTxtInnerRadius(JTextField txtInnerRadius) {
-		this.txtInnerRadius = txtInnerRadius;
-	}
-	
-	public boolean isConfirm() {
-		return confirm;
-	}
-	
-	public void setConfirm(boolean confirm) {
-		this.confirm = confirm;
-	}
-	
-	public JTextField getTxtOuterRadius() {
-		return txtOuterRadius;
-	}
-	
-	public void setTxtOuterRadius(JTextField txtOuterRadius) {
-		this.txtOuterRadius = txtOuterRadius;
-	}
-	
-	public Color getOuterColor() {
-		return outerColor;
-	}
-	
-	public void setOuterColor(Color outerColor) {
-		this.outerColor = outerColor;
-	}
-	
-	public Color getInnerColor() {
-		return innerColor;
-	}
-	
-	public void setInnerColor(Color innerColor) {
-		this.innerColor = innerColor;
-	}
-	
-	public JTextField getTxtX() {
-		return txtX;
-	}
-	
-	public void setTxtX(JTextField txtX) {
-		this.txtX = txtX;
-	}
-	
-	public JTextField getTxtY() {
-		return txtY;
-	}
-	
-	public void setTxtY(JTextField txtY) {
-		this.txtY = txtY;
-	}
-	
-	public JPanel getContentPanel() {
-		return contentPanel;
-	}
-
-	public Color getOuterColorBtnBackgroundColor()
-	{
-		return this.outerColorButton.getBackground();
-	}
-	
-	public void setOuterColorBtnBackgroundColor(Color color)
-	{
-		this.outerColorButton.setBackground(color);
-	}
-	
-	public Color getInnerColorBtnBackgroundColor()
-	{
-		return this.innerColorButton.getBackground();
-	}
-	
-	public void setInnerColorBtnBackgroundColor(Color color)
-	{
-		this.innerColorButton.setBackground(color);
-	}
 	
 		/**
 		 * Launch the application.
@@ -285,6 +209,86 @@ public class DlgDonutUpdate extends JDialog{
 					buttonPane.add(cancelButton);
 				}
 			}
+		}
+		
+		public JTextField getTxtInnerRadius() {
+			return txtInnerRadius;
+		}
+		
+		public void setTxtInnerRadius(JTextField txtInnerRadius) {
+			this.txtInnerRadius = txtInnerRadius;
+		}
+		
+		public boolean isConfirm() {
+			return confirm;
+		}
+		
+		public void setConfirm(boolean confirm) {
+			this.confirm = confirm;
+		}
+		
+		public JTextField getTxtOuterRadius() {
+			return txtOuterRadius;
+		}
+		
+		public void setTxtOuterRadius(JTextField txtOuterRadius) {
+			this.txtOuterRadius = txtOuterRadius;
+		}
+		
+		public Color getOuterColor() {
+			return outerColor;
+		}
+		
+		public void setOuterColor(Color outerColor) {
+			this.outerColor = outerColor;
+		}
+		
+		public Color getInnerColor() {
+			return innerColor;
+		}
+		
+		public void setInnerColor(Color innerColor) {
+			this.innerColor = innerColor;
+		}
+		
+		public JTextField getTxtX() {
+			return txtX;
+		}
+		
+		public void setTxtX(JTextField txtX) {
+			this.txtX = txtX;
+		}
+		
+		public JTextField getTxtY() {
+			return txtY;
+		}
+		
+		public void setTxtY(JTextField txtY) {
+			this.txtY = txtY;
+		}
+		
+		public JPanel getContentPanel() {
+			return contentPanel;
+		}
+
+		public Color getOuterColorBtnBackgroundColor()
+		{
+			return this.outerColorButton.getBackground();
+		}
+		
+		public void setOuterColorBtnBackgroundColor(Color color)
+		{
+			this.outerColorButton.setBackground(color);
+		}
+		
+		public Color getInnerColorBtnBackgroundColor()
+		{
+			return this.innerColorButton.getBackground();
+		}
+		
+		public void setInnerColorBtnBackgroundColor(Color color)
+		{
+			this.innerColorButton.setBackground(color);
 		}
 
 }

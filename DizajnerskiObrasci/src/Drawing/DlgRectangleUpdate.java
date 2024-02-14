@@ -19,6 +19,8 @@ import javax.swing.SwingConstants;
 
 public class DlgRectangleUpdate extends JDialog{
 
+	
+	private static final long serialVersionUID = 1L;
 	private JTextField txtUpperLeftPointX;
 	private JTextField txtUpperLeftPointY;
 	private JTextField txtWidth;
@@ -32,84 +34,7 @@ public class DlgRectangleUpdate extends JDialog{
 
 	
 	private final JButton btnCancel = new JButton("Cancel");
-	
-	
-	public JTextField getTxtUpperLeftPointX() {
-		return txtUpperLeftPointX;
-	}
-	
-	public void setTxtUpperLeftPointX(JTextField txtUpperLeftPointX) {
-		this.txtUpperLeftPointX = txtUpperLeftPointX;
-	}
-	
-	public JTextField getTxtUpperLeftPointY() {
-		return txtUpperLeftPointY;
-	}
-	
-	public void setTxtUpperLeftPointY(JTextField txtUpperLeftPointY) {
-		this.txtUpperLeftPointY = txtUpperLeftPointY;
-	}
-	
-	public JTextField getTxtWidth() {
-		return txtWidth;
-	}
-	
-	public void setTxtWidth(JTextField txtWidth) {
-		this.txtWidth = txtWidth;
-	}
-	
-	public JTextField getTxtHeight() {
-		return txtHeight;
-	}
-	
-	public void setTxtHeight(JTextField txtHeight) {
-		this.txtHeight = txtHeight;
-	}
-	
-	public boolean isConfirmation() {
-		return confirmation;
-	}
-	
-	public void setConfirmation(boolean confirmation) {
-		this.confirmation = confirmation;
-	}
-	
-	public Color getOutlineColor() {
-		return outerColor;
-	}
-	
-	public void setOutlineColor(Color outlineColor) {
-		this.outerColor = outlineColor;
-	}
-	
-	public Color getInnerColor() {
-		return innerColor;
-	}
-	
-	public void setInnerColor(Color innerColor) {
-		this.innerColor = innerColor;
-	}	
-	
-	public Color getOuterColorBtnBackgroundColor()
-	{
-		return this.outerColorButton.getBackground();
-	}
-	
-	public void setOuterColorBtnBackgroundColor(Color color)
-	{
-		this.outerColorButton.setBackground(color);
-	}
-	
-	public Color getInnerColorBtnBackgroundColor()
-	{
-		return this.innerColorButton.getBackground();
-	}
-	
-	public void setInnerColorBtnBackgroundColor(Color color)
-	{
-		this.innerColorButton.setBackground(color);
-	}
-	
+
 	
 	public DlgRectangleUpdate () {
 		setModal(true);
@@ -258,5 +183,81 @@ public class DlgRectangleUpdate extends JDialog{
 		btnCancel.setHorizontalAlignment(SwingConstants.CENTER); //POZICIONIRANJE KOMPONENTI na ekranu
 		panel.add(btnCancel, gbc_btnCancel);
 	}	
+	
+	public JTextField getTxtUpperLeftPointX() {
+		return txtUpperLeftPointX;
+	}
+	
+	public void setTxtUpperLeftPointX(JTextField txtUpperLeftPointX) {
+		this.txtUpperLeftPointX = txtUpperLeftPointX;
+	}
+	
+	public JTextField getTxtUpperLeftPointY() {
+		return txtUpperLeftPointY;
+	}
+	
+	public void setTxtUpperLeftPointY(JTextField txtUpperLeftPointY) {
+		this.txtUpperLeftPointY = txtUpperLeftPointY;
+	}
+	
+	public JTextField getTxtWidth() {
+		return txtWidth;
+	}
+	
+	public void setTxtWidth(JTextField txtWidth) {
+		this.txtWidth = txtWidth;
+	}
+	
+	public JTextField getTxtHeight() {
+		return txtHeight;
+	}
+	
+	public void setTxtHeight(JTextField txtHeight) {
+		this.txtHeight = txtHeight;
+	}
+	
+	public boolean isConfirmation() {
+		return confirmation;
+	}
+	
+	public void setConfirmation(boolean confirmation) {
+		this.confirmation = confirmation;
+	}
+	
+	public Color getOutlineColor() {
+		return outerColor;
+	}
+	
+	public void setOutlineColor(Color outlineColor) {
+		this.outerColor = outlineColor;
+	}
+	
+	public Color getInnerColor() {
+		return innerColor;
+	}
+	
+	public void setInnerColor(Color innerColor) {
+		this.innerColor = innerColor;
+	}	
+	
+	public Color getOuterColorBtnBackgroundColor()
+	{
+		return this.outerColorButton.getBackground();
+	}
+	
+	public void setOuterColorBtnBackgroundColor(Color color)
+	{
+		this.outerColorButton.setBackground(color);
+	}
+	
+	public Color getInnerColorBtnBackgroundColor()
+	{
+		return this.innerColorButton.getBackground();
+	}
+	
+	public void setInnerColorBtnBackgroundColor(Color color)
+	{
+		this.innerColorButton.setBackground(color);
+	}
 	
 }

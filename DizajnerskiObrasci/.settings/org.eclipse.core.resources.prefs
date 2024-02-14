@@ -1,13 +1,4 @@
 eclipse.preferences.version=1
-encoding//src/Drawing/DlgLog.java=UTF-8
-encoding//src/command/BringToFrontCommand.java=UTF-8
-encoding//src/command/UpdateRectangleCmd.java=UTF-8
 encoding//src/geometry1/Circle.java=UTF-8
 encoding//src/geometry1/Donut.java=UTF-8
 encoding//src/geometry1/ThreeDShape.java=UTF-8
-encoding//src/mvc/DrawingController.java=UTF-8
-encoding//src/mvc/DrawingFrame.java=UTF-8
-encoding//src/mvc/DrawingModel.java=UTF-8
-encoding//src/strategy/SerializeDrawing.java=UTF-8
-encoding//src/strategy/SerializeFile.java=UTF-8
-encoding//src/strategy/SerializeLog.java=UTF-8

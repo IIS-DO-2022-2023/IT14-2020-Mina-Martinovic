@@ -25,6 +25,8 @@ import javax.swing.SwingConstants;
 
 public class DlgRectangle extends JDialog {
 
+	
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	protected JTextField xCoord;
 	protected JTextField yCoord;
@@ -38,80 +40,6 @@ public class DlgRectangle extends JDialog {
 	private JButton outerColorButton;
 	private JButton innerColorButton;
 
-	public JTextField getXCoord() {
-		return xCoord;
-	}
-
-	public void setXCoord(JTextField xCoord) {
-		this.xCoord = xCoord;
-	}
-
-	public JTextField getYCoord() {
-		return yCoord;
-	}
-
-	public void setYCoord(JTextField yCoord) {
-		this.yCoord = yCoord;
-	}
-
-	public JTextField getTxtWidth() {
-		return width;
-	}
-
-	public void setWidth(JTextField width) {
-		this.width = width;
-	}
-
-	public JTextField getTxtHeight() {
-		return height;
-	}
-	public Color getOuterColor() {
-		return outerColor;
-	}
-
-	public void setOuterColor(Color outerColor) {
-		this.outerColor = outerColor;
-	}
-
-	public Color getInnerColor() {
-		return innerColor;
-	}
-
-	public void setInnerColor(Color innerColor) {
-		this.innerColor = innerColor;
-	}
-
-	public void setHeight(JTextField height) {
-		this.height = height;
-	}
-
-	public boolean isConfirmation() {
-		return confirmation;
-	}
-
-	public void setConfirmation(boolean confirmation) {
-		this.confirmation = confirmation;
-	}
-	
-	public Color getOuterColorBtnBackgroundColor()
-	{
-		return this.outerColorButton.getBackground();
-	}
-	
-	public void setOuterColorBtnBackgroundColor(Color color)
-	{
-		this.outerColorButton.setBackground(color);
-	}
-	
-	public Color getInnerColorBtnBackgroundColor()
-	{
-		return this.innerColorButton.getBackground();
-	}
-	
-	public void setInnerColorBtnBackgroundColor(Color color)
-	{
-		this.innerColorButton.setBackground(color);
-	}
 
 	public static void main(String[] args) {
 		try {
@@ -264,64 +192,7 @@ public class DlgRectangle extends JDialog {
 			{
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
-					/**
-					 * public void actionPerformed(Actionevent e) 
-					 * {
-					 * try
-					 * {
-					 * int newX = Integer.parseInt(xKoordinata.getText());
-					 * int newY = Integer.parseInt(yKoordinata.getText());
-					 * int newHeight = Integer.parseInt(visina.getText());
-					 * int newWidth = Integer.parseInt(sirina.getText());
-					 * 
-					 * if(newX < 0 || newY < 0 || newHeight < 1 || newWidth < 1)
-					 * {
-					 * JOptionPane.showMessageDialog(null, "Uneli ste pogresnu vrednost!", JOptionPane.ERROR_MESSAGE);
-					 * return;
-					 * }
-					 * confirmation = true;
-					 * dispose();
-					 * }
-					 * catch(Exeption E)
-					 * {
-					 * JOptionPane.showMessageDialog(null, "Uneli ste pogresan tip podatka!", JOptionPane.ERROR_MESSAGE);
-					 * }
-					 * }
-					 * });
-					 * 
-					 */
-					/*
-					public void actionPerformed(ActionEvent e) {
-						boolean isModifying = false;
-						// provera da li se radi modifikacija
-						for (int i=PanelDrawing.shapes.size()-1; i>=0; i--) {
-							if(PanelDrawing.shapes.get(i).isSelected()) {
-								Rectangle r1 = new Rectangle(
-										new Point(Integer.parseInt(xKoordinata.getText()), Integer.parseInt(yKoordinata.getText())),
-										Integer.parseInt(width.getText()),
-										Integer.parseInt(height.getText()));
-								r1.setColor(innerFill);
-								r1.setEdgeColor(borderFill);
-								PanelDrawing.shapes.set(i, r1);  // zameni tekuci element sa izmenjenim
-								isModifying = true;
-								break;
-							}
-						}
-						// radimo dodavanje objekta
-						if (isModifying == false) {
-							Rectangle r1 = new Rectangle(
-									new Point(Integer.parseInt(xKoordinata.getText()), Integer.parseInt(yKoordinata.getText())),
-									Integer.parseInt(width.getText()),
-									Integer.parseInt(height.getText()));
-							r1.setColor(innerFill);
-							r1.setEdgeColor(borderFill);
-							PanelDrawing.shapes.add(r1);
-						}
-						
-						isOk=true;
-						setVisible(false);
-					}
-					*/
+					
 					public void actionPerformed(ActionEvent arg0) {
 						setConfirmation(true);
 						setVisible(false);
@@ -483,64 +354,7 @@ public class DlgRectangle extends JDialog {
 			{
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
-					/**
-					 * public void actionPerformed(Actionevent e) 
-					 * {
-					 * try
-					 * {
-					 * int newX = Integer.parseInt(xKoordinata.getText());
-					 * int newY = Integer.parseInt(yKoordinata.getText());
-					 * int newHeight = Integer.parseInt(visina.getText());
-					 * int newWidth = Integer.parseInt(sirina.getText());
-					 * 
-					 * if(newX < 0 || newY < 0 || newHeight < 1 || newWidth < 1)
-					 * {
-					 * JOptionPane.showMessageDialog(null, "Uneli ste pogresnu vrednost!", JOptionPane.ERROR_MESSAGE);
-					 * return;
-					 * }
-					 * confirmation = true;
-					 * dispose();
-					 * }
-					 * catch(Exeption E)
-					 * {
-					 * JOptionPane.showMessageDialog(null, "Uneli ste pogresan tip podatka!", JOptionPane.ERROR_MESSAGE);
-					 * }
-					 * }
-					 * });
-					 * 
-					 */
-					/*
-					public void actionPerformed(ActionEvent e) {
-						boolean isModifying = false;
-						// provera da li se radi modifikacija
-						for (int i=PanelDrawing.shapes.size()-1; i>=0; i--) {
-							if(PanelDrawing.shapes.get(i).isSelected()) {
-								Rectangle r1 = new Rectangle(
-										new Point(Integer.parseInt(xKoordinata.getText()), Integer.parseInt(yKoordinata.getText())),
-										Integer.parseInt(width.getText()),
-										Integer.parseInt(height.getText()));
-								r1.setColor(innerFill);
-								r1.setEdgeColor(borderFill);
-								PanelDrawing.shapes.set(i, r1);  // zameni tekuci element sa izmenjenim
-								isModifying = true;
-								break;
-							}
-						}
-						// radimo dodavanje objekta
-						if (isModifying == false) {
-							Rectangle r1 = new Rectangle(
-									new Point(Integer.parseInt(xKoordinata.getText()), Integer.parseInt(yKoordinata.getText())),
-									Integer.parseInt(width.getText()),
-									Integer.parseInt(height.getText()));
-							r1.setColor(innerFill);
-							r1.setEdgeColor(borderFill);
-							PanelDrawing.shapes.add(r1);
-						}
-						
-						isOk=true;
-						setVisible(false);
-					}
-					*/
+					
 					public void actionPerformed(ActionEvent arg0) {
 						setConfirmation(true);
 						setVisible(false);
@@ -569,4 +383,78 @@ public class DlgRectangle extends JDialog {
 	}
 
 
+	public JTextField getXCoord() {
+		return xCoord;
+	}
+
+	public void setXCoord(JTextField xCoord) {
+		this.xCoord = xCoord;
+	}
+
+	public JTextField getYCoord() {
+		return yCoord;
+	}
+
+	public void setYCoord(JTextField yCoord) {
+		this.yCoord = yCoord;
+	}
+
+	public JTextField getTxtWidth() {
+		return width;
+	}
+
+	public void setWidth(JTextField width) {
+		this.width = width;
+	}
+
+	public JTextField getTxtHeight() {
+		return height;
+	}
+	public Color getOuterColor() {
+		return outerColor;
+	}
+
+	public void setOuterColor(Color outerColor) {
+		this.outerColor = outerColor;
+	}
+
+	public Color getInnerColor() {
+		return innerColor;
+	}
+
+	public void setInnerColor(Color innerColor) {
+		this.innerColor = innerColor;
+	}
+
+	public void setHeight(JTextField height) {
+		this.height = height;
+	}
+
+	public boolean isConfirmation() {
+		return confirmation;
+	}
+
+	public void setConfirmation(boolean confirmation) {
+		this.confirmation = confirmation;
+	}
+	
+	public Color getOuterColorBtnBackgroundColor()
+	{
+		return this.outerColorButton.getBackground();
+	}
+	
+	public void setOuterColorBtnBackgroundColor(Color color)
+	{
+		this.outerColorButton.setBackground(color);
+	}
+	
+	public Color getInnerColorBtnBackgroundColor()
+	{
+		return this.innerColorButton.getBackground();
+	}
+	
+	public void setInnerColorBtnBackgroundColor(Color color)
+	{
+		this.innerColorButton.setBackground(color);
+	}
 }

@@ -21,6 +21,8 @@ import javax.swing.SwingConstants;
 
 public class DlgLine extends JDialog {
 
+	
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField XStartPoint;
 	private JTextField YStartPoint;
@@ -32,64 +34,6 @@ public class DlgLine extends JDialog {
 	
 	private JButton outerColorButton;
 
-	public JTextField getXStartPoint() {
-		return XStartPoint;
-	}
-
-	public void setXStartPoint(JTextField xStartPoint) {
-		XStartPoint = xStartPoint;
-	}
-
-	public JTextField getYStartPoint() {
-		return YStartPoint;
-	}
-
-	public void setYStartPoint(JTextField yStartPoint) {
-		YStartPoint = yStartPoint;
-	}
-
-	public JTextField getXEndPoint() {
-		return XEndPoint;
-	}
-
-	public void setXEndPoint(JTextField xEndPoint) {
-		XEndPoint = xEndPoint;
-	}
-
-	public JTextField getYEndPoint() {
-		return YEndPoint;
-	}
-
-	public void setYEndPoint(JTextField yEndPoint) {
-		YEndPoint = yEndPoint;
-	}
-
-	public boolean isConfirmation() {
-		return confirmation;
-	}
-
-	public void setConfirmation(boolean confirmation) {
-		this.confirmation = confirmation;
-	}
-
-	public Color getColor() {
-		return outerColor;
-	}
-
-	public void setColor(Color color) {
-		this.outerColor = color;
-	}
-	
-	public Color getOuterColorBtnBackgroundColor()
-	{
-		return this.outerColorButton.getBackground();
-	}
-	
-	public void setOuterColorBtnBackgroundColor(Color color)
-	{
-		
-		this.outerColorButton.setBackground(color);
-	}
 
 	/**
 	 * Launch the application.
@@ -247,4 +191,62 @@ public class DlgLine extends JDialog {
 	}
 	
 
+	public JTextField getXStartPoint() {
+		return XStartPoint;
+	}
+
+	public void setXStartPoint(JTextField xStartPoint) {
+		XStartPoint = xStartPoint;
+	}
+
+	public JTextField getYStartPoint() {
+		return YStartPoint;
+	}
+
+	public void setYStartPoint(JTextField yStartPoint) {
+		YStartPoint = yStartPoint;
+	}
+
+	public JTextField getXEndPoint() {
+		return XEndPoint;
+	}
+
+	public void setXEndPoint(JTextField xEndPoint) {
+		XEndPoint = xEndPoint;
+	}
+
+	public JTextField getYEndPoint() {
+		return YEndPoint;
+	}
+
+	public void setYEndPoint(JTextField yEndPoint) {
+		YEndPoint = yEndPoint;
+	}
+
+	public boolean isConfirmation() {
+		return confirmation;
+	}
+
+	public void setConfirmation(boolean confirmation) {
+		this.confirmation = confirmation;
+	}
+
+	public Color getColor() {
+		return outerColor;
+	}
+
+	public void setColor(Color color) {
+		this.outerColor = color;
+	}
+	
+	public Color getOuterColorBtnBackgroundColor()
+	{
+		return this.outerColorButton.getBackground();
+	}
+	
+	public void setOuterColorBtnBackgroundColor(Color color)
+	{
+		
+		this.outerColorButton.setBackground(color);
+	}
 }

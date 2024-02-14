@@ -4,19 +4,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Point extends Shape{
+
+	private static final long serialVersionUID = 1L;
 	private int x;
 	private int y;
-	protected Color outerColor;
-
 	
-	public Color getOuterColor() {
-		return outerColor;
-	}
-
-	public void setOuterColor(Color outerColor) {
-		this.outerColor = outerColor;
-	}
-
 	public Point() {
 	}
 
@@ -26,19 +18,15 @@ public class Point extends Shape{
 	}
 
 	public Point(int x, int y, boolean selected) {
-		// this.x=x;
-		// this.y=y;
 		this(x, y);
 
 		setSelected(selected);
-		// menja se prilikom dodavanja Shape
-		// this.selected = selected;
 	}
 
-	public Point(int x, int y, Color color) {
+	public Point(int x, int y, Color outerColor) {
 		this.x = x;
 		this.y = y;
-		setOuterColor(color);
+		setOuterColor(outerColor);
 	}
 
 	public double distance(int x2, int y2) {
@@ -72,7 +60,7 @@ public class Point extends Shape{
 
 	@Override
 	public void draw(Graphics g) {
-		g.setColor(outerColor);
+		g.setColor(getOuterColor());
 		g.drawLine(x - 2, y, x + 2, y);
 		g.drawLine(x, y - 2, x, y + 2);
 		g.setColor(Color.RED);
@@ -83,6 +71,7 @@ public class Point extends Shape{
 		}
 	}
 
+	/*
 	@Override
 	public void moveTo(int x, int y) {
 		this.x = x;
@@ -104,7 +93,7 @@ public class Point extends Shape{
 		}
 		return 0;
 	}
-
+*/
 	public void setX(int x) {
 		this.x = x;
 	}

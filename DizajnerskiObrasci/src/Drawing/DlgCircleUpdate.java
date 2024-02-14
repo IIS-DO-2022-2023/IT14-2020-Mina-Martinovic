@@ -8,8 +8,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
@@ -18,11 +16,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import command.RemoveShapeCmd;
-import geometry1.Shape;
 
 public class DlgCircleUpdate extends JDialog{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField txtRadius;
 	private boolean confirmation;
 	private int radius;
@@ -33,88 +33,6 @@ public class DlgCircleUpdate extends JDialog{
 	private JButton outerColorButton;
 	private JButton innerColorButton;
 
-	
-	public JTextField getTxtCenterX() {
-		return txtCenterX;
-	}
-
-	public void setTxtCenterX(JTextField txtCenterX) {
-		this.txtCenterX = txtCenterX;
-	}
-
-	public JTextField getTxtCenterY() {
-		return txtCenterY;
-	}
-
-	public void setTxtCenterY(JTextField txtCenterY) {
-		this.txtCenterY = txtCenterY;
-	}
-
-	public int getRadius() {
-		return radius;
-	}
-
-	public void setRadius(int radius) {
-		this.radius = radius;
-	}
-
-	public JTextField getTxtRadius() {
-		return txtRadius;
-	}
-
-	public void setTxtRadius(JTextField txtRadius) {
-		this.txtRadius = txtRadius;
-	}
-
-	public boolean isConfirmation() {
-		return confirmation;
-	}
-
-	public void setConfirmation(boolean confirmation) {
-		this.confirmation = confirmation;
-	}
-
-	public Color getOuterColor() {
-		return outerColor;
-	}
-
-	public void setOuterColor(Color outerColor) {
-		this.outerColor = outerColor;
-	}
-
-	public Color getInnerColor() {
-		return innerColor;
-	}
-
-	public void setInnerColor(Color innerColor) {
-		this.innerColor = innerColor;
-	}
-	
-	public Color getOuterColorBtnBackgroundColor()
-	{
-		return this.outerColorButton.getBackground();
-	}
-	
-	public void setOuterColorBtnBackgroundColor(Color color)
-	{
-		
-		this.outerColorButton.setBackground(color);
-	}
-	
-	public Color getInnerColorBtnBackgroundColor()
-	{
-		return this.innerColorButton.getBackground();
-	}
-	
-	public void setInnerColorBtnBackgroundColor(Color color)
-	{
-		
-		this.innerColorButton.setBackground(color);
-	}
-	
-
-	
-	
 	
 	public DlgCircleUpdate() {
 		setResizable(true);
@@ -240,6 +158,86 @@ public class DlgCircleUpdate extends JDialog{
 		gbc_btnCancel.gridy = 6;
 		panel.add(btnCancel, gbc_btnCancel);
 	}
+		
 	
+	public JTextField getTxtCenterX() {
+		return txtCenterX;
+	}
+
+	public void setTxtCenterX(JTextField txtCenterX) {
+		this.txtCenterX = txtCenterX;
+	}
+
+	public JTextField getTxtCenterY() {
+		return txtCenterY;
+	}
+
+	public void setTxtCenterY(JTextField txtCenterY) {
+		this.txtCenterY = txtCenterY;
+	}
+
+	public int getRadius() {
+		return radius;
+	}
+
+	public void setRadius(int radius) {
+		this.radius = radius;
+	}
+
+	public JTextField getTxtRadius() {
+		return txtRadius;
+	}
+
+	public void setTxtRadius(JTextField txtRadius) {
+		this.txtRadius = txtRadius;
+	}
+
+	public boolean isConfirmation() {
+		return confirmation;
+	}
+
+	public void setConfirmation(boolean confirmation) {
+		this.confirmation = confirmation;
+	}
+
+	public Color getOuterColor() {
+		return outerColor;
+	}
+
+	public void setOuterColor(Color outerColor) {
+		this.outerColor = outerColor;
+	}
+
+	public Color getInnerColor() {
+		return innerColor;
+	}
+
+	public void setInnerColor(Color innerColor) {
+		this.innerColor = innerColor;
+	}
+	
+	public Color getOuterColorBtnBackgroundColor()
+	{
+		return this.outerColorButton.getBackground();
+	}
+	
+	public void setOuterColorBtnBackgroundColor(Color color)
+	{
+		
+		this.outerColorButton.setBackground(color);
+	}
+	
+	public Color getInnerColorBtnBackgroundColor()
+	{
+		return this.innerColorButton.getBackground();
+	}
+	
+	public void setInnerColorBtnBackgroundColor(Color color)
+	{
+		
+		this.innerColorButton.setBackground(color);
+	}
+	
+
 	
 }

@@ -27,8 +27,6 @@ public class Rectangle extends ThreeDShape {
 		this(upperLeftPoint, width, height);
 
 		setSelected(selected);
-		// menja se prilikom dodavanja Shape
-		// this.selected = selected;
 	}
 
 	public Rectangle(Point upperLeftPoint, int width, int height, Color outerColor, Color innerColor) {
@@ -101,7 +99,7 @@ public class Rectangle extends ThreeDShape {
 			g.drawRect(upperLeftPoint.getX() + width  - 2, upperLeftPoint.getY() + height - 2, 4, 4);
 		}
 	}
-
+/*
 	@Override
 	public void moveTo(int x, int y) {
 		upperLeftPoint.moveTo(x, y);
@@ -122,7 +120,7 @@ public class Rectangle extends ThreeDShape {
 		}
 		return 0;
 	}
-
+*/
 	
 	public Point getUpperLeftPoint() {
 		return upperLeftPoint;
@@ -147,21 +145,13 @@ public class Rectangle extends ThreeDShape {
 	public void setHeight(int height) {
 		this.height = height;
 	}
-	
-	
+		
 	public boolean isConfirmation() {
 		return confirmation;
 	}
 
 	public void setConfirmation(boolean confirmation) {
 		this.confirmation = confirmation;
-	}
-	public boolean isSelected() {
-		return selected;
-	}
-
-	public void setSelected(boolean selected) {
-		this.selected = selected;
 	}
 	
 	public String toString() {

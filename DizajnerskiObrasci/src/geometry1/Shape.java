@@ -4,12 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.io.Serializable;
 
-public abstract class Shape implements Moveable, Comparable, Serializable {
+public abstract class Shape implements Serializable {
 	
-	//private boolean selected;//mozemo definisati i kao protected pa ne bismo morali da menjamo konstruktore u ostalim klasama
+	
+	private static final long serialVersionUID = 1L;
 	protected boolean selected;
 	private Color outerColor;
-	//protected ShapeManager shapeManager; // Dodajte referencu na ShapeManager
+
 	
 	public Shape () {
 	}
