@@ -13,7 +13,6 @@ public class DrawingView extends JPanel{
 		
 	private DrawingModel model = new DrawingModel();
 	
-	
 		@Override
 		public void paint(Graphics g) {
 			super.paintComponent(g);
@@ -22,10 +21,8 @@ public class DrawingView extends JPanel{
 	
 			while(it.hasNext()) {
 				it.next().draw(g);
-			}			
-			
+			}						
 	}
-
 
 		public void setModel(DrawingModel model) {
 			this.model = model;

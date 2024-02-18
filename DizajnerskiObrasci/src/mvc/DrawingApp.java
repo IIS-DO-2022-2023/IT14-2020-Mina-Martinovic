@@ -10,5 +10,4 @@ public class DrawingApp {
 		frame.getView().setModel(model);
 
 	}
-
 }

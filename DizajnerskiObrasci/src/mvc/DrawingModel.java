@@ -14,10 +14,7 @@ public class DrawingModel {
 	{
 		shapes = new ArrayList<Shape>();
 		selectedShapes = new ArrayList<Shape>();
-	}
-
-	
-	
+	}	
 	
 	public List<Shape> getShapes() {
 		return shapes;

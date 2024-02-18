@@ -71,21 +71,20 @@ public class DrawingFrame extends JFrame{
 		pnlCenter.setLayout(gbl_pnlCenter);
 
 
-
 		// izbor oblika za crtanje
-		JLabel lblIzaberiOblik = new JLabel("Izaberi oblik:");
-		GridBagConstraints gbc_izaberiOblik = new GridBagConstraints();
-		gbc_izaberiOblik.anchor = GridBagConstraints.EAST;
-		gbc_izaberiOblik.insets = new Insets(0, 0, 5, 5);
-		gbc_izaberiOblik.gridx = 3;
-		gbc_izaberiOblik.gridy = 0;
-		pnlCenter.add(lblIzaberiOblik, gbc_izaberiOblik);
+		JLabel lblChooseShape = new JLabel("Choose shape:");
+		GridBagConstraints gbc_chooseShape = new GridBagConstraints();
+		gbc_chooseShape.anchor = GridBagConstraints.EAST;
+		gbc_chooseShape.insets = new Insets(0, 0, 5, 5);
+		gbc_chooseShape.gridx = 3;
+		gbc_chooseShape.gridy = 0;
+		pnlCenter.add(lblChooseShape, gbc_chooseShape);
 
-		JComboBox<String> cbxIzaberiOblik = new JComboBox<String>();
-		cbxIzaberiOblik.addActionListener(new ActionListener() {
+		JComboBox<String> cbxChooseShape = new JComboBox<String>();
+		cbxChooseShape.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				switch (cbxIzaberiOblik.getSelectedItem().toString()) {
+				switch (cbxChooseShape.getSelectedItem().toString()) {
 				case "Point":
 					//PanelDrawing.drawingObject = "Point";
 					break;
@@ -104,7 +103,7 @@ public class DrawingFrame extends JFrame{
 				}
 			}
 		});
-		cbxIzaberiOblik
+		cbxChooseShape
 		.setModel(new DefaultComboBoxModel<String>(new String[] { 
 				"Point",
 				"Line",
@@ -112,86 +111,77 @@ public class DrawingFrame extends JFrame{
 				"Donut",
 				"Rectangle"
 		}));
-		GridBagConstraints gbc_cbxIzaberiBoju = new GridBagConstraints();
-		gbc_cbxIzaberiBoju.insets = new Insets(0, 0, 5, 0);
-		gbc_cbxIzaberiBoju.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cbxIzaberiBoju.gridx = 4;
-		gbc_cbxIzaberiBoju.gridy = 0;
-		pnlCenter.add(cbxIzaberiOblik, gbc_cbxIzaberiBoju);
-
-
+		GridBagConstraints gbc_cbxChooseShape = new GridBagConstraints();
+		gbc_cbxChooseShape.insets = new Insets(0, 0, 5, 0);
+		gbc_cbxChooseShape.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbxChooseShape.gridx = 4;
+		gbc_cbxChooseShape.gridy = 0;
+		pnlCenter.add(cbxChooseShape, gbc_cbxChooseShape);
 
 		// odabir boje
-		JButton btnOdabirBoje = new JButton("Odaberi boju");
-		btnOdabirBoje.addActionListener(new ActionListener() {
+		JButton btnChooseColor = new JButton("Choose color");
+		btnChooseColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new JColorChooser();
-				Color color = JColorChooser.showDialog(null, "Odaberi boju", Color.blue);
+				Color color = JColorChooser.showDialog(null, "Choose color", Color.blue);
 				//PanelDrawing.color = color;
 			}
 		});
 
 
-		GridBagConstraints gbc_lbOdaberiBoju = new GridBagConstraints();
-		gbc_lbOdaberiBoju.anchor = GridBagConstraints.EAST;
-		gbc_lbOdaberiBoju.insets = new Insets(0, 0, 5, 0);
-		gbc_lbOdaberiBoju.gridx = 4;
-		gbc_lbOdaberiBoju.gridy = 1;
-		pnlCenter.add(btnOdabirBoje, gbc_lbOdaberiBoju);
+		GridBagConstraints gbc_lbChooseColor = new GridBagConstraints();
+		gbc_lbChooseColor.anchor = GridBagConstraints.EAST;
+		gbc_lbChooseColor.insets = new Insets(0, 0, 5, 0);
+		gbc_lbChooseColor.gridx = 4;
+		gbc_lbChooseColor.gridy = 1;
+		pnlCenter.add(btnChooseColor, gbc_lbChooseColor);
 
 
 		// brisanje
-		JButton btnBrisanje = new JButton("Obrisi");
-		btnBrisanje.addActionListener(new ActionListener() {
+		JButton btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
 			}
 		});
 
 
-		GridBagConstraints gbc_lbBrisanje = new GridBagConstraints();
-		gbc_lbBrisanje.anchor = GridBagConstraints.EAST;
-		gbc_lbBrisanje.insets = new Insets(0, 0, 5, 5);
-		gbc_lbBrisanje.gridx = 3;
-		gbc_lbBrisanje.gridy = 1;
-		pnlCenter.add(btnBrisanje, gbc_lbBrisanje);
+		GridBagConstraints gbc_lbDelete = new GridBagConstraints();
+		gbc_lbDelete.anchor = GridBagConstraints.EAST;
+		gbc_lbDelete.insets = new Insets(0, 0, 5, 5);
+		gbc_lbDelete.gridx = 3;
+		gbc_lbDelete.gridy = 1;
+		pnlCenter.add(btnDelete, gbc_lbDelete);
 
 
 		// modifikacija
-		JButton btnModifikacija = new JButton("Izmeni");
-		btnModifikacija.addActionListener(new ActionListener() {
+		JButton btnModify = new JButton("Modify");
+		btnModify.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				
-
-
+	
 			}
 		});
 
 
-
-
-		GridBagConstraints gbc_lbModifikacija = new GridBagConstraints();
-		gbc_lbModifikacija.anchor = GridBagConstraints.EAST;
-		gbc_lbModifikacija.insets = new Insets(0, 0, 5, 5);
-		gbc_lbModifikacija.gridx = 3;
-		gbc_lbModifikacija.gridy = 2;
-		pnlCenter.add(btnModifikacija, gbc_lbModifikacija);
+		GridBagConstraints gbc_lbModify = new GridBagConstraints();
+		gbc_lbModify.anchor = GridBagConstraints.EAST;
+		gbc_lbModify.insets = new Insets(0, 0, 5, 5);
+		gbc_lbModify.gridx = 3;
+		gbc_lbModify.gridy = 2;
+		pnlCenter.add(btnModify, gbc_lbModify);
 														
-														JPanel panel = new JPanel();
-														GridBagConstraints gbc_panel = new GridBagConstraints();
-														gbc_panel.fill = GridBagConstraints.BOTH;
-														gbc_panel.gridx = 4;
-														gbc_panel.gridy = 5;
-														pnlCenter.add(panel, gbc_panel);
-																panel.add(view);
+		JPanel panel = new JPanel();
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.gridx = 4;
+		gbc_panel.gridy = 5;
+		pnlCenter.add(panel, gbc_panel);
+		panel.add(view);
 														
 														
-																view.setBackground(Color.white);
-																view.setPreferredSize(new Dimension(2000, 1800));
-
-
-
+		view.setBackground(Color.white);
+		view.setPreferredSize(new Dimension(2000, 1800));
 
 	}
 
@@ -202,7 +192,6 @@ public class DrawingFrame extends JFrame{
 	public void setView(DrawingView view) {
 		this.view = view;
 	}
-	
 	
 
 }
