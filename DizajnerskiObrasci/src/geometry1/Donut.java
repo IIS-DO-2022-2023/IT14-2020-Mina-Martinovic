@@ -93,7 +93,7 @@ public void draw(Graphics g) {
 	circle.subtract(new Area(inner));
 	g2D.setColor(getInnerColor());
 	g2D.fill(circle);
-	g2D.setColor(getInnerColor());
+	g2D.setColor(getOuterColor());
 	g2D.draw(circle);
 	
 

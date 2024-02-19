@@ -33,8 +33,8 @@ public class DlgDonut extends JDialog {
 	protected JTextField height;
 	
 	  private boolean confirmation;
-	  private Color innerColor;
-	  private Color outerColor;
+	  private Color innerColor = Color.white;
+	  private Color outerColor = Color.black;
 		
 	  private JButton outerColorButton;
 	  private JButton innerColorButton;
@@ -80,6 +80,7 @@ public class DlgDonut extends JDialog {
 		}
 		{
 			xCoord= new JTextField();
+			xCoord.setEnabled(false);
 			xCoord.setText(Integer.toString(x)); 
 			GridBagConstraints gbc_txtXCoord = new GridBagConstraints();
 			gbc_txtXCoord.insets = new Insets(0, 0, 5, 0);
@@ -99,7 +100,8 @@ public class DlgDonut extends JDialog {
 			contentPanel.add(lblYCoord, gbc_lblYCoord);
 		}
 		{
-			yCoord = new JTextField();			
+			yCoord = new JTextField();	
+			yCoord.setEnabled(false);
 			yCoord.setText(Integer.toString(y));
 			GridBagConstraints gbc_txtYCoord = new GridBagConstraints();
 			gbc_txtYCoord.insets = new Insets(0, 0, 5, 0);

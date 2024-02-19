@@ -8,6 +8,12 @@ public class DrawingApp {
 		DrawingModel model = new DrawingModel();
 		
 		frame.getView().setModel(model);
+		
+		frame.setVisible(true);
+		
+		DrawingController controller = new DrawingController(frame, model);
+		
+		frame.setController(controller);
 
 	}
 }

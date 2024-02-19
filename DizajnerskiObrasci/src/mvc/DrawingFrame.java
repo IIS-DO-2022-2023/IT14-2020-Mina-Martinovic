@@ -20,13 +20,20 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class DrawingFrame extends JFrame{
 
 	private JPanel contentPane;
 	
 	private DrawingView view = new DrawingView();
+	private DrawingController controller;
+	private String drawingObject = "Point";
 
+	private Color innerColor = Color.white;
+	private Color outerColor = Color.black;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -54,7 +61,7 @@ public class DrawingFrame extends JFrame{
 	 */
 	public DrawingFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 639, 417);
+		setBounds(300, 100, 639, 417);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -86,19 +93,19 @@ public class DrawingFrame extends JFrame{
 
 				switch (cbxChooseShape.getSelectedItem().toString()) {
 				case "Point":
-					//PanelDrawing.drawingObject = "Point";
+					drawingObject = "Point";
 					break;
 				case "Line":
-					//PanelDrawing.drawingObject = "Line";
+					drawingObject = "Line";
 					break;
 				case "Circle":
-					//PanelDrawing.drawingObject = "Circle";
+					drawingObject = "Circle";
 					break;
 				case "Donut":
-					//PanelDrawing.drawingObject = "Donut";
+					drawingObject = "Donut";
 					break;
 				case "Rectangle":
-					//PanelDrawing.drawingObject = "Rectangle";
+					drawingObject = "Rectangle";
 					break;
 				}
 			}
@@ -119,23 +126,47 @@ public class DrawingFrame extends JFrame{
 		pnlCenter.add(cbxChooseShape, gbc_cbxChooseShape);
 
 		// odabir boje
-		JButton btnChooseColor = new JButton("Choose color");
-		btnChooseColor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new JColorChooser();
-				Color color = JColorChooser.showDialog(null, "Choose color", Color.blue);
-				//PanelDrawing.color = color;
+		JButton btnChooseInnerColor = new JButton("Choose inner color");
+		btnChooseInnerColor.setBackground(Color.WHITE);
+		btnChooseInnerColor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {			
+				Color color = JColorChooser.showDialog(null, "Choose color", innerColor);
+				if(color != null)
+				{
+					innerColor = color;
+					btnChooseInnerColor.setBackground(innerColor);
+				}
+
 			}
 		});
 
 
-		GridBagConstraints gbc_lbChooseColor = new GridBagConstraints();
-		gbc_lbChooseColor.anchor = GridBagConstraints.EAST;
-		gbc_lbChooseColor.insets = new Insets(0, 0, 5, 0);
-		gbc_lbChooseColor.gridx = 4;
-		gbc_lbChooseColor.gridy = 1;
-		pnlCenter.add(btnChooseColor, gbc_lbChooseColor);
+		GridBagConstraints gbc_btnChooseInnerColor = new GridBagConstraints();
+		gbc_btnChooseInnerColor.anchor = GridBagConstraints.EAST;
+		gbc_btnChooseInnerColor.insets = new Insets(0, 0, 5, 0);
+		gbc_btnChooseInnerColor.gridx = 4;
+		gbc_btnChooseInnerColor.gridy = 1;
+		pnlCenter.add(btnChooseInnerColor, gbc_btnChooseInnerColor);
 
+		JButton btnChooseOuterColor = new JButton("Choose outer color");
+		btnChooseOuterColor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {				
+				Color color = JColorChooser.showDialog(null, "Choose color", outerColor);
+				if(color != null)
+				{
+					outerColor = color;
+					btnChooseOuterColor.setBackground(outerColor);
+				}
+			}
+		});
+		btnChooseOuterColor.setBackground(Color.BLACK);
+		
+		GridBagConstraints gbc_btnChooseOuterColor = new GridBagConstraints();
+		gbc_btnChooseOuterColor.anchor = GridBagConstraints.EAST;
+		gbc_btnChooseOuterColor.insets = new Insets(0, 0, 5, 0);
+		gbc_btnChooseOuterColor.gridx = 4;
+		gbc_btnChooseOuterColor.gridy = 2;
+		pnlCenter.add(btnChooseOuterColor, gbc_btnChooseOuterColor);
 
 		// brisanje
 		JButton btnDelete = new JButton("Delete");
@@ -170,6 +201,8 @@ public class DrawingFrame extends JFrame{
 		gbc_lbModify.gridx = 3;
 		gbc_lbModify.gridy = 2;
 		pnlCenter.add(btnModify, gbc_lbModify);
+		
+		
 														
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -177,6 +210,14 @@ public class DrawingFrame extends JFrame{
 		gbc_panel.gridx = 4;
 		gbc_panel.gridy = 5;
 		pnlCenter.add(panel, gbc_panel);
+		
+		
+		view.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				controller.drawingShape(e);
+			}
+		});
 		panel.add(view);
 														
 														
@@ -192,6 +233,40 @@ public class DrawingFrame extends JFrame{
 	public void setView(DrawingView view) {
 		this.view = view;
 	}
+
+	public DrawingController getController() {
+		return controller;
+	}
+
+	public void setController(DrawingController controller) {
+		this.controller = controller;
+	}
+
+	public String getDrawingObject() {
+		return drawingObject;
+	}
+
+	public void setDrawingObject(String drawingObject) {
+		this.drawingObject = drawingObject;
+	}
+
+	public Color getInnerColor() {
+		return innerColor;
+	}
+
+	public void setInnerColor(Color innerColor) {
+		this.innerColor = innerColor;
+	}
+
+	public Color getOuterColor() {
+		return outerColor;
+	}
+
+	public void setOuterColor(Color outerColor) {
+		this.outerColor = outerColor;
+	}
+	
+	
 	
 
 }

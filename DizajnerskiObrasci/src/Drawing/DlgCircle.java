@@ -34,8 +34,6 @@ public class DlgCircle extends JDialog {
 	private JButton innerColorButton;
 	
 
-
-
 	public static void main(String[] args) {
 		try {
 			DlgCircle dialog = new DlgCircle();
@@ -153,6 +151,7 @@ public class DlgCircle extends JDialog {
 			}
 			{
 				txtX = new JTextField();
+				txtX.setEnabled(false);
 				txtX.setText(Integer.toString(x)); 
 				GridBagConstraints gbc_txtXCoord = new GridBagConstraints();
 				gbc_txtXCoord.insets = new Insets(0, 0, 5, 0);
@@ -172,7 +171,8 @@ public class DlgCircle extends JDialog {
 				contentPanel.add(lblYCoord, gbc_lblYCoord);
 			}
 			{
-				txtY = new JTextField();				
+				txtY = new JTextField();	
+				txtY.setEnabled(false);
 				txtY.setText(Integer.toString(y));
 				GridBagConstraints gbc_txtYCoord = new GridBagConstraints();
 				gbc_txtYCoord.insets = new Insets(0, 0, 5, 0);
@@ -207,7 +207,8 @@ public class DlgCircle extends JDialog {
 			
 			{
 				innerColorButton = new JButton("Inner color:");
-				innerColorButton.setBackground(inColor);
+				innerColor = inColor; 
+				innerColorButton.setBackground(innerColor);
 				innerColorButton.setForeground(new Color(0, 0, 0));
 				innerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
 				innerColorButton.addActionListener(new ActionListener() {
@@ -226,7 +227,8 @@ public class DlgCircle extends JDialog {
 			  
 			  {
 			  outerColorButton = new JButton("Outer color:");
-			  outerColorButton.setBackground(outColor);
+			  outerColor = outColor;
+			  outerColorButton.setBackground(outerColor);
 			  outerColorButton.setForeground(new Color(0, 0, 0));
 			  outerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
 			  outerColorButton.addActionListener(new ActionListener() {
