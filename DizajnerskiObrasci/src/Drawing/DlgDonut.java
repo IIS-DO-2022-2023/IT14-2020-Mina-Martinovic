@@ -151,6 +151,7 @@ public class DlgDonut extends JDialog {
 //		  inner/border color
 		  {
 			  innerColorButton = new JButton("Inner color");
+			  innerColor = inColor;
 			  innerColorButton.setBackground(inColor);
 			  innerColor = inColor;
 			  innerColorButton.setForeground(new Color(0, 0, 0));
@@ -171,6 +172,7 @@ public class DlgDonut extends JDialog {
 		  
 		  {
 		  outerColorButton = new JButton("Outer color");
+		  outerColor = outColor;
 		  outerColorButton.setBackground(outColor);
 		  outerColor = outColor;
 		  outerColorButton.setForeground(new Color(0, 0, 0));

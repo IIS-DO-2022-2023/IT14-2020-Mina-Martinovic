@@ -34,8 +34,8 @@ public class DlgRectangle extends JDialog {
 	protected JTextField height;
 	
 	private boolean confirmation;
-	private Color innerColor = Color.white;
-	private Color outerColor = Color.black;
+	private Color innerColor;
+	private Color outerColor;
 	
 	private JButton outerColorButton;
 	private JButton innerColorButton;
@@ -313,6 +313,7 @@ public class DlgRectangle extends JDialog {
 //		  inner/border color
 		{
 		  innerColorButton = new JButton("Inner color:");
+		  innerColor = inColor;
 		  innerColorButton.setBackground(inColor);
 		  innerColorButton.setForeground(new Color(0, 0, 0));
 		  innerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
@@ -333,6 +334,7 @@ public class DlgRectangle extends JDialog {
 		  
 		  {
 		  outerColorButton = new JButton("Outer color:");
+		  outerColor = outColor;
 		  outerColorButton.setBackground(outColor);
 		  outerColorButton.setForeground(new Color(0, 0, 0));
 		  outerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));

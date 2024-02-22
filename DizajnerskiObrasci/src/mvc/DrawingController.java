@@ -55,7 +55,7 @@ public class DrawingController {
 		break;
 		case "Rectangle" :
 			try {
-				DlgRectangle dialog = new DlgRectangle(e.getX(), e.getY(),  Color.white, Color.black);
+				DlgRectangle dialog = new DlgRectangle(e.getX(), e.getY(),  frame.getInnerColor(), frame.getOuterColor());
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog.setVisible(true);
 				
@@ -72,7 +72,7 @@ public class DrawingController {
 		break;
 		case "Donut" : 
 			try {
-				DlgDonut dialog = new DlgDonut(e.getX(), e.getY(),  Color.white, Color.black);
+				DlgDonut dialog = new DlgDonut(e.getX(), e.getY(),  frame.getInnerColor(), frame.getOuterColor());
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog.setVisible(true);
 				
@@ -100,7 +100,7 @@ public class DrawingController {
 			}
 		break;
 		default: 
-			System.out.println("Izabrali ste oblik koji nije na listi!");
+			System.out.println("You have chosen an object that is not on the list!");
 		}
 		frame.repaint();
 	}
