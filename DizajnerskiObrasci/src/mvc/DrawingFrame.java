@@ -22,6 +22,8 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JToggleButton;
+import javax.swing.SwingConstants;
 
 public class DrawingFrame extends JFrame{
 
@@ -77,7 +79,6 @@ public class DrawingFrame extends JFrame{
 		gbl_pnlCenter.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		pnlCenter.setLayout(gbl_pnlCenter);
 
-
 		// izbor oblika za crtanje
 		JLabel lblChooseShape = new JLabel("Choose shape:");
 		GridBagConstraints gbc_chooseShape = new GridBagConstraints();
@@ -87,10 +88,23 @@ public class DrawingFrame extends JFrame{
 		gbc_chooseShape.gridy = 0;
 		pnlCenter.add(lblChooseShape, gbc_chooseShape);
 
+		JToggleButton tglbtnSelect = new JToggleButton("Select");
+			
+			
+			GridBagConstraints gbc_tglbtnSelect = new GridBagConstraints();
+			gbc_tglbtnSelect.anchor = GridBagConstraints.EAST;
+			gbc_tglbtnSelect.insets = new Insets(0, 0, 5, 5);
+			gbc_tglbtnSelect.gridx = 3;
+			gbc_tglbtnSelect.gridy = 3;
+			pnlCenter.add(tglbtnSelect, gbc_tglbtnSelect);
+		
+		
 		JComboBox<String> cbxChooseShape = new JComboBox<String>();
 		cbxChooseShape.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				tglbtnSelect.setSelected(false);
+				
 				switch (cbxChooseShape.getSelectedItem().toString()) {
 				case "Point":
 					drawingObject = "Point";
@@ -106,6 +120,9 @@ public class DrawingFrame extends JFrame{
 					break;
 				case "Rectangle":
 					drawingObject = "Rectangle";
+					break;					
+				case "Hexagon":
+					drawingObject = "Hexagon";
 					break;
 				}
 			}
@@ -116,7 +133,8 @@ public class DrawingFrame extends JFrame{
 				"Line",
 				"Circle",
 				"Donut",
-				"Rectangle"
+				"Rectangle",
+				"Hexagon"
 		}));
 		GridBagConstraints gbc_cbxChooseShape = new GridBagConstraints();
 		gbc_cbxChooseShape.insets = new Insets(0, 0, 5, 0);
@@ -203,6 +221,8 @@ public class DrawingFrame extends JFrame{
 		pnlCenter.add(btnModify, gbc_lbModify);
 		
 		
+	
+		
 														
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -215,7 +235,16 @@ public class DrawingFrame extends JFrame{
 		view.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				controller.drawingShape(e);
+				
+				if(tglbtnSelect.isSelected())					
+				{
+					controller.selectShape(e);
+				}
+				else 
+				{
+					controller.drawingShape(e);
+				}
+//			
 			}
 		});
 		panel.add(view);
