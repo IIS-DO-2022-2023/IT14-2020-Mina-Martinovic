@@ -242,6 +242,7 @@ public class DlgRectangle extends JDialog {
 		}
 		{
 			xCoord = new JTextField();
+			xCoord.setEnabled(false);
 			xCoord.setText(Integer.toString(x));
 			GridBagConstraints gbc_txtXCoord = new GridBagConstraints();
 			gbc_txtXCoord.insets = new Insets(0, 0, 5, 0);
@@ -262,6 +263,7 @@ public class DlgRectangle extends JDialog {
 		}
 		{
 			yCoord = new JTextField();
+			yCoord.setEnabled(false);
 			yCoord.setText(Integer.toString(y));
 			GridBagConstraints gbc_txtYCoord = new GridBagConstraints();
 			gbc_txtYCoord.insets = new Insets(0, 0, 5, 0);

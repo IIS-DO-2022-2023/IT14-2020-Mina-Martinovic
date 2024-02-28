@@ -186,11 +186,14 @@ public class DrawingFrame extends JFrame{
 		gbc_btnChooseOuterColor.gridy = 2;
 		pnlCenter.add(btnChooseOuterColor, gbc_btnChooseOuterColor);
 
+		
+		
 		// brisanje
 		JButton btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
+				controller.deleteSelectedShapes();
 			}
 		});
 
@@ -202,13 +205,15 @@ public class DrawingFrame extends JFrame{
 		gbc_lbDelete.gridy = 1;
 		pnlCenter.add(btnDelete, gbc_lbDelete);
 
+		
+		
 
 		// modifikacija
 		JButton btnModify = new JButton("Modify");
 		btnModify.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-	
+				controller.modifySelectedShape();
 			}
 		});
 

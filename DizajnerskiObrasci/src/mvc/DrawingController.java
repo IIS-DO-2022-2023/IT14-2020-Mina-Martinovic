@@ -4,12 +4,14 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 import Drawing.DlgCircle;
 import Drawing.DlgDonut;
 import Drawing.DlgRectangle;
 import adapter.HexagonAdapter;
 import command.AddShape;
+import command.RemoveShape;
 import geometry1.Circle;
 import geometry1.Donut;
 import geometry1.Line;
@@ -28,6 +30,8 @@ public class DrawingController {
 	
 	private boolean isFirstClick = true;
 	
+	private Shape selectedShape;
+	
 	public DrawingController (DrawingFrame frame, DrawingModel model)
 	{
 		this.frame = frame;
@@ -37,6 +41,7 @@ public class DrawingController {
 	public void selectShape(MouseEvent e)
 	{
 		boolean containsShape = false;
+		
 		for(int i = model.getShapes().size() -1; i >= 0; i--)
 		{
 			Shape shape = model.getShapes().get(i);
@@ -47,11 +52,13 @@ public class DrawingController {
 				if(shape.isSelected() == false)
 				{
 					shape.setSelected(true);
+					model.getSelectedShapes().add(shape);
 					break;
 				}
 				else 
 				{
 					shape.setSelected(false);
+					model.getSelectedShapes().remove(shape);
 					break;
 				}				
 			}
@@ -61,9 +68,15 @@ public class DrawingController {
 		{
 			for(Shape shape : model.getShapes())
 			{
-				shape.setSelected(false);
+				if(shape.isSelected())
+				{
+					shape.setSelected(false);
+					model.getSelectedShapes().remove(shape);
+				}
+				
 			}
 		}
+		System.out.println(model.getSelectedShapes().size());
 		frame.repaint();
 	}
 	
@@ -161,6 +174,26 @@ public class DrawingController {
 			System.out.println("You have chosen an object that is not on the list!");
 		}
 		frame.repaint();
+	}
+	
+	public void deleteSelectedShapes()
+	{
+		int reply = JOptionPane.showConfirmDialog(null, "Are you sure that you want to remove this shape?");
+		if(reply == JOptionPane.YES_OPTION) 
+		{
+			RemoveShape removeShape = new RemoveShape(model);
+			removeShape.execute();
+			
+			model.getSelectedShapes().clear();
+			frame.repaint();
+		}
+		
+	}
+	
+	public void modifySelectedShape()
+	{
+		selectedShape = model.getSelectedShapes().get(0);
+		System.out.println(selectedShape);
 	}
 	
 }
