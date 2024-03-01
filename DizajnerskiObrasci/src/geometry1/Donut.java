@@ -41,6 +41,15 @@ public class Donut extends Circle{
 			setOuterColor(outerColor);
 	}
 	
+	public Donut(Point center, int outerRadius, int innerRadius, Color outerColor , Color innerColor, boolean selected) {
+		super(center,outerRadius);
+			this.innerRadius = innerRadius;
+			this.outerRadius = outerRadius;
+			setInnerColor(innerColor);
+			setOuterColor(outerColor);
+			setSelected(selected);
+	}
+	
 	public double area() {
 		return super.area()-innerRadius*innerRadius*Math.PI;
 	}

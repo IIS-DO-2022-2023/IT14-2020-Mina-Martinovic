@@ -167,6 +167,7 @@ public class DrawingFrame extends JFrame{
 		pnlCenter.add(btnChooseInnerColor, gbc_btnChooseInnerColor);
 
 		JButton btnChooseOuterColor = new JButton("Choose outer color");
+		btnChooseOuterColor.setForeground(Color.WHITE);
 		btnChooseOuterColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
 				Color color = JColorChooser.showDialog(null, "Choose color", outerColor);

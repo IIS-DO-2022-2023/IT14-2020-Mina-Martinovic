@@ -17,6 +17,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import geometry1.Point;
+
 import java.awt.Font;
 
 public class DlgDonutUpdate extends JDialog{
@@ -25,8 +28,9 @@ public class DlgDonutUpdate extends JDialog{
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtInnerRadius;
-	private boolean confirm;
+	private boolean confirmation;
 	private JTextField txtOuterRadius;
+	
 	private Color outerColor;
 	private Color innerColor;
 	private JTextField txtX;
@@ -37,23 +41,7 @@ public class DlgDonutUpdate extends JDialog{
 	
 	
 	
-		/**
-		 * Launch the application.
-		 */
-		public static void main(String[] args) {
-			try {
-				DlgDonut Dialog = new DlgDonut();
-				Dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				Dialog.setVisible(true);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		/**
-		 * Create the dialog.
-		 */
-		public DlgDonutUpdate() {
+		public DlgDonutUpdate(Point center, int innerRadius, int outerRadius, Color inColor, Color outColor) {
 			setResizable(false);
 			setModal(true);
 			setTitle("Update Donut");
@@ -79,6 +67,7 @@ public class DlgDonutUpdate extends JDialog{
 				}
 				{
 					txtX = new JTextField();
+					txtX.setText(Integer.toString(center.getX()));
 					GridBagConstraints gbc_txtX = new GridBagConstraints();
 					gbc_txtX.anchor = GridBagConstraints.NORTH;
 					gbc_txtX.insets = new Insets(0, 0, 5, 5);
@@ -99,6 +88,7 @@ public class DlgDonutUpdate extends JDialog{
 				}
 				{
 					txtY = new JTextField();
+					txtY.setText(Integer.toString(center.getY()));
 					GridBagConstraints gbc_txtY = new GridBagConstraints();
 					gbc_txtY.anchor = GridBagConstraints.NORTH;
 					gbc_txtY.insets = new Insets(0, 0, 5, 5);
@@ -119,6 +109,7 @@ public class DlgDonutUpdate extends JDialog{
 				}
 				{
 					txtInnerRadius = new JTextField();
+					txtInnerRadius.setText(Integer.toString(innerRadius));
 					GridBagConstraints gbc_txtInnerRadius = new GridBagConstraints();
 					gbc_txtInnerRadius.insets = new Insets(0, 0, 5, 5);
 					gbc_txtInnerRadius.fill = GridBagConstraints.HORIZONTAL;
@@ -139,6 +130,7 @@ public class DlgDonutUpdate extends JDialog{
 				}
 				{
 					txtOuterRadius = new JTextField();
+					txtOuterRadius.setText(Integer.toString(outerRadius));
 					GridBagConstraints gbc_txtOuterRadius = new GridBagConstraints();
 					gbc_txtOuterRadius.insets = new Insets(0, 0, 5, 5);
 					gbc_txtOuterRadius.fill = GridBagConstraints.HORIZONTAL;
@@ -149,10 +141,12 @@ public class DlgDonutUpdate extends JDialog{
 				}
 				
 				outerColorButton = new JButton("Outer Color");
+				outerColor = outColor;
+				outerColorButton.setBackground(outerColor);
 				outerColorButton.setFont(new Font("Tahoma", Font.BOLD, 10));
 				outerColorButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						outerColor =  JColorChooser.showDialog(outerColorButton, "Choose your colour", Color.BLACK);
+						outerColor =  JColorChooser.showDialog(outerColorButton, "Choose your colour", outerColor);
 						outerColorButton.setBackground(outerColor);
 					}
 				});
@@ -166,10 +160,12 @@ public class DlgDonutUpdate extends JDialog{
 			}
 			{
 				innerColorButton = new JButton("Inner Color");
+				innerColor = inColor;
+				innerColorButton.setBackground(innerColor);
 				innerColorButton.setFont(new Font("Tahoma", Font.BOLD, 10));
 				innerColorButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						innerColor = JColorChooser.showDialog(innerColorButton, "Choose your color:", Color.WHITE);
+						innerColor = JColorChooser.showDialog(innerColorButton, "Choose your color:", innerColor);
 						innerColorButton.setBackground(innerColor);
 					}
 				});
@@ -188,7 +184,7 @@ public class DlgDonutUpdate extends JDialog{
 					JButton okButton = new JButton("OK");
 					okButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
-							setConfirm(true);
+							setConfirmation(true);
 							setVisible(false);
 						}
 					});
@@ -219,12 +215,12 @@ public class DlgDonutUpdate extends JDialog{
 			this.txtInnerRadius = txtInnerRadius;
 		}
 		
-		public boolean isConfirm() {
-			return confirm;
+		public boolean isConfirmation() {
+			return confirmation;
 		}
 		
-		public void setConfirm(boolean confirm) {
-			this.confirm = confirm;
+		public void setConfirmation(boolean confirm) {
+			this.confirmation = confirm;
 		}
 		
 		public JTextField getTxtOuterRadius() {

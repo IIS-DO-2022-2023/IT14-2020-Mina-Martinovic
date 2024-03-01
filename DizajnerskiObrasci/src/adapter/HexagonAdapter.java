@@ -59,6 +59,16 @@ public class HexagonAdapter extends ThreeDShape{
 		hexagon.setBorderColor(color);
 	}
 	
+	public boolean isSelected()
+	{
+		return hexagon.isSelected();
+	}
+	
+	public void setSelected(boolean selected)
+	{
+		hexagon.setSelected(selected);
+	}
+	
 	public Point getCenter()
 	{
 		Point center = new Point(hexagon.getX(), hexagon.getY());
@@ -70,4 +80,6 @@ public class HexagonAdapter extends ThreeDShape{
 		int radius = hexagon.getR();
 		return radius;
 	}
+	
+	
 }

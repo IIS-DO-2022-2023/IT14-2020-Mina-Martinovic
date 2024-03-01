@@ -338,7 +338,7 @@ public class DlgRectangle extends JDialog {
 		  outerColorButton = new JButton("Outer color:");
 		  outerColor = outColor;
 		  outerColorButton.setBackground(outColor);
-		  outerColorButton.setForeground(new Color(0, 0, 0));
+		  outerColorButton.setForeground(new Color(255, 255, 255));
 		  outerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
 		  outerColorButton.addActionListener(new ActionListener() {
 			  public void actionPerformed(ActionEvent e)

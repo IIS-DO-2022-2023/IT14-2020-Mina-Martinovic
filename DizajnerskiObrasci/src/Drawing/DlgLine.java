@@ -10,6 +10,9 @@ import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import geometry1.Point;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
@@ -34,24 +37,8 @@ public class DlgLine extends JDialog {
 	
 	private JButton outerColorButton;
 
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			DlgLine dialog = new DlgLine(); //pokrece mi dijalog sam kad kao runujem samo klasu dlgLine npr
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Create the dialog.
-	 */
-	public DlgLine() {
+	
+	public DlgLine(Point startPoint, Point endPoint, Color outColor) {
 		setBounds(100, 100, 450, 300);
 		setTitle("Line:");
 		setModal(true);
@@ -65,7 +52,7 @@ public class DlgLine extends JDialog {
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JLabel lblXStart = new JLabel("X coord:");
+			JLabel lblXStart = new JLabel("X start coord:");
 			GridBagConstraints gbc_lblXStart = new GridBagConstraints();
 			gbc_lblXStart.anchor = GridBagConstraints.EAST;
 			gbc_lblXStart.insets = new Insets(0, 0, 5, 5);
@@ -75,6 +62,7 @@ public class DlgLine extends JDialog {
 		}
 		{
 			XStartPoint = new JTextField();
+			XStartPoint.setText(Integer.toString(startPoint.getX()));
 			GridBagConstraints gbc_txtXStart = new GridBagConstraints();
 			gbc_txtXStart.insets = new Insets(0, 0, 5, 0);
 			gbc_txtXStart.fill = GridBagConstraints.HORIZONTAL;
@@ -84,7 +72,7 @@ public class DlgLine extends JDialog {
 			XStartPoint.setColumns(10);
 		}
 		{
-			JLabel lblYStart = new JLabel("Y coord:");
+			JLabel lblYStart = new JLabel("Y start coord:");
 			GridBagConstraints gbc_lblYStart = new GridBagConstraints();
 			gbc_lblYStart.anchor = GridBagConstraints.EAST;
 			gbc_lblYStart.insets = new Insets(0, 0, 5, 5);
@@ -94,6 +82,7 @@ public class DlgLine extends JDialog {
 		}
 		{
 			YStartPoint = new JTextField();
+			YStartPoint.setText(Integer.toString(startPoint.getY()));
 			GridBagConstraints gbc_lblYStart = new GridBagConstraints();
 			gbc_lblYStart.insets = new Insets(0, 0, 5, 0);
 			gbc_lblYStart.fill = GridBagConstraints.HORIZONTAL;
@@ -103,46 +92,50 @@ public class DlgLine extends JDialog {
 			YStartPoint.setColumns(10);
 		}		
 		{
-			JLabel lblXEnd = new JLabel("X coord:");
+			JLabel lblXEnd = new JLabel("X end coord:");
 			GridBagConstraints gbc_lblXEnd = new GridBagConstraints();
 			gbc_lblXEnd.anchor = GridBagConstraints.EAST;
 			gbc_lblXEnd.insets = new Insets(0, 0, 5, 5);
 			gbc_lblXEnd.gridx = 0;
-			gbc_lblXEnd.gridy = 1;
+			gbc_lblXEnd.gridy = 3;
 			contentPanel.add(lblXEnd, gbc_lblXEnd);
 		}
 		{
 			XEndPoint = new JTextField();
+			XEndPoint.setText(Integer.toString(endPoint.getX()));
 			GridBagConstraints gbc_txtXEnd = new GridBagConstraints();
 			gbc_txtXEnd.insets = new Insets(0, 0, 5, 0);
 			gbc_txtXEnd.fill = GridBagConstraints.HORIZONTAL;
 			gbc_txtXEnd.gridx = 1;
-			gbc_txtXEnd.gridy = 1;
+			gbc_txtXEnd.gridy = 3;
 			contentPanel.add(XEndPoint, gbc_txtXEnd);
 			XEndPoint.setColumns(10);
 		}
 		{
-			JLabel lblYEnd = new JLabel("Y coord:");
+			JLabel lblYEnd = new JLabel("Y end coord:");
 			GridBagConstraints gbc_lblYEnd = new GridBagConstraints();
 			gbc_lblYEnd.anchor = GridBagConstraints.EAST;
 			gbc_lblYEnd.insets = new Insets(0, 0, 5, 5);
 			gbc_lblYEnd.gridx = 0;
-			gbc_lblYEnd.gridy = 2;
+			gbc_lblYEnd.gridy = 4;
 			contentPanel.add(lblYEnd, gbc_lblYEnd);
 		}
 		{
 			YEndPoint = new JTextField();
+			YEndPoint.setText(Integer.toString(endPoint.getY()));
 			GridBagConstraints gbc_lblYEnd = new GridBagConstraints();
 			gbc_lblYEnd.insets = new Insets(0, 0, 5, 0);
 			gbc_lblYEnd.fill = GridBagConstraints.HORIZONTAL;
 			gbc_lblYEnd.gridx = 1;
-			gbc_lblYEnd.gridy = 2;
+			gbc_lblYEnd.gridy = 4;
 			contentPanel.add(YEndPoint, gbc_lblYEnd);
 			YEndPoint.setColumns(10);
 		}
 		
 		  {
 		  outerColorButton = new JButton(" Outer color");
+		  outerColor = outColor;
+		  outerColorButton.setBackground(outerColor);
 		  outerColorButton.setForeground(new Color(0, 0, 0));
 		  outerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
 		  outerColorButton.addActionListener(new ActionListener() {
@@ -231,11 +224,11 @@ public class DlgLine extends JDialog {
 		this.confirmation = confirmation;
 	}
 
-	public Color getColor() {
+	public Color getOuterColor() {
 		return outerColor;
 	}
 
-	public void setColor(Color color) {
+	public void setOuterColor(Color color) {
 		this.outerColor = color;
 	}
 	

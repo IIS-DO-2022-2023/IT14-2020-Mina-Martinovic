@@ -188,7 +188,8 @@ public class DlgPoint extends JDialog {
 		
 		  {
 			  outerColorButton = new JButton("Outer color:");
-			  outerColorButton.setBackground(outColor);
+			  outerColor = outColor;
+			  outerColorButton.setBackground(outerColor);  
 			  outerColorButton.setForeground(new Color(0, 0, 0));
 			  outerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
 			  outerColorButton.addActionListener(new ActionListener() {

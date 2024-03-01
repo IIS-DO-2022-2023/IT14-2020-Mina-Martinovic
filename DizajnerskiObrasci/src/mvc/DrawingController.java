@@ -8,7 +8,11 @@ import javax.swing.JOptionPane;
 
 import Drawing.DlgCircle;
 import Drawing.DlgDonut;
+import Drawing.DlgDonutUpdate;
+import Drawing.DlgLine;
+import Drawing.DlgPoint;
 import Drawing.DlgRectangle;
+import Drawing.DlgRectangleUpdate;
 import adapter.HexagonAdapter;
 import command.AddShape;
 import command.RemoveShape;
@@ -193,7 +197,120 @@ public class DrawingController {
 	public void modifySelectedShape()
 	{
 		selectedShape = model.getSelectedShapes().get(0);
-		System.out.println(selectedShape);
+		
+		if(selectedShape instanceof Point)
+		{	
+			try {
+				Point point = (Point)selectedShape;
+				DlgPoint dialog = new DlgPoint(point.getX(), point.getY(), point.getOuterColor());
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setVisible(true);
+				if(dialog.isConfirmation())
+				{
+					int x = Integer.parseInt(dialog.getTxtX().getText());
+					int y = Integer.parseInt(dialog.getTxtY().getText());
+					Point newPoint = new Point(x, y, dialog.getOuterColor());
+					
+					int index = model.getShapes().indexOf(selectedShape);
+					model.getShapes().set(index, newPoint);
+					frame.repaint();
+				};
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		else if (selectedShape instanceof Line)
+		{
+			try {
+				Line line = (Line)selectedShape;
+				DlgLine dialog = new DlgLine(line.getStartPoint(), line.getEndPoint(), line.getOuterColor());
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setVisible(true);
+				
+				if(dialog.isConfirmation())
+				{
+					Point startPoint = new Point(Integer.parseInt(dialog.getXStartPoint().getText()), Integer.parseInt(dialog.getYStartPoint().getText()));
+					Point endPoint = new Point(Integer.parseInt(dialog.getXEndPoint().getText()), Integer.parseInt(dialog.getYEndPoint().getText()));
+					
+					Line newLine = new Line(startPoint, endPoint, dialog.getOuterColor());
+					
+					int index = model.getShapes().indexOf(selectedShape);
+					model.getShapes().set(index, newLine);
+					frame.repaint();
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		
+		}
+		else if (selectedShape instanceof Donut)
+		{
+			try {
+				Donut donut = (Donut)selectedShape;
+				DlgDonutUpdate dialog = new DlgDonutUpdate(
+						donut.getCenter(),
+						donut.getInnerRadius(),
+						donut.getOuterRadius(),
+						donut.getInnerColor(),
+						donut.getOuterColor());
+
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setVisible(true);
+				
+				if(dialog.isConfirmation())
+				{
+					Point center = new Point(Integer.parseInt(dialog.getTxtX().getText()), Integer.parseInt(dialog.getTxtY().getText()));
+				
+					Donut newDonut = new Donut (center, Integer.parseInt(dialog.getTxtOuterRadius().getText()), Integer.parseInt(dialog.getTxtInnerRadius().getText()), 
+							dialog.getOuterColor(),	dialog.getInnerColor(), true);
+					
+					int index = model.getShapes().indexOf(selectedShape);
+					model.getShapes().set(index, newDonut);
+					frame.repaint();
+				}
+				
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		else if (selectedShape instanceof Rectangle) 
+		{
+			try {
+				Rectangle rectangle = (Rectangle)selectedShape;
+				DlgRectangleUpdate dialog = new DlgRectangleUpdate(
+						rectangle.getUpperLeftPoint(),
+						rectangle.getWidth(),
+						rectangle.getHeight(),
+						rectangle.getOuterColor(),
+						rectangle.getInnerColor());
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setVisible(true);
+				
+
+				if(dialog.isConfirmation())
+				{
+					Point upperLeftPoint = new Point(Integer.parseInt(dialog.getTxtUpperLeftPointX().getText()), Integer.parseInt(dialog.getTxtUpperLeftPointY().getText()));
+				
+					Rectangle newRectangle = new Rectangle (upperLeftPoint, Integer.parseInt(dialog.getTxtWidth().getText()), Integer.parseInt(dialog.getTxtHeight().getText()), 
+							dialog.getOuterColor(),	dialog.getInnerColor());
+					
+					int index = model.getShapes().indexOf(selectedShape);
+					model.getShapes().set(index, newRectangle);
+					frame.repaint();
+				}
+				
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}	
+		else if(selectedShape instanceof Circle)
+		{
+			
+		}
+		else if (selectedShape instanceof HexagonAdapter)
+		{
+			
+		}
 	}
 	
 }

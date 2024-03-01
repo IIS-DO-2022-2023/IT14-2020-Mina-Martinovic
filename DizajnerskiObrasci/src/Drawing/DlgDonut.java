@@ -34,7 +34,7 @@ public class DlgDonut extends JDialog {
 	
 	  private boolean confirmation;
 	  private Color innerColor = Color.white;
-	  private Color outerColor = Color.black;
+	  private Color outerColor = Color.white;
 		
 	  private JButton outerColorButton;
 	  private JButton innerColorButton;
@@ -175,7 +175,7 @@ public class DlgDonut extends JDialog {
 		  outerColor = outColor;
 		  outerColorButton.setBackground(outColor);
 		  outerColor = outColor;
-		  outerColorButton.setForeground(new Color(0, 0, 0));
+		  outerColorButton.setForeground(new Color(255, 255, 255));
 		  outerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
 		  outerColorButton.addActionListener(new ActionListener() {
 		  public void actionPerformed(ActionEvent e)
@@ -332,7 +332,7 @@ public DlgDonut() {
 		  {
 		  outerColorButton = new JButton("Outer color");
 		  outerColorButton.setBackground(SystemColor.activeCaption);
-		  outerColorButton.setForeground(new Color(0, 0, 0));
+		  outerColorButton.setForeground(new Color(255, 255, 255));
 		  outerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
 		  outerColorButton.addActionListener(new ActionListener() {
 		  public void actionPerformed(ActionEvent e)

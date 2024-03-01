@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import geometry1.Point;
+
 public class DlgRectangleUpdate extends JDialog{
 
 	
@@ -36,7 +38,7 @@ public class DlgRectangleUpdate extends JDialog{
 	private final JButton btnCancel = new JButton("Cancel");
 
 	
-	public DlgRectangleUpdate () {
+	public DlgRectangleUpdate (Point upperLeftPoint, int height, int width, Color outColor, Color inColor) {
 		setModal(true);
 		setTitle("Update Rectangle");
 		setBounds(100, 100, 450, 250);
@@ -59,6 +61,7 @@ public class DlgRectangleUpdate extends JDialog{
 			panel.add(lblUpperLeftPointX, gbc_lblUpperLeftPointX);
 			
 			txtUpperLeftPointX = new JTextField();
+			txtUpperLeftPointX.setText(Integer.toString(upperLeftPoint.getX()));
 			GridBagConstraints gbc_txtUpperLeftPointX = new GridBagConstraints();
 			gbc_txtUpperLeftPointX.insets = new Insets(0, 0, 5, 5);
 			gbc_txtUpperLeftPointX.fill = GridBagConstraints.HORIZONTAL;
@@ -69,9 +72,11 @@ public class DlgRectangleUpdate extends JDialog{
 		}
 		{
 			outerColorButton = new JButton("Outer Color");
+			outerColor = outColor;
+			outerColorButton.setBackground(outerColor);
 			outerColorButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					outerColor = JColorChooser.showDialog(outerColorButton, "Choose your color", Color.BLACK);
+					outerColor = JColorChooser.showDialog(outerColorButton, "Choose your color", outerColor);
 					outerColorButton.setBackground(outerColor);
 				}
 			});
@@ -94,6 +99,7 @@ public class DlgRectangleUpdate extends JDialog{
 			panel.add(lblUpperLeftPointY, gbc_lblUpperLeftPointY);
 			
 			txtUpperLeftPointY = new JTextField();
+			txtUpperLeftPointY.setText(Integer.toString(upperLeftPoint.getY()));
 			GridBagConstraints gbc_txtUpperLeftPointY = new GridBagConstraints();
 			gbc_txtUpperLeftPointY.insets = new Insets(0, 0, 5, 5);
 			gbc_txtUpperLeftPointY.fill = GridBagConstraints.HORIZONTAL;
@@ -104,9 +110,11 @@ public class DlgRectangleUpdate extends JDialog{
 		}
 		{
 			innerColorButton = new JButton("Inner Color");
+			innerColor = inColor;
+			innerColorButton.setBackground(innerColor);
 			innerColorButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					innerColor = JColorChooser.showDialog(innerColorButton, "Choose your colour", Color.WHITE);
+					innerColor = JColorChooser.showDialog(innerColorButton, "Choose your colour",  innerColor);
 					innerColorButton.setBackground(innerColor);
 				}
 			});
@@ -128,6 +136,7 @@ public class DlgRectangleUpdate extends JDialog{
 			panel.add(lblWidth, gbc_lblWidth);
 			
 			txtWidth = new JTextField();
+			txtWidth.setText(Integer.toString(width));
 			GridBagConstraints gbc_txtWidth = new GridBagConstraints();
 			gbc_txtWidth.insets = new Insets(0, 0, 5, 5);
 			gbc_txtWidth.fill = GridBagConstraints.HORIZONTAL;
@@ -162,6 +171,7 @@ public class DlgRectangleUpdate extends JDialog{
 			panel.add(lblHeight, gbc_lblHeight);
 			
 			txtHeight = new JTextField();
+			txtHeight.setText(Integer.toString(height));
 			GridBagConstraints gbc_txtHeight = new GridBagConstraints();
 			gbc_txtHeight.insets = new Insets(0, 0, 0, 5);
 			gbc_txtHeight.fill = GridBagConstraints.HORIZONTAL;
@@ -224,12 +234,12 @@ public class DlgRectangleUpdate extends JDialog{
 		this.confirmation = confirmation;
 	}
 	
-	public Color getOutlineColor() {
+	public Color getOuterColor() {
 		return outerColor;
 	}
 	
-	public void setOutlineColor(Color outlineColor) {
-		this.outerColor = outlineColor;
+	public void setOuterColor(Color outerColor) {
+		this.outerColor = outerColor;
 	}
 	
 	public Color getInnerColor() {
