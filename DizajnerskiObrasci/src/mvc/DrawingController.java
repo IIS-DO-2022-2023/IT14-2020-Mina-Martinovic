@@ -7,8 +7,10 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import Drawing.DlgCircle;
+import Drawing.DlgCircleUpdate;
 import Drawing.DlgDonut;
 import Drawing.DlgDonutUpdate;
+import Drawing.DlgHexagonUpdate;
 import Drawing.DlgLine;
 import Drawing.DlgPoint;
 import Drawing.DlgRectangle;
@@ -16,6 +18,12 @@ import Drawing.DlgRectangleUpdate;
 import adapter.HexagonAdapter;
 import command.AddShape;
 import command.RemoveShape;
+import command.UpdateCircleCmd;
+import command.UpdateDonutCmd;
+import command.UpdateHexagonCmd;
+import command.UpdateLineCmd;
+import command.UpdatePointCmd;
+import command.UpdateRectangleCmd;
 import geometry1.Circle;
 import geometry1.Donut;
 import geometry1.Line;
@@ -209,14 +217,15 @@ public class DrawingController {
 				{
 					int x = Integer.parseInt(dialog.getTxtX().getText());
 					int y = Integer.parseInt(dialog.getTxtY().getText());
-					Point newPoint = new Point(x, y, dialog.getOuterColor());
+					Point newPoint = new Point(x, y, dialog.getOuterColor(), true);
 					
-					int index = model.getShapes().indexOf(selectedShape);
-					model.getShapes().set(index, newPoint);
+					UpdatePointCmd updatePoint = new UpdatePointCmd(point, newPoint);
+					updatePoint.execute();
+					
 					frame.repaint();
 				};
 			} catch (Exception ex) {
-				ex.printStackTrace();
+				JOptionPane.showMessageDialog(frame, "Invalid input!");
 			}
 		}
 		else if (selectedShape instanceof Line)
@@ -232,14 +241,14 @@ public class DrawingController {
 					Point startPoint = new Point(Integer.parseInt(dialog.getXStartPoint().getText()), Integer.parseInt(dialog.getYStartPoint().getText()));
 					Point endPoint = new Point(Integer.parseInt(dialog.getXEndPoint().getText()), Integer.parseInt(dialog.getYEndPoint().getText()));
 					
-					Line newLine = new Line(startPoint, endPoint, dialog.getOuterColor());
+					Line newLine = new Line(startPoint, endPoint, dialog.getOuterColor(), true);
 					
-					int index = model.getShapes().indexOf(selectedShape);
-					model.getShapes().set(index, newLine);
+					UpdateLineCmd updateLine = new UpdateLineCmd(line, newLine);
+					updateLine.execute();
 					frame.repaint();
 				}
 			} catch (Exception ex) {
-				ex.printStackTrace();
+				JOptionPane.showMessageDialog(frame, "Invalid input!");
 			}
 		
 		}
@@ -264,13 +273,13 @@ public class DrawingController {
 					Donut newDonut = new Donut (center, Integer.parseInt(dialog.getTxtOuterRadius().getText()), Integer.parseInt(dialog.getTxtInnerRadius().getText()), 
 							dialog.getOuterColor(),	dialog.getInnerColor(), true);
 					
-					int index = model.getShapes().indexOf(selectedShape);
-					model.getShapes().set(index, newDonut);
+					UpdateDonutCmd updateDonut = new UpdateDonutCmd(donut, newDonut);
+					updateDonut.execute();
 					frame.repaint();
 				}
 				
 			} catch (Exception ex) {
-				ex.printStackTrace();
+				JOptionPane.showMessageDialog(frame, "Invalid input!");
 			}
 		}
 		else if (selectedShape instanceof Rectangle) 
@@ -281,8 +290,8 @@ public class DrawingController {
 						rectangle.getUpperLeftPoint(),
 						rectangle.getWidth(),
 						rectangle.getHeight(),
-						rectangle.getOuterColor(),
-						rectangle.getInnerColor());
+						rectangle.getInnerColor(),
+						rectangle.getOuterColor());
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog.setVisible(true);
 				
@@ -292,24 +301,72 @@ public class DrawingController {
 					Point upperLeftPoint = new Point(Integer.parseInt(dialog.getTxtUpperLeftPointX().getText()), Integer.parseInt(dialog.getTxtUpperLeftPointY().getText()));
 				
 					Rectangle newRectangle = new Rectangle (upperLeftPoint, Integer.parseInt(dialog.getTxtWidth().getText()), Integer.parseInt(dialog.getTxtHeight().getText()), 
-							dialog.getOuterColor(),	dialog.getInnerColor());
+							dialog.getInnerColor(),	dialog.getOuterColor(), true);
 					
-					int index = model.getShapes().indexOf(selectedShape);
-					model.getShapes().set(index, newRectangle);
+					UpdateRectangleCmd updateRectangle = new UpdateRectangleCmd(rectangle, newRectangle);
+					updateRectangle.execute();
 					frame.repaint();
 				}
 				
 			} catch (Exception ex) {
-				ex.printStackTrace();
+				JOptionPane.showMessageDialog(frame, "Invalid input!");
 			}
 		}	
 		else if(selectedShape instanceof Circle)
 		{
-			
+			try {
+				Circle circle = (Circle)selectedShape;
+				DlgCircleUpdate dialog = new DlgCircleUpdate(
+						circle.getCenter(),
+						circle.getRadius(),
+						circle.getInnerColor(),
+						circle.getOuterColor());
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setVisible(true);
+				
+				if(dialog.isConfirmation())
+				{
+					Point center = new Point(Integer.parseInt(dialog.getTxtCenterX().getText()), Integer.parseInt(dialog.getTxtCenterY().getText()));
+				
+					Circle newCircle = new Circle (center, Integer.parseInt(dialog.getTxtRadius().getText()), 
+							dialog.getOuterColor(),	dialog.getInnerColor(), true);
+					
+					UpdateCircleCmd updateCircle = new UpdateCircleCmd(circle, newCircle);
+					updateCircle.execute();
+					frame.repaint();
+				}
+				
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(frame, "Invalid input!");
+			}
 		}
 		else if (selectedShape instanceof HexagonAdapter)
 		{
-			
+			try {
+				HexagonAdapter hexagon = (HexagonAdapter)selectedShape;
+				DlgHexagonUpdate dialog = new DlgHexagonUpdate(
+						hexagon.getCenter(),
+						hexagon.getRadius(),
+						hexagon.getInnerColor(),
+						hexagon.getOuterColor());
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setVisible(true);
+				
+				if(dialog.isConfirmation())
+				{
+					Point center = new Point(Integer.parseInt(dialog.getTxtCenterX().getText()), Integer.parseInt(dialog.getTxtCenterY().getText()));
+				
+					HexagonAdapter newHexagon = new HexagonAdapter (center, Integer.parseInt(dialog.getTxtRadius().getText()), 
+							dialog.getOuterColor(),	dialog.getInnerColor(), true);
+					
+					UpdateHexagonCmd updateHexagon = new UpdateHexagonCmd(hexagon, newHexagon);
+					updateHexagon.execute();
+					frame.repaint();
+				}
+				
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(frame, "Invalid input!");
+			}
 		}
 	}
 	

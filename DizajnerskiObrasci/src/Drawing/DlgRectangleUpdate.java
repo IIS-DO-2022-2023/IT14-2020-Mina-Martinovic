@@ -2,6 +2,7 @@ package Drawing;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -16,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import geometry1.Point;
 
@@ -23,11 +25,13 @@ public class DlgRectangleUpdate extends JDialog{
 
 	
 	private static final long serialVersionUID = 1L;
+	private final JPanel contentPanel = new JPanel();
 	private JTextField txtUpperLeftPointX;
 	private JTextField txtUpperLeftPointY;
 	private JTextField txtWidth;
 	private JTextField txtHeight;
 	private boolean confirmation;
+	
 	private Color outerColor;
 	private Color innerColor;
 	
@@ -35,163 +39,171 @@ public class DlgRectangleUpdate extends JDialog{
 	private JButton innerColorButton;
 
 	
-	private final JButton btnCancel = new JButton("Cancel");
-
-	
-	public DlgRectangleUpdate (Point upperLeftPoint, int height, int width, Color outColor, Color inColor) {
+	public DlgRectangleUpdate (Point upperLeftPoint, int height, int width, Color inColor, Color outColor) {
+		setResizable(false);
 		setModal(true);
 		setTitle("Update Rectangle");
-		setBounds(100, 100, 450, 250);
-		JPanel panel = new JPanel();
-		getContentPane().add(panel, BorderLayout.CENTER);
-		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 0, 0, 117, 0, 0, 0};
-		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel.setLayout(gbl_panel);
-		
+		setBounds(100, 100, 390, 277);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		GridBagLayout gbl_contentPanel = new GridBagLayout();
+		gbl_contentPanel.columnWidths = new int[]{95, 120, 116, 0};
+		gbl_contentPanel.rowHeights = new int[]{22, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JLabel lblUpperLeftPointX = new JLabel("Upper Left Point X :");
-			lblUpperLeftPointX.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 14));
-			GridBagConstraints gbc_lblUpperLeftPointX = new GridBagConstraints();
-			gbc_lblUpperLeftPointX.insets = new Insets(0, 0, 5, 5);
-			gbc_lblUpperLeftPointX.gridx = 1;
-			gbc_lblUpperLeftPointX.gridy = 1;
-			panel.add(lblUpperLeftPointX, gbc_lblUpperLeftPointX);
+			{
+				JLabel lblUpperLeftPointX = new JLabel(" Upper Left Point X:");
+				lblUpperLeftPointX.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 14));
+				GridBagConstraints gbc_lblUpperLeftPointX = new GridBagConstraints();
+				gbc_lblUpperLeftPointX.insets = new Insets(0, 0, 5, 5);
+				gbc_lblUpperLeftPointX.gridx = 0;
+				gbc_lblUpperLeftPointX.gridy = 0;
+				contentPanel.add(lblUpperLeftPointX, gbc_lblUpperLeftPointX);
+			}
+			{
+				txtUpperLeftPointX  = new JTextField();
+				txtUpperLeftPointX .setText(Integer.toString(upperLeftPoint.getX()));
+				GridBagConstraints gbc_txtUpperLeftPointX = new GridBagConstraints();
+				gbc_txtUpperLeftPointX.anchor = GridBagConstraints.NORTH;
+				gbc_txtUpperLeftPointX.insets = new Insets(0, 0, 5, 5);
+				gbc_txtUpperLeftPointX.fill = GridBagConstraints.HORIZONTAL;
+				gbc_txtUpperLeftPointX.gridx = 1;
+				gbc_txtUpperLeftPointX.gridy = 0;
+				contentPanel.add(txtUpperLeftPointX , gbc_txtUpperLeftPointX);
+				txtUpperLeftPointX .setColumns(10);
+			}
+			{
+				JLabel lblUpperLeftPointY = new JLabel("Upper Left Point Y:");
+				lblUpperLeftPointY.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 14));
+				GridBagConstraints gbc_lblUpperLeftPointY = new GridBagConstraints();
+				gbc_lblUpperLeftPointY.insets = new Insets(0, 0, 5, 5);
+				gbc_lblUpperLeftPointY.gridx = 0;
+				gbc_lblUpperLeftPointY.gridy = 1;
+				contentPanel.add(lblUpperLeftPointY, gbc_lblUpperLeftPointY);
+			}
+			{
+				txtUpperLeftPointY  = new JTextField();
+				txtUpperLeftPointY .setText(Integer.toString(upperLeftPoint.getY()));
+				GridBagConstraints gbc_txtUpperLeftPointY = new GridBagConstraints();
+				gbc_txtUpperLeftPointY.anchor = GridBagConstraints.NORTH;
+				gbc_txtUpperLeftPointY.insets = new Insets(0, 0, 5, 5);
+				gbc_txtUpperLeftPointY.fill = GridBagConstraints.HORIZONTAL;
+				gbc_txtUpperLeftPointY.gridx = 1;
+				gbc_txtUpperLeftPointY.gridy = 1;
+				contentPanel.add(txtUpperLeftPointY , gbc_txtUpperLeftPointY );
+				txtUpperLeftPointY .setColumns(10);
+			}
+			{
+				JLabel lblHeight = new JLabel("Height:");
+				lblHeight.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 14));
+				GridBagConstraints gbc_lblHeight = new GridBagConstraints();
+				gbc_lblHeight.insets = new Insets(0, 0, 5, 5);
+				gbc_lblHeight.gridx = 0;
+				gbc_lblHeight.gridy = 2;
+				contentPanel.add(lblHeight, gbc_lblHeight);
+			}
+			{
+				txtHeight = new JTextField();
+				txtHeight.setText(Integer.toString(height));
+				GridBagConstraints gbc_txtHeight = new GridBagConstraints();
+				gbc_txtHeight.insets = new Insets(0, 0, 5, 5);
+				gbc_txtHeight.fill = GridBagConstraints.HORIZONTAL;
+				gbc_txtHeight.anchor = GridBagConstraints.NORTH;
+				gbc_txtHeight.gridx = 1;
+				gbc_txtHeight.gridy = 2;
+				contentPanel.add(txtHeight, gbc_txtHeight);
+				txtHeight.setColumns(10);
+			}
+			{
+				JLabel lblWidth = new JLabel("Width :");
+				lblWidth.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 14));
+				GridBagConstraints gbc_lblOuterRadius = new GridBagConstraints();
+				gbc_lblOuterRadius.insets = new Insets(0, 0, 5, 5);
+				gbc_lblOuterRadius.gridx = 0;
+				gbc_lblOuterRadius.gridy = 3;
+				contentPanel.add(lblWidth, gbc_lblOuterRadius);
+			}
+			{
+				txtWidth = new JTextField();
+				txtWidth.setText(Integer.toString(width));
+				GridBagConstraints gbc_txtWidth = new GridBagConstraints();
+				gbc_txtWidth.insets = new Insets(0, 0, 5, 5);
+				gbc_txtWidth.fill = GridBagConstraints.HORIZONTAL;
+				gbc_txtWidth.gridx = 1;
+				gbc_txtWidth.gridy = 3;
+				contentPanel.add(txtWidth, gbc_txtWidth);
+				txtWidth.setColumns(10);
+			}
 			
-			txtUpperLeftPointX = new JTextField();
-			txtUpperLeftPointX.setText(Integer.toString(upperLeftPoint.getX()));
-			GridBagConstraints gbc_txtUpperLeftPointX = new GridBagConstraints();
-			gbc_txtUpperLeftPointX.insets = new Insets(0, 0, 5, 5);
-			gbc_txtUpperLeftPointX.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtUpperLeftPointX.gridx = 3;
-			gbc_txtUpperLeftPointX.gridy = 1;
-			panel.add(txtUpperLeftPointX, gbc_txtUpperLeftPointX);
-			txtUpperLeftPointX.setColumns(10);
-		}
-		{
 			outerColorButton = new JButton("Outer Color");
 			outerColor = outColor;
 			outerColorButton.setBackground(outerColor);
+			outerColorButton.setFont(new Font("Tahoma", Font.BOLD, 10));
 			outerColorButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					outerColor = JColorChooser.showDialog(outerColorButton, "Choose your color", outerColor);
+					outerColor =  JColorChooser.showDialog(outerColorButton, "Choose your colour", outerColor);
 					outerColorButton.setBackground(outerColor);
 				}
 			});
-			outerColorButton.setFont(new Font("Yu Gothic Medium", Font.BOLD, 14));
 			GridBagConstraints gbc_outerColorButton = new GridBagConstraints();
 			gbc_outerColorButton.fill = GridBagConstraints.HORIZONTAL;
-			gbc_outerColorButton.anchor = GridBagConstraints.NORTH;
-			gbc_outerColorButton.insets = new Insets(0, 0, 5, 0);
-			gbc_outerColorButton.gridx = 5;
-			gbc_outerColorButton.gridy = 1;
-			panel.add(outerColorButton, gbc_outerColorButton);
-		}
-		{
-			JLabel lblUpperLeftPointY = new JLabel("Upper Left Point Y :");
-			lblUpperLeftPointY.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 14));
-			GridBagConstraints gbc_lblUpperLeftPointY = new GridBagConstraints();
-			gbc_lblUpperLeftPointY.insets = new Insets(0, 0, 5, 5);
-			gbc_lblUpperLeftPointY.gridx = 1;
-			gbc_lblUpperLeftPointY.gridy = 3;
-			panel.add(lblUpperLeftPointY, gbc_lblUpperLeftPointY);
-			
-			txtUpperLeftPointY = new JTextField();
-			txtUpperLeftPointY.setText(Integer.toString(upperLeftPoint.getY()));
-			GridBagConstraints gbc_txtUpperLeftPointY = new GridBagConstraints();
-			gbc_txtUpperLeftPointY.insets = new Insets(0, 0, 5, 5);
-			gbc_txtUpperLeftPointY.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtUpperLeftPointY.gridx = 3;
-			gbc_txtUpperLeftPointY.gridy = 3;
-			panel.add(txtUpperLeftPointY, gbc_txtUpperLeftPointY);
-			txtUpperLeftPointY.setColumns(10);
+			gbc_outerColorButton.anchor = GridBagConstraints.SOUTH;
+			gbc_outerColorButton.insets = new Insets(0, 0, 5, 5);
+			gbc_outerColorButton.gridx = 0;
+			gbc_outerColorButton.gridy = 4;
+			contentPanel.add(outerColorButton, gbc_outerColorButton);
 		}
 		{
 			innerColorButton = new JButton("Inner Color");
 			innerColor = inColor;
 			innerColorButton.setBackground(innerColor);
+			innerColorButton.setFont(new Font("Tahoma", Font.BOLD, 10));
 			innerColorButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					innerColor = JColorChooser.showDialog(innerColorButton, "Choose your colour",  innerColor);
+					innerColor = JColorChooser.showDialog(innerColorButton, "Choose your color:", innerColor);
 					innerColorButton.setBackground(innerColor);
 				}
 			});
-			innerColorButton.setFont(new Font("Yu Gothic Medium", Font.BOLD, 14));
 			GridBagConstraints gbc_innerColorButton = new GridBagConstraints();
 			gbc_innerColorButton.fill = GridBagConstraints.HORIZONTAL;
-			gbc_innerColorButton.insets = new Insets(0, 0, 5, 0);
-			gbc_innerColorButton.gridx = 5;
-			gbc_innerColorButton.gridy = 3;
-			panel.add(innerColorButton, gbc_innerColorButton);
+			gbc_innerColorButton.insets = new Insets(0, 0, 0, 5);
+			gbc_innerColorButton.gridx = 0;
+			gbc_innerColorButton.gridy = 5;
+			contentPanel.add(innerColorButton, gbc_innerColorButton);
 		}
-		{
-			JLabel lblWidth = new JLabel("Width :");
-			lblWidth.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 14));
-			GridBagConstraints gbc_lblWidth = new GridBagConstraints();
-			gbc_lblWidth.insets = new Insets(0, 0, 5, 5);
-			gbc_lblWidth.gridx = 1;
-			gbc_lblWidth.gridy = 5;
-			panel.add(lblWidth, gbc_lblWidth);
-			
-			txtWidth = new JTextField();
-			txtWidth.setText(Integer.toString(width));
-			GridBagConstraints gbc_txtWidth = new GridBagConstraints();
-			gbc_txtWidth.insets = new Insets(0, 0, 5, 5);
-			gbc_txtWidth.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtWidth.gridx = 3;
-			gbc_txtWidth.gridy = 5;
-			panel.add(txtWidth, gbc_txtWidth);
-			txtWidth.setColumns(10);
-		}
-		{
-			JButton btnOK = new JButton("Ok");
-			btnOK.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					setConfirmation(true);
-					setVisible(false);
+			{
+				JPanel buttonPane = new JPanel();
+				buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+				getContentPane().add(buttonPane, BorderLayout.SOUTH);
+				{
+					JButton okButton = new JButton("OK");
+					okButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							setConfirmation(true);
+							setVisible(false);
+						}
+					});
+					okButton.setActionCommand("OK");
+					buttonPane.add(okButton);
+					getRootPane().setDefaultButton(okButton);
 				}
-			});
-			btnOK.setFont(new Font("Yu Gothic Medium", Font.BOLD, 12));
-			GridBagConstraints gbc_btnOK = new GridBagConstraints();
-			gbc_btnOK.fill = GridBagConstraints.HORIZONTAL;
-			gbc_btnOK.insets = new Insets(0, 0, 5, 0);
-			gbc_btnOK.gridx = 5;
-			gbc_btnOK.gridy = 6;
-			panel.add(btnOK, gbc_btnOK);
-		}
-		{
-			JLabel lblHeight = new JLabel("Height :");
-			lblHeight.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 14));
-			GridBagConstraints gbc_lblHeight = new GridBagConstraints();
-			gbc_lblHeight.insets = new Insets(0, 0, 0, 5);
-			gbc_lblHeight.gridx = 1;
-			gbc_lblHeight.gridy = 7;
-			panel.add(lblHeight, gbc_lblHeight);
-			
-			txtHeight = new JTextField();
-			txtHeight.setText(Integer.toString(height));
-			GridBagConstraints gbc_txtHeight = new GridBagConstraints();
-			gbc_txtHeight.insets = new Insets(0, 0, 0, 5);
-			gbc_txtHeight.fill = GridBagConstraints.HORIZONTAL;
-			gbc_txtHeight.gridx = 3;
-			gbc_txtHeight.gridy = 7;
-			panel.add(txtHeight, gbc_txtHeight);
-			txtHeight.setColumns(10);
-		}
-		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
-		gbc_btnCancel.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnCancel.gridx = 5;
-		gbc_btnCancel.gridy = 7;
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
+				{
+					JButton cancelButton = new JButton("Cancel");
+					cancelButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							
+							dispose();
+							
+						}
+					});
+					cancelButton.setActionCommand("Cancel");
+					buttonPane.add(cancelButton);
+				}
 			}
-		});
-		btnCancel.setFont(new Font("Yu Gothic Medium", Font.BOLD, 12));
-		btnCancel.setHorizontalAlignment(SwingConstants.CENTER); //POZICIONIRANJE KOMPONENTI na ekranu
-		panel.add(btnCancel, gbc_btnCancel);
+		
 	}	
 	
 	public JTextField getTxtUpperLeftPointX() {

@@ -30,6 +30,15 @@ public class Circle extends ThreeDShape{
 		this(center, radius);
 		setSelected(selected);
 	}
+	
+	public Circle(Point center, int r, Color outerColor, Color innerColor, boolean selected)
+	{
+		this.center = center;
+		this.radius = r;
+		setInnerColor(innerColor);
+		setOuterColor(outerColor);
+		setSelected(selected);
+	}
 
 	public double area() {
 		return this.radius * this.radius * Math.PI;
@@ -64,10 +73,9 @@ public class Circle extends ThreeDShape{
     	try {
 			return new Circle(center.clone(), radius, getOuterColor(), getInnerColor());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			return null;
 		}
-		return null;
     }
 	
 	public void draw(Graphics g) {

@@ -72,10 +72,10 @@ public class Donut extends Circle{
     	try {
 			return new Donut(center.clone(), outerRadius, innerRadius, getOuterColor(), getInnerColor());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			return null;
 		}
-		return null;
+		
     }
 
 	public static long getSerialversionuid() {

@@ -30,6 +30,13 @@ public class Line extends Shape{
 		setOuterColor(outerColor);
 	}
 
+	public Line(Point startPoint, Point endPoint, Color outerColor, boolean selected) {
+		this.startPoint = startPoint;
+		this.endPoint = endPoint;
+		setOuterColor(outerColor);
+		setSelected(selected);
+	}
+	
 	public double length() {
 		return this.startPoint.distance(this.endPoint.getX(), this.endPoint.getY());
 	}

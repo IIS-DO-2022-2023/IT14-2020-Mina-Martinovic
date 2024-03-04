@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
@@ -263,8 +265,25 @@ public class DlgCircle extends JDialog {
 				contentPanel.add(okButton, gbc_okButton);
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						setConfirmation(true);
-						setVisible(false);
+						if(txtRadius.getText().equals(""))
+						{
+							JOptionPane.showMessageDialog(okButton, "Radius can't be empty!");
+						}
+						else
+						{
+							try {
+								int radius = Integer.parseInt(txtRadius.getText());
+								
+								setConfirmation(true);
+								setVisible(false);
+							}
+							catch (Exception e) {
+								
+								JOptionPane.showMessageDialog(okButton, "Radius must be a number!");
+							}
+						
+						}
+						
 					}
 				});
 				okButton.setActionCommand("OK");

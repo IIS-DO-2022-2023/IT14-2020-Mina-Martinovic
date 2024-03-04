@@ -2,6 +2,7 @@ package Drawing;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -13,152 +14,197 @@ import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import geometry1.Point;
 
 
 public class DlgCircleUpdate extends JDialog{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	private final JPanel contentPanel = new JPanel();
+	
 	private JTextField txtRadius;
 	private boolean confirmation;
 	private int radius;
+	
 	private Color outerColor;
 	private Color innerColor;
 	private JTextField txtCenterX;
 	private JTextField txtCenterY;
+	
 	private JButton outerColorButton;
 	private JButton innerColorButton;
 
 	
-	public DlgCircleUpdate() {
-		setResizable(true);
+	public DlgCircleUpdate(Point center, int radius, Color inColor, Color outColor) {
+		setResizable(false);
 		setModal(true);
 		setTitle("Update Circle");
-		setBounds(100, 100, 350, 200);
-		JPanel panel = new JPanel();
-		getContentPane().add(panel, BorderLayout.CENTER);
-		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 0, 100, 62, 21, 68, 0, 0, 0};
-		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 22, 0, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel.setLayout(gbl_panel);
-		
-		outerColorButton = new JButton("Outer Color");
-		outerColorButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				outerColor = JColorChooser.showDialog(outerColorButton, "Choose your color", Color.BLACK);
-				outerColorButton.setBackground(outerColor);
+		setBounds(100, 100, 390, 277);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		GridBagLayout gbl_contentPanel = new GridBagLayout();
+		gbl_contentPanel.columnWidths = new int[]{95, 120, 116, 0};
+		gbl_contentPanel.rowHeights = new int[]{22, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		contentPanel.setLayout(gbl_contentPanel);
+		{
+			{
+				JLabel lblCenterX  = new JLabel("X:");
+				lblCenterX .setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 14));
+				GridBagConstraints gbc_lblCenterX = new GridBagConstraints();
+				gbc_lblCenterX.insets = new Insets(0, 0, 5, 5);
+				gbc_lblCenterX.gridx = 0;
+				gbc_lblCenterX.gridy = 0;
+				contentPanel.add(lblCenterX , gbc_lblCenterX);
 			}
-		});
-		
-		JLabel lblCenterX = new JLabel("Center X :");
-		lblCenterX.setFont(new Font("Yu Gothic Medium", Font.PLAIN, 14));
-		GridBagConstraints gbc_lblCenterX = new GridBagConstraints();
-		gbc_lblCenterX.insets = new Insets(0, 0, 5, 5);
-		gbc_lblCenterX.gridx = 2;
-		gbc_lblCenterX.gridy = 1;
-		panel.add(lblCenterX, gbc_lblCenterX);
-		
-		txtCenterX = new JTextField();
-		GridBagConstraints gbc_txtCenterX = new GridBagConstraints();
-		gbc_txtCenterX.insets = new Insets(0, 0, 5, 5);
-		gbc_txtCenterX.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtCenterX.gridx = 3;
-		gbc_txtCenterX.gridy = 1;
-		panel.add(txtCenterX, gbc_txtCenterX);
-		txtCenterX.setColumns(10);
-		
-		JLabel lblCenterY = new JLabel("Center Y :");
-		lblCenterY.setFont(new Font("Yu Gothic Medium", Font.PLAIN, 14));
-		GridBagConstraints gbc_lblCenterY = new GridBagConstraints();
-		gbc_lblCenterY.insets = new Insets(0, 0, 5, 5);
-		gbc_lblCenterY.gridx = 2;
-		gbc_lblCenterY.gridy = 2;
-		panel.add(lblCenterY, gbc_lblCenterY);
-		
-		txtCenterY = new JTextField();
-		GridBagConstraints gbc_txtCenterY = new GridBagConstraints();
-		gbc_txtCenterY.insets = new Insets(0, 0, 5, 5);
-		gbc_txtCenterY.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtCenterY.gridx = 3;
-		gbc_txtCenterY.gridy = 2;
-		panel.add(txtCenterY, gbc_txtCenterY);
-		txtCenterY.setColumns(10);
-		
-		JLabel lblR = new JLabel("Radius :");
-		lblR.setFont(new Font("Yu Gothic Medium", Font.PLAIN, 14));
-		GridBagConstraints gbc_lblR = new GridBagConstraints();
-		gbc_lblR.insets = new Insets(0, 0, 5, 5);
-		gbc_lblR.gridx = 2;
-		gbc_lblR.gridy = 3;
-		panel.add(lblR, gbc_lblR);
-		
-		txtRadius = new JTextField();
-		GridBagConstraints gbc_txtCenterX1 = new GridBagConstraints();
-		gbc_txtCenterX1.insets = new Insets(0, 0, 5, 5);
-		gbc_txtCenterX1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtCenterX1.gridx = 3;
-		gbc_txtCenterX1.gridy = 3;
-		panel.add(txtRadius, gbc_txtCenterX1);
-		txtRadius.setColumns(10);
-		
-		outerColorButton.setFont(new Font("Yu Gothic Medium", Font.PLAIN, 14));
-		GridBagConstraints gbc_outerColorButton = new GridBagConstraints();
-		gbc_outerColorButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_outerColorButton.insets = new Insets(0, 0, 5, 5);
-		gbc_outerColorButton.gridx = 2;
-		gbc_outerColorButton.gridy = 4;
-		panel.add(outerColorButton, gbc_outerColorButton);
-		
-		innerColorButton = new JButton("Inner Color");
-		innerColorButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				innerColor = JColorChooser.showDialog(innerColorButton, "Choose your color", Color.WHITE);
-				innerColorButton.setBackground(innerColor);
-
+			{
+				txtCenterX  = new JTextField();
+				txtCenterX .setText(Integer.toString(center.getX()));
+				GridBagConstraints gbc_txtCenterX = new GridBagConstraints();
+				gbc_txtCenterX.anchor = GridBagConstraints.NORTH;
+				gbc_txtCenterX.insets = new Insets(0, 0, 5, 5);
+				gbc_txtCenterX.fill = GridBagConstraints.HORIZONTAL;
+				gbc_txtCenterX.gridx = 1;
+				gbc_txtCenterX.gridy = 0;
+				contentPanel.add(txtCenterX , gbc_txtCenterX);
+				txtCenterX .setColumns(10);
 			}
-		});
-		innerColorButton.setFont(new Font("Yu Gothic Medium", Font.PLAIN, 14));
-		GridBagConstraints gbc_innerColorButton = new GridBagConstraints();
-		gbc_innerColorButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_innerColorButton.insets = new Insets(0, 0, 5, 5);
-		gbc_innerColorButton.gridx = 3;
-		gbc_innerColorButton.gridy = 4;
-		panel.add(innerColorButton, gbc_innerColorButton);
-		
-		JButton btnNewButton = new JButton("Ok");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setConfirmation(true);
-				setVisible(false);
+			{
+				JLabel lblCenterY = new JLabel("Y:");
+				lblCenterY.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 14));
+				GridBagConstraints gbc_lblCenterY = new GridBagConstraints();
+				gbc_lblCenterY.insets = new Insets(0, 0, 5, 5);
+				gbc_lblCenterY.gridx = 0;
+				gbc_lblCenterY.gridy = 1;
+				contentPanel.add(lblCenterY, gbc_lblCenterY);
 			}
-		});
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton.gridx = 2;
-		gbc_btnNewButton.gridy = 6;
-		panel.add(btnNewButton, gbc_btnNewButton);
-		
-		JButton btnCancel = new JButton("Cancel");
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
+			{
+				txtCenterY = new JTextField();
+				txtCenterY.setText(Integer.toString(center.getY()));
+				GridBagConstraints gbc_txtCenterY = new GridBagConstraints();
+				gbc_txtCenterY.anchor = GridBagConstraints.NORTH;
+				gbc_txtCenterY.insets = new Insets(0, 0, 5, 5);
+				gbc_txtCenterY.fill = GridBagConstraints.HORIZONTAL;
+				gbc_txtCenterY.gridx = 1;
+				gbc_txtCenterY.gridy = 1;
+				contentPanel.add(txtCenterY, gbc_txtCenterY);
+				txtCenterY.setColumns(10);
 			}
-		});
-		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
-		gbc_btnCancel.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnCancel.insets = new Insets(0, 0, 5, 5);
-		gbc_btnCancel.gridx = 3;
-		gbc_btnCancel.gridy = 6;
-		panel.add(btnCancel, gbc_btnCancel);
+			{
+				JLabel lblRadius = new JLabel("Radius:");
+				lblRadius.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 14));
+				GridBagConstraints gbc_lblRadius = new GridBagConstraints();
+				gbc_lblRadius.insets = new Insets(0, 0, 5, 5);
+				gbc_lblRadius.gridx = 0;
+				gbc_lblRadius.gridy = 2;
+				contentPanel.add(lblRadius, gbc_lblRadius);
+			}
+			{
+				txtRadius = new JTextField();
+				txtRadius.setText(Integer.toString(radius));
+				GridBagConstraints gbc_txtRadius = new GridBagConstraints();
+				gbc_txtRadius.insets = new Insets(0, 0, 5, 5);
+				gbc_txtRadius.fill = GridBagConstraints.HORIZONTAL;
+				gbc_txtRadius.anchor = GridBagConstraints.NORTH;
+				gbc_txtRadius.gridx = 1;
+				gbc_txtRadius.gridy = 2;
+				contentPanel.add(txtRadius, gbc_txtRadius);
+				txtRadius.setColumns(10);
+			}
+			
+			outerColorButton = new JButton("Outer Color");
+			outerColor = outColor;
+			outerColorButton.setBackground(outerColor);
+			outerColorButton.setFont(new Font("Tahoma", Font.BOLD, 10));
+			outerColorButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					outerColor =  JColorChooser.showDialog(outerColorButton, "Choose your colour", outerColor);
+					outerColorButton.setBackground(outerColor);
+				}
+			});
+			GridBagConstraints gbc_outerColorButton = new GridBagConstraints();
+			gbc_outerColorButton.fill = GridBagConstraints.HORIZONTAL;
+			gbc_outerColorButton.anchor = GridBagConstraints.SOUTH;
+			gbc_outerColorButton.insets = new Insets(0, 0, 5, 5);
+			gbc_outerColorButton.gridx = 0;
+			gbc_outerColorButton.gridy = 4;
+			contentPanel.add(outerColorButton, gbc_outerColorButton);
+		}
+		{
+			innerColorButton = new JButton("Inner Color");
+			innerColor = inColor;
+			innerColorButton.setBackground(innerColor);
+			innerColorButton.setFont(new Font("Tahoma", Font.BOLD, 10));
+			innerColorButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					innerColor = JColorChooser.showDialog(innerColorButton, "Choose your color:", innerColor);
+					innerColorButton.setBackground(innerColor);
+				}
+			});
+			GridBagConstraints gbc_innerColorButton = new GridBagConstraints();
+			gbc_innerColorButton.fill = GridBagConstraints.HORIZONTAL;
+			gbc_innerColorButton.insets = new Insets(0, 0, 0, 5);
+			gbc_innerColorButton.gridx = 0;
+			gbc_innerColorButton.gridy = 5;
+			contentPanel.add(innerColorButton, gbc_innerColorButton);
+		}
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						
+						if(txtRadius.getText().equals("") || txtCenterX.getText().equals("") || txtCenterY.getText().equals(""))
+						{
+							JOptionPane.showMessageDialog(okButton, "Radius, x and y coordinates can't be empty!");
+						}
+						else
+						{
+							try {
+								int radius = Integer.parseInt(txtRadius.getText());
+								int x = Integer.parseInt(txtCenterX.getText());
+								int y = Integer.parseInt(txtCenterY.getText());
+								
+								setConfirmation(true);
+								setVisible(false);
+							}
+							catch (Exception e) {
+								
+								JOptionPane.showMessageDialog(okButton, "Radius must be a number!");
+							}
+						
+						}
+											
+					}
+				});
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						dispose();
+						
+					}
+				});
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
 	}
-		
 	
 	public JTextField getTxtCenterX() {
 		return txtCenterX;

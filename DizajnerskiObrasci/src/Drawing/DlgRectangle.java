@@ -316,7 +316,7 @@ public class DlgRectangle extends JDialog {
 		{
 		  innerColorButton = new JButton("Inner color:");
 		  innerColor = inColor;
-		  innerColorButton.setBackground(inColor);
+		  innerColorButton.setBackground(innerColor);
 		  innerColorButton.setForeground(new Color(0, 0, 0));
 		  innerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
 		  innerColorButton.addActionListener(new ActionListener() {

@@ -28,6 +28,13 @@ public class Point extends Shape{
 		this.y = y;
 		setOuterColor(outerColor);
 	}
+	
+	public Point(int x, int y, Color outerColor, boolean selected) {
+		this.x = x;
+		this.y = y;
+		setOuterColor(outerColor);
+		setSelected(selected);
+	}
 
 	public double distance(int x2, int y2) {
 		double dx = this.x - x2;

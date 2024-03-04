@@ -37,6 +37,15 @@ public class Rectangle extends ThreeDShape {
 		setInnerColor(innerColor);
 	}
 	
+	public Rectangle(Point upperLeftPoint, int width, int height, Color outerColor , Color innerColor, boolean selected) {
+			this.upperLeftPoint = upperLeftPoint;
+			this.width = width;
+			this.height = height;
+			setInnerColor(innerColor);
+			setOuterColor(outerColor);
+			setSelected(selected);
+	}
+	
 	public Rectangle(int x, int y, int width, int height)
 	{
 		upperLeftPoint.setX(x);

@@ -16,6 +16,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
@@ -152,7 +154,7 @@ public class DlgDonut extends JDialog {
 		  {
 			  innerColorButton = new JButton("Inner color");
 			  innerColor = inColor;
-			  innerColorButton.setBackground(inColor);
+			  innerColorButton.setBackground(innerColor);
 			  innerColor = inColor;
 			  innerColorButton.setForeground(new Color(0, 0, 0));
 			  innerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
@@ -199,8 +201,35 @@ public class DlgDonut extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					
 					public void actionPerformed(ActionEvent arg0) {
-						setConfirmation(true);
-						setVisible(false);
+						
+						if(innerRadius.getText().equals("") || outerRadius.getText().equals(""))
+						{
+							JOptionPane.showMessageDialog(okButton, "Both inner and outer radius can't be empty!");
+						}
+						else {
+							try {
+							
+								int inner = Integer.parseInt(innerRadius.getText());
+								int outer = Integer.parseInt(outerRadius.getText());
+								
+								if(inner > outer - 10)
+								{
+									JOptionPane.showMessageDialog(okButton, "Outer radius must be greater than inner radius for at least 10!");
+								}
+								else {
+									
+									setConfirmation(true);
+									setVisible(false);
+								}
+								
+							}
+							catch(Exception e) {
+								
+								JOptionPane.showMessageDialog(okButton, "Both inner and outer radius must be a number!");
+							}
+						}
+						
+				
 					}
 					});
 				okButton.setActionCommand("OK");
