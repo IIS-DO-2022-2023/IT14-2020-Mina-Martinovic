@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -182,8 +183,28 @@ public class DlgRectangleUpdate extends JDialog{
 					JButton okButton = new JButton("OK");
 					okButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
-							setConfirmation(true);
-							setVisible(false);
+							if(txtWidth.getText().equals("") || txtHeight.getText().equals("") || txtUpperLeftPointX.getText().equals("") || txtUpperLeftPointY.getText().equals(""))
+							{
+								JOptionPane.showMessageDialog(okButton, "Radius, x and y coordinates can't be empty!");
+							}
+							else
+							{
+								try {
+									int width = Integer.parseInt(txtWidth.getText());
+									int height = Integer.parseInt(txtHeight.getText());
+									int x = Integer.parseInt(txtUpperLeftPointX.getText());
+									int y = Integer.parseInt(txtUpperLeftPointY.getText());
+									
+									setConfirmation(true);
+									setVisible(false);
+								}
+								catch (Exception e) {
+									
+									JOptionPane.showMessageDialog(okButton, "Both width and height must be a number!");
+								}
+							
+							}
+								
 						}
 					});
 					okButton.setActionCommand("OK");

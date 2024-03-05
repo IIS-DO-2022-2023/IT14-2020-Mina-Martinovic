@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -163,8 +164,27 @@ public class DlgHexagonUpdate extends JDialog{
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						setConfirmation(true);
-						setVisible(false);
+						if(txtRadius.getText().equals("") || txtCenterX.getText().equals("") || txtCenterY.getText().equals(""))
+						{
+							JOptionPane.showMessageDialog(okButton, "Radius, x and y coordinates can't be empty!");
+						}
+						else
+						{
+							try {
+								int radius = Integer.parseInt(txtRadius.getText());
+								int x = Integer.parseInt(txtCenterX.getText());
+								int y = Integer.parseInt(txtCenterY.getText());
+								
+								setConfirmation(true);
+								setVisible(false);
+							}
+							catch (Exception e) {
+								
+								JOptionPane.showMessageDialog(okButton, "Radius must be a number!");
+							}
+						
+						}
+							
 					}
 				});
 				okButton.setActionCommand("OK");

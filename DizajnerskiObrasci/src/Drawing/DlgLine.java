@@ -17,6 +17,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
@@ -161,8 +163,25 @@ public class DlgLine extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						confirmation=true;
-						setVisible(false);
+						
+						/*if(XStartPoint.getText().equals("") || YStartPoint.getText().equals("") || XEndPoint.getText().equals("") || YEndPoint.getText().equals(""))
+						{
+							JOptionPane.showMessageDialog(okButton, "Coordinates neither for start point nor end point can't be empty!");
+						}
+						else
+						{
+							try {
+								int radius = Integer.parseInt(txtRadius.getText());
+								
+								setConfirmation(true);
+								setVisible(false);
+							}
+							catch (Exception e) {
+								
+								JOptionPane.showMessageDialog(okButton, "Radius must be a number!");
+							}
+						
+						}*/
 					}
 				});
 				okButton.setActionCommand("OK");

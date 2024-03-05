@@ -4,6 +4,7 @@ import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -184,8 +185,28 @@ public class DlgDonutUpdate extends JDialog{
 					JButton okButton = new JButton("OK");
 					okButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
-							setConfirmation(true);
-							setVisible(false);
+
+							if(txtInnerRadius.getText().equals("") || txtOuterRadius.getText().equals("") || txtX.getText().equals("") || txtY.getText().equals(""))
+							{
+								JOptionPane.showMessageDialog(okButton, "Both inner and outer radius, x and y coordinates can't be empty!");
+							}
+							else
+							{
+								try {
+									int innerRadius = Integer.parseInt(txtInnerRadius.getText());
+									int outerRadius = Integer.parseInt(txtOuterRadius.getText());
+									int x = Integer.parseInt(txtX.getText());
+									int y = Integer.parseInt(txtY.getText());
+									
+									setConfirmation(true);
+									setVisible(false);
+								}
+								catch (Exception e) {
+									
+									JOptionPane.showMessageDialog(okButton, "Both inner and outer radius must be a number!");
+								}
+							
+							}
 						}
 					});
 					okButton.setActionCommand("OK");
