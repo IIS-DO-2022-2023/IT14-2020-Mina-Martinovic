@@ -24,7 +24,7 @@ import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class DlgLine extends JDialog {
+public class DlgLineUpdate extends JDialog {
 
 	
 	private static final long serialVersionUID = 1L;
@@ -40,7 +40,7 @@ public class DlgLine extends JDialog {
 	private JButton outerColorButton;
 
 	
-	public DlgLine(Point startPoint, Point endPoint, Color outColor) {
+	public DlgLineUpdate(Point startPoint, Point endPoint, Color outColor) {
 		setBounds(100, 100, 450, 300);
 		setTitle("Line:");
 		setModal(true);

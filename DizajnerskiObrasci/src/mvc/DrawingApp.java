@@ -14,6 +14,8 @@ public class DrawingApp {
 		DrawingController controller = new DrawingController(frame, model);
 		
 		frame.setController(controller);
+		
+		controller.addPropertyChangeListener(frame);
 
 	}
 }

@@ -22,10 +22,13 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 
-public class DrawingFrame extends JFrame{
+public class DrawingFrame extends JFrame implements PropertyChangeListener{
 
 	private JPanel contentPane;
 	
@@ -35,6 +38,9 @@ public class DrawingFrame extends JFrame{
 
 	private Color innerColor = Color.white;
 	private Color outerColor = Color.black;
+	
+	private JButton btnDelete;
+	private JButton btnModify;
 	
 	/**
 	 * Launch the application.
@@ -87,16 +93,117 @@ public class DrawingFrame extends JFrame{
 		gbc_chooseShape.gridx = 3;
 		gbc_chooseShape.gridy = 0;
 		pnlCenter.add(lblChooseShape, gbc_chooseShape);
+		
+				
+				
+				// brisanje
+				btnDelete = new JButton("Delete");
+				btnDelete.setEnabled(false);
+				btnDelete.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					
+						controller.deleteSelectedShapes();
+					}
+				});
+				
+				
+						GridBagConstraints gbc_lbDelete = new GridBagConstraints();
+						gbc_lbDelete.anchor = GridBagConstraints.EAST;
+						gbc_lbDelete.insets = new Insets(0, 0, 5, 5);
+						gbc_lbDelete.gridx = 1;
+						gbc_lbDelete.gridy = 1;
+						pnlCenter.add(btnDelete, gbc_lbDelete);
+		
+		JPanel panel_1 = new JPanel();
+		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_1.fill = GridBagConstraints.BOTH;
+		gbc_panel_1.gridx = 4;
+		gbc_panel_1.gridy = 1;
+		pnlCenter.add(panel_1, gbc_panel_1);
+		
+				// odabir boje
+				JButton btnChooseInnerColor = new JButton("Choose inner color");
+				panel_1.add(btnChooseInnerColor);
+				btnChooseInnerColor.setBackground(Color.WHITE);
+				
+						JButton btnChooseOuterColor = new JButton("Choose outer color");
+						panel_1.add(btnChooseOuterColor);
+						btnChooseOuterColor.setForeground(Color.WHITE);
+						btnChooseOuterColor.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {				
+								Color color = JColorChooser.showDialog(null, "Choose color", outerColor);
+								if(color != null)
+								{
+									outerColor = color;
+									btnChooseOuterColor.setBackground(outerColor);
+								}
+							}
+						});
+						btnChooseOuterColor.setBackground(Color.BLACK);
+				btnChooseInnerColor.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {			
+						Color color = JColorChooser.showDialog(null, "Choose color", innerColor);
+						if(color != null)
+						{
+							innerColor = color;
+							btnChooseInnerColor.setBackground(innerColor);
+						}
 
+					}
+				});
+		
+				
+				
+		
+				// modifikacija
+				btnModify = new JButton("Modify");
+				btnModify.setEnabled(false);
+				btnModify.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+
+						controller.modifySelectedShape();
+					}
+				});
+				
+				
+						GridBagConstraints gbc_lbModify = new GridBagConstraints();
+						gbc_lbModify.anchor = GridBagConstraints.EAST;
+						gbc_lbModify.insets = new Insets(0, 0, 5, 5);
+						gbc_lbModify.gridx = 1;
+						gbc_lbModify.gridy = 2;
+						pnlCenter.add(btnModify, gbc_lbModify);
+		
+		JPanel panel_2 = new JPanel();
+		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
+		gbc_panel_2.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_2.fill = GridBagConstraints.BOTH;
+		gbc_panel_2.gridx = 4;
+		gbc_panel_2.gridy = 2;
+		pnlCenter.add(panel_2, gbc_panel_2);
+		
+		JButton btnToFront = new JButton("To Front");
+		panel_2.add(btnToFront);
+		
+		JButton btnToBack = new JButton("To Back");
+		panel_2.add(btnToBack);
+		
+		JButton btnBringToFront = new JButton("Bring To Front");
+		panel_2.add(btnBringToFront);
+		
+		JButton btnBringToBack = new JButton("Bring To Back");
+		panel_2.add(btnBringToBack);
+		
+		
 		JToggleButton tglbtnSelect = new JToggleButton("Select");
-			
-			
-			GridBagConstraints gbc_tglbtnSelect = new GridBagConstraints();
-			gbc_tglbtnSelect.anchor = GridBagConstraints.EAST;
-			gbc_tglbtnSelect.insets = new Insets(0, 0, 5, 5);
-			gbc_tglbtnSelect.gridx = 3;
-			gbc_tglbtnSelect.gridy = 3;
-			pnlCenter.add(tglbtnSelect, gbc_tglbtnSelect);
+		
+		
+		GridBagConstraints gbc_tglbtnSelect = new GridBagConstraints();
+		gbc_tglbtnSelect.anchor = GridBagConstraints.EAST;
+		gbc_tglbtnSelect.insets = new Insets(0, 0, 5, 5);
+		gbc_tglbtnSelect.gridx = 1;
+		gbc_tglbtnSelect.gridy = 3;
+		pnlCenter.add(tglbtnSelect, gbc_tglbtnSelect);
 		
 		
 		JComboBox<String> cbxChooseShape = new JComboBox<String>();
@@ -142,93 +249,8 @@ public class DrawingFrame extends JFrame{
 		gbc_cbxChooseShape.gridx = 4;
 		gbc_cbxChooseShape.gridy = 0;
 		pnlCenter.add(cbxChooseShape, gbc_cbxChooseShape);
-
-		// odabir boje
-		JButton btnChooseInnerColor = new JButton("Choose inner color");
-		btnChooseInnerColor.setBackground(Color.WHITE);
-		btnChooseInnerColor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {			
-				Color color = JColorChooser.showDialog(null, "Choose color", innerColor);
-				if(color != null)
-				{
-					innerColor = color;
-					btnChooseInnerColor.setBackground(innerColor);
-				}
-
-			}
-		});
-
-
-		GridBagConstraints gbc_btnChooseInnerColor = new GridBagConstraints();
-		gbc_btnChooseInnerColor.anchor = GridBagConstraints.EAST;
-		gbc_btnChooseInnerColor.insets = new Insets(0, 0, 5, 0);
-		gbc_btnChooseInnerColor.gridx = 4;
-		gbc_btnChooseInnerColor.gridy = 1;
-		pnlCenter.add(btnChooseInnerColor, gbc_btnChooseInnerColor);
-
-		JButton btnChooseOuterColor = new JButton("Choose outer color");
-		btnChooseOuterColor.setForeground(Color.WHITE);
-		btnChooseOuterColor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				
-				Color color = JColorChooser.showDialog(null, "Choose color", outerColor);
-				if(color != null)
-				{
-					outerColor = color;
-					btnChooseOuterColor.setBackground(outerColor);
-				}
-			}
-		});
-		btnChooseOuterColor.setBackground(Color.BLACK);
-		
-		GridBagConstraints gbc_btnChooseOuterColor = new GridBagConstraints();
-		gbc_btnChooseOuterColor.anchor = GridBagConstraints.EAST;
-		gbc_btnChooseOuterColor.insets = new Insets(0, 0, 5, 0);
-		gbc_btnChooseOuterColor.gridx = 4;
-		gbc_btnChooseOuterColor.gridy = 2;
-		pnlCenter.add(btnChooseOuterColor, gbc_btnChooseOuterColor);
-
-		
-		
-		// brisanje
-		JButton btnDelete = new JButton("Delete");
-		btnDelete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			
-				controller.deleteSelectedShapes();
-			}
-		});
-
-
-		GridBagConstraints gbc_lbDelete = new GridBagConstraints();
-		gbc_lbDelete.anchor = GridBagConstraints.EAST;
-		gbc_lbDelete.insets = new Insets(0, 0, 5, 5);
-		gbc_lbDelete.gridx = 3;
-		gbc_lbDelete.gridy = 1;
-		pnlCenter.add(btnDelete, gbc_lbDelete);
-
-		
 		
 
-		// modifikacija
-		JButton btnModify = new JButton("Modify");
-		btnModify.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				controller.modifySelectedShape();
-			}
-		});
-
-
-		GridBagConstraints gbc_lbModify = new GridBagConstraints();
-		gbc_lbModify.anchor = GridBagConstraints.EAST;
-		gbc_lbModify.insets = new Insets(0, 0, 5, 5);
-		gbc_lbModify.gridx = 3;
-		gbc_lbModify.gridy = 2;
-		pnlCenter.add(btnModify, gbc_lbModify);
-		
-		
-	
-		
 														
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -300,7 +322,20 @@ public class DrawingFrame extends JFrame{
 	public void setOuterColor(Color outerColor) {
 		this.outerColor = outerColor;
 	}
-	
+
+	@Override
+	public void propertyChange(PropertyChangeEvent event) {
+		
+		if(event.getPropertyName().equals("Delete"))
+		{
+			btnDelete.setEnabled((boolean) event.getNewValue());
+		}
+		
+		else if(event.getPropertyName().equals("Modify"))
+		{
+			btnModify.setEnabled((boolean) event.getNewValue());
+		}
+	}
 	
 	
 

@@ -2,6 +2,8 @@ package mvc;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -11,8 +13,8 @@ import Drawing.DlgCircleUpdate;
 import Drawing.DlgDonut;
 import Drawing.DlgDonutUpdate;
 import Drawing.DlgHexagonUpdate;
-import Drawing.DlgLine;
-import Drawing.DlgPoint;
+import Drawing.DlgLineUpdate;
+import Drawing.DlgPointUpdate;
 import Drawing.DlgRectangle;
 import Drawing.DlgRectangleUpdate;
 import adapter.HexagonAdapter;
@@ -44,10 +46,13 @@ public class DrawingController {
 	
 	private Shape selectedShape;
 	
+	private PropertyChangeSupport propertyChangeSupport;
+	
 	public DrawingController (DrawingFrame frame, DrawingModel model)
 	{
 		this.frame = frame;
 		this.model = model;				
+		propertyChangeSupport = new PropertyChangeSupport(this);
 	}
 	
 	public void selectShape(MouseEvent e)
@@ -87,8 +92,26 @@ public class DrawingController {
 				}
 				
 			}
+		
+
 		}
 		System.out.println(model.getSelectedShapes().size());
+		if(model.getSelectedShapes().size() > 1)
+		{
+			propertyChangeSupport.firePropertyChange("Delete", false, true);
+			propertyChangeSupport.firePropertyChange("Modify", true, false);
+		}
+		else if(model.getSelectedShapes().size() == 1)
+		{
+			propertyChangeSupport.firePropertyChange("Delete", false, true);
+			propertyChangeSupport.firePropertyChange("Modify", false, true);
+		}
+		else if(model.getSelectedShapes().size() == 0)
+		{
+			propertyChangeSupport.firePropertyChange("Delete", true, false);
+			propertyChangeSupport.firePropertyChange("Modify", true, false);
+		}
+		
 		frame.repaint();
 	}
 	
@@ -197,6 +220,8 @@ public class DrawingController {
 			removeShape.execute();
 			
 			model.getSelectedShapes().clear();
+			propertyChangeSupport.firePropertyChange("Delete", true, false);
+			propertyChangeSupport.firePropertyChange("Modify", true, false);
 			frame.repaint();
 		}
 		
@@ -210,7 +235,7 @@ public class DrawingController {
 		{	
 			try {
 				Point point = (Point)selectedShape;
-				DlgPoint dialog = new DlgPoint(point.getX(), point.getY(), point.getOuterColor());
+				DlgPointUpdate dialog = new DlgPointUpdate(point.getX(), point.getY(), point.getOuterColor());
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog.setVisible(true);
 				if(dialog.isConfirmation())
@@ -232,7 +257,7 @@ public class DrawingController {
 		{
 			try {
 				Line line = (Line)selectedShape;
-				DlgLine dialog = new DlgLine(line.getStartPoint(), line.getEndPoint(), line.getOuterColor());
+				DlgLineUpdate dialog = new DlgLineUpdate(line.getStartPoint(), line.getEndPoint(), line.getOuterColor());
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog.setVisible(true);
 				
@@ -369,5 +394,17 @@ public class DrawingController {
 			}
 		}
 	}
+	
+	
+	public void addPropertyChangeListener(PropertyChangeListener propertyChangeListener)
+	{
+		propertyChangeSupport.addPropertyChangeListener(propertyChangeListener);
+	}
+	
+	public void removePropertyChangeListener(PropertyChangeListener propertyChangeListener)
+	{
+		propertyChangeSupport.removePropertyChangeListener(propertyChangeListener);
+	}
+	
 	
 }
