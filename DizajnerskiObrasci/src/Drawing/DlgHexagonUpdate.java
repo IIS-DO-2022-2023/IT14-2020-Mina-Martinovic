@@ -44,7 +44,7 @@ public class DlgHexagonUpdate extends JDialog{
 	public DlgHexagonUpdate(Point center, int radius, Color inColor, Color outColor) {
 		setResizable(false);
 		setModal(true);
-		setTitle("Update Circle");
+		setTitle("Update Hexagon");
 		setBounds(100, 100, 390, 277);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -123,6 +123,7 @@ public class DlgHexagonUpdate extends JDialog{
 			outerColorButton = new JButton("Outer Color");
 			outerColor = outColor;
 			outerColorButton.setBackground(outerColor);
+			outerColorButton.setForeground(new Color(255, 255, 255));
 			outerColorButton.setFont(new Font("Tahoma", Font.BOLD, 10));
 			outerColorButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -142,6 +143,7 @@ public class DlgHexagonUpdate extends JDialog{
 			innerColorButton = new JButton("Inner Color");
 			innerColor = inColor;
 			innerColorButton.setBackground(innerColor);
+			innerColorButton.setForeground(new Color(0, 0, 0));
 			innerColorButton.setFont(new Font("Tahoma", Font.BOLD, 10));
 			innerColorButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {

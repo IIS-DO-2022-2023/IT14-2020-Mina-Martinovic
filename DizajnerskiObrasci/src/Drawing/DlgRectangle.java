@@ -197,8 +197,15 @@ public class DlgRectangle extends JDialog {
 								int width = Integer.parseInt(txtWidth.getText());
 								int height = Integer.parseInt(txtHeight.getText());
 								
-								setConfirmation(true);
-								setVisible(false);
+								if(width < 2 && height < 2)
+								{
+									JOptionPane.showMessageDialog(okButton, "Both width and height must be at least a value of 2!");
+								}
+								else {
+									
+									setConfirmation(true);
+									setVisible(false);
+								}
 							}
 							catch (Exception e) {
 								

@@ -144,6 +144,7 @@ public class DlgDonutUpdate extends JDialog{
 				outerColorButton = new JButton("Outer Color");
 				outerColor = outColor;
 				outerColorButton.setBackground(outerColor);
+				outerColorButton.setForeground(new Color(255, 255, 255));
 				outerColorButton.setFont(new Font("Tahoma", Font.BOLD, 10));
 				outerColorButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -163,6 +164,7 @@ public class DlgDonutUpdate extends JDialog{
 				innerColorButton = new JButton("Inner Color");
 				innerColor = inColor;
 				innerColorButton.setBackground(innerColor);
+				innerColorButton.setForeground(new Color(0, 0, 0));
 				innerColorButton.setFont(new Font("Tahoma", Font.BOLD, 10));
 				innerColorButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -198,8 +200,15 @@ public class DlgDonutUpdate extends JDialog{
 									int x = Integer.parseInt(txtX.getText());
 									int y = Integer.parseInt(txtY.getText());
 									
-									setConfirmation(true);
-									setVisible(false);
+									if(innerRadius > outerRadius - 10)
+									{
+										JOptionPane.showMessageDialog(okButton, "Outer radius must be greater than inner radius for at least 10!");
+									}
+									else {
+										
+										setConfirmation(true);
+										setVisible(false);
+									}
 								}
 								catch (Exception e) {
 									

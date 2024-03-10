@@ -122,6 +122,7 @@ public class DlgCircleUpdate extends JDialog{
 			outerColorButton = new JButton("Outer Color");
 			outerColor = outColor;
 			outerColorButton.setBackground(outerColor);
+			outerColorButton.setForeground(new Color(255, 255, 255));
 			outerColorButton.setFont(new Font("Tahoma", Font.BOLD, 10));
 			outerColorButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -141,6 +142,7 @@ public class DlgCircleUpdate extends JDialog{
 			innerColorButton = new JButton("Inner Color");
 			innerColor = inColor;
 			innerColorButton.setBackground(innerColor);
+			innerColorButton.setForeground(new Color(0, 0, 0));
 			innerColorButton.setFont(new Font("Tahoma", Font.BOLD, 10));
 			innerColorButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {

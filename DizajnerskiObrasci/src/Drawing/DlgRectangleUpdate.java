@@ -142,6 +142,7 @@ public class DlgRectangleUpdate extends JDialog{
 			outerColorButton = new JButton("Outer Color");
 			outerColor = outColor;
 			outerColorButton.setBackground(outerColor);
+			outerColorButton.setForeground(new Color(255, 255, 255));
 			outerColorButton.setFont(new Font("Tahoma", Font.BOLD, 10));
 			outerColorButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -161,6 +162,7 @@ public class DlgRectangleUpdate extends JDialog{
 			innerColorButton = new JButton("Inner Color");
 			innerColor = inColor;
 			innerColorButton.setBackground(innerColor);
+			innerColorButton.setForeground(new Color(0, 0, 0));
 			innerColorButton.setFont(new Font("Tahoma", Font.BOLD, 10));
 			innerColorButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -195,8 +197,15 @@ public class DlgRectangleUpdate extends JDialog{
 									int x = Integer.parseInt(txtUpperLeftPointX.getText());
 									int y = Integer.parseInt(txtUpperLeftPointY.getText());
 									
-									setConfirmation(true);
-									setVisible(false);
+									if(width < 2 && height < 2)
+									{
+										JOptionPane.showMessageDialog(okButton, "Both width and height must be at least a value of 2!");
+									}
+									else {
+										
+										setConfirmation(true);
+										setVisible(false);
+									}
 								}
 								catch (Exception e) {
 									

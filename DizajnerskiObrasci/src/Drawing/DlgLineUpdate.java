@@ -138,7 +138,7 @@ public class DlgLineUpdate extends JDialog {
 		  outerColorButton = new JButton(" Outer color");
 		  outerColor = outColor;
 		  outerColorButton.setBackground(outerColor);
-		  outerColorButton.setForeground(new Color(0, 0, 0));
+		  outerColorButton.setForeground(new Color(255, 255, 255));
 		  outerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
 		  outerColorButton.addActionListener(new ActionListener() {
 		  public void actionPerformed(ActionEvent e)
@@ -162,26 +162,29 @@ public class DlgLineUpdate extends JDialog {
 			{
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+					public void actionPerformed(ActionEvent arg0) {
 						
-						/*if(XStartPoint.getText().equals("") || YStartPoint.getText().equals("") || XEndPoint.getText().equals("") || YEndPoint.getText().equals(""))
+						if(XStartPoint.getText().equals("") || YStartPoint.getText().equals("") || XEndPoint.getText().equals("") || YEndPoint.getText().equals(""))
 						{
 							JOptionPane.showMessageDialog(okButton, "Coordinates neither for start point nor end point can't be empty!");
 						}
 						else
 						{
 							try {
-								int radius = Integer.parseInt(txtRadius.getText());
+								int StartX = Integer.parseInt(XStartPoint.getText());
+								int StartY = Integer.parseInt(YStartPoint.getText());
+								int EndX = Integer.parseInt(XEndPoint.getText());
+								int EndY = Integer.parseInt(YEndPoint.getText());
 								
 								setConfirmation(true);
 								setVisible(false);
 							}
 							catch (Exception e) {
 								
-								JOptionPane.showMessageDialog(okButton, "Radius must be a number!");
+								JOptionPane.showMessageDialog(okButton, "Input values must be a number!");
 							}
 						
-						}*/
+						}
 					}
 				});
 				okButton.setActionCommand("OK");

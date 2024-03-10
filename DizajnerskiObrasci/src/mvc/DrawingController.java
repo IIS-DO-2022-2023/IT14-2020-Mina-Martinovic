@@ -91,8 +91,7 @@ public class DrawingController {
 					model.getSelectedShapes().remove(shape);
 				}
 				
-			}
-		
+			}		
 
 		}
 		System.out.println(model.getSelectedShapes().size());

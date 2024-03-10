@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
@@ -94,7 +96,7 @@ public class DlgPointUpdate extends JDialog {
 			  outerColorButton = new JButton("Outer color:");
 			  outerColor = outColor;
 			  outerColorButton.setBackground(outerColor);  
-			  outerColorButton.setForeground(new Color(0, 0, 0));
+			  outerColorButton.setForeground(new Color(255, 255, 255));
 			  outerColorButton.setFont(new Font("Times New Roman", Font.BOLD, 10));
 			  outerColorButton.addActionListener(new ActionListener() {
 			  public void actionPerformed(ActionEvent e)
@@ -116,9 +118,26 @@ public class DlgPointUpdate extends JDialog {
 			{
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						confirmation=true;
-						setVisible(false);
+					public void actionPerformed(ActionEvent  arg0) {
+						if(txtX.getText().equals("") || txtY.getText().equals(""))
+						{
+							JOptionPane.showMessageDialog(okButton, "X and y coordinates can't be empty!");
+						}
+						else
+						{
+							try {
+								int x = Integer.parseInt(txtX.getText());
+								int y = Integer.parseInt(txtY.getText());
+								
+								setConfirmation(true);
+								setVisible(false);
+							}
+							catch (Exception e) {
+								
+								JOptionPane.showMessageDialog(okButton, "Input values must be a number!");
+							}
+						
+						}
 					}
 				});
 				okButton.setActionCommand("OK");
