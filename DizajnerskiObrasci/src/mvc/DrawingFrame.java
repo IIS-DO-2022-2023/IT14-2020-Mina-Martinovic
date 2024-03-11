@@ -183,15 +183,39 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 		pnlCenter.add(panel_2, gbc_panel_2);
 		
 		JButton btnToFront = new JButton("To Front");
+		btnToFront.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				controller.toFrontSelectedShape();
+			}
+		});
 		panel_2.add(btnToFront);
 		
 		JButton btnToBack = new JButton("To Back");
+		btnToBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				controller.toBackSelectedShape();
+			}
+		});
 		panel_2.add(btnToBack);
 		
 		JButton btnBringToFront = new JButton("Bring To Front");
+		btnBringToFront.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				controller.bringToFront();
+			}
+		});
 		panel_2.add(btnBringToFront);
 		
 		JButton btnBringToBack = new JButton("Bring To Back");
+		btnBringToBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				controller.bringToBack();
+			}
+		});
 		panel_2.add(btnBringToBack);
 		
 		

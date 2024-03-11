@@ -109,7 +109,6 @@ public void draw(Graphics g) {
 	
 	if(selected) {
 		g.setColor(Color.BLUE);
-		g.drawRect(center.getX() - 2, center.getY() - 2, 4, 4);
 		g.drawRect(center.getX() - getRadius() - 2, center.getY() - 2, 4, 4);
 		g.drawRect(center.getX() + getRadius() - 2, center.getY() - 2, 4, 4);
 		g.drawRect(center.getX() - 2, center.getY() - getRadius()- 2, 4, 4);

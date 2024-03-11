@@ -19,7 +19,11 @@ import Drawing.DlgRectangle;
 import Drawing.DlgRectangleUpdate;
 import adapter.HexagonAdapter;
 import command.AddShape;
+import command.BringToBack;
+import command.BringToFront;
 import command.RemoveShape;
+import command.ToBack;
+import command.ToFront;
 import command.UpdateCircleCmd;
 import command.UpdateDonutCmd;
 import command.UpdateHexagonCmd;
@@ -393,6 +397,109 @@ public class DrawingController {
 			}
 		}
 	}
+	
+	public void toFrontSelectedShape() 
+	{
+		
+		if(model.getSelectedShapes().isEmpty() || model.getSelectedShapes().size() > 1)
+		{
+			JOptionPane.showMessageDialog(frame, "You have to select only one shape if you want to move it to front!");
+			return;
+		}
+		
+		selectedShape = model.getSelectedShapes().get(0);
+		
+		int selectedShapeIndex = model.getShapes().indexOf(selectedShape);
+		
+		if(selectedShapeIndex == model.getShapes().size()-1)
+		{
+			JOptionPane.showMessageDialog(frame, "Your shape is already at the top!");
+			return;
+		}
+		
+		ToFront toFront = new ToFront(selectedShapeIndex, selectedShape, model);
+		toFront.execute();
+		
+		frame.repaint();
+		
+		
+	}
+	
+	public void toBackSelectedShape() 
+	{
+		if(model.getSelectedShapes().isEmpty() || model.getSelectedShapes().size() > 1)
+		{
+			JOptionPane.showMessageDialog(frame, "You have to select only one shape if you want to move it to back!");
+			return;
+		}
+		
+		selectedShape = model.getSelectedShapes().get(0);
+		
+		int selectedShapeIndex = model.getShapes().indexOf(selectedShape);
+		
+		if(selectedShapeIndex == 0)
+		{
+			JOptionPane.showMessageDialog(frame, "Your shape is already at the lowest point!");
+			return;
+		}
+
+		ToBack toBack = new ToBack(selectedShapeIndex, selectedShape, model);
+		toBack.execute();
+		
+		frame.repaint();
+		
+	}
+	
+	public void bringToFront()
+	{
+		if(model.getSelectedShapes().isEmpty() || model.getSelectedShapes().size() > 1)
+		{
+			JOptionPane.showMessageDialog(frame, "You have to select only one shape if you want to move it to front!");
+			return;
+		}
+		
+		selectedShape = model.getSelectedShapes().get(0);
+		
+		int selectedShapeIndex = model.getShapes().indexOf(selectedShape);
+		
+		if(selectedShapeIndex == model.getShapes().size()-1)
+		{
+			JOptionPane.showMessageDialog(frame, "Your shape is already at the top!");
+			return;
+		}
+		
+		BringToFront bringToFront = new BringToFront(selectedShapeIndex, selectedShape, model);
+		bringToFront.execute();
+		
+		frame.repaint();
+
+	}
+	
+	public void bringToBack() 
+	{
+
+		if(model.getSelectedShapes().isEmpty() || model.getSelectedShapes().size() > 1)
+		{
+			JOptionPane.showMessageDialog(frame, "You have to select only one shape if you want to move it to back!");
+			return;
+		}
+		
+		selectedShape = model.getSelectedShapes().get(0);
+		
+		int selectedShapeIndex = model.getShapes().indexOf(selectedShape);
+		
+		if(selectedShapeIndex == 0)
+		{
+			JOptionPane.showMessageDialog(frame, "Your shape is already at the lowest point!");
+			return;
+		}
+		
+		BringToBack bringToBack= new BringToBack(selectedShapeIndex, selectedShape, model);
+		bringToBack.execute();
+		
+		frame.repaint();
+	}
+
 	
 	
 	public void addPropertyChangeListener(PropertyChangeListener propertyChangeListener)
