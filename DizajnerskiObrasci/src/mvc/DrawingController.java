@@ -21,6 +21,7 @@ import adapter.HexagonAdapter;
 import command.AddShape;
 import command.BringToBack;
 import command.BringToFront;
+import command.ICommand;
 import command.RemoveShape;
 import command.ToBack;
 import command.ToFront;
@@ -125,6 +126,11 @@ public class DrawingController {
 			Point point = new Point(e.getX(),e.getY(), frame.getOuterColor());
 			AddShape addShapePoint = new AddShape(point, model);
 			addShapePoint.execute();
+			model.getUndoList().add(addShapePoint);
+			model.getRedoList().clear();
+			propertyChangeSupport.firePropertyChange("Undo", false, true);
+			propertyChangeSupport.firePropertyChange("Redo", true, false);
+			
 		break;
 		case "Circle" : 
 			try {
@@ -137,6 +143,11 @@ public class DrawingController {
 					Circle circle = new Circle(new Point(e.getX(), e.getY()), radius, dialog.getOuterColor(), dialog.getInnerColor());
 					AddShape addShapeCircle = new AddShape(circle, model);
 					addShapeCircle.execute();
+					model.getUndoList().add(addShapeCircle);
+					model.getRedoList().clear();
+					propertyChangeSupport.firePropertyChange("Undo", false, true);
+					propertyChangeSupport.firePropertyChange("Redo", true, false);
+
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -155,6 +166,11 @@ public class DrawingController {
 					Rectangle rectangle = new Rectangle(new Point(e.getX(), e.getY()), width, height, dialog.getOuterColor(), dialog.getInnerColor());
 					AddShape addShapeRectangle = new AddShape(rectangle, model);
 					addShapeRectangle.execute();
+					model.getUndoList().add(addShapeRectangle);
+					model.getRedoList().clear();
+					propertyChangeSupport.firePropertyChange("Undo", false, true);
+					propertyChangeSupport.firePropertyChange("Redo", true, false);
+
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -173,6 +189,11 @@ public class DrawingController {
 					Donut donut = new Donut(new Point(e.getX(), e.getY()), outerRadius, innerRadius, dialog.getOuterColor(), dialog.getInnerColor());
 					AddShape addShapeDonut = new AddShape(donut, model);
 					addShapeDonut.execute();
+					model.getUndoList().add(addShapeDonut);
+					model.getRedoList().clear();
+					propertyChangeSupport.firePropertyChange("Undo", false, true);
+					propertyChangeSupport.firePropertyChange("Redo", true, false);
+
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -188,6 +209,11 @@ public class DrawingController {
 				Line line = new Line(new Point(line_x, line_y), new Point(e.getX(), e.getY()), frame.getOuterColor());
 				AddShape addShapeLine = new AddShape(line, model);
 				addShapeLine.execute();
+				model.getUndoList().add(addShapeLine);
+				model.getRedoList().clear();
+				propertyChangeSupport.firePropertyChange("Undo", false, true);
+				propertyChangeSupport.firePropertyChange("Redo", true, false);
+
 				isFirstClick = true;
 			}
 		break;
@@ -203,6 +229,11 @@ public class DrawingController {
 					HexagonAdapter hex = new HexagonAdapter(new Point(e.getX(), e.getY()), radius, dialog.getOuterColor(), dialog.getInnerColor());
 					AddShape addShapeHexagon = new AddShape(hex, model);
 					addShapeHexagon.execute();
+					model.getUndoList().add(addShapeHexagon);
+					model.getRedoList().clear();
+					propertyChangeSupport.firePropertyChange("Undo", false, true);
+					propertyChangeSupport.firePropertyChange("Redo", true, false);
+
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -221,8 +252,11 @@ public class DrawingController {
 		{
 			RemoveShape removeShape = new RemoveShape(model);
 			removeShape.execute();
-			
-			model.getSelectedShapes().clear();
+			model.getUndoList().add(removeShape);
+			model.getRedoList().clear();
+			propertyChangeSupport.firePropertyChange("Undo", false, true);
+			propertyChangeSupport.firePropertyChange("Redo", true, false);
+
 			propertyChangeSupport.firePropertyChange("Delete", true, false);
 			propertyChangeSupport.firePropertyChange("Modify", true, false);
 			frame.repaint();
@@ -248,8 +282,12 @@ public class DrawingController {
 					Point newPoint = new Point(x, y, dialog.getOuterColor(), true);
 					
 					UpdatePointCmd updatePoint = new UpdatePointCmd(point, newPoint);
-					updatePoint.execute();
-					
+					updatePoint.execute();			
+					model.getUndoList().add(updatePoint);
+					model.getRedoList().clear();
+					propertyChangeSupport.firePropertyChange("Undo", false, true);
+					propertyChangeSupport.firePropertyChange("Redo", true, false);
+									
 					frame.repaint();
 				};
 			} catch (Exception ex) {
@@ -273,6 +311,11 @@ public class DrawingController {
 					
 					UpdateLineCmd updateLine = new UpdateLineCmd(line, newLine);
 					updateLine.execute();
+					model.getUndoList().add(updateLine);
+					model.getRedoList().clear();
+					propertyChangeSupport.firePropertyChange("Undo", false, true);
+					propertyChangeSupport.firePropertyChange("Redo", true, false);
+
 					frame.repaint();
 				}
 			} catch (Exception ex) {
@@ -303,6 +346,11 @@ public class DrawingController {
 					
 					UpdateDonutCmd updateDonut = new UpdateDonutCmd(donut, newDonut);
 					updateDonut.execute();
+					model.getUndoList().add(updateDonut);
+					model.getRedoList().clear();
+					propertyChangeSupport.firePropertyChange("Undo", false, true);
+					propertyChangeSupport.firePropertyChange("Redo", true, false);
+
 					frame.repaint();
 				}
 				
@@ -333,6 +381,11 @@ public class DrawingController {
 					
 					UpdateRectangleCmd updateRectangle = new UpdateRectangleCmd(rectangle, newRectangle);
 					updateRectangle.execute();
+					model.getUndoList().add(updateRectangle);
+					model.getRedoList().clear();
+					propertyChangeSupport.firePropertyChange("Undo", false, true);
+					propertyChangeSupport.firePropertyChange("Redo", true, false);
+
 					frame.repaint();
 				}
 				
@@ -361,6 +414,11 @@ public class DrawingController {
 					
 					UpdateCircleCmd updateCircle = new UpdateCircleCmd(circle, newCircle);
 					updateCircle.execute();
+					model.getUndoList().add(updateCircle);
+					model.getRedoList().clear();
+					propertyChangeSupport.firePropertyChange("Undo", false, true);
+					propertyChangeSupport.firePropertyChange("Redo", true, false);
+
 					frame.repaint();
 				}
 				
@@ -389,6 +447,11 @@ public class DrawingController {
 					
 					UpdateHexagonCmd updateHexagon = new UpdateHexagonCmd(hexagon, newHexagon);
 					updateHexagon.execute();
+					model.getUndoList().add(updateHexagon);
+					model.getRedoList().clear();
+					propertyChangeSupport.firePropertyChange("Undo", false, true);
+					propertyChangeSupport.firePropertyChange("Redo", true, false);
+
 					frame.repaint();
 				}
 				
@@ -419,6 +482,10 @@ public class DrawingController {
 		
 		ToFront toFront = new ToFront(selectedShapeIndex, selectedShape, model);
 		toFront.execute();
+		model.getUndoList().add(toFront);
+		model.getRedoList().clear();
+		propertyChangeSupport.firePropertyChange("Undo", false, true);
+		propertyChangeSupport.firePropertyChange("Redo", true, false);
 		
 		frame.repaint();
 		
@@ -445,6 +512,10 @@ public class DrawingController {
 
 		ToBack toBack = new ToBack(selectedShapeIndex, selectedShape, model);
 		toBack.execute();
+		model.getUndoList().add(toBack);
+		model.getRedoList().clear();
+		propertyChangeSupport.firePropertyChange("Undo", false, true);
+		propertyChangeSupport.firePropertyChange("Redo", true, false);
 		
 		frame.repaint();
 		
@@ -470,6 +541,10 @@ public class DrawingController {
 		
 		BringToFront bringToFront = new BringToFront(selectedShapeIndex, selectedShape, model);
 		bringToFront.execute();
+		model.getUndoList().add(bringToFront);
+		model.getRedoList().clear();
+		propertyChangeSupport.firePropertyChange("Undo", false, true);
+		propertyChangeSupport.firePropertyChange("Redo", true, false);
 		
 		frame.repaint();
 
@@ -496,11 +571,125 @@ public class DrawingController {
 		
 		BringToBack bringToBack= new BringToBack(selectedShapeIndex, selectedShape, model);
 		bringToBack.execute();
+		model.getUndoList().add(bringToBack);
+		model.getRedoList().clear();
+		propertyChangeSupport.firePropertyChange("Undo", false, true);
+		propertyChangeSupport.firePropertyChange("Redo", true, false);
 		
 		frame.repaint();
 	}
 
+	public void undo()
+	{
+		if(model.getUndoList().isEmpty())
+		{
+			JOptionPane.showMessageDialog(frame, "Undo list is empty! You have nothing to undo.");
+			return;
+		}
+		
+		int lastIndex = model.getUndoList().size()-1;
+		
+		ICommand undoCommand = model.getUndoList().get(lastIndex);
+		undoCommand.unexecute();
+		model.getRedoList().add(undoCommand);
+		model.getUndoList().remove(undoCommand);
+		
+		if(model.getUndoList().size() > 0 && model.getRedoList().size() > 0)
+		{
+			propertyChangeSupport.firePropertyChange("Undo", false, true);
+			propertyChangeSupport.firePropertyChange("Redo", false, true);
+		}
+		else if (model.getUndoList().size() > 0)
+		{
+			propertyChangeSupport.firePropertyChange("Undo", false, true);
+			propertyChangeSupport.firePropertyChange("Redo", true, false);
+		}
+		else if (model.getRedoList().size() > 0)
+		{
+			propertyChangeSupport.firePropertyChange("Undo", true, false);
+			propertyChangeSupport.firePropertyChange("Redo", false, true);
+		}
+		else
+		{
+			propertyChangeSupport.firePropertyChange("Undo", true, false);
+			propertyChangeSupport.firePropertyChange("Redo", true, false);
+		}
+		
+				
+		if(model.getSelectedShapes().size() == 0)
+		{
+			propertyChangeSupport.firePropertyChange("Modify", true, false);
+			propertyChangeSupport.firePropertyChange("Delete", true, false);
+		}
+		else if(model.getSelectedShapes().size() == 1)
+		{
+			propertyChangeSupport.firePropertyChange("Modify", false, true);
+			propertyChangeSupport.firePropertyChange("Delete", false, true);
+		}
+		else if(model.getSelectedShapes().size() > 1)
+		{
+			propertyChangeSupport.firePropertyChange("Modify", true, false);
+			propertyChangeSupport.firePropertyChange("Delete", false, true);
+		}
+		
+		frame.repaint();
+	}
 	
+	public void redo()
+	{
+		if(model.getRedoList().isEmpty())
+		{
+			JOptionPane.showMessageDialog(frame, "Redo list is empty! You have nothing to redo.");
+			return;
+		}
+		
+		int lastIndex = model.getRedoList().size()-1;
+		
+		ICommand redoCommand = model.getRedoList().get(lastIndex);
+		redoCommand.execute();
+		model.getUndoList().add(redoCommand);
+		model.getRedoList().remove(redoCommand);
+		
+		if(model.getUndoList().size() > 0 && model.getRedoList().size() > 0)
+		{
+			propertyChangeSupport.firePropertyChange("Undo", false, true);
+			propertyChangeSupport.firePropertyChange("Redo", false, true);
+		}
+		else if (model.getUndoList().size() > 0)
+		{
+			propertyChangeSupport.firePropertyChange("Undo", false, true);
+			propertyChangeSupport.firePropertyChange("Redo", true, false);
+		}
+		else if (model.getRedoList().size() > 0)
+		{
+			propertyChangeSupport.firePropertyChange("Undo", true, false);
+			propertyChangeSupport.firePropertyChange("Redo", false, true);
+		}
+		else
+		{
+			propertyChangeSupport.firePropertyChange("Undo", true, false);
+			propertyChangeSupport.firePropertyChange("Redo", true, false);
+		}
+		
+				
+		if(model.getSelectedShapes().size() == 0)
+		{
+			propertyChangeSupport.firePropertyChange("Modify", true, false);
+			propertyChangeSupport.firePropertyChange("Delete", true, false);
+		}
+		else if(model.getSelectedShapes().size() == 1)
+		{
+			propertyChangeSupport.firePropertyChange("Modify", false, true);
+			propertyChangeSupport.firePropertyChange("Delete", false, true);
+		}
+		else if(model.getSelectedShapes().size() > 1)
+		{
+			propertyChangeSupport.firePropertyChange("Modify", true, false);
+			propertyChangeSupport.firePropertyChange("Delete", false, true);
+		}
+		
+		frame.repaint();
+	}
 	
 	public void addPropertyChangeListener(PropertyChangeListener propertyChangeListener)
 	{

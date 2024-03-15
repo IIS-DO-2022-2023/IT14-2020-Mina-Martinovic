@@ -20,12 +20,15 @@ public class RemoveShape implements ICommand{
 	@Override
 	public void execute() {
 	
+		System.out.println(model.getSelectedShapes().size());
+		
 		for(int i = model.getSelectedShapes().size() -1; i >=0; i--)
 		{
 			Shape shape = model.getSelectedShapes().get(i);
 			
 			int index = model.getShapes().indexOf(shape);
 			shapesToDelete.put(index, shape);
+			model.getSelectedShapes().remove(shape);
 			model.getShapes().remove(index);
 		}
 		
@@ -37,6 +40,7 @@ public class RemoveShape implements ICommand{
 		for(Map.Entry<Integer, Shape> shape : shapesToDelete.entrySet())
 		{
 			model.getShapes().add(shape.getKey(), shape.getValue());
+			model.getSelectedShapes().add(shape.getValue());
 		}
 		shapesToDelete.clear();
 	}

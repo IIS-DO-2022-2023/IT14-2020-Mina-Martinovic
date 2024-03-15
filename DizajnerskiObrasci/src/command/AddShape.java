@@ -19,11 +19,20 @@ public class AddShape implements ICommand{
 		
 		model.getShapes().add(shape);
 		
+		if(shape.isSelected())
+		{
+			model.getSelectedShapes().add(shape);
+		}
+		
 	}
 
 	@Override
 	public void unexecute() {
 		
+		if(shape.isSelected())
+		{
+			model.getSelectedShapes().remove(shape);
+		}
 		model.getShapes().remove(shape);
 	}
 

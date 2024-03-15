@@ -42,6 +42,9 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 	private JButton btnDelete;
 	private JButton btnModify;
 	
+	private JButton btnUndo;
+	private JButton btnRedo;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -174,6 +177,35 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 						gbc_lbModify.gridy = 2;
 						pnlCenter.add(btnModify, gbc_lbModify);
 		
+						
+						
+		btnUndo = new JButton("Undo");
+		btnUndo.setEnabled(false);
+		btnUndo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.undo();
+			}
+		});
+		GridBagConstraints gbc_btnUndo = new GridBagConstraints();
+		gbc_btnUndo.insets = new Insets(0, 0, 5, 5);
+		gbc_btnUndo.gridx = 3;
+		gbc_btnUndo.gridy = 2;
+		pnlCenter.add(btnUndo, gbc_btnUndo);
+		
+		btnRedo = new JButton("Redo");
+		btnRedo.setEnabled(false);
+		btnRedo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.redo();
+			}
+		});
+		GridBagConstraints gbc_btnRedo = new GridBagConstraints();
+		gbc_btnRedo.insets = new Insets(0, 0, 5, 5);
+		gbc_btnRedo.gridx = 3;
+		gbc_btnRedo.gridy = 3;
+		pnlCenter.add(btnRedo, gbc_btnRedo);
+		
+		
 		JPanel panel_2 = new JPanel();
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
 		gbc_panel_2.insets = new Insets(0, 0, 5, 0);
@@ -274,6 +306,7 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 		gbc_cbxChooseShape.gridy = 0;
 		pnlCenter.add(cbxChooseShape, gbc_cbxChooseShape);
 		
+	
 
 														
 		JPanel panel = new JPanel();
@@ -358,6 +391,14 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 		else if(event.getPropertyName().equals("Modify"))
 		{
 			btnModify.setEnabled((boolean) event.getNewValue());
+		}
+		else if(event.getPropertyName().equals("Undo"))
+		{
+			btnUndo.setEnabled((boolean) event.getNewValue());
+		}
+		else if(event.getPropertyName().equals("Redo"))
+		{
+			btnRedo.setEnabled((boolean) event.getNewValue());
 		}
 	}
 	
