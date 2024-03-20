@@ -6,7 +6,9 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Drawing.DlgCircle;
 import Drawing.DlgCircleUpdate;
@@ -37,6 +39,8 @@ import geometry1.Line;
 import geometry1.Point;
 import geometry1.Rectangle;
 import geometry1.Shape;
+import strategy.FileManager;
+import strategy.FileSerialization;
 
 public class DrawingController {
 
@@ -690,6 +694,32 @@ public class DrawingController {
 		
 		frame.repaint();
 	}
+	
+	
+	public void saveDrawing()
+	{
+		if(model.getShapes().isEmpty())
+		{
+			JOptionPane.showMessageDialog(frame, "You can't save an empty drawing!");
+			return;
+		}
+		
+		JFileChooser fileChooser = new JFileChooser(System.getProperty("user.home")+ "/Desktop");
+		int reply = fileChooser.showSaveDialog(frame);
+		
+		if(reply == JFileChooser.APPROVE_OPTION)
+		{
+			FileSerialization fileSerialization = new FileSerialization(model, fileChooser.getSelectedFile().getAbsolutePath());
+			FileManager fileManager = new FileManager(fileSerialization);
+			fileManager.save();
+		}
+	}	
+	
+	public void open()
+	{
+		
+	}
+	
 	
 	public void addPropertyChangeListener(PropertyChangeListener propertyChangeListener)
 	{

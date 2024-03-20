@@ -6,7 +6,7 @@ import java.util.List;
 import command.ICommand;
 import geometry1.Shape;
 
-public class DrawingModel {
+public class DrawingModel{
 
 	private ArrayList<Shape> shapes;
 	private ArrayList<Shape> selectedShapes;

@@ -306,6 +306,33 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 		gbc_cbxChooseShape.gridy = 0;
 		pnlCenter.add(cbxChooseShape, gbc_cbxChooseShape);
 		
+		JPanel panel_3 = new JPanel();
+		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
+		gbc_panel_3.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_3.fill = GridBagConstraints.BOTH;
+		gbc_panel_3.gridx = 4;
+		gbc_panel_3.gridy = 3;
+		pnlCenter.add(panel_3, gbc_panel_3);
+		
+		JButton btnSaveDrawing = new JButton("Save Drawing");
+		btnSaveDrawing.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.saveDrawing();
+			}
+		});
+		panel_3.add(btnSaveDrawing);
+		
+		JButton btnOpen = new JButton("Open");
+		btnOpen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.open();
+			}
+		});
+		
+		JButton btnSaveLog = new JButton("Save Log");
+		panel_3.add(btnSaveLog);
+		panel_3.add(btnOpen);
+		
 	
 
 														
