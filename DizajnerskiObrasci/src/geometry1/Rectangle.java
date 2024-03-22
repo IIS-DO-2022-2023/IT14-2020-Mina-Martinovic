@@ -164,7 +164,6 @@ public class Rectangle extends ThreeDShape {
 	}
 	
 	public String toString() {
-		//return upperLeftPoint.getX() + " " + upperLeftPoint.getY() + " " + width + " "+ height;
-		return "Rectangle: x=" + upperLeftPoint.getX() + "; y=" + upperLeftPoint.getY() + "; height=" + height + "; width=" + width + "; edge color=" + getOuterColor().toString().substring(14).replace('=', '-') + "; area color=" + getInnerColor().toString().substring(14).replace('=', '-');
+		return "Rectangle: x= " + upperLeftPoint.getX() + ", y= " + upperLeftPoint.getY() + ", height= " + height + ", width= " + width + ", outer color= " + getOuterColor().getRGB() + ", inner color= " + getInnerColor().getRGB();
 	}
 }

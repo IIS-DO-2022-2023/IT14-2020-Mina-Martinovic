@@ -115,6 +115,7 @@ public class Line extends Shape{
 	}	
 	
 	public String toString() {
-		 return "Line: start point x=" + startPoint.getX() + "; start point y=" + startPoint.getY() + "; end point x=" + endPoint.getX() + "; end point y=" + endPoint.getY() + "; color=" + getOuterColor().toString().substring(14).replace('=', '-');	}
+		 return "Line: start point x= " + startPoint.getX() + ", start point y= " + startPoint.getY() + ", end point x= " + endPoint.getX() + ", end point y= " + endPoint.getY() + ", outer color= " + getOuterColor().getRGB();	
+		 }
 
 }

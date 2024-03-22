@@ -153,7 +153,7 @@ public void draw(Graphics g) {
 	
 	public String toString() {
 		// Center=(x,y), radius= radius, innerRadius=innerRadius
-		return "Donut: radius=" + outerRadius + "; x=" + center.getX() + "; y=" + center.getY() + "; edge color=" + getOuterColor().toString().substring(14).replace('=', '-') + "; area color=" + getInnerColor().toString().substring(14).replace('=', '-') + "; inner radius=" + innerRadius;
+		return "Donut: radius= " + outerRadius + ", inner radius= " + innerRadius + ", x= " + center.getX() + ", y= " + center.getY() + ", outer color= " + getOuterColor().getRGB() + ", inner color= " + getInnerColor().getRGB();
 	}
 
 }

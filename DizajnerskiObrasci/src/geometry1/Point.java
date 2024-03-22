@@ -118,8 +118,7 @@ public class Point extends Shape{
 	}
 
 	public String toString() {
-		//return "(" + x + "," + y + ")";
-		return "Point: x=" + x + "; y=" + y + "; color=" + getOuterColor().toString().substring(14).replace('=', '-');
+		return "Point: x= " + x + ", y= " + y + ", outer color=" + getOuterColor().getRGB();
 	}
 
 }

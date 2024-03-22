@@ -27,6 +27,8 @@ import java.beans.PropertyChangeListener;
 
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
+import javax.swing.JScrollPane;
+import javax.swing.JList;
 
 public class DrawingFrame extends JFrame implements PropertyChangeListener{
 
@@ -333,8 +335,30 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 		panel_3.add(btnSaveLog);
 		panel_3.add(btnOpen);
 		
-	
+		JLabel lblLogger = new JLabel("Logger");
+		GridBagConstraints gbc_lblLogger = new GridBagConstraints();
+		gbc_lblLogger.insets = new Insets(0, 0, 5, 5);
+		gbc_lblLogger.gridx = 1;
+		gbc_lblLogger.gridy = 4;
+		pnlCenter.add(lblLogger, gbc_lblLogger);
+		
+		JPanel panel_4 = new JPanel();
+		GridBagConstraints gbc_panel_4 = new GridBagConstraints();
+		gbc_panel_4.gridwidth = 3;
+		gbc_panel_4.insets = new Insets(0, 0, 0, 5);
+		gbc_panel_4.fill = GridBagConstraints.BOTH;
+		gbc_panel_4.gridx = 1;
+		gbc_panel_4.gridy = 5;
+		pnlCenter.add(panel_4, gbc_panel_4);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setPreferredSize(new Dimension(180, 210));
+		panel_4.add(scrollPane);
 
+		
+		JList list = new JList();
+		scrollPane.setViewportView(list);
+		
 														
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();

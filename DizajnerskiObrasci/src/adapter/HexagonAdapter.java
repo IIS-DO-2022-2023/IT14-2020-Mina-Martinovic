@@ -57,10 +57,6 @@ public class HexagonAdapter extends ThreeDShape{
 		hexagon.paint(g);		
 	}
 	
-	@Override
-	public String toString() {
-		return "HexagonAdapter: radius=" + getRadius() + "; x=" + getCenter().getX() + "; y=" + getCenter().getY() + "; edge color=" + getOuterColor().toString().substring(14).replace('=', '-') + "; area color=" + getInnerColor().toString().substring(14).replace('=', '-'); 
-	}
 
 	public Color getInnerColor()
 	{
@@ -115,5 +111,9 @@ public class HexagonAdapter extends ThreeDShape{
 		hexagon.setR(radius);
 	}
 	
+	@Override
+	public String toString() {
+		return "HexagonAdapter: radius= " + getRadius() + ", x= " + getCenter().getX() + ", y= " + getCenter().getY() + ", outer color= " + getOuterColor().getRGB() + ", inner color= " + getInnerColor().getRGB(); 
+	}
 	
 }

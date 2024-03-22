@@ -132,7 +132,7 @@ public class Circle extends ThreeDShape{
 	}
 
 	public String toString() {
-		return "Circle: radius=" + radius + "; x=" + center.getX() + "; y=" + center.getY() + "; edge color=" + getOuterColor().toString().substring(14).replace('=', '-') + "; area color=" + getInnerColor().toString().substring(14).replace('=', '-'); 
+		return "Circle: radius= " + radius + ", x= " + center.getX() + ", y= " + center.getY() + ", outer color= " + getOuterColor().getRGB() + ", inner color= " + getInnerColor().getRGB(); 
 		//splitujem partove circla tipa radius koord i to a crtica misplituje boju znam da se radi o boji	}
 
 	}

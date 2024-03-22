@@ -1,10 +1,15 @@
 package strategy;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import geometry1.Shape;
 import mvc.DrawingModel;
 
 public class FileSerialization implements IFileStrategy{
@@ -17,8 +22,7 @@ public class FileSerialization implements IFileStrategy{
 		this.model = model;
 		this.filePath = filePath;
 	}
-	
-	
+		
 	@Override
 	public void save() {
 		
@@ -39,6 +43,30 @@ public class FileSerialization implements IFileStrategy{
 
 	@Override
 	public void open() {
+		
+		try {
+			FileInputStream fileInputStream = new FileInputStream(filePath);
+			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+			
+			ArrayList<Shape> shapes = (ArrayList<Shape>) objectInputStream.readObject();
+			
+			for(Shape shape : shapes)
+			{
+				model.getShapes().add(shape);
+				if(shape.isSelected())
+				{
+					model.getSelectedShapes().add(shape);
+				}
+			}
+			
+			objectInputStream.close();
+			fileInputStream.close();
+			
+		} catch (Exception e) {
+
+			JOptionPane.showMessageDialog(null, "Opening of a file was unsuccessfull!");
+		}
+		
 		
 	}
 

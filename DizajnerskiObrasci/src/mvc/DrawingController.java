@@ -151,7 +151,6 @@ public class DrawingController {
 					model.getRedoList().clear();
 					propertyChangeSupport.firePropertyChange("Undo", false, true);
 					propertyChangeSupport.firePropertyChange("Redo", true, false);
-
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -217,7 +216,7 @@ public class DrawingController {
 				model.getRedoList().clear();
 				propertyChangeSupport.firePropertyChange("Undo", false, true);
 				propertyChangeSupport.firePropertyChange("Redo", true, false);
-
+				
 				isFirstClick = true;
 			}
 		break;
@@ -717,6 +716,36 @@ public class DrawingController {
 	
 	public void open()
 	{
+		JFileChooser fileChooser = new JFileChooser(System.getProperty("user.home")+ "/Desktop");
+		int reply = fileChooser.showOpenDialog(frame);
+		
+		if(reply == JFileChooser.APPROVE_OPTION)
+		{
+			if(fileChooser.getSelectedFile().getAbsolutePath().endsWith(".txt") == false)
+			{
+				FileSerialization fileSerialization = new FileSerialization(model, fileChooser.getSelectedFile().getAbsolutePath());
+				FileManager fileManager = new FileManager(fileSerialization);
+				fileManager.open();
+				frame.repaint();
+				System.out.println(model.getSelectedShapes().size());
+			}
+				
+			if(model.getSelectedShapes().size() == 0)
+			{
+				propertyChangeSupport.firePropertyChange("Modify", true, false);
+				propertyChangeSupport.firePropertyChange("Delete", true, false);
+			}
+			else if(model.getSelectedShapes().size() == 1)
+			{
+				propertyChangeSupport.firePropertyChange("Modify", false, true);
+				propertyChangeSupport.firePropertyChange("Delete", false, true);
+			}
+			else if(model.getSelectedShapes().size() > 1)
+			{
+				propertyChangeSupport.firePropertyChange("Modify", true, false);
+				propertyChangeSupport.firePropertyChange("Delete", false, true);
+			}
+		}
 		
 	}
 	
