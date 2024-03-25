@@ -40,7 +40,7 @@ public class DlgRectangleUpdate extends JDialog{
 	private JButton innerColorButton;
 
 	
-	public DlgRectangleUpdate (Point upperLeftPoint, int height, int width, Color inColor, Color outColor) {
+	public DlgRectangleUpdate (Point upperLeftPoint, int width, int height, Color inColor, Color outColor) {
 		setResizable(false);
 		setModal(true);
 		setTitle("Update Rectangle");

@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -39,6 +41,7 @@ import geometry1.Line;
 import geometry1.Point;
 import geometry1.Rectangle;
 import geometry1.Shape;
+import strategy.FileLog;
 import strategy.FileManager;
 import strategy.FileSerialization;
 
@@ -79,12 +82,16 @@ public class DrawingController {
 				{
 					shape.setSelected(true);
 					model.getSelectedShapes().add(shape);
+					frame.getDlm().addElement("Selected " + shape.toString());
+
 					break;
 				}
 				else 
 				{
 					shape.setSelected(false);
 					model.getSelectedShapes().remove(shape);
+					frame.getDlm().addElement("Unselected " + shape.toString());
+
 					break;
 				}				
 			}
@@ -92,14 +99,18 @@ public class DrawingController {
 		}
 		if(containsShape == false)
 		{
+			if(model.getSelectedShapes().size() > 0)
+			{
+				frame.getDlm().addElement("All shapes unselected ");
+			}
+			
 			for(Shape shape : model.getShapes())
 			{
 				if(shape.isSelected())
 				{
 					shape.setSelected(false);
 					model.getSelectedShapes().remove(shape);
-				}
-				
+				}				
 			}		
 
 		}
@@ -135,6 +146,8 @@ public class DrawingController {
 			propertyChangeSupport.firePropertyChange("Undo", false, true);
 			propertyChangeSupport.firePropertyChange("Redo", true, false);
 			
+			frame.getDlm().addElement("Added " + point.toString());
+			
 		break;
 		case "Circle" : 
 			try {
@@ -151,6 +164,9 @@ public class DrawingController {
 					model.getRedoList().clear();
 					propertyChangeSupport.firePropertyChange("Undo", false, true);
 					propertyChangeSupport.firePropertyChange("Redo", true, false);
+					
+					frame.getDlm().addElement("Added " + circle.toString());
+
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -173,6 +189,8 @@ public class DrawingController {
 					model.getRedoList().clear();
 					propertyChangeSupport.firePropertyChange("Undo", false, true);
 					propertyChangeSupport.firePropertyChange("Redo", true, false);
+					
+					frame.getDlm().addElement("Added " + rectangle.toString());
 
 				}
 			} catch (Exception ex) {
@@ -196,6 +214,8 @@ public class DrawingController {
 					model.getRedoList().clear();
 					propertyChangeSupport.firePropertyChange("Undo", false, true);
 					propertyChangeSupport.firePropertyChange("Redo", true, false);
+					
+					frame.getDlm().addElement("Added " + donut.toString());
 
 				}
 			} catch (Exception ex) {
@@ -217,6 +237,8 @@ public class DrawingController {
 				propertyChangeSupport.firePropertyChange("Undo", false, true);
 				propertyChangeSupport.firePropertyChange("Redo", true, false);
 				
+				frame.getDlm().addElement("Added " + line.toString());
+				
 				isFirstClick = true;
 			}
 		break;
@@ -236,6 +258,8 @@ public class DrawingController {
 					model.getRedoList().clear();
 					propertyChangeSupport.firePropertyChange("Undo", false, true);
 					propertyChangeSupport.firePropertyChange("Redo", true, false);
+					
+					frame.getDlm().addElement("Added " + hex.toString());
 
 				}
 			} catch (Exception ex) {
@@ -245,6 +269,7 @@ public class DrawingController {
 		default: 
 			System.out.println("You have chosen an object that is not on the list!");
 		}
+		
 		frame.repaint();
 	}
 	
@@ -262,9 +287,11 @@ public class DrawingController {
 
 			propertyChangeSupport.firePropertyChange("Delete", true, false);
 			propertyChangeSupport.firePropertyChange("Modify", true, false);
+			
+			frame.getDlm().addElement("All selected shapes deleted ");
+			
 			frame.repaint();
-		}
-		
+		}		
 	}
 	
 	public void modifySelectedShape()
@@ -290,6 +317,8 @@ public class DrawingController {
 					model.getRedoList().clear();
 					propertyChangeSupport.firePropertyChange("Undo", false, true);
 					propertyChangeSupport.firePropertyChange("Redo", true, false);
+					
+					frame.getDlm().addElement("Modified to " + newPoint.toString());
 									
 					frame.repaint();
 				};
@@ -318,6 +347,8 @@ public class DrawingController {
 					model.getRedoList().clear();
 					propertyChangeSupport.firePropertyChange("Undo", false, true);
 					propertyChangeSupport.firePropertyChange("Redo", true, false);
+					
+					frame.getDlm().addElement("Modified to " + newLine.toString());
 
 					frame.repaint();
 				}
@@ -353,6 +384,8 @@ public class DrawingController {
 					model.getRedoList().clear();
 					propertyChangeSupport.firePropertyChange("Undo", false, true);
 					propertyChangeSupport.firePropertyChange("Redo", true, false);
+					
+					frame.getDlm().addElement("Modified to " + newDonut.toString());
 
 					frame.repaint();
 				}
@@ -380,7 +413,7 @@ public class DrawingController {
 					Point upperLeftPoint = new Point(Integer.parseInt(dialog.getTxtUpperLeftPointX().getText()), Integer.parseInt(dialog.getTxtUpperLeftPointY().getText()));
 				
 					Rectangle newRectangle = new Rectangle (upperLeftPoint, Integer.parseInt(dialog.getTxtWidth().getText()), Integer.parseInt(dialog.getTxtHeight().getText()), 
-							dialog.getInnerColor(),	dialog.getOuterColor(), true);
+							dialog.getOuterColor(),	dialog.getInnerColor(), true);
 					
 					UpdateRectangleCmd updateRectangle = new UpdateRectangleCmd(rectangle, newRectangle);
 					updateRectangle.execute();
@@ -389,6 +422,8 @@ public class DrawingController {
 					propertyChangeSupport.firePropertyChange("Undo", false, true);
 					propertyChangeSupport.firePropertyChange("Redo", true, false);
 
+					frame.getDlm().addElement("Modified to " + newRectangle.toString());
+					
 					frame.repaint();
 				}
 				
@@ -421,6 +456,8 @@ public class DrawingController {
 					model.getRedoList().clear();
 					propertyChangeSupport.firePropertyChange("Undo", false, true);
 					propertyChangeSupport.firePropertyChange("Redo", true, false);
+					
+					frame.getDlm().addElement("Modified to " + newCircle.toString());
 
 					frame.repaint();
 				}
@@ -454,6 +491,8 @@ public class DrawingController {
 					model.getRedoList().clear();
 					propertyChangeSupport.firePropertyChange("Undo", false, true);
 					propertyChangeSupport.firePropertyChange("Redo", true, false);
+					
+					frame.getDlm().addElement("Modified to " + newHexagon.toString());
 
 					frame.repaint();
 				}
@@ -490,6 +529,8 @@ public class DrawingController {
 		propertyChangeSupport.firePropertyChange("Undo", false, true);
 		propertyChangeSupport.firePropertyChange("Redo", true, false);
 		
+		frame.getDlm().addElement("To front " + selectedShape.toString());
+		
 		frame.repaint();
 		
 		
@@ -520,6 +561,8 @@ public class DrawingController {
 		propertyChangeSupport.firePropertyChange("Undo", false, true);
 		propertyChangeSupport.firePropertyChange("Redo", true, false);
 		
+		frame.getDlm().addElement("To back " + selectedShape.toString());
+		
 		frame.repaint();
 		
 	}
@@ -548,6 +591,8 @@ public class DrawingController {
 		model.getRedoList().clear();
 		propertyChangeSupport.firePropertyChange("Undo", false, true);
 		propertyChangeSupport.firePropertyChange("Redo", true, false);
+		
+		frame.getDlm().addElement("Brought to front " + selectedShape.toString());
 		
 		frame.repaint();
 
@@ -578,6 +623,8 @@ public class DrawingController {
 		model.getRedoList().clear();
 		propertyChangeSupport.firePropertyChange("Undo", false, true);
 		propertyChangeSupport.firePropertyChange("Redo", true, false);
+		
+		frame.getDlm().addElement("Brought to back " + selectedShape.toString());
 		
 		frame.repaint();
 	}
@@ -635,6 +682,8 @@ public class DrawingController {
 			propertyChangeSupport.firePropertyChange("Delete", false, true);
 		}
 		
+		frame.getDlm().addElement("Undo " + undoCommand.toString().substring(8, undoCommand.toString().indexOf("@")) + " command");
+		
 		frame.repaint();
 	}
 	
@@ -691,6 +740,8 @@ public class DrawingController {
 			propertyChangeSupport.firePropertyChange("Delete", false, true);
 		}
 		
+		frame.getDlm().addElement("Redo " + redoCommand.toString().substring(8, redoCommand.toString().indexOf("@")) + " command");
+
 		frame.repaint();
 	}
 	
@@ -713,6 +764,30 @@ public class DrawingController {
 			fileManager.save();
 		}
 	}	
+	
+	
+	public void saveLog()
+	{
+		if(frame.getDlm().isEmpty())
+		{
+			JOptionPane.showMessageDialog(frame, "You can't save an empty log!");
+			return;
+		}
+		
+		JFileChooser fileChooser = new JFileChooser(System.getProperty("user.home")+ "/Desktop");
+		int reply = fileChooser.showSaveDialog(frame);
+		
+		if(reply == JFileChooser.APPROVE_OPTION)
+		{
+			System.out.println(fileChooser.getSelectedFile().getAbsolutePath().concat(".txt"));
+			ArrayList<String> dlm = Collections.list(frame.getDlm().elements());
+			System.out.println(dlm.size());
+			
+			FileLog fileLog = new FileLog(dlm, fileChooser.getSelectedFile().getAbsolutePath().concat(".txt"));
+			FileManager fileManager = new FileManager(fileLog);
+			fileManager.save();
+		}
+	}
 	
 	public void open()
 	{

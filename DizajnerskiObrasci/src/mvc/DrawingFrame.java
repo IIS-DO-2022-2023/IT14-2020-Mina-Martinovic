@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
@@ -46,6 +47,8 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 	
 	private JButton btnUndo;
 	private JButton btnRedo;
+	
+	private DefaultListModel<String> dlm = new DefaultListModel<String>();
 	
 	/**
 	 * Launch the application.
@@ -83,6 +86,7 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 		// centralni panel
 		JPanel pnlCenter = new JPanel();
 		contentPane.add(pnlCenter, BorderLayout.CENTER);
+		pnlCenter.setBackground(Color.PINK);
 		GridBagLayout gbl_pnlCenter = new GridBagLayout();
 		gbl_pnlCenter.columnWidths = new int[] { 0, 0, 0, 0, 0, 0 };
 		gbl_pnlCenter.rowHeights = new int[] { 33, 0, 0, 0, 0, 0, 0 };
@@ -120,6 +124,7 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 						pnlCenter.add(btnDelete, gbc_lbDelete);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(Color.blue);
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
@@ -209,6 +214,7 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 		
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(Color.blue);
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
 		gbc_panel_2.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_2.fill = GridBagConstraints.BOTH;
@@ -309,6 +315,7 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 		pnlCenter.add(cbxChooseShape, gbc_cbxChooseShape);
 		
 		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(Color.blue);
 		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
 		gbc_panel_3.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_3.fill = GridBagConstraints.BOTH;
@@ -332,6 +339,11 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 		});
 		
 		JButton btnSaveLog = new JButton("Save Log");
+		btnSaveLog.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.saveLog();
+			}
+		});
 		panel_3.add(btnSaveLog);
 		panel_3.add(btnOpen);
 		
@@ -350,13 +362,14 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 		gbc_panel_4.gridx = 1;
 		gbc_panel_4.gridy = 5;
 		pnlCenter.add(panel_4, gbc_panel_4);
+		panel_4.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setPreferredSize(new Dimension(180, 210));
 		panel_4.add(scrollPane);
 
 		
-		JList list = new JList();
+		JList list = new JList(dlm);
 		scrollPane.setViewportView(list);
 		
 														
@@ -429,6 +442,14 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 
 	public void setOuterColor(Color outerColor) {
 		this.outerColor = outerColor;
+	}
+
+	public DefaultListModel<String> getDlm() {
+		return dlm;
+	}
+
+	public void setDlm(DefaultListModel<String> dlm) {
+		this.dlm = dlm;
 	}
 
 	@Override
