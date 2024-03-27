@@ -30,6 +30,7 @@ import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import java.awt.SystemColor;
 
 public class DrawingFrame extends JFrame implements PropertyChangeListener{
 
@@ -86,7 +87,7 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 		// centralni panel
 		JPanel pnlCenter = new JPanel();
 		contentPane.add(pnlCenter, BorderLayout.CENTER);
-		pnlCenter.setBackground(Color.PINK);
+		pnlCenter.setBackground(new Color(173, 216, 230));
 		GridBagLayout gbl_pnlCenter = new GridBagLayout();
 		gbl_pnlCenter.columnWidths = new int[] { 0, 0, 0, 0, 0, 0 };
 		gbl_pnlCenter.rowHeights = new int[] { 33, 0, 0, 0, 0, 0, 0 };
@@ -123,8 +124,21 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 						gbc_lbDelete.gridy = 1;
 						pnlCenter.add(btnDelete, gbc_lbDelete);
 		
+		JButton btnExecute = new JButton("Execute");
+		btnExecute.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				controller.executeLog();
+			}
+		});
+		GridBagConstraints gbc_btnExecute = new GridBagConstraints();
+		gbc_btnExecute.insets = new Insets(0, 0, 5, 5);
+		gbc_btnExecute.gridx = 3;
+		gbc_btnExecute.gridy = 1;
+		pnlCenter.add(btnExecute, gbc_btnExecute);
+		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.blue);
+		panel_1.setBackground(new Color(102, 205, 170));
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
@@ -139,7 +153,7 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 				
 						JButton btnChooseOuterColor = new JButton("Choose outer color");
 						panel_1.add(btnChooseOuterColor);
-						btnChooseOuterColor.setForeground(Color.WHITE);
+						btnChooseOuterColor.setForeground(new Color(255, 255, 255));
 						btnChooseOuterColor.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {				
 								Color color = JColorChooser.showDialog(null, "Choose color", outerColor);
@@ -214,7 +228,7 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 		
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(Color.blue);
+		panel_2.setBackground(new Color(102, 205, 170));
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
 		gbc_panel_2.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_2.fill = GridBagConstraints.BOTH;
@@ -315,7 +329,7 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 		pnlCenter.add(cbxChooseShape, gbc_cbxChooseShape);
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(Color.blue);
+		panel_3.setBackground(new Color(102, 205, 170));
 		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
 		gbc_panel_3.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_3.fill = GridBagConstraints.BOTH;

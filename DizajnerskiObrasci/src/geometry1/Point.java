@@ -118,7 +118,7 @@ public class Point extends Shape{
 	}
 
 	public String toString() {
-		return "Point: x= " + x + ", y= " + y + ", outer color=" + getOuterColor().getRGB();
+		return "Point: x= " + x + ", y= " + y + ", outer color= " + getOuterColor().getRGB();
 	}
 
 }

@@ -60,6 +60,10 @@ public class DrawingController {
 	
 	private PropertyChangeSupport propertyChangeSupport;
 	
+	private ArrayList<String> executeLoggerList = new ArrayList<String>();
+	
+	private int currentLoggerCommand = 0;
+	
 	public DrawingController (DrawingFrame frame, DrawingModel model)
 	{
 		this.frame = frame;
@@ -101,7 +105,7 @@ public class DrawingController {
 		{
 			if(model.getSelectedShapes().size() > 0)
 			{
-				frame.getDlm().addElement("All shapes unselected ");
+				frame.getDlm().addElement("All selected shapes unselected ");
 			}
 			
 			for(Shape shape : model.getShapes())
@@ -789,6 +793,7 @@ public class DrawingController {
 		}
 	}
 	
+	
 	public void open()
 	{
 		JFileChooser fileChooser = new JFileChooser(System.getProperty("user.home")+ "/Desktop");
@@ -803,6 +808,17 @@ public class DrawingController {
 				fileManager.open();
 				frame.repaint();
 				System.out.println(model.getSelectedShapes().size());
+			}			
+			else 
+			{
+				executeLoggerList = new ArrayList<String>();
+				currentLoggerCommand = 0;
+				
+				FileLog fileLog = new FileLog(executeLoggerList, fileChooser.getSelectedFile().getAbsolutePath());
+				FileManager fileManager = new FileManager(fileLog);
+				fileManager.open();
+				frame.repaint();
+				
 			}
 				
 			if(model.getSelectedShapes().size() == 0)
@@ -820,10 +836,29 @@ public class DrawingController {
 				propertyChangeSupport.firePropertyChange("Modify", true, false);
 				propertyChangeSupport.firePropertyChange("Delete", false, true);
 			}
-		}
-		
+		}		
 	}
 	
+	public void executeLog()
+	{
+		if(executeLoggerList.size() > 0 && executeLoggerList.size() > currentLoggerCommand)
+		{
+			String s = executeLoggerList.get(currentLoggerCommand);
+			System.out.println(s);
+			String[] commandParts = s.split("[ ,]");
+			String command = commandParts[0];
+			
+			if(command.equals("Added"))
+			{
+				System.out.println(commandParts[1]);
+			}
+			currentLoggerCommand++;
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(frame, "You must load a text file first!");
+		}
+	}
 	
 	public void addPropertyChangeListener(PropertyChangeListener propertyChangeListener)
 	{
