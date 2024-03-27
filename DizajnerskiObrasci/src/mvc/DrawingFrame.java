@@ -134,7 +134,7 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 		GridBagConstraints gbc_btnExecute = new GridBagConstraints();
 		gbc_btnExecute.insets = new Insets(0, 0, 5, 5);
 		gbc_btnExecute.gridx = 3;
-		gbc_btnExecute.gridy = 1;
+		gbc_btnExecute.gridy = 3;
 		pnlCenter.add(btnExecute, gbc_btnExecute);
 		
 		JPanel panel_1 = new JPanel();
@@ -210,7 +210,7 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 		GridBagConstraints gbc_btnUndo = new GridBagConstraints();
 		gbc_btnUndo.insets = new Insets(0, 0, 5, 5);
 		gbc_btnUndo.gridx = 3;
-		gbc_btnUndo.gridy = 2;
+		gbc_btnUndo.gridy = 1;
 		pnlCenter.add(btnUndo, gbc_btnUndo);
 		
 		btnRedo = new JButton("Redo");
@@ -223,7 +223,7 @@ public class DrawingFrame extends JFrame implements PropertyChangeListener{
 		GridBagConstraints gbc_btnRedo = new GridBagConstraints();
 		gbc_btnRedo.insets = new Insets(0, 0, 5, 5);
 		gbc_btnRedo.gridx = 3;
-		gbc_btnRedo.gridy = 3;
+		gbc_btnRedo.gridy = 2;
 		pnlCenter.add(btnRedo, gbc_btnRedo);
 		
 		
