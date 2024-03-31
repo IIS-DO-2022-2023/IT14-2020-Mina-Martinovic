@@ -99,11 +99,14 @@ public class DrawingController {
 					break;
 				}				
 			}
-			
 		}
 		if(containsShape == false)
 		{
-			if(model.getSelectedShapes().size() > 0)
+			if(model.getSelectedShapes().size() == 1)
+			{
+				frame.getDlm().addElement("Unselected " + model.getSelectedShapes().get(0).toString());
+			}
+			else if(model.getSelectedShapes().size() > 0)
 			{
 				frame.getDlm().addElement("All selected shapes unselected ");
 			}
@@ -864,6 +867,30 @@ public class DrawingController {
 			{
 				executeCommandUnselectedAll();
 			}
+			else if(command.equals("Modified"))
+			{
+				executeCommandModified(commandParts);
+			}
+			else if(command.equals("All") && commandParts[3].equals("deleted"))
+			{
+				executeCommandDeleted();
+			}
+			else if(command.equals("To") && commandParts[1].equals("front"))
+			{
+				executeCommandToFront(commandParts);
+			}
+			else if(command.equals("To") && commandParts[1].equals("back"))
+			{
+				executeCommandToBack(commandParts);
+			}
+			else if(command.equals("Brought") && commandParts[2].equals("front"))
+			{
+				executeCommandBroughtToFront(commandParts);
+			}
+			else if(command.equals("Brought") && commandParts[2].equals("back"))
+			{
+				executeCommandBroughtToBack(commandParts);
+			}
 			
 			
 			frame.repaint();
@@ -905,6 +932,7 @@ public class DrawingController {
 			Point point = new Point(x, y, outerColor);
 			AddShape addShapePoint = new AddShape(point, model);
 			addShapePoint.execute();
+			model.getUndoList().add(addShapePoint);
 			
 			frame.getDlm().addElement("Added " + point.toString());
 		}
@@ -919,6 +947,7 @@ public class DrawingController {
 			Line line = new Line(new Point(startX, startY), new Point(endX, endY), outerColor);
 			AddShape addShapeLine = new AddShape(line, model);
 			addShapeLine.execute();
+			model.getUndoList().add(addShapeLine);
 			
 			frame.getDlm().addElement("Added " + line.toString());
 					
@@ -937,6 +966,7 @@ public class DrawingController {
 				circle = new Circle(new Point(x, y), radius, outerColor, innerColor);
 				AddShape addShapeCircle = new AddShape(circle, model);
 				addShapeCircle.execute();
+				model.getUndoList().add(addShapeCircle);
 				
 				frame.getDlm().addElement("Added " + circle.toString());
 
@@ -957,6 +987,7 @@ public class DrawingController {
 			Donut donut = new Donut(new Point(x, y), radius, innerRadius, outerColor, innerColor);
 			AddShape addShapeDonut = new AddShape(donut, model);
 			addShapeDonut.execute();
+			model.getUndoList().add(addShapeDonut);
 			
 			frame.getDlm().addElement("Added " + donut.toString());
 
@@ -974,6 +1005,7 @@ public class DrawingController {
 			Rectangle rectangle = new Rectangle(new Point(x, y), width, height, outerColor, innerColor);
 			AddShape addShapeRectangle = new AddShape(rectangle, model);
 			addShapeRectangle.execute();
+			model.getUndoList().add(addShapeRectangle);
 			
 			frame.getDlm().addElement("Added " + rectangle.toString());
 
@@ -990,6 +1022,7 @@ public class DrawingController {
 			HexagonAdapter hexagon = new HexagonAdapter(new Point(x, y), radius, outerColor, innerColor);
 			AddShape addShapeHexagon = new AddShape(hexagon, model);
 			addShapeHexagon.execute();
+			model.getUndoList().add(addShapeHexagon);
 			
 			frame.getDlm().addElement("Added " + hexagon.toString());
 
@@ -1258,6 +1291,637 @@ public class DrawingController {
 		
 	}
 	
+	public void executeCommandModified(String[] commandParts)
+	{
+		String shapeName = commandParts[2];
+		Shape oldShape = model.getSelectedShapes().get(0);
+		
+		if(shapeName.contains("Point"))
+		{
+			int x = Integer.parseInt(commandParts[4]);
+			int y = Integer.parseInt(commandParts[7]);
+			Color outerColor = new Color(Integer.parseInt(commandParts[11]));
+			
+			Point newPoint = new Point(x, y, outerColor);
+			UpdatePointCmd updatePoint = new UpdatePointCmd((Point) oldShape, newPoint);
+			updatePoint.execute();
+			model.getUndoList().add(updatePoint);
+			
+			frame.getDlm().addElement("Modified to " + newPoint.toString());
+		}
+		else if(shapeName.contains("Line"))
+		{
+			int startX = Integer.parseInt(commandParts[6]);
+			int startY = Integer.parseInt(commandParts[11]);
+			int endX = Integer.parseInt(commandParts[16]);
+			int endY = Integer.parseInt(commandParts[21]);
+			Color outerColor = new Color(Integer.parseInt(commandParts[25]));
+			
+			Line newLine = new Line(new Point(startX, startY), new Point(endX, endY), outerColor);
+			UpdateLineCmd updateLine = new UpdateLineCmd((Line) oldShape, newLine);
+			updateLine.execute();
+			model.getUndoList().add(updateLine);
+			
+			frame.getDlm().addElement("Modified to " + newLine.toString());
+		}
+		else if(shapeName.contains("Circle"))
+		{
+			int radius = Integer.parseInt(commandParts[4]);
+			int x = Integer.parseInt(commandParts[7]);
+			int y = Integer.parseInt(commandParts[10]);
+			
+			Color outerColor = new Color(Integer.parseInt(commandParts[14]));
+			Color innerColor = new Color(Integer.parseInt(commandParts[18]));
+			
+			Circle newCircle;
+			try {
+				newCircle = new Circle(new Point(x, y), radius, outerColor, innerColor);
+				UpdateCircleCmd updateCircle = new UpdateCircleCmd((Circle) oldShape, newCircle);
+				updateCircle.execute();
+				model.getUndoList().add(updateCircle);
+				
+				frame.getDlm().addElement("Modified to  " + newCircle.toString());
+
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(frame, "Invalid circle data!");
+			}
+		}
+		else if(shapeName.contains("Donut"))
+		{
+			int radius = Integer.parseInt(commandParts[4]);
+			int innerRadius = Integer.parseInt(commandParts[8]);
+			int x = Integer.parseInt(commandParts[11]);
+			int y = Integer.parseInt(commandParts[14]);
+			
+			Color outerColor = new Color(Integer.parseInt(commandParts[18]));
+			Color innerColor = new Color(Integer.parseInt(commandParts[22]));
+
+			Donut newDonut = new Donut(new Point(x, y), radius, innerRadius, outerColor, innerColor);
+			UpdateDonutCmd updateDonut = new UpdateDonutCmd((Donut) oldShape, newDonut);
+			updateDonut.execute();
+			model.getUndoList().add(updateDonut);
+			
+			frame.getDlm().addElement("Modified to " + newDonut.toString());
+		}
+		else if(shapeName.contains("Rectangle"))
+		{
+			int x = Integer.parseInt(commandParts[4]);
+			int y = Integer.parseInt(commandParts[7]);
+			int height = Integer.parseInt(commandParts[10]);
+			int width = Integer.parseInt(commandParts[13]);
+			
+			Color outerColor = new Color(Integer.parseInt(commandParts[17]));
+			Color innerColor = new Color(Integer.parseInt(commandParts[21]));
+
+			Rectangle newRectangle = new Rectangle(new Point(x, y), width, height, outerColor, innerColor);
+			UpdateRectangleCmd updateRectangle = new UpdateRectangleCmd((Rectangle) oldShape, newRectangle);
+			updateRectangle.execute();
+			model.getUndoList().add(updateRectangle);
+			
+			frame.getDlm().addElement("Modified to  " + newRectangle.toString());
+		}
+		else if(shapeName.contains("Hexagon"))
+		{
+			int radius = Integer.parseInt(commandParts[4]);
+			int x = Integer.parseInt(commandParts[7]);
+			int y = Integer.parseInt(commandParts[10]);
+			
+			Color outerColor = new Color(Integer.parseInt(commandParts[14]));
+			Color innerColor = new Color(Integer.parseInt(commandParts[18]));
+			
+			HexagonAdapter newHexagon = new HexagonAdapter(new Point(x, y), radius, outerColor, innerColor);
+			UpdateHexagonCmd updateHexagon = new UpdateHexagonCmd((HexagonAdapter) oldShape, newHexagon);
+			updateHexagon.execute();
+			model.getUndoList().add(updateHexagon);
+			
+			frame.getDlm().addElement("Modified to  " + newHexagon.toString());
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(frame, "There's no such object in the list!");
+		}
+	}
+	
+	public void executeCommandDeleted()
+	{
+		RemoveShape removeShape = new RemoveShape(model);
+		removeShape.execute();
+		
+		frame.getDlm().addElement("All selected shapes deleted ");
+	}
+	
+	public void executeCommandToFront(String[] commandParts)
+	{
+		String shapeName = commandParts[2];
+		
+		if(shapeName.contains("Point"))
+		{
+			int x = Integer.parseInt(commandParts[4]);
+			int y = Integer.parseInt(commandParts[7]);
+			Color outerColor = new Color(Integer.parseInt(commandParts[11]));
+			
+			Point point = new Point(x, y, outerColor);
+			int index = model.getShapes().indexOf(point);
+			Shape executedSelectedShape = model.getShapes().get(index);
+			
+			ToFront toFrontPoint = new ToFront(index, executedSelectedShape, model);
+			toFrontPoint.execute();
+			model.getUndoList().add(toFrontPoint);
+			
+			frame.getDlm().addElement("To front " + point.toString());
+		}
+		else if(shapeName.contains("Line"))
+		{
+			int startX = Integer.parseInt(commandParts[6]);
+			int startY = Integer.parseInt(commandParts[11]);
+			int endX = Integer.parseInt(commandParts[16]);
+			int endY = Integer.parseInt(commandParts[21]);
+			Color outerColor = new Color(Integer.parseInt(commandParts[25]));
+			
+			Line line = new Line(new Point(startX, startY), new Point(endX, endY), outerColor);
+			int index = model.getShapes().indexOf(line);
+			Shape executedSelectedShape = model.getShapes().get(index);
+			
+			ToFront toFrontLine = new ToFront(index, executedSelectedShape, model);
+			toFrontLine.execute();
+			model.getUndoList().add(toFrontLine);
+			
+			frame.getDlm().addElement("To front " + line.toString());
+		}
+		else if(shapeName.contains("Circle"))
+		{
+			int radius = Integer.parseInt(commandParts[4]);
+			int x = Integer.parseInt(commandParts[7]);
+			int y = Integer.parseInt(commandParts[10]);
+			
+			Color outerColor = new Color(Integer.parseInt(commandParts[14]));
+			Color innerColor = new Color(Integer.parseInt(commandParts[18]));
+			
+			Circle circle;
+			try {
+				circle = new Circle(new Point(x, y), radius, outerColor, innerColor);
+				int index = model.getShapes().indexOf(circle);
+				Shape executedSelectedShape = model.getShapes().get(index);
+				
+				ToFront toFrontCircle = new ToFront(index, executedSelectedShape, model);
+				toFrontCircle.execute();
+				model.getUndoList().add(toFrontCircle);
+				
+				frame.getDlm().addElement("To front " + circle.toString());
+				
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(frame, "Invalid circle data!");
+			}
+		}
+		else if(shapeName.contains("Donut"))
+		{
+			int radius = Integer.parseInt(commandParts[4]);
+			int innerRadius = Integer.parseInt(commandParts[8]);
+			int x = Integer.parseInt(commandParts[11]);
+			int y = Integer.parseInt(commandParts[14]);
+			
+			Color outerColor = new Color(Integer.parseInt(commandParts[18]));
+			Color innerColor = new Color(Integer.parseInt(commandParts[22]));
+
+			Donut donut = new Donut(new Point(x, y), radius, innerRadius, outerColor, innerColor);
+			int index = model.getShapes().indexOf(donut);
+			Shape executedSelectedShape = model.getShapes().get(index);
+			
+			ToFront toFrontDonut = new ToFront(index, executedSelectedShape, model);
+			toFrontDonut.execute();
+			model.getUndoList().add(toFrontDonut);
+			
+			frame.getDlm().addElement("To front " + donut.toString());
+		}
+		else if(shapeName.contains("Rectangle"))
+		{
+			int x = Integer.parseInt(commandParts[4]);
+			int y = Integer.parseInt(commandParts[7]);
+			int height = Integer.parseInt(commandParts[10]);
+			int width = Integer.parseInt(commandParts[13]);
+			
+			Color outerColor = new Color(Integer.parseInt(commandParts[17]));
+			Color innerColor = new Color(Integer.parseInt(commandParts[21]));
+
+			Rectangle rectangle = new Rectangle(new Point(x, y), width, height, outerColor, innerColor);
+			int index = model.getShapes().indexOf(rectangle);
+			Shape executedSelectedShape = model.getShapes().get(index);
+			
+			ToFront toFrontRectangle = new ToFront(index, executedSelectedShape, model);
+			toFrontRectangle.execute();
+			model.getUndoList().add(toFrontRectangle);
+			
+			frame.getDlm().addElement("To front " + rectangle.toString());
+		}
+		else if(shapeName.contains("Hexagon"))
+		{
+			int radius = Integer.parseInt(commandParts[4]);
+			int x = Integer.parseInt(commandParts[7]);
+			int y = Integer.parseInt(commandParts[10]);
+			
+			Color outerColor = new Color(Integer.parseInt(commandParts[14]));
+			Color innerColor = new Color(Integer.parseInt(commandParts[18]));
+			
+			HexagonAdapter hexagon = new HexagonAdapter(new Point(x, y), radius, outerColor, innerColor);
+			int index = model.getShapes().indexOf(hexagon);
+			Shape executedSelectedShape = model.getShapes().get(index);
+			
+			ToFront toFrontHexagon = new ToFront(index, executedSelectedShape, model);
+			toFrontHexagon.execute();
+			model.getUndoList().add(toFrontHexagon);
+			
+			frame.getDlm().addElement("To front " + hexagon.toString());
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(frame, "There's no such object in the list!");
+		}
+	}
+	
+	
+	public void executeCommandToBack(String[] commandParts)
+	{
+		String shapeName = commandParts[2];
+		
+		if(shapeName.contains("Point"))
+		{
+			int x = Integer.parseInt(commandParts[4]);
+			int y = Integer.parseInt(commandParts[7]);
+			Color outerColor = new Color(Integer.parseInt(commandParts[11]));
+			
+			Point point = new Point(x, y, outerColor);
+			int index = model.getShapes().indexOf(point);
+			Shape executedSelectedShape = model.getShapes().get(index);
+			
+			ToBack toBackPoint = new ToBack(index, executedSelectedShape, model);
+			toBackPoint.execute();
+			model.getUndoList().add(toBackPoint);
+			
+			frame.getDlm().addElement("To back " + point.toString());
+		}
+		else if(shapeName.contains("Line"))
+		{
+			int startX = Integer.parseInt(commandParts[6]);
+			int startY = Integer.parseInt(commandParts[11]);
+			int endX = Integer.parseInt(commandParts[16]);
+			int endY = Integer.parseInt(commandParts[21]);
+			Color outerColor = new Color(Integer.parseInt(commandParts[25]));
+			
+			Line line = new Line(new Point(startX, startY), new Point(endX, endY), outerColor);
+			int index = model.getShapes().indexOf(line);
+			Shape executedSelectedShape = model.getShapes().get(index);
+			
+			ToBack toBackLine = new ToBack(index, executedSelectedShape, model);
+			toBackLine.execute();
+			model.getUndoList().add(toBackLine);
+			
+			frame.getDlm().addElement("To back " + line.toString());
+		}
+		else if(shapeName.contains("Circle"))
+		{
+			int radius = Integer.parseInt(commandParts[4]);
+			int x = Integer.parseInt(commandParts[7]);
+			int y = Integer.parseInt(commandParts[10]);
+			
+			Color outerColor = new Color(Integer.parseInt(commandParts[14]));
+			Color innerColor = new Color(Integer.parseInt(commandParts[18]));
+			
+			Circle circle;
+			try {
+				circle = new Circle(new Point(x, y), radius, outerColor, innerColor);
+				int index = model.getShapes().indexOf(circle);
+				Shape executedSelectedShape = model.getShapes().get(index);
+				
+				ToBack toBackCircle = new ToBack(index, executedSelectedShape, model);
+				toBackCircle.execute();
+				model.getUndoList().add(toBackCircle);
+				
+				frame.getDlm().addElement("To back " + circle.toString());
+				
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(frame, "Invalid circle data!");
+			}
+		}
+		else if(shapeName.contains("Donut"))
+		{
+			int radius = Integer.parseInt(commandParts[4]);
+			int innerRadius = Integer.parseInt(commandParts[8]);
+			int x = Integer.parseInt(commandParts[11]);
+			int y = Integer.parseInt(commandParts[14]);
+			
+			Color outerColor = new Color(Integer.parseInt(commandParts[18]));
+			Color innerColor = new Color(Integer.parseInt(commandParts[22]));
+
+			Donut donut = new Donut(new Point(x, y), radius, innerRadius, outerColor, innerColor);
+			int index = model.getShapes().indexOf(donut);
+			Shape executedSelectedShape = model.getShapes().get(index);
+			
+			ToBack toBackDonut = new ToBack(index, executedSelectedShape, model);
+			toBackDonut.execute();
+			model.getUndoList().add(toBackDonut);
+			
+			frame.getDlm().addElement("To back " + donut.toString());
+		}
+		else if(shapeName.contains("Rectangle"))
+		{
+			int x = Integer.parseInt(commandParts[4]);
+			int y = Integer.parseInt(commandParts[7]);
+			int height = Integer.parseInt(commandParts[10]);
+			int width = Integer.parseInt(commandParts[13]);
+			
+			Color outerColor = new Color(Integer.parseInt(commandParts[17]));
+			Color innerColor = new Color(Integer.parseInt(commandParts[21]));
+
+			Rectangle rectangle = new Rectangle(new Point(x, y), width, height, outerColor, innerColor);
+			int index = model.getShapes().indexOf(rectangle);
+			Shape executedSelectedShape = model.getShapes().get(index);
+			
+			ToBack toBackRectangle = new ToBack(index, executedSelectedShape, model);
+			toBackRectangle.execute();
+			model.getUndoList().add(toBackRectangle);
+			
+			frame.getDlm().addElement("To back " + rectangle.toString());
+		}
+		else if(shapeName.contains("Hexagon"))
+		{
+			int radius = Integer.parseInt(commandParts[4]);
+			int x = Integer.parseInt(commandParts[7]);
+			int y = Integer.parseInt(commandParts[10]);
+			
+			Color outerColor = new Color(Integer.parseInt(commandParts[14]));
+			Color innerColor = new Color(Integer.parseInt(commandParts[18]));
+			
+			HexagonAdapter hexagon = new HexagonAdapter(new Point(x, y), radius, outerColor, innerColor);
+			int index = model.getShapes().indexOf(hexagon);
+			Shape executedSelectedShape = model.getShapes().get(index);
+			
+			ToBack toBackHexagon = new ToBack(index, executedSelectedShape, model);
+			toBackHexagon.execute();
+			model.getUndoList().add(toBackHexagon);
+			
+			frame.getDlm().addElement("To back " + hexagon.toString());
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(frame, "There's no such object in the list!");
+		}
+	}
+	
+	public void executeCommandBroughtToBack(String[] commandParts)
+	{
+		String shapeName = commandParts[3];
+		
+		if(shapeName.contains("Point"))
+		{
+			int x = Integer.parseInt(commandParts[5]);
+			int y = Integer.parseInt(commandParts[8]);
+			Color outerColor = new Color(Integer.parseInt(commandParts[12]));
+			
+			Point point = new Point(x, y, outerColor);
+			int index = model.getShapes().indexOf(point);
+			Shape executedSelectedShape = model.getShapes().get(index);
+			
+			BringToBack bringToBackPoint = new BringToBack(index, executedSelectedShape, model);
+			bringToBackPoint.execute();
+			model.getUndoList().add(bringToBackPoint);
+			
+			frame.getDlm().addElement("Brought to back " + point.toString());
+		}
+		else if(shapeName.contains("Line"))
+		{
+			int startX = Integer.parseInt(commandParts[7]);
+			int startY = Integer.parseInt(commandParts[12]);
+			int endX = Integer.parseInt(commandParts[17]);
+			int endY = Integer.parseInt(commandParts[22]);
+			Color outerColor = new Color(Integer.parseInt(commandParts[26]));
+			
+			Line line = new Line(new Point(startX, startY), new Point(endX, endY), outerColor);
+			int index = model.getShapes().indexOf(line);
+			Shape executedSelectedShape = model.getShapes().get(index);
+			
+			BringToBack bringToBackLine = new BringToBack(index, executedSelectedShape, model);
+			bringToBackLine.execute();
+			model.getUndoList().add(bringToBackLine);
+			
+			frame.getDlm().addElement("Brought to back " + line.toString());
+		}
+		else if(shapeName.contains("Circle"))
+		{
+			int radius = Integer.parseInt(commandParts[5]);
+			int x = Integer.parseInt(commandParts[8]);
+			int y = Integer.parseInt(commandParts[11]);
+			
+			Color outerColor = new Color(Integer.parseInt(commandParts[15]));
+			Color innerColor = new Color(Integer.parseInt(commandParts[19]));
+			
+			Circle circle;
+			try {
+				circle = new Circle(new Point(x, y), radius, outerColor, innerColor);
+				int index = model.getShapes().indexOf(circle);
+				Shape executedSelectedShape = model.getShapes().get(index);
+				
+				BringToBack bringToBackCircle = new BringToBack(index, executedSelectedShape, model);
+				bringToBackCircle.execute();
+				model.getUndoList().add(bringToBackCircle);
+				
+				frame.getDlm().addElement("Brought to back " + circle.toString());
+				
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(frame, "Invalid circle data!");
+			}
+		}
+		else if(shapeName.contains("Donut"))
+		{
+			int radius = Integer.parseInt(commandParts[5]);
+			int innerRadius = Integer.parseInt(commandParts[9]);
+			int x = Integer.parseInt(commandParts[12]);
+			int y = Integer.parseInt(commandParts[15]);
+			
+			Color outerColor = new Color(Integer.parseInt(commandParts[19]));
+			Color innerColor = new Color(Integer.parseInt(commandParts[23]));
+
+			Donut donut = new Donut(new Point(x, y), radius, innerRadius, outerColor, innerColor);
+			int index = model.getShapes().indexOf(donut);
+			Shape executedSelectedShape = model.getShapes().get(index);
+			
+			BringToBack bringToBackDonut = new BringToBack(index, executedSelectedShape, model);
+			bringToBackDonut.execute();
+			model.getUndoList().add(bringToBackDonut);
+			
+			frame.getDlm().addElement("Brought to back " + donut.toString());
+		}
+		else if(shapeName.contains("Rectangle"))
+		{
+			int x = Integer.parseInt(commandParts[5]);
+			int y = Integer.parseInt(commandParts[8]);
+			int height = Integer.parseInt(commandParts[11]);
+			int width = Integer.parseInt(commandParts[14]);
+			
+			Color outerColor = new Color(Integer.parseInt(commandParts[18]));
+			Color innerColor = new Color(Integer.parseInt(commandParts[22]));
+
+			Rectangle rectangle = new Rectangle(new Point(x, y), width, height, outerColor, innerColor);
+			int index = model.getShapes().indexOf(rectangle);
+			Shape executedSelectedShape = model.getShapes().get(index);
+			
+			BringToBack bringToBackRectangle = new BringToBack(index, executedSelectedShape, model);
+			bringToBackRectangle.execute();
+			model.getUndoList().add(bringToBackRectangle);
+			
+			frame.getDlm().addElement("Brought to back " + rectangle.toString());
+		}
+		else if(shapeName.contains("Hexagon"))
+		{
+			int radius = Integer.parseInt(commandParts[5]);
+			int x = Integer.parseInt(commandParts[8]);
+			int y = Integer.parseInt(commandParts[11]);
+			
+			Color outerColor = new Color(Integer.parseInt(commandParts[15]));
+			Color innerColor = new Color(Integer.parseInt(commandParts[19]));
+			
+			HexagonAdapter hexagon = new HexagonAdapter(new Point(x, y), radius, outerColor, innerColor);
+			int index = model.getShapes().indexOf(hexagon);
+			Shape executedSelectedShape = model.getShapes().get(index);
+			
+			BringToBack bringToBackHexagon = new BringToBack(index, executedSelectedShape, model);
+			bringToBackHexagon.execute();
+			model.getUndoList().add(bringToBackHexagon);
+			
+			frame.getDlm().addElement("Brought to back " + hexagon.toString());
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(frame, "There's no such object in the list!");
+		}
+	}
+	
+	public void executeCommandBroughtToFront(String[] commandParts)
+	{
+		String shapeName = commandParts[3];
+		
+		if(shapeName.contains("Point"))
+		{
+			int x = Integer.parseInt(commandParts[5]);
+			int y = Integer.parseInt(commandParts[8]);
+			Color outerColor = new Color(Integer.parseInt(commandParts[12]));
+			
+			Point point = new Point(x, y, outerColor);
+			int index = model.getShapes().indexOf(point);
+			Shape executedSelectedShape = model.getShapes().get(index);
+			
+			BringToFront bringToFrontPoint = new BringToFront(index, executedSelectedShape, model);
+			bringToFrontPoint.execute();
+			model.getUndoList().add(bringToFrontPoint);
+			
+			frame.getDlm().addElement("Brought to front " + point.toString());
+		}
+		else if(shapeName.contains("Line"))
+		{
+			int startX = Integer.parseInt(commandParts[7]);
+			int startY = Integer.parseInt(commandParts[12]);
+			int endX = Integer.parseInt(commandParts[17]);
+			int endY = Integer.parseInt(commandParts[22]);
+			Color outerColor = new Color(Integer.parseInt(commandParts[26]));
+			
+			Line line = new Line(new Point(startX, startY), new Point(endX, endY), outerColor);
+			int index = model.getShapes().indexOf(line);
+			Shape executedSelectedShape = model.getShapes().get(index);
+			
+			BringToFront bringToFrontLine = new BringToFront(index, executedSelectedShape, model);
+			bringToFrontLine.execute();
+			model.getUndoList().add(bringToFrontLine);
+			
+			frame.getDlm().addElement("Brought to front " + line.toString());
+		}
+		else if(shapeName.contains("Circle"))
+		{
+			int radius = Integer.parseInt(commandParts[5]);
+			int x = Integer.parseInt(commandParts[8]);
+			int y = Integer.parseInt(commandParts[11]);
+			
+			Color outerColor = new Color(Integer.parseInt(commandParts[15]));
+			Color innerColor = new Color(Integer.parseInt(commandParts[19]));
+			
+			Circle circle;
+			try {
+				circle = new Circle(new Point(x, y), radius, outerColor, innerColor);
+				int index = model.getShapes().indexOf(circle);
+				Shape executedSelectedShape = model.getShapes().get(index);
+				
+				BringToFront bringToFrontCircle = new BringToFront(index, executedSelectedShape, model);
+				bringToFrontCircle.execute();
+				model.getUndoList().add(bringToFrontCircle);
+				
+				frame.getDlm().addElement("Brought to front " + circle.toString());
+				
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(frame, "Invalid circle data!");
+			}
+		}
+		else if(shapeName.contains("Donut"))
+		{
+			int radius = Integer.parseInt(commandParts[5]);
+			int innerRadius = Integer.parseInt(commandParts[9]);
+			int x = Integer.parseInt(commandParts[12]);
+			int y = Integer.parseInt(commandParts[15]);
+			
+			Color outerColor = new Color(Integer.parseInt(commandParts[19]));
+			Color innerColor = new Color(Integer.parseInt(commandParts[23]));
+
+			Donut donut = new Donut(new Point(x, y), radius, innerRadius, outerColor, innerColor);
+			int index = model.getShapes().indexOf(donut);
+			Shape executedSelectedShape = model.getShapes().get(index);
+			
+			BringToFront bringToFrontDonut = new BringToFront(index, executedSelectedShape, model);
+			bringToFrontDonut.execute();
+			model.getUndoList().add(bringToFrontDonut);
+			
+			frame.getDlm().addElement("Brought to front " + donut.toString());
+		}
+		else if(shapeName.contains("Rectangle"))
+		{
+			int x = Integer.parseInt(commandParts[5]);
+			int y = Integer.parseInt(commandParts[8]);
+			int height = Integer.parseInt(commandParts[11]);
+			int width = Integer.parseInt(commandParts[14]);
+			
+			Color outerColor = new Color(Integer.parseInt(commandParts[18]));
+			Color innerColor = new Color(Integer.parseInt(commandParts[22]));
+
+			Rectangle rectangle = new Rectangle(new Point(x, y), width, height, outerColor, innerColor);
+			int index = model.getShapes().indexOf(rectangle);
+			Shape executedSelectedShape = model.getShapes().get(index);
+			
+			BringToFront bringToFrontRectangle = new BringToFront(index, executedSelectedShape, model);
+			bringToFrontRectangle.execute();
+			model.getUndoList().add(bringToFrontRectangle);
+			
+			frame.getDlm().addElement("Brought to front " + rectangle.toString());
+		}
+		else if(shapeName.contains("Hexagon"))
+		{
+			int radius = Integer.parseInt(commandParts[5]);
+			int x = Integer.parseInt(commandParts[8]);
+			int y = Integer.parseInt(commandParts[11]);
+			
+			Color outerColor = new Color(Integer.parseInt(commandParts[15]));
+			Color innerColor = new Color(Integer.parseInt(commandParts[19]));
+			
+			HexagonAdapter hexagon = new HexagonAdapter(new Point(x, y), radius, outerColor, innerColor);
+			int index = model.getShapes().indexOf(hexagon);
+			Shape executedSelectedShape = model.getShapes().get(index);
+			
+			BringToFront bringToFrontHexagon = new BringToFront(index, executedSelectedShape, model);
+			bringToFrontHexagon.execute();
+			model.getUndoList().add(bringToFrontHexagon);
+			
+			frame.getDlm().addElement("Brought to front " + hexagon.toString());
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(frame, "There's no such object in the list!");
+		}
+	}
 	
 	
 	public void addPropertyChangeListener(PropertyChangeListener propertyChangeListener)
