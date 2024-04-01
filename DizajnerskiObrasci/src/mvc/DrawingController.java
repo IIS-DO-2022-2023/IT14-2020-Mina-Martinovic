@@ -891,6 +891,14 @@ public class DrawingController {
 			{
 				executeCommandBroughtToBack(commandParts);
 			}
+			else if(command.equals("Undo"))
+			{
+				executeCommandUndo();
+			}
+			else if(command.equals("Redo"))
+			{
+				executeCommandRedo();
+			}
 			
 			
 			frame.repaint();
@@ -909,6 +917,28 @@ public class DrawingController {
 			{
 				propertyChangeSupport.firePropertyChange("Delete", true, false);
 				propertyChangeSupport.firePropertyChange("Modify", true, false);
+			}
+			
+
+			if(model.getUndoList().size() > 0 && model.getRedoList().size() > 0)
+			{
+				propertyChangeSupport.firePropertyChange("Undo", false, true);
+				propertyChangeSupport.firePropertyChange("Redo", false, true);
+			}
+			else if (model.getUndoList().size() > 0)
+			{
+				propertyChangeSupport.firePropertyChange("Undo", false, true);
+				propertyChangeSupport.firePropertyChange("Redo", true, false);
+			}
+			else if (model.getRedoList().size() > 0)
+			{
+				propertyChangeSupport.firePropertyChange("Undo", true, false);
+				propertyChangeSupport.firePropertyChange("Redo", false, true);
+			}
+			else
+			{
+				propertyChangeSupport.firePropertyChange("Undo", true, false);
+				propertyChangeSupport.firePropertyChange("Redo", true, false);
 			}
 			
 			currentLoggerCommand++;
@@ -933,6 +963,7 @@ public class DrawingController {
 			AddShape addShapePoint = new AddShape(point, model);
 			addShapePoint.execute();
 			model.getUndoList().add(addShapePoint);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("Added " + point.toString());
 		}
@@ -948,6 +979,7 @@ public class DrawingController {
 			AddShape addShapeLine = new AddShape(line, model);
 			addShapeLine.execute();
 			model.getUndoList().add(addShapeLine);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("Added " + line.toString());
 					
@@ -967,6 +999,7 @@ public class DrawingController {
 				AddShape addShapeCircle = new AddShape(circle, model);
 				addShapeCircle.execute();
 				model.getUndoList().add(addShapeCircle);
+				model.getRedoList().clear();
 				
 				frame.getDlm().addElement("Added " + circle.toString());
 
@@ -988,6 +1021,7 @@ public class DrawingController {
 			AddShape addShapeDonut = new AddShape(donut, model);
 			addShapeDonut.execute();
 			model.getUndoList().add(addShapeDonut);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("Added " + donut.toString());
 
@@ -1006,6 +1040,7 @@ public class DrawingController {
 			AddShape addShapeRectangle = new AddShape(rectangle, model);
 			addShapeRectangle.execute();
 			model.getUndoList().add(addShapeRectangle);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("Added " + rectangle.toString());
 
@@ -1023,6 +1058,7 @@ public class DrawingController {
 			AddShape addShapeHexagon = new AddShape(hexagon, model);
 			addShapeHexagon.execute();
 			model.getUndoList().add(addShapeHexagon);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("Added " + hexagon.toString());
 
@@ -1306,6 +1342,7 @@ public class DrawingController {
 			UpdatePointCmd updatePoint = new UpdatePointCmd((Point) oldShape, newPoint);
 			updatePoint.execute();
 			model.getUndoList().add(updatePoint);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("Modified to " + newPoint.toString());
 		}
@@ -1321,6 +1358,7 @@ public class DrawingController {
 			UpdateLineCmd updateLine = new UpdateLineCmd((Line) oldShape, newLine);
 			updateLine.execute();
 			model.getUndoList().add(updateLine);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("Modified to " + newLine.toString());
 		}
@@ -1339,6 +1377,7 @@ public class DrawingController {
 				UpdateCircleCmd updateCircle = new UpdateCircleCmd((Circle) oldShape, newCircle);
 				updateCircle.execute();
 				model.getUndoList().add(updateCircle);
+				model.getRedoList().clear();
 				
 				frame.getDlm().addElement("Modified to  " + newCircle.toString());
 
@@ -1360,6 +1399,7 @@ public class DrawingController {
 			UpdateDonutCmd updateDonut = new UpdateDonutCmd((Donut) oldShape, newDonut);
 			updateDonut.execute();
 			model.getUndoList().add(updateDonut);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("Modified to " + newDonut.toString());
 		}
@@ -1377,6 +1417,7 @@ public class DrawingController {
 			UpdateRectangleCmd updateRectangle = new UpdateRectangleCmd((Rectangle) oldShape, newRectangle);
 			updateRectangle.execute();
 			model.getUndoList().add(updateRectangle);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("Modified to  " + newRectangle.toString());
 		}
@@ -1393,6 +1434,7 @@ public class DrawingController {
 			UpdateHexagonCmd updateHexagon = new UpdateHexagonCmd((HexagonAdapter) oldShape, newHexagon);
 			updateHexagon.execute();
 			model.getUndoList().add(updateHexagon);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("Modified to  " + newHexagon.toString());
 		}
@@ -1406,6 +1448,8 @@ public class DrawingController {
 	{
 		RemoveShape removeShape = new RemoveShape(model);
 		removeShape.execute();
+		model.getUndoList().add(removeShape);
+		model.getRedoList().clear();
 		
 		frame.getDlm().addElement("All selected shapes deleted ");
 	}
@@ -1427,6 +1471,7 @@ public class DrawingController {
 			ToFront toFrontPoint = new ToFront(index, executedSelectedShape, model);
 			toFrontPoint.execute();
 			model.getUndoList().add(toFrontPoint);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("To front " + point.toString());
 		}
@@ -1445,6 +1490,7 @@ public class DrawingController {
 			ToFront toFrontLine = new ToFront(index, executedSelectedShape, model);
 			toFrontLine.execute();
 			model.getUndoList().add(toFrontLine);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("To front " + line.toString());
 		}
@@ -1466,6 +1512,7 @@ public class DrawingController {
 				ToFront toFrontCircle = new ToFront(index, executedSelectedShape, model);
 				toFrontCircle.execute();
 				model.getUndoList().add(toFrontCircle);
+				model.getRedoList().clear();
 				
 				frame.getDlm().addElement("To front " + circle.toString());
 				
@@ -1490,6 +1537,7 @@ public class DrawingController {
 			ToFront toFrontDonut = new ToFront(index, executedSelectedShape, model);
 			toFrontDonut.execute();
 			model.getUndoList().add(toFrontDonut);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("To front " + donut.toString());
 		}
@@ -1510,6 +1558,7 @@ public class DrawingController {
 			ToFront toFrontRectangle = new ToFront(index, executedSelectedShape, model);
 			toFrontRectangle.execute();
 			model.getUndoList().add(toFrontRectangle);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("To front " + rectangle.toString());
 		}
@@ -1529,6 +1578,7 @@ public class DrawingController {
 			ToFront toFrontHexagon = new ToFront(index, executedSelectedShape, model);
 			toFrontHexagon.execute();
 			model.getUndoList().add(toFrontHexagon);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("To front " + hexagon.toString());
 		}
@@ -1556,6 +1606,7 @@ public class DrawingController {
 			ToBack toBackPoint = new ToBack(index, executedSelectedShape, model);
 			toBackPoint.execute();
 			model.getUndoList().add(toBackPoint);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("To back " + point.toString());
 		}
@@ -1574,6 +1625,7 @@ public class DrawingController {
 			ToBack toBackLine = new ToBack(index, executedSelectedShape, model);
 			toBackLine.execute();
 			model.getUndoList().add(toBackLine);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("To back " + line.toString());
 		}
@@ -1595,6 +1647,7 @@ public class DrawingController {
 				ToBack toBackCircle = new ToBack(index, executedSelectedShape, model);
 				toBackCircle.execute();
 				model.getUndoList().add(toBackCircle);
+				model.getRedoList().clear();
 				
 				frame.getDlm().addElement("To back " + circle.toString());
 				
@@ -1619,6 +1672,7 @@ public class DrawingController {
 			ToBack toBackDonut = new ToBack(index, executedSelectedShape, model);
 			toBackDonut.execute();
 			model.getUndoList().add(toBackDonut);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("To back " + donut.toString());
 		}
@@ -1639,6 +1693,7 @@ public class DrawingController {
 			ToBack toBackRectangle = new ToBack(index, executedSelectedShape, model);
 			toBackRectangle.execute();
 			model.getUndoList().add(toBackRectangle);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("To back " + rectangle.toString());
 		}
@@ -1658,6 +1713,7 @@ public class DrawingController {
 			ToBack toBackHexagon = new ToBack(index, executedSelectedShape, model);
 			toBackHexagon.execute();
 			model.getUndoList().add(toBackHexagon);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("To back " + hexagon.toString());
 		}
@@ -1684,6 +1740,7 @@ public class DrawingController {
 			BringToBack bringToBackPoint = new BringToBack(index, executedSelectedShape, model);
 			bringToBackPoint.execute();
 			model.getUndoList().add(bringToBackPoint);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("Brought to back " + point.toString());
 		}
@@ -1702,6 +1759,7 @@ public class DrawingController {
 			BringToBack bringToBackLine = new BringToBack(index, executedSelectedShape, model);
 			bringToBackLine.execute();
 			model.getUndoList().add(bringToBackLine);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("Brought to back " + line.toString());
 		}
@@ -1723,6 +1781,7 @@ public class DrawingController {
 				BringToBack bringToBackCircle = new BringToBack(index, executedSelectedShape, model);
 				bringToBackCircle.execute();
 				model.getUndoList().add(bringToBackCircle);
+				model.getRedoList().clear();
 				
 				frame.getDlm().addElement("Brought to back " + circle.toString());
 				
@@ -1747,6 +1806,7 @@ public class DrawingController {
 			BringToBack bringToBackDonut = new BringToBack(index, executedSelectedShape, model);
 			bringToBackDonut.execute();
 			model.getUndoList().add(bringToBackDonut);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("Brought to back " + donut.toString());
 		}
@@ -1767,6 +1827,7 @@ public class DrawingController {
 			BringToBack bringToBackRectangle = new BringToBack(index, executedSelectedShape, model);
 			bringToBackRectangle.execute();
 			model.getUndoList().add(bringToBackRectangle);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("Brought to back " + rectangle.toString());
 		}
@@ -1786,6 +1847,7 @@ public class DrawingController {
 			BringToBack bringToBackHexagon = new BringToBack(index, executedSelectedShape, model);
 			bringToBackHexagon.execute();
 			model.getUndoList().add(bringToBackHexagon);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("Brought to back " + hexagon.toString());
 		}
@@ -1812,6 +1874,7 @@ public class DrawingController {
 			BringToFront bringToFrontPoint = new BringToFront(index, executedSelectedShape, model);
 			bringToFrontPoint.execute();
 			model.getUndoList().add(bringToFrontPoint);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("Brought to front " + point.toString());
 		}
@@ -1830,6 +1893,7 @@ public class DrawingController {
 			BringToFront bringToFrontLine = new BringToFront(index, executedSelectedShape, model);
 			bringToFrontLine.execute();
 			model.getUndoList().add(bringToFrontLine);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("Brought to front " + line.toString());
 		}
@@ -1851,6 +1915,7 @@ public class DrawingController {
 				BringToFront bringToFrontCircle = new BringToFront(index, executedSelectedShape, model);
 				bringToFrontCircle.execute();
 				model.getUndoList().add(bringToFrontCircle);
+				model.getRedoList().clear();
 				
 				frame.getDlm().addElement("Brought to front " + circle.toString());
 				
@@ -1875,6 +1940,7 @@ public class DrawingController {
 			BringToFront bringToFrontDonut = new BringToFront(index, executedSelectedShape, model);
 			bringToFrontDonut.execute();
 			model.getUndoList().add(bringToFrontDonut);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("Brought to front " + donut.toString());
 		}
@@ -1895,6 +1961,7 @@ public class DrawingController {
 			BringToFront bringToFrontRectangle = new BringToFront(index, executedSelectedShape, model);
 			bringToFrontRectangle.execute();
 			model.getUndoList().add(bringToFrontRectangle);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("Brought to front " + rectangle.toString());
 		}
@@ -1914,6 +1981,7 @@ public class DrawingController {
 			BringToFront bringToFrontHexagon = new BringToFront(index, executedSelectedShape, model);
 			bringToFrontHexagon.execute();
 			model.getUndoList().add(bringToFrontHexagon);
+			model.getRedoList().clear();
 			
 			frame.getDlm().addElement("Brought to front " + hexagon.toString());
 		}
@@ -1921,6 +1989,30 @@ public class DrawingController {
 		{
 			JOptionPane.showMessageDialog(frame, "There's no such object in the list!");
 		}
+	}
+	
+	public void executeCommandUndo()
+	{
+		int lastIndex = model.getUndoList().size()-1;
+		
+		ICommand undoCommand = model.getUndoList().get(lastIndex);
+		undoCommand.unexecute();
+		model.getRedoList().add(undoCommand);
+		model.getUndoList().remove(undoCommand);
+		
+		frame.getDlm().addElement("Undo " + undoCommand.toString().substring(8, undoCommand.toString().indexOf("@")) + " command");
+	}
+	
+	public void executeCommandRedo()
+	{
+		int lastIndex = model.getRedoList().size()-1;
+		
+		ICommand redoCommand = model.getRedoList().get(lastIndex);
+		redoCommand.execute();
+		model.getUndoList().add(redoCommand);
+		model.getRedoList().remove(redoCommand);
+		
+		frame.getDlm().addElement("Redo " + redoCommand.toString().substring(8, redoCommand.toString().indexOf("@")) + " command");
 	}
 	
 	

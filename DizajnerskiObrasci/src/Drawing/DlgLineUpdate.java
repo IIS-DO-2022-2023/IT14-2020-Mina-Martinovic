@@ -176,8 +176,15 @@ public class DlgLineUpdate extends JDialog {
 								int EndX = Integer.parseInt(XEndPoint.getText());
 								int EndY = Integer.parseInt(YEndPoint.getText());
 								
-								setConfirmation(true);
-								setVisible(false);
+								if(StartX < 2 || StartY < 2 || EndX < 2 || EndY < 2)
+								{
+									JOptionPane.showMessageDialog(okButton, "Values of x and y must be at least a value of 2!");
+								}
+								else {
+									
+									setConfirmation(true);
+									setVisible(false);
+								}
 							}
 							catch (Exception e) {
 								

@@ -7,7 +7,6 @@ import geometry1.Shape;
 import mvc.DrawingModel;
 
 public class RemoveShape implements ICommand{
-
 	
 	private DrawingModel model;
 	private Map<Integer, Shape> shapesToDelete = new HashMap<Integer, Shape>();
@@ -30,8 +29,7 @@ public class RemoveShape implements ICommand{
 			shapesToDelete.put(index, shape);
 			model.getSelectedShapes().remove(shape);
 			model.getShapes().remove(index);
-		}
-		
+		}		
 	}
 
 	@Override

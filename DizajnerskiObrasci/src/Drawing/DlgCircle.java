@@ -181,9 +181,15 @@ public class DlgCircle extends JDialog {
 						{
 							try {
 								int radius = Integer.parseInt(txtRadius.getText());
-								
-								setConfirmation(true);
-								setVisible(false);
+								if(radius < 2)
+								{
+									JOptionPane.showMessageDialog(okButton, "Radius must be at least a value of 2!");
+								}
+								else {
+									
+									setConfirmation(true);
+									setVisible(false);
+								}
 							}
 							catch (Exception e) {
 								

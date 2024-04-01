@@ -129,8 +129,15 @@ public class DlgPointUpdate extends JDialog {
 								int x = Integer.parseInt(txtX.getText());
 								int y = Integer.parseInt(txtY.getText());
 								
-								setConfirmation(true);
-								setVisible(false);
+								if(x< 2 || y < 2)
+								{
+									JOptionPane.showMessageDialog(okButton, "Values of x and y must be at least a value of 2!");
+								}
+								else {
+									
+									setConfirmation(true);
+									setVisible(false);
+								}
 							}
 							catch (Exception e) {
 								

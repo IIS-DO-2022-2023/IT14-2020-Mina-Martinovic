@@ -197,9 +197,9 @@ public class DlgRectangleUpdate extends JDialog{
 									int x = Integer.parseInt(txtUpperLeftPointX.getText());
 									int y = Integer.parseInt(txtUpperLeftPointY.getText());
 									
-									if(width < 2 && height < 2)
+									if(width < 2 && height < 2 || x < 2 || y < 2)
 									{
-										JOptionPane.showMessageDialog(okButton, "Both width and height must be at least a value of 2!");
+										JOptionPane.showMessageDialog(okButton, "Both width, height and values of x and y must be at least a value of 2!");
 									}
 									else {
 										

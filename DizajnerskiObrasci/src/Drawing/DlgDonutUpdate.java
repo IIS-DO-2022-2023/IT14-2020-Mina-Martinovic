@@ -200,9 +200,9 @@ public class DlgDonutUpdate extends JDialog{
 									int x = Integer.parseInt(txtX.getText());
 									int y = Integer.parseInt(txtY.getText());
 									
-									if(innerRadius > outerRadius - 10)
+									if(innerRadius > outerRadius - 10 || innerRadius < 2 || outerRadius < 2 || x < 2 || y < 2)
 									{
-										JOptionPane.showMessageDialog(okButton, "Outer radius must be greater than inner radius for at least 10!");
+										JOptionPane.showMessageDialog(okButton, "Outer radius must be greater than inner radius for at least 10 and both values of inner and outer radius must at least be a value of 2!");
 									}
 									else {
 										
