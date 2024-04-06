@@ -122,6 +122,7 @@ public class DrawingController {
 
 		}
 		System.out.println(model.getSelectedShapes().size());
+
 		if(model.getSelectedShapes().size() > 1)
 		{
 			propertyChangeSupport.firePropertyChange("Delete", false, true);
@@ -648,9 +649,10 @@ public class DrawingController {
 		
 		ICommand undoCommand = model.getUndoList().get(lastIndex);
 		undoCommand.unexecute();
+
 		model.getRedoList().add(undoCommand);
 		model.getUndoList().remove(undoCommand);
-		
+
 		if(model.getUndoList().size() > 0 && model.getRedoList().size() > 0)
 		{
 			propertyChangeSupport.firePropertyChange("Undo", false, true);
@@ -691,6 +693,7 @@ public class DrawingController {
 		
 		frame.getDlm().addElement("Undo " + undoCommand.toString().substring(8, undoCommand.toString().indexOf("@")) + " command");
 		
+		System.out.println(lastIndex);
 		frame.repaint();
 	}
 	
@@ -820,8 +823,7 @@ public class DrawingController {
 				FileLog fileLog = new FileLog(executeLoggerList, fileChooser.getSelectedFile().getAbsolutePath());
 				FileManager fileManager = new FileManager(fileLog);
 				fileManager.open();
-				frame.repaint();
-				
+				frame.repaint();				
 			}
 				
 			if(model.getSelectedShapes().size() == 0)

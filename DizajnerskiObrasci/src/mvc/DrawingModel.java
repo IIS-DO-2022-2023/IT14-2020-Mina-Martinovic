@@ -20,7 +20,6 @@ public class DrawingModel{
 		selectedShapes = new ArrayList<Shape>();
 		undoList = new ArrayList<ICommand>();
 		redoList = new ArrayList<ICommand>();
-
 	}	
 	
 	public List<Shape> getShapes() {
